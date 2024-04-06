@@ -1,0 +1,43 @@
+.top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.top svg {
+    position: relative;
+    display: block;
+    width: calc(278% + 1.3px);
+    height: 323px;
+}
+
+.top .shape {
+    fill: #FFFFFF;
+}
+
+
+/* bottom tilt */
+
+.bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.bottom svg {
+    position: relative;
+    display: block;
+    width: calc(278% + 1.3px);
+    height: 323px;
+}
+
+.bottom .fill {
+    fill: #FFFFFF;
+}
