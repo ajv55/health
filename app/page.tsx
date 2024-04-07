@@ -2,6 +2,7 @@ import Image from "next/image";
 import Header from "./components/mainPage/header";
 import Features from "./components/mainPage/features";
 import Why from "./components/mainPage/why";
+import About from "./components/mainPage/about";
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
       <Header />
       <Features/>
       <Why />
+      <About/>
     </div>
   );
 }
