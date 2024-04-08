@@ -3,6 +3,9 @@ import Header from "./components/mainPage/header";
 import Features from "./components/mainPage/features";
 import Why from "./components/mainPage/why";
 import About from "./components/mainPage/about";
+import How from "./components/mainPage/how";
+import Testimonial from "./components/mainPage/testimonial";
+import Contact from "./components/mainPage/contact";
 
 export default function Home() {
   return (
@@ -11,6 +14,9 @@ export default function Home() {
       <Features/>
       <Why />
       <About/>
+      <How />
+      <Testimonial />
+      <Contact />
     </div>
   );
 }
