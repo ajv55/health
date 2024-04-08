@@ -2,10 +2,15 @@ import Image from 'next/image';
 import React from 'react'
 import { RiDoubleQuotesL } from "react-icons/ri";
 
+
 export default function Testimonial() {
   return (
     <div className='w-full h-content flex flex-col justify-start items-center'>
-        <h1 className='text-7xl text-left self-start ml-7 font-bold tracking-wider'>Testimonials: <br /> <br /> What <span className='font-extrabold text-8xl bg-gradient-to-bl from-red-800 via-blue-200 to-orange-500 bg-clip-text text-transparent'>Our Users</span> Are Saying</h1>
+      <div className='bg-center rounded-xl relative bg-cover w-[85%] h-[32rem] flex  justify-center items-center' style={{backgroundImage: 'linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.3)), url("/test.jpg")'}}>
+        <div className='w-full rounded-2xl -z-10 h-[32rem] bg-gradient-to-br from-purple-800 via-red-400 to-slate-500 absolute top-5 right-5'></div>
+        <h1 className='text-9xl font-extrabold tracking-wider text-center bg-gradient-to-br from-purple-800 via-red-400 to-slate-500 bg-clip-text text-transparent'>Testimonials</h1>
+      </div>
+        <h1 className='text-8xl text-center  ml-7 font-bold mt-24 tracking-wider'>What <span className='font-extrabold text-8xl bg-gradient-to-bl from-red-800 via-blue-200 to-orange-500 bg-clip-text text-transparent'>Our Users</span> Are Saying</h1>
         <div className='w-full flex justify-evenly mt-32 items-center'>
 
           <div className='bg-slate-100 flex flex-col justify-start items-center w-[29rem] h-[36rem] rounded-md'>
