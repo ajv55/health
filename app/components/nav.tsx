@@ -1,14 +1,19 @@
 import Link from 'next/link'
-import React from 'react'
+import React from 'react';
+import Logo from '@/public/FitGenius_transparent.png'
+import { FiActivity } from "react-icons/fi";
 
 export default function Nav() {
   return (
     <div className='lg:w-full bg-gradient-to-tl from-emerald-950 via-emerald-600 to-emerald-300  z-10 fixed top-0 lg:h-content py-3 flex justify-between items-center p-3'>
-        <h1 className='text-5xl'>Logo</h1>
+        <div className='flex justify-center items-center gap-2'>
+           <h1 className='text-4xl'>FitGenius</h1>
+           <FiActivity size={30} color='gold'/>
+        </div>
         <nav className=' lg:text-3xl lg:w-[75%] text-white flex justify-evenly items-center'>
-            <Link className='hover:underline underline-offset-4 hover:text-2xl' href='/'>Home</Link>
-            <Link className='hover:underline underline-offset-4 hover:text-2xl' href='/Contact'>Contact</Link>
-            <Link className='hover:underline underline-offset-4 hover:text-2xl' href='/About'>About</Link>
+            <Link className='  hover:text-2xl hover:before:scale-x-100 hover:before:origin-right relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='/'>Home</Link>
+            <Link className='  hover:text-2xl hover:before:scale-x-100 hover:before:origin-right relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='/Contact'>Contact</Link>
+            <Link className='  hover:text-2xl hover:before:scale-x-100 hover:before:origin-right relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='/About'>About</Link>
         </nav>
     </div>
   )

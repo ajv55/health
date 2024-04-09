@@ -11,7 +11,7 @@ import BottomTilt from '../bottomTilt';
 
 export default function Features() {
   return (
-    <div className=' w-full h-content flex relative overflow-auto flex-col gap-14 justify-start items-center'>
+    <div id='features' className=' w-full h-content flex relative overflow-auto flex-col gap-14 justify-start items-center'>
         <div className=' absolute -top-64 left-4 bg-gradient-to-br from-emerald-900 via-emerald-700 to-emerald-300  h-[25rem] w-full'>
             <Tilt/>
             <BottomTilt/>
