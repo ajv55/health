@@ -23,7 +23,6 @@ export const options: NextAuthOptions = {
             credentials: {
                 email: {label: 'Email', type: 'email', placeholder: 'example@mail.com'},
                 password: {label: 'Password', type: 'password', placeholder: 'Enter Password' },
-                username: {label: 'Username', type: 'text', placeholder: 'Username'}
             },
             async authorize(credentials) {
 
@@ -61,6 +60,10 @@ export const options: NextAuthOptions = {
     secret: process.env.NEXTAUTH_SECERT as string,
     session: {
         strategy: 'jwt'
+    },
+    pages:{
+        error: '/',
+        signOut: '/'
     },
     debug: process.env.NODE_ENV === 'development',
 }

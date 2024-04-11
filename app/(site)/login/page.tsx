@@ -1,9 +1,13 @@
 'use client'
-import { useState, useRef } from "react";
-import {signIn} from 'next-auth/react'
+import { useState, useRef, useEffect } from "react";
+import {signIn, useSession} from 'next-auth/react'
 import {toast} from "react-hot-toast";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+    const session = useSession();
+    const router = useRouter();
 
     const ref = useRef<HTMLFormElement>(null);
 
@@ -11,6 +15,12 @@ export default function Page() {
         email: '',
         password: ''
 })
+
+   useEffect(() => {
+    if(session?.status === 'authenticated') {
+        router.push('/dashboard')
+    }
+   })
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();
@@ -34,6 +44,13 @@ export default function Page() {
             <input placeholder="example@mail.com"  type="email" value={data.email} onChange={(e) => setData({...data, email: e.target.value}) } name="" id="email" />
             <input placeholder="Enter password" type="password" value={data.password} onChange={(e) => setData({...data, password: e.target.value}) } name="" id="password" />
             <button type="submit" className="text-3xl px-2.5 py-2 bg-slate-700 text-white">Resigter!</button>
+            <div>
+                <Link className="underline underline-offset-4 text-blue-500" href={'/reg'}>Sign Up</Link>
+            </div>
+            <div>
+                <button onClick={() => signIn('github')} className="text-3xl px-2.5 py-3 ">Sign in with Github</button>
+                <button onClick={() => signIn('google')} className="text-3xl px-2.5 py-3 ">Sign in with Google</button>
+            </div>
         </form>
 
     </div>
