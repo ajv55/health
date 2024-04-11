@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Arapey } from "next/font/google";
 import "./globals.css";
 import Nav from "./components/nav";
+import Provider from "./context/AuthContext";
+import ToasterContext from "./context/ToasterContext";
 
 const arapey = Arapey({ subsets: ["latin"], weight: ['400'] });
 
@@ -18,8 +20,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${arapey.className} relative antialiased`}>
-        <Nav />
-        {children}
+        <Provider>
+          <ToasterContext />
+          <Nav />
+          {children}
+        </Provider>
         </body>
     </html>
   );

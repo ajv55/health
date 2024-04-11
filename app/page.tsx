@@ -7,11 +7,16 @@ import How from "./components/mainPage/how";
 import Testimonial from "./components/mainPage/testimonial";
 import Contact from "./components/mainPage/contact";
 import Footer from "./components/footer";
+import User from "./components/user";
 
-export default function Home() {
+export default  function Home() {
+
+
+
   return (
     <div className="w-full  flex flex-col justify-center items-center">
       <Header />
+      <User />
       <Features/>
       <Why />
       <About/>
