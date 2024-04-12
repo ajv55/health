@@ -38,9 +38,7 @@ export default  function Page() {
         <h1 className='text-6xl text-white'>Dashboard Page</h1>
         <h3 className='text-4xl text-white'>Hi, {JSON.stringify(session?.user?.name)}</h3>
         <h3 className='text-4xl text-white'>Hi, {JSON.stringify(session?.user?.email)}</h3>
-        <button onClick={() => {
-          signOut()
-        }} className='text-4xl text-white bg-slate-500'>Sign Out</button>
+        <Link href='/signOut'  className='text-4xl text-white bg-slate-500'>Sign Out</Link>
 
         <div>
           <form className='w-[55%] h-[19rem] bg-slate-500 text-white' onSubmit={handleSubmit}>

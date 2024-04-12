@@ -4,6 +4,8 @@ import {signIn, useSession} from 'next-auth/react'
 import {toast} from "react-hot-toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { FaGithub } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 
 export default function Page() {
     const session = useSession();
@@ -53,12 +55,12 @@ export default function Page() {
             
             <button type="submit" className="text-3xl px-2.5 py-2 rounded-2xl w-[9rem] bg-slate-700  text-white">Sign In</button>
             <div>
-            <p className="text-xl">Don&#39;t have an account? <Link className="underline underline-offset-4 text-blue-500" href={'/reg'}>Sign up now!</Link></p>
+            <p className="text-xl text-white tracking-wide">Don&#39;t have an account? <Link className="underline underline-offset-4 text-2xl text-sky-200" href={'/reg'}>Sign up now!</Link></p>
             </div>
-            <div className="border w-full h-[12rem] flex flex-col gap-3">
-                <button onClick={() => signIn('github')} className="text-3xl px-2.5 py-3 bg-black text-white ">Sign in with Github</button>
-                <button onClick={() => signIn('google')} className="text-3xl px-2.5 py-3 bg-zinc-400 text-white ">Sign in with Google</button>
-                <Link className="text-sm  underline underline-offset-4" href='/'>Home</Link>
+            <div className=" w-full h-[15rem] flex flex-col justify-end items-start gap-8">
+                <button onClick={() => signIn('github')} className="text-3xl self-center rounded-xl flex justify-center items-center gap-4 w-[55%] px-2.5 py-3 bg-black hover:bg-gradient-to-tr hover:from-zinc-500 hover:via-zinc-300 hover:to-zinc-500  hover:text-black text-white "><FaGithub size={30} color="white"/>Sign in with Github</button>
+                <button onClick={() => signIn('google')} className="text-3xl self-center rounded-xl w-[55%] flex justify-center items-center gap-4 px-2.5 py-3 bg-zinc-100 hover:bg-gradient-to-tr hover:from-zinc-700 hover:via-zinc-950 hover:to-zinc-700 hover:text-zinc-200 text-zinc-800 "><FcGoogle size={30}/> Sign in with Google</button>
+                <Link className="text-lg  hover:text-2xl hover:text-orange-800  w-[4rem] underline underline-offset-4" href='/'>Home</Link>
             </div>
         </form>
 
