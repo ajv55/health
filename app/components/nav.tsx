@@ -2,6 +2,7 @@ import Link from 'next/link'
 import React from 'react';
 import Logo from '@/public/FitGenius_transparent.png'
 import { FiActivity } from "react-icons/fi";
+import Signing from './mainPage/signing';
 
 export default function Nav() {
   return (
@@ -15,6 +16,7 @@ export default function Nav() {
             <Link className='  hover:text-2xl hover:before:scale-x-100 hover:before:origin-right relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='/Contact'>Contact</Link>
             <Link className='  hover:text-2xl hover:before:scale-x-100 hover:before:origin-right relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='/About'>About</Link>
         </nav>
+        <Signing />
     </div>
   )
 }

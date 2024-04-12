@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={`${arapey.className} relative antialiased`}>
         <Provider>
           <ToasterContext />
-          <Nav />
+          
           {children}
         </Provider>
         </body>

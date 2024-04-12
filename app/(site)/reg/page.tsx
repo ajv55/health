@@ -2,10 +2,12 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 import {toast} from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
 
     const ref = useRef<HTMLFormElement>(null);
+    const router = useRouter();
 
     const [data, setData] = useState({
         name: '',
@@ -18,7 +20,7 @@ export default function Page() {
         ref.current?.reset()
         console.log(data);
         console.log('this is where i need to fetch the route handler to register someone to the monogdb database')
-        axios.post('/api/register', data).then(() => toast.success('User has been registered successfully!!!!')).catch(() => toast.error('something went wrong!!'))
+        axios.post('/api/register', data).then(() => toast.success('User has been registered successfully!!!!')).then(() => router.push('/login')).catch(() => toast.error('something went wrong!!'))
 
     }
   return (
