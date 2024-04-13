@@ -19,14 +19,11 @@ export default function User() {
   });
     const {data: session} = useSession();
 
-    useEffect(() => {
-      fetch('/api/data').then((res) => res.json()).then((res) => setCurrentUser(res.user)).catch(() => toast.error('no session found!'));
-    } , [])
     
 
   return (
     <div>
-        {currentUser?.email} {currentUser?.name}
+        {session?.user.email} {session?.user.name}
     </div>
   )
 }

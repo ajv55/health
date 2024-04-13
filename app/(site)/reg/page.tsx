@@ -4,14 +4,13 @@ import axios from "axios";
 import {toast} from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import BottomTilt from "@/app/components/bottomTilt";
-import {motion} from 'framer-motion'
-import { IoIosInformationCircleOutline } from "react-icons/io";
 import WeightInput from "@/app/components/input";
 import HeightInput from "@/app/components/heightInput";
+import {useSession} from 'next-auth/react'
+
 
 export default function Page() {
-
-    const [isTrue, setIsTrue] = useState<boolean>(false)
+    const { data: session, status} = useSession()
 
     const ref = useRef<HTMLFormElement>(null);
     const router = useRouter();
@@ -26,15 +25,15 @@ export default function Page() {
         gender: ''
 })
 
+
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         ref.current?.reset()
-        console.log('this is where i need to fetch the route handler to register someone to the monogdb database')
+        console.log('this is where i should be calling this function only after someone has succesfully logged in, this function will calculate there calories and update it on the database')
         axios.post('/api/register', data).then(() => toast.success('User has been registered successfully!!!!')).then(() => router.push('/login')).catch(() => toast.error('something went wrong!!'))
 
     }
-
-    console.log(data.gender)
+    console.log(data)
 
   return (
     <div style={{backgroundImage: 'linear-gradient(to left, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("/registerpage.jpg")'}} className='w-full relative  h-screen bg-cover bg-center flex flex-col justify-center items-center gap-16'>
@@ -58,7 +57,8 @@ export default function Page() {
 
            <div className=" w-[15%] h-[75px] flex flex-col justify-center gap-2 items-start">
                <label className="text-white text-xl font-bold tracking-wider" htmlFor="gender">Gender</label>
-               <select value={data.gender} onChange={(e) => setData({...data, gender: e.target.value})} className="w-full px-2.5 py-2 rounded-2xl outline-none text-xl" name="" id="gender">
+               <select  value={data.gender} onChange={(e) => setData({...data, gender: e.target.value})} className="w-full px-2.5 py-2 rounded-2xl outline-none text-xl" name="" id="gender">
+                   <option disabled value="">Choose an gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                 </select>
