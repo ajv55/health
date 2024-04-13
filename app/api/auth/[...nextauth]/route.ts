@@ -1,4 +1,4 @@
-import type { NextAuthOptions } from "next-auth"; 
+import type { NextAuthOptions, Session, User } from "next-auth"; 
 import prisma from "@/app/libs/prismadb";
 import {PrismaAdapter} from '@next-auth/prisma-adapter'
 import CredentialsProvider  from "next-auth/providers/credentials";
@@ -6,6 +6,8 @@ import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from 'next-auth/providers/google'
 import NextAuth from "next-auth/next";
 import bcrypt from 'bcrypt';
+import { JWT } from "next-auth/jwt";
+
 
 export const options: NextAuthOptions = {
     adapter: PrismaAdapter(prisma),
@@ -57,6 +59,36 @@ export const options: NextAuthOptions = {
         })
 
     ],
+    callbacks: {
+        jwt: async ({token, user, session}: {token: JWT, user?: User | any, session?: any}): Promise<any>  => {
+           console.log('jwt callback', token, user, session)
+           if(user) {
+            return {
+                ...token, 
+                id: user.id,
+                calories: user?.calories,
+                age: user?.age,
+                weight: user?.weightInKg 
+            }
+        }
+            return token
+        },
+        session: async ({session, token, user}): Promise<any> => {
+            console.log('session callback', session, user, token)
+            return {
+                ...session, 
+                user: {
+                    ...session.user,
+                   age: token.age,
+                   weight: token.weight,
+                   id: token.id,
+                   calories: token.calories
+                }
+            };
+
+        return session
+        }
+    },
     secret: process.env.NEXTAUTH_SECERT as string,
     session: {
         strategy: 'jwt'

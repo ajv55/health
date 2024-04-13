@@ -26,6 +26,8 @@ model User {
   age String?
   weightInKg String?
   heightInInches String?
+  calories String?
+  gender String?
 
   account Account []
 }

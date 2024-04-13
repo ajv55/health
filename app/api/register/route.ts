@@ -2,15 +2,21 @@ import bcrypt from 'bcrypt';
 import prisma from '@/app/libs/prismadb';
 import { NextRequest, NextResponse } from 'next/server';
 
+type calories = {
+    age: string, 
+    weight: string,
+    height: string
+}
+
 
 export async function POST(req: NextRequest) {
     const body =  await req.json();
-    const {name, email, password} = body;
+    const {name, email, password, age, weightInKg, heightInInches} = body;
 
     console.log(name, email, password);
 
 
-    if(!name || !email || !password) {
+    if(!name || !email || !password || !age || !weightInKg || !heightInInches) {
         return new NextResponse('Missing Fields', {status: 400})
     }
 
@@ -24,13 +30,21 @@ export async function POST(req: NextRequest) {
         throw new Error('Email already exists')
     }
 
+    const calculateCalories = ({age, height, weight}: calories) => {
+        
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await prisma.user.create({
         data: {
             name,
             email,
-            hashedPassword
+            hashedPassword,
+            age,
+            weightInKg,
+            heightInInches
+
         }
     });
 

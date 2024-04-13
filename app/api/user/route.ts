@@ -22,9 +22,10 @@ export async function POST(req: NextRequest) {
             email: email
         },
         data: {
-            age: '23',
+            age: '32',
             weightInKg: '95',
-            heightInInches: '68'
+            heightInInches: '68',
+            calories: '2300'
         }
     })
 
