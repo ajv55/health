@@ -7,6 +7,7 @@ import GoogleProvider from 'next-auth/providers/google'
 import NextAuth from "next-auth/next";
 import bcrypt from 'bcrypt';
 import { JWT } from "next-auth/jwt";
+import { use } from "react";
 
 
 export const options: NextAuthOptions = {
@@ -60,21 +61,42 @@ export const options: NextAuthOptions = {
 
     ],
     callbacks: {
-        jwt: async ({token, user, session}: {token: JWT, user?: User | any, session?: any}): Promise<any>  => {
+        jwt: async ({token, user, session, trigger}: {token: JWT, user?: User | any, session?: any, trigger?: any}): Promise<any>  => {
            console.log('jwt callback', token, user, session)
+           if (trigger === 'update' && session?.calories) {
+            token.calories = session.calories
+           }
+
+           // passing in user id, calories, height, weight, age, and gender to token
            if(user) {
             return {
                 ...token, 
                 id: user.id,
                 calories: user?.calories,
                 age: user?.age,
-                weight: user?.weightInKg 
+                weight: user?.weightInKg,
+                height: user?.heightInInches,
+                gender: user?.gender 
             }
         }
+
+        //update the user info on the database
+        const newUser = await prisma.user.update({
+            where: {
+                id: token.id as string
+            },
+            data: {
+                calories: token.calories as string
+            }
+        });
+
+        console.log('new User', newUser)
             return token
         },
         session: async ({session, token, user}): Promise<any> => {
             console.log('session callback', session, user, token)
+
+            // adding the users age, weight, height, gender, caloires, and id throught the token on the session
             return {
                 ...session, 
                 user: {
@@ -82,7 +104,9 @@ export const options: NextAuthOptions = {
                    age: token.age,
                    weight: token.weight,
                    id: token.id,
-                   calories: token.calories
+                   calories: token.calories,
+                   height: token.height,
+                   gender: token.gender
                 }
             };
 

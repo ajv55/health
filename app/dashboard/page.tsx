@@ -1,6 +1,7 @@
 'use client';
+
 import Link from 'next/link'
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import {useSession} from 'next-auth/react'
 import { useRouter } from 'next/navigation';
 
@@ -8,34 +9,38 @@ import {toast} from 'react-hot-toast';
 import prisma from '../libs/prismadb';
 import axios from 'axios';
 import { json } from 'stream/consumers';
+import { revalidatePath } from 'next/cache';
 
 export default  function Page() {
 
-  const [name, setName] = useState('');
-  const {data: session, status} = useSession();
+  const {data: session, status ,update} = useSession();
   const router = useRouter();
 
-  const [data, setData] = useState({
-    weight: '',
-    gender: '',
-    height: '',
-    email: `${session?.user?.email}`
-  });
 
   if(status === 'unauthenticated') {
 
     router.push('/')
   } 
 
+  useEffect(() => {
 
-  const update = async () => {
-    const res = await fetch('/api/updateCal', {method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({email: session?.user.email})});
-    const data = await res.json();
-    console.log(data);
+    if (session?.user.calories !== null) {
+     
+      return  console.log('theres caloires existing alread')
+    }
+    if(session?.user?.gender === 'Male') {
+      const calories = 88.362 + (4.799 * Number(session?.user?.height)) + (13.397 * Number(session.user.weight)) - (5.677 * Number(session.user.age))
+      update({calories: calories.toString() })
   }
 
-  
-  
+  if(session?.user?.gender === 'Female') {
+    const calories = 88.362 + (4.799 * Number(session?.user?.height)) + (13.397 * Number(session.user.weight)) - (5.677 * Number(session.user.age))
+    update({calories: calories.toString() })
+}
+
+
+}, [session]);
+
   
 
   return (
@@ -50,8 +55,8 @@ export default  function Page() {
         </div>
       </div>
         <h3 className='text-4xl text-white'>Hi, {JSON.stringify(session?.user?.weight)}</h3>
-        <h3 className='text-4xl text-white'>Hi, {JSON.stringify(session?.user?.email)}</h3>
-        <button className='text-5xl text-red-400' onClick={update}>click</button>
+        <h3 className='text-4xl text-white'>Hi, {JSON.stringify(session?.user?.height)}</h3>
+        <button className='text-5xl text-red-400' >click</button>
 
 
     </div>
