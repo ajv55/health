@@ -30,16 +30,16 @@ export default  function Page() {
     }
     if(session?.user?.gender === 'Male') {
       const calories = 88.362 + (4.799 * Number(session?.user?.height)) + (13.397 * Number(session.user.weight)) - (5.677 * Number(session.user.age))
-      update({calories: calories.toString() })
+      update({calories: Math.round(calories).toString() })
   }
 
   if(session?.user?.gender === 'Female') {
     const calories = 88.362 + (4.799 * Number(session?.user?.height)) + (13.397 * Number(session.user.weight)) - (5.677 * Number(session.user.age))
-    update({calories: calories.toString() })
+    update({calories: Math.round(calories).toString() })
 }
 
 
-}, [session]);
+}, [session, update]);
 
   
 

@@ -12,7 +12,9 @@ declare module "next-auth" {
       calories: string,
       id: string,
       name: string,
-      email: string
+      email: string,
+      height: string,
+      gender: string,
     }
   }
 }

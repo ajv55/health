@@ -81,7 +81,7 @@ export const options: NextAuthOptions = {
         }
 
         //update the user info on the database
-        const newUser = await prisma.user.update({
+         await prisma.user.update({
             where: {
                 id: token.id as string
             },
@@ -90,7 +90,7 @@ export const options: NextAuthOptions = {
             }
         });
 
-        console.log('new User', newUser)
+        
             return token
         },
         session: async ({session, token, user}): Promise<any> => {
