@@ -23,7 +23,8 @@ export default function Page() {
         weightInKg: '',
         age: '',
         heightInInches: '',
-        gender: ''
+        gender: '',
+        agree: ''
 })
 
 
@@ -31,7 +32,11 @@ export default function Page() {
         e.preventDefault();
         ref.current?.reset()
         console.log('this is where i should be calling this function only after someone has succesfully logged in, this function will calculate there calories and update it on the database')
-        axios.post('/api/register', data).then(() => toast.success('User has been registered successfully!!!!')).then(() => router.push('/login')).catch(() => toast.error('something went wrong!!'))
+        axios.post('/api/register', data).then(() => toast.success('User has been registered successfully!!!!')).then(() => router.push('/login')).catch((res) => {
+            if(res.response.status){
+                toast.error(`${res.response.data}`)
+            }
+        });
 
     }
     console.log(data)
@@ -85,7 +90,7 @@ export default function Page() {
 
             <div className="flex flex-col justify-center items-start gap-2 ">
               <div className="flex justify-center items-center gap-2">
-                <input className="border w-4 h-4 cursor-pointer " name="terms" id="terms" type="radio"  />
+                <input className="border w-4 h-4 cursor-pointer " value={data.agree} checked={data.agree === 'agreed'} onChange={(e) => setData({...data, agree: 'agreed'})} name="terms" id="terms" type="radio"  />
                 <label className="text-xl" htmlFor="terms">I agree to the <span className="font-bold underline underline-offset-4 text-blue-600 cursor-pointer"> Terms of Service</span>  and  <span className="font-bold underline underline-offset-4 text-blue-600 cursor-pointer"> Privacy Policy</span>.</label>
                
               </div>

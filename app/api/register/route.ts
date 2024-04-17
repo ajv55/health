@@ -6,14 +6,14 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
     const body =  await req.json();
-    const {name, email, password, age, weightInKg, heightInInches, gender} = body;
+    const {name, email, password, age, weightInKg, heightInInches, gender, agree} = body;
 
     console.log(name, email, password, gender);
 
 
 
-    if(!name || !email || !password || !age || !weightInKg || !heightInInches || !gender) {
-        return new NextResponse('Missing Fields', {status: 400})
+    if(!name || !email || !password || !age || !weightInKg || !heightInInches || !gender || !agree) {
+        return new NextResponse('Missing Fields', {status: 400, statusText: 'Missing Fields'})
     }
     
     const exist = await prisma.user.findUnique({

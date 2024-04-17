@@ -39,10 +39,10 @@ export default function Page() {
         })
     }
   return (
-    <div className='w-full  h-screen flex justify-center items-center'>
+    <div className='w-full  h-screen flex justify-centers items-center'>
         
 
-        <form className=" bg-gradient-to-tr from-teal-300 via-teal-600 to-teal-200 w-[50%] h-screen p-3 flex flex-col justify-center items-center gap-5  drop-shadow-sm"  ref={ref} onSubmit={handleSubmit}>
+        <form className=" bg-gradient-to-tr from-teal-300 via-teal-600 to-teal-200 w-[50%] h-screen p-3 flex flex-col justify-bewteen items-center gap-5  drop-shadow-sm"  ref={ref} onSubmit={handleSubmit}>
         <h1 className="text-7xl text-white  tracking-widest">Sign In</h1>
             <div className="flex flex-col gap-1 w-[75%] justify-center items-start">
               <label htmlFor="email" className="block mb-2 text-lg font-medium text-gray-900 dark:text-white">Email:</label>
@@ -60,12 +60,15 @@ export default function Page() {
             <div className=" w-full h-[15rem] flex flex-col justify-end items-start gap-8">
                 <button onClick={() => signIn('github')} className="text-3xl self-center rounded-xl flex justify-center items-center gap-4 w-[55%] px-2.5 py-3 bg-black hover:bg-gradient-to-tr hover:from-zinc-500 hover:via-zinc-300 hover:to-zinc-500  hover:text-black text-white "><FaGithub size={30} color="white"/>Sign in with Github</button>
                 <button onClick={() => signIn('google')} className="text-3xl self-center rounded-xl w-[55%] flex justify-center items-center gap-4 px-2.5 py-3 bg-zinc-100 hover:bg-gradient-to-tr hover:from-zinc-700 hover:via-zinc-950 hover:to-zinc-700 hover:text-zinc-200 text-zinc-800 "><FcGoogle size={30}/> Sign in with Google</button>
-                <Link className="text-lg  hover:text-2xl hover:text-orange-800  w-[4rem] underline underline-offset-4" href='/'>Home</Link>
             </div>
+            <div className=" md:mt-28 lg:mt-0 w-full  h-[4rem] flex justify-start items-end">
+               <Link className="text-lg  hover:text-2xl hover:text-orange-600  w-[4rem] underline underline-offset-4" href='/'>Home</Link>
+            </div>
+
         </form>
 
         <div style={{backgroundImage: 'linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url("/teal.svg")'}} className="w-[50%] bg-cover bg-center h-screen bg-slate-300">
-
+           
         </div>
 
 
