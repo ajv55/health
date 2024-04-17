@@ -20,11 +20,12 @@ export default function Page() {
         name: '',
         email: '',
         password: '',
-        weightInKg: '',
+        weightInLbs: '',
         age: '',
         heightInInches: '',
         gender: '',
-        agree: ''
+        agree: '',
+        TDEE: '',
 })
 
 
@@ -85,10 +86,22 @@ export default function Page() {
                 <input className="px-2.5 py-2 border-b-2 border-r-2 drop-shadow-lg border-zinc-800 w-full rounded-md placeholder:text-zinc-400 placeholder:text-2xl  text-xl outline-none" placeholder="Enter age" type="text" value={data.age} onChange={(e) => setData({...data, age: e.target.value}) } name="" id="age" />
             </div>
             
-            <WeightInput value={data.weightInKg} onChange={(e: any) => setData({...data, weightInKg: e.target.value})}/>
+            <WeightInput value={data.weightInLbs} onChange={(e: any) => setData({...data, weightInLbs: e.target.value})}/>
             <HeightInput value={data.heightInInches} onChange={(e: any) => setData({...data, heightInInches: e.target.value })}/>
 
-            <div className="flex flex-col justify-center items-start gap-2 ">
+            <div className=" w-[65%] h-[3rem] flex flex-col justify-start items-start gap-2">
+                <label className="text-zinc-800  text-xl font-bold tracking-wider" htmlFor="activity">Current Physical Activity Level</label>
+                <select value={data.TDEE} className="w-full px-2.5 py-2 text-zinc-800 placeholder:text-zinc-400 border-b-2 border-r-2 drop-shadow-md border-zinc-800  rounded-2xl outline-none  text-2xl" onChange={(e) => setData({...data, TDEE: e.target.value})} name="activity" id="activity">
+                    <option disabled value="">Activity</option>
+                    <option value="No-Exercise">Little to no exercise and work a desk job</option>
+                    <option value="Light-Exercise">Light exercise 1-3 days per week</option>
+                    <option value="Moderate-Exercise">Moderate exercise 3-5 days per week</option>
+                    <option value="Heavy-Exercise">Heavy exercise 6-7 days per week</option>
+                    <option value="Strenuous-Exercise">Strenuous training 2 times a day</option>
+                </select>
+            </div>
+
+            <div className="flex flex-col justify-center items-start mt-7 gap-2 ">
               <div className="flex justify-center items-center gap-2">
                 <input className="border w-4 h-4 cursor-pointer " value={data.agree} checked={data.agree === 'agreed'} onChange={(e) => setData({...data, agree: 'agreed'})} name="terms" id="terms" type="radio"  />
                 <label className="text-xl" htmlFor="terms">I agree to the <span className="font-bold underline underline-offset-4 text-blue-600 cursor-pointer"> Terms of Service</span>  and  <span className="font-bold underline underline-offset-4 text-blue-600 cursor-pointer"> Privacy Policy</span>.</label>
@@ -99,7 +112,7 @@ export default function Page() {
             
             
             
-            <button type="submit" className="text-5xl bg-gradient-to-br from-orange-900 via-orange-500 to-orange-500 hover:bg-gradient-to-tl hover:from-emerald-800 hover:via-teal-500 hover:to-teal-200   w-[75%] rounded-2xl px-2 py-3 bg-slate-700 text-white tracking-widest drop-shadow-xl">Create Account</button>
+            <button type="submit" className="text-3xl bg-gradient-to-br from-orange-900 via-orange-500 to-orange-500 hover:bg-gradient-to-tl hover:from-emerald-800 hover:via-teal-500 hover:to-teal-200   w-[75%] rounded-2xl px-2 py-3 bg-slate-700 text-white tracking-widest drop-shadow-xl">Create Account</button>
         </form>
 
     </div>

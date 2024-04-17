@@ -74,9 +74,10 @@ export const options: NextAuthOptions = {
                 id: user.id,
                 calories: user?.calories,
                 age: user?.age,
-                weight: user?.weightInKg,
+                weight: user?.weightInLbs,
                 height: user?.heightInInches,
-                gender: user?.gender 
+                gender: user?.gender,
+                activity: user?.TDEE, 
             }
         }
 
@@ -106,7 +107,8 @@ export const options: NextAuthOptions = {
                    id: token.id,
                    calories: token.calories,
                    height: token.height,
-                   gender: token.gender
+                   gender: token.gender,
+                   activity: token.activity
                 }
             };
 

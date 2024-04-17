@@ -15,6 +15,7 @@ declare module "next-auth" {
       email: string,
       height: string,
       gender: string,
+      activity: string
     }
   }
 }

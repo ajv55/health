@@ -6,13 +6,13 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
     const body =  await req.json();
-    const {name, email, password, age, weightInKg, heightInInches, gender, agree} = body;
+    const {name, email, password, age, weightInLbs, heightInInches, gender, agree, TDEE } = body;
 
-    console.log(name, email, password, gender);
+    console.log(name, email, password, TDEE);
 
 
 
-    if(!name || !email || !password || !age || !weightInKg || !heightInInches || !gender || !agree) {
+    if(!name || !email || !password || !age || !weightInLbs || !heightInInches || !gender || !agree || !TDEE) {
         return new NextResponse('Missing Fields', {status: 400, statusText: 'Missing Fields'})
     }
     
@@ -37,9 +37,11 @@ export async function POST(req: NextRequest) {
             email,
             hashedPassword,
             age,
-            weightInKg,
+            weightInLbs,
             heightInInches,
             gender,
+            TDEE
+
 
         }
     });
