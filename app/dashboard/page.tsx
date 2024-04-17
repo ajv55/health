@@ -4,7 +4,7 @@
 import {  useEffect } from 'react';
 import {useSession} from 'next-auth/react'
 import { useRouter } from 'next/navigation';
-
+import LineGraph from '../components/dashboardComponents/lineGraph';
 
 export default  function Page() {
 
@@ -104,11 +104,25 @@ export default  function Page() {
   
 
   return (
-    <div className='bg-stone-200 overflow-scroll w-full h-screen gap-8 flex flex-wrap justify-start items-start'>
+    <div className='bg-slate-900 overflow-scroll w-full h-screen gap-8 flex flex-wrap justify-start items-start'>
 
-      <div className='border border-zinc-800 mt-28 ml-1 w-[47%] h-[23rem]'>
-        <h6>showcase calories in some way using chart or maybe a plan for user to lose weight based off caloried decified</h6>
-        activity: {session?.user?.activity}
+      <div className='border bg-slate-200 border-zinc-800 mt-28 ml-2 rounded-xl w-[47%] h-[25rem] p-1'>
+        <ul className='list-inside'>
+          <div className='flex justify-center items-center gap-2'>
+            <li className='text-blue-600 text-2xl'>Low Tier :</li>
+            <p>Caloric deficit of <span className='font-bold'>250</span> calories</p>
+          </div>
+          <div className='flex justify-center items-center gap-2'>
+            <li className='text-yellow-400 text-2xl'>Medium Tier :</li>
+            <p>Caloric deficit of <span className='font-bold'>500</span> calories</p>
+          </div>
+          <div className='flex justify-center items-center gap-2'>
+            <li className='text-red-600 text-2xl'>High Tier :</li>
+            <p>Caloric deficit of <span className='font-bold'>750</span> calories</p>
+          </div>
+          
+        </ul>
+        <LineGraph />
       </div>
 
       <div className='border border-zinc-800 mt-28 w-[46%] h-[21rem]'>
