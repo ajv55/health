@@ -2,6 +2,7 @@
 import {Doughnut} from 'react-chartjs-2';
 import {Chart as ChartJS, ArcElement} from 'chart.js';
 import {useSession} from 'next-auth/react'
+import Table from './dashboardComponents/table';
 
 ChartJS.register(ArcElement)
 
@@ -23,7 +24,7 @@ export default function Arc() {
         }
     };
     const data = {
-        labels: ['Low-Impact', 'Med-Impact', 'High-Impact'],
+        labels: ['Low', 'Medium', 'High'],
     datasets: [{
         label: 'Calories',
         data: [low, med, hi],
@@ -46,7 +47,9 @@ export default function Arc() {
 
   return (
     <div className='w-[45%] h-content bg-slate-600 rounded-xl mt-28 ml-4 flex flex-col justify-center items-center p-3 gap-12'>
+        <h2 className='text-white font-bold tracking-wider text-6xl'>Impact Paths</h2>
         <Doughnut plugins={[textCenter]} options={options} data={data}/>
+        <Table />
         <div>
             <li className='text-xl text-white'><span className='text-[#2bd5ff] font-extrabold'>Low-Impact:</span> <span className='font-bold text-2xl'>{low}</span> daily calories</li>
             <li className='text-xl text-white'><span className='text-[#fdfd30] font-extrabold'>Med-Impact:</span> <span className='font-bold text-2xl'>{med}</span> daily calories</li>
