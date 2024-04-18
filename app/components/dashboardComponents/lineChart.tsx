@@ -54,24 +54,49 @@ export default function LineChart() {
     indexAxis: 'x',
     scales: {
       x: {
+        ticks: {
+          color: 'white',
+          beginAtZero: true
+        },
+        grid: {
+          color: 'white',
+          display: false
+        },
         title: {
           display: true,
           text: 'Weeks',
+          color: 'white',
           font: {
             size: 30,
-          },
+          }
         }
       },
       y: {
+        ticks: {
+          color: 'white',
+          beginAtZero: true
+        },
         title: {
           display: true,
           text: 'Pounds (lbs)',
+          color:'white',
           font: {
             size: 28
           }
+        },
+        grid: {
+          display: false,
+          color: 'white'
         }
       }
     },
+    plugins: {
+      legend: {
+        labels: {
+          color: 'white'
+        }
+      }
+    }
     };
 
     const data: any = {
@@ -96,9 +121,9 @@ export default function LineChart() {
     }
 
   return (
-    <div className='w-[47%] mt-28 h-[30rem] flex flex-col justify-center items-center gap-4 bg-slate-200 rounded-xl'>
-        <p className='text-5xl text-center font-bold'>Potential Weight Loss</p>
-        <h6>Within a 12 week process </h6>
+    <div className='w-[47%] mt-28 h-[30rem] flex flex-col justify-center items-center gap-4 bg-slate-600 rounded-xl'>
+        <p className='text-5xl text-white text-center font-bold'>Potential Weight Loss</p>
+        <h6 className='text-white text-lg text-center'>Within a 12 week process </h6>
         <Line options={options} data={data}/>
     </div>
   )

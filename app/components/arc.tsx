@@ -13,7 +13,15 @@ export default function Arc() {
     const med = usersCal - 500;
     const hi = usersCal - 750;
 
-    const options = {};
+    const options = {
+        plugins: {
+            legend: {
+                labels: {
+                    color: 'white'
+                }
+            }
+        }
+    };
     const data = {
         labels: ['Low-Impact', 'Med-Impact', 'High-Impact'],
     datasets: [{
@@ -30,16 +38,20 @@ export default function Arc() {
             const {ctx, data} = chart;
             ctx.save();
             ctx.font = 'bolder 30px sans-serif';
-            ctx.fillStyle = 'black';
+            ctx.fillStyle = 'white';
             ctx.textAlign = 'center';
             ctx.fillText('Calories', chart.getDatasetMeta(0).data[0].x, chart.getDatasetMeta(0).data[0].y)
         }
     }
 
   return (
-    <div className='w-[45%] h-[35rem] bg-slate-200 rounded-xl mt-28 ml-4 flex flex-col justify-center items-center p-3'>
-        <h2></h2>
+    <div className='w-[45%] h-content bg-slate-600 rounded-xl mt-28 ml-4 flex flex-col justify-center items-center p-3 gap-12'>
         <Doughnut plugins={[textCenter]} options={options} data={data}/>
+        <div>
+            <li className='text-xl text-white'><span className='text-[#2bd5ff] font-extrabold'>Low-Impact:</span> <span className='font-bold text-2xl'>{low}</span> daily calories</li>
+            <li className='text-xl text-white'><span className='text-[#fdfd30] font-extrabold'>Med-Impact:</span> <span className='font-bold text-2xl'>{med}</span> daily calories</li>
+            <li className='text-xl text-white'><span className='text-[#fb2525] font-extrabold'>High-Impact:</span> <span className='font-bold text-2xl'>{hi}</span> daily calories</li>
+        </div>
     </div>
   )
 }
