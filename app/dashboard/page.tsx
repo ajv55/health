@@ -1,10 +1,14 @@
 'use client';
 
-
 import {  useEffect } from 'react';
 import {useSession} from 'next-auth/react'
 import { useRouter } from 'next/navigation';
 import LineGraph from '../components/dashboardComponents/lineGraph';
+import { InvoiceSkeleton } from '../ui/skeletons';
+import Workout from '../components/dashboardComponents/workout';
+import LineChart from '../components/dashboardComponents/lineChart';
+import Arc from '../components/arc';
+import Bar from '../components/bar';
 
 export default  function Page() {
 
@@ -101,38 +105,16 @@ export default  function Page() {
 
 }, [session, update]);
 
+
   
 
   return (
     <div className='bg-slate-900 overflow-scroll w-full h-screen gap-8 flex flex-wrap justify-start items-start'>
-
-      <div className='border bg-slate-200 border-zinc-800 mt-28 ml-2 rounded-xl w-[47%] h-[25rem] p-1'>
-        <ul className='list-inside'>
-          <div className='flex justify-center items-center gap-2'>
-            <li className='text-blue-600 text-2xl'>Low Tier :</li>
-            <p>Caloric deficit of <span className='font-bold'>250</span> calories</p>
-          </div>
-          <div className='flex justify-center items-center gap-2'>
-            <li className='text-yellow-400 text-2xl'>Medium Tier :</li>
-            <p>Caloric deficit of <span className='font-bold'>500</span> calories</p>
-          </div>
-          <div className='flex justify-center items-center gap-2'>
-            <li className='text-red-600 text-2xl'>High Tier :</li>
-            <p>Caloric deficit of <span className='font-bold'>750</span> calories</p>
-          </div>
-          
-        </ul>
-        <LineGraph />
-      </div>
-
-      <div className='border border-zinc-800 mt-28 w-[46%] h-[21rem]'>
-        this div will be used for show maybe workouts? the user can do maybe get AI to generate some workout based of age, gender, and weight
-      </div>
-      <div className='border border-zinc-800 ml-2 w-[46%] h-[21rem]'>
+      <Arc/>
+      <LineChart />
+      <Workout />
+      <div className='border border-zinc-300 ml-2 w-[46%] h-[21rem]'>
         this div will be used for showcase some nutrititons food we can maybe get from an API somewhere that has a lot of data on food and there nutrition facts.
-      </div>
-      <div className='border border-zinc-800 w-[46%] h-[21rem]'>
-        this div can be used for maybe a leaderboard of some sorts? not completely sure yet 
       </div>
 
 

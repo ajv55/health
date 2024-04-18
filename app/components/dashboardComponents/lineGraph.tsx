@@ -38,20 +38,23 @@ export default function LineGraph() {
   const options: any = {
     responsive: true,
     indexAxis: 'x',
-    scale: {
-      scaleLabel:{
-          fontColor: 'red'
-      }
-  },
     scales: {
       x: {
         title: {
           display: true,
-          text: 'Calories',
+          text: 'Weekdays',
           font: {
             size: 30,
           },
-          fontColor: 'blue'
+        }
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Calories',
+          font: {
+            size: 28
+          }
         }
       }
     },
