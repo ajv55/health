@@ -50,11 +50,7 @@ export default function Arc() {
         <h2 className='text-white font-bold tracking-wider text-6xl'>Impact Paths</h2>
         <Doughnut plugins={[textCenter]} options={options} data={data}/>
         <Table />
-        <div>
-            <li className='text-xl text-white'><span className='text-[#2bd5ff] font-extrabold'>Low-Impact:</span> <span className='font-bold text-2xl'>{low}</span> daily calories</li>
-            <li className='text-xl text-white'><span className='text-[#fdfd30] font-extrabold'>Med-Impact:</span> <span className='font-bold text-2xl'>{med}</span> daily calories</li>
-            <li className='text-xl text-white'><span className='text-[#fb2525] font-extrabold'>High-Impact:</span> <span className='font-bold text-2xl'>{hi}</span> daily calories</li>
-        </div>
+        
     </div>
   )
 }

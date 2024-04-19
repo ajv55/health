@@ -1,16 +1,21 @@
 import Link from 'next/link'
 import { signOut } from 'next-auth/react'
 import ProfileHeader from '../components/dashboardComponents/profileHeader';
+import { IoMdAnalytics } from "react-icons/io";
+import Image from 'next/image';
+import CalImg from '@/public/calories-svgrepo-com.svg';
+import NutritionImg from '@/public/nutrition-svgrepo-com (1).svg';
+import WorkoutImg from '@/public/workout-day-svgrepo-com.svg';
 
 export default function Layout({children}: {children: React.ReactNode}) {
   return (
     <div className= 'w-full bg-slate-100 relative h-screen rounded-tr-lg flex flex-1'>
       <ProfileHeader />
-        <nav className='flex  flex-col w-[20%] justify-evenly items-start  text-2xl bg-slate-500  h-screen'>
-            <Link className='border-b h-[3rem] w-full flex justify-start items-center'  href='/dashboard'>Dashboard Page ? </Link>
-            <Link className='border-b h-[3rem] w-full flex justify-start items-center' href='/dashboard/calories'>Calories Tracker ? </Link>
-            <Link className='border-b h-[3rem] w-full flex justify-start items-center'  href='/dashboard/workout'>Workout Page and Tracker area ? </Link>
-            <Link className='border-b h-[3rem] w-full flex justify-start items-center'  href='/dashboard/nutrition'>Nutrition Page ? </Link>
+        <nav className='flex flex-col w-[8%] justify-evenly items-center  text-2xl bg-slate-500  h-screen'>
+            <Link className='mt-16'  href='/dashboard'><IoMdAnalytics size={50} color='white'/></Link>
+            <Link className='' href='/dashboard/calories'><Image src={CalImg} alt='caloires-img' width={85} height={85}></Image></Link>
+            <Link className=''  href='/dashboard/workout'><Image src={WorkoutImg} alt='workout-img' width={55} height={55}></Image></Link>
+            <Link className=''  href='/dashboard/nutrition'><Image src={NutritionImg} alt='nutrition-img' width={55} height={55}></Image></Link>
         </nav>
         {children}
     </div>
