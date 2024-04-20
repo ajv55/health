@@ -7,7 +7,6 @@ import GoogleProvider from 'next-auth/providers/google'
 import NextAuth from "next-auth/next";
 import bcrypt from 'bcrypt';
 import { JWT } from "next-auth/jwt";
-import { use } from "react";
 
 
 export const options: NextAuthOptions = {
@@ -66,6 +65,9 @@ export const options: NextAuthOptions = {
            if (trigger === 'update' && session?.calories) {
             token.calories = session.calories
            }
+           if (trigger === 'update' && session?.workoutPlan) {
+            token.workoutPlan = session.workoutPlan
+           }
 
            // passing in user id, calories, height, weight, age, and gender to token
            if(user) {
@@ -77,7 +79,8 @@ export const options: NextAuthOptions = {
                 weight: user?.weightInLbs,
                 height: user?.heightInInches,
                 gender: user?.gender,
-                activity: user?.TDEE, 
+                activity: user?.TDEE,
+                workoutPlan: user?.workoutPlan 
             }
         }
 
@@ -87,7 +90,8 @@ export const options: NextAuthOptions = {
                 id: token.id as string
             },
             data: {
-                calories: token.calories as string
+                calories: token.calories as string,
+                workoutPlan: token.workoutPlan as string,
             }
         });
 
@@ -108,7 +112,8 @@ export const options: NextAuthOptions = {
                    calories: token.calories,
                    height: token.height,
                    gender: token.gender,
-                   activity: token.activity
+                   activity: token.activity,
+                   workoutPlan: token.workoutPlan
                 }
             };
 

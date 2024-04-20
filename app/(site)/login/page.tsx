@@ -18,12 +18,6 @@ export default function Page() {
         password: ''
 })
 
-   useEffect(() => {
-    if(session?.status === 'authenticated') {
-        router.push('/dashboard')
-    }
-   })
-
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         ref.current?.reset()
@@ -34,6 +28,7 @@ export default function Page() {
             }
 
             if(callback?.ok && !callback?.error) {
+                router.push('/dashboard')
                 toast.success('you have successfully logged in')
             }
         })

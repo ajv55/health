@@ -112,7 +112,7 @@ export default  function Page() {
     <div className='bg-slate-900 overflow-scroll w-full h-screen gap-8 flex flex-wrap justify-start items-start'>
       <Arc/>
       <LineChart />
-      <Workout />
+      <Workout/>
       <div className='border border-zinc-300 ml-2 w-[46%] h-[21rem]'>
         this div will be used for showcase some nutrititons food we can maybe get from an API somewhere that has a lot of data on food and there nutrition facts.
       </div>
