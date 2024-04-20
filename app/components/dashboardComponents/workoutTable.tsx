@@ -18,52 +18,52 @@ export default function WorkoutTable({day,exerciseName, exerciseName2, exerciseN
   return (
     
 
-        <div className="w-full overflow-x-auto">
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <div className=" overflow-x-auto">
+            <table className="w-full h-[18rem]  text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-gray-700 uppercase bg-slate-500 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
-                        <th scope="col" className="px-6 text-2xl py-3">
+                        <th scope="col" className="px-6 text-white text-5xl py-3">
                             {day}
                         </th>
-                        <th scope="col" className="px-6 py-3">
+                        <th scope="col" className="px-6 text-xl text-white font-bold tracking-wider py-3">
                             Sets
                         </th>
-                        <th scope="col" className="px-6 py-3">
+                        <th scope="col" className="px-6 text-xl text-white font-bold tracking-wider py-3">
                             Reps
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <th scope="row" className="px-6 py-4 text-2xl tracking-wider font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {exerciseName}
                         </th>
-                        <td className="px-6 py-4">
+                        <td className="px-6 text-2xl tracking-wider py-4">
                             {exercise1sets}
                         </td>
-                        <td className="px-6 py-4">
+                        <td className="px-6 text-2xl tracking-wider py-4">
                             {exercise1reps}
                         </td>
                     </tr>
                     <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <th scope="row" className="px-6 py-4 text-2xl tracking-wider font-medium text-gray-900 whitespace-nowrap dark:text-white">
                            {exerciseName2}
                         </th>
-                        <td className="px-6 py-4">
+                        <td className="px-6 text-2xl tracking-wider py-4">
                            {exercise2sets}
                         </td>
-                        <td className="px-6 py-4">
+                        <td className="px-6  text-2xl tracking-wider py-4">
                              {exercise2reps}
                         </td>
                     </tr>
                     <tr className="bg-white dark:bg-gray-800">
-                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                        <th scope="row" className="px-6 py-4 text-2xl tracking-wider font-medium text-gray-900 whitespace-nowrap dark:text-white">
                           {exerciseName3}
                         </th>
-                        <td className="px-6 py-4">
+                        <td className="px-6 text-2xl tracking-wider py-4">
                            {exercise3sets}
                         </td>
-                        <td className="px-6 py-4">
+                        <td className="px-6 text-2xl tracking-wider py-4">
                             {exercise3reps}
                         </td>
                     </tr>
