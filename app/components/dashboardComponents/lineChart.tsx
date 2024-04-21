@@ -118,7 +118,7 @@ export default function LineChart() {
     }
 
   return (
-    <div className='w-[47%] mt-28 h-[70.5rem] flex flex-col justify-center items-center gap-4 bg-slate-600 rounded-xl p-3'>
+    <div className='w-[47%] mt-28 h-[70.5 rem] flex flex-col justify-center items-center gap-4 bg-slate-600 rounded-xl p-3'>
         <p className='text-5xl text-white text-center font-bold'>Potential Weight Loss</p>
         <h6 className='text-white text-lg text-center'>Within a 12 week process </h6>
         <Line options={options} data={data}/>

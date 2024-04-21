@@ -10,7 +10,7 @@ import WorkoutImg from '@/public/workout-day-svgrepo-com.svg';
 export default function Layout({children}: {children: React.ReactNode}) {
   return (
     <div className= 'w-full bg-slate-100 relative h-screen rounded-tr-lg flex flex-1'>
-      <ProfileHeader />
+      {/* <ProfileHeader /> */}
         <nav className='flex flex-col w-[8%] justify-evenly items-center  text-2xl bg-slate-500  h-screen'>
             <Link className='mt-16'  href='/dashboard'><IoMdAnalytics size={50} color='white'/></Link>
             <Link className='' href='/dashboard/calories'><Image src={CalImg} alt='caloires-img' width={85} height={85}></Image></Link>

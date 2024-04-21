@@ -20,6 +20,8 @@ export default function Day({day}: DayProps) {
  
     const {data: session, update} = useSession();
 
+    const usersWorkoutPlan = session && session?.user?.workoutPlan
+
       const getWorkout = async () => {
     try {
   
@@ -40,16 +42,24 @@ export default function Day({day}: DayProps) {
   }
 
     useEffect(() => {
+        console.log('loaded up component')
         try {
-            const workout = session?.user?.workoutPlan ? session?.user?.workoutPlan as string : null;
-            setStringWorkout(workout)
+    
+            if(usersWorkoutPlan !== null && session?.user?.workoutPlan !== undefined) {
+                return console.log('user has a workout plan already')
+            }
+
+            getWorkout();
+            return console.log('user has no workout plan and get function should have ran by now')
+
         } catch (error) {
             console.error('Error pasing JSON:', error)
             
         }
-    }, [session])
+    })
 
-    const workoutPlanJson = session && JSON.parse(stringWorkout)
+
+    const workoutPlanJson = session &&  JSON.parse(usersWorkoutPlan as string)
 
     const Day1 = workoutPlanJson?.medium_intensity?.day1;
     const Day2 = workoutPlanJson?.medium_intensity?.day2;
@@ -59,13 +69,13 @@ export default function Day({day}: DayProps) {
     const Day2exercises = Day2?.exercise.map((e: any) => e.name);
     const Day3exercises = Day3?.exercise.map((e: any) => e.name);
 
-
+    console.log(workoutPlanJson)
     console.log(Day1)
 
   return (
     <div className='w-full h-content  bg-slate-500'>
-        <div className='w-full border h-content flex flex-wrap gap-12 justify-start items-start' >
-            <div className='w-full border h-content flex justify-end items-center p-2'>
+        <div className='w-full  h-content flex flex-wrap gap-12 justify-start items-start' >
+            <div className='w-full  h-content flex justify-end items-center p-2'>
                 <button onClick={() => setIsCompleted(!isCompleted)} className='text-4xl text-center px-2.5 py-3 bg-slate-300 rounded-3xl'>{isCompleted ? <FaCheck size={45} color='white' /> : 'Done' }</button>
             </div>
             <div className=' w-[45%] flex ml-6 flex-col gap-5 p-3 '>
