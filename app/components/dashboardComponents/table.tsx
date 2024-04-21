@@ -14,7 +14,7 @@ export default function Table() {
   return (
 
 
-        <div className="   shadow-md shadow-white w-full rounded-xl">
+        <div className="   shadow-md shadow-white w-full mb-10 rounded-xl">
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
                 <thead className="text-xs text-gray-700 uppercase bg-slate-700 dark:bg-gray-700 dark:text-gray-400">
                     <tr className='text-white text-xl'>

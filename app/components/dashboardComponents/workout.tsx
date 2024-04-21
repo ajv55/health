@@ -52,20 +52,7 @@ export default  function Workout() {
   })
 
 
-  const workoutTypeDay1 = JsonWorkoutPlan?.medium_intensity?.day1?.workout;
-  const workoutTypeDay2 = JsonWorkoutPlan?.medium_intensity?.day2?.workout;
-  const workoutTypeDay3 = JsonWorkoutPlan?.medium_intensity?.day3?.workout;
-  const workoutTypeDay4 = JsonWorkoutPlan?.medium_intensity?.day4?.workout;
-  const workoutTypeDay5 = JsonWorkoutPlan?.medium_intensity?.day5?.workout;
-  const workoutTypeDay6 = JsonWorkoutPlan?.medium_intensity?.day6?.workout;
-  const workoutTypeDay7 = JsonWorkoutPlan?.medium_intensity?.day7?.workout;
 
-  const Day2Excerise2 = JsonWorkoutPlan?.medium_intensity?.day2?.exercise;
-  const Day3Excerise3 = JsonWorkoutPlan?.medium_intensity?.day3?.exercise;
-  const Day4Excerise4 = JsonWorkoutPlan?.medium_intensity?.day4?.exercise;
-  const Day5Excerise5 = JsonWorkoutPlan?.medium_intensity?.day5?.exercise;
-  const Day6Excerise6 = JsonWorkoutPlan?.medium_intensity?.day6?.exercise;
-  const Day7Excerise7 = JsonWorkoutPlan?.medium_intensity?.day7?.exercise;
 
   const Day1 = JsonWorkoutPlan?.medium_intensity?.day1;
   const Day2 = JsonWorkoutPlan?.medium_intensity?.day2;
@@ -78,27 +65,27 @@ export default  function Workout() {
 
 
   console.log(JsonWorkoutPlan)
-  console.log(Day2)
+  console.log(Day1)
 
 
   return (
-    <div className='w-full flex-wrap mt-5 flex gap-7 justify-evenly items-center rounded-xl shadow-lg shadow-blue-300 h-content  '>
+    <div className='w-full  mt-5 flex flex-wrap gap-7 justify-evenly items-center rounded-xl shadow-lg shadow-blue-300 h-content  '>
       <h1 className="w-full text-8xl mb-20  text-center text-white">Recommend Impact Path</h1>
-
+      <button onClick={getWorkout}>get workout</button>
       {/* day 1 card */}
 
       <div className="w-[38%] ">
       <WorkoutTable 
       day={'Day 1'} 
-      exerciseName={Day1?.exercises[0].name}  
-      exercise1reps={Day1?.exercises[0].reps} 
-      exercise1sets={Day1?.exercises[0].sets}
-      exerciseName2={Day1?.exercises[1].name} 
-      exercise2reps={Day1?.exercises[1].reps} 
-      exercise2sets={Day1?.exercises[1].sets}
-      exercise3sets={Day1?.exercises[2].sets}
-      exercise3reps={Day1?.exercises[2].reps} 
-      exerciseName3={Day1?.exercises[2].name} 
+      exerciseName={Day1?.exercise[0].name}  
+      exercise1reps={Day1?.exercise[0].reps} 
+      exercise1sets={Day1?.exercise[0].sets}
+      exerciseName2={Day1?.exercise[1].name} 
+      exercise2reps={Day1?.exercise[1].reps} 
+      exercise2sets={Day1?.exercise[1].sets}
+      exercise3sets={Day1?.exercise[2].sets}
+      exercise3reps={Day1?.exercise[2].reps} 
+      exerciseName3={Day1?.exercise[2].name} 
        />
        <InfoTable 
        duration={Day1?.duration}
@@ -111,15 +98,15 @@ export default  function Workout() {
        <div className="w-[38%]">
         <WorkoutTable 
         day={'Day 2'} 
-        exerciseName={Day2?.exercises[0].name}  
-        exercise1reps={Day2?.exercises[0].reps} 
-        exercise1sets={Day2?.exercises[0].sets}
-        exerciseName2={Day2?.exercises[1].name} 
-        exercise2reps={Day2?.exercises[1].reps} 
-        exercise2sets={Day2?.exercises[1].sets}
-        exercise3sets={Day2?.exercises[2].sets}
-        exercise3reps={Day2?.exercises[2].reps} 
-        exerciseName3={Day2?.exercises[2].name} 
+        exerciseName={Day2?.exercise[0].name}  
+        exercise1reps={Day2?.exercise[0].reps} 
+        exercise1sets={Day2?.exercise[0].sets}
+        exerciseName2={Day2?.exercise[1].name} 
+        exercise2reps={Day2?.exercise[1].reps} 
+        exercise2sets={Day2?.exercise[1].sets}
+        exercise3sets={Day2?.exercise[2].sets}
+        exercise3reps={Day2?.exercise[2].reps} 
+        exerciseName3={Day2?.exercise[2].name} 
         />
         <InfoTable 
        duration={Day2?.duration}
@@ -131,15 +118,15 @@ export default  function Workout() {
        <div className="w-[38%]">
           <WorkoutTable 
         day={'Day 3'} 
-        exerciseName={Day3?.exercises[0].name}  
-        exercise1reps={Day3?.exercises[0].reps} 
-        exercise1sets={Day3?.exercises[0].sets}
-        exerciseName2={Day3?.exercises[1].name} 
-        exercise2reps={Day3?.exercises[1].reps} 
-        exercise2sets={Day3?.exercises[1].sets}
-        exercise3sets={Day3?.exercises[2].sets}
-        exercise3reps={Day3?.exercises[2].reps} 
-        exerciseName3={Day3?.exercises[2].name} 
+        exerciseName={Day3?.exercise[0].name}  
+        exercise1reps={Day3?.exercise[0].reps} 
+        exercise1sets={Day3?.exercise[0].sets}
+        exerciseName2={Day3?.exercise[1].name} 
+        exercise2reps={Day3?.exercise[1].reps} 
+        exercise2sets={Day3?.exercise[1].sets}
+        exercise3sets={Day3?.exercise[2].sets}
+        exercise3reps={Day3?.exercise[2].reps} 
+        exerciseName3={Day3?.exercise[2].name} 
         />
         <InfoTable 
        duration={Day3?.duration}
@@ -150,15 +137,15 @@ export default  function Workout() {
        <div className="w-[38%]">
         <WorkoutTable 
         day={'Day 4'} 
-        exerciseName={Day4?.exercises[0].name}  
-        exercise1reps={Day4?.exercises[0].reps} 
-        exercise1sets={Day4?.exercises[0].sets}
-        exerciseName2={Day4?.exercises[1].name} 
-        exercise2reps={Day4?.exercises[1].reps} 
-        exercise2sets={Day4?.exercises[1].sets}
-        exercise3sets={Day4?.exercises[2].sets}
-        exercise3reps={Day4?.exercises[2].reps} 
-        exerciseName3={Day4?.exercises[2].name} 
+        exerciseName={Day4?.exercise[0].name}  
+        exercise1reps={Day4?.exercise[0].reps} 
+        exercise1sets={Day4?.exercise[0].sets}
+        exerciseName2={Day4?.exercise[1].name} 
+        exercise2reps={Day4?.exercise[1].reps} 
+        exercise2sets={Day4?.exercise[1].sets}
+        exercise3sets={Day4?.exercise[2].sets}
+        exercise3reps={Day4?.exercise[2].reps} 
+        exerciseName3={Day4?.exercise[2].name} 
         />
         <InfoTable 
        duration={Day4?.duration}
@@ -169,15 +156,15 @@ export default  function Workout() {
       <div className="w-[38%]">
         <WorkoutTable 
         day={'Day 5'} 
-        exerciseName={Day5?.exercises[0].name}  
-        exercise1reps={Day5?.exercises[0].reps} 
-        exercise1sets={Day5?.exercises[0].sets}
-        exerciseName2={Day5?.exercises[1].name} 
-        exercise2reps={Day5?.exercises[1].reps} 
-        exercise2sets={Day5?.exercises[1].sets}
-        exercise3sets={Day5?.exercises[2].sets}
-        exercise3reps={Day5?.exercises[2].reps} 
-        exerciseName3={Day5?.exercises[2].name} 
+        exerciseName={Day5?.exercise[0].name}  
+        exercise1reps={Day5?.exercise[0].reps} 
+        exercise1sets={Day5?.exercise[0].sets}
+        exerciseName2={Day5?.exercise[1].name} 
+        exercise2reps={Day5?.exercise[1].reps} 
+        exercise2sets={Day5?.exercise[1].sets}
+        exercise3sets={Day5?.exercise[2].sets}
+        exercise3reps={Day5?.exercise[2].reps} 
+        exerciseName3={Day5?.exercise[2].name} 
         />
         <InfoTable 
        duration={Day5?.duration}
@@ -188,15 +175,15 @@ export default  function Workout() {
        <div className="w-[38%]">
         <WorkoutTable 
         day={'Day 6'} 
-        exerciseName={Day6?.exercises[0].name}  
-        exercise1reps={Day6?.exercises[0].reps} 
-        exercise1sets={Day6?.exercises[0].sets}
-        exerciseName2={Day6?.exercises[1].name} 
-        exercise2reps={Day6?.exercises[1].reps} 
-        exercise2sets={Day6?.exercises[1].sets}
-        exercise3sets={Day6?.exercises[2].sets}
-        exercise3reps={Day6?.exercises[2].reps} 
-        exerciseName3={Day6?.exercises[2].name} 
+        exerciseName={Day6?.exercise[0].name}  
+        exercise1reps={Day6?.exercise[0].reps} 
+        exercise1sets={Day6?.exercise[0].sets}
+        exerciseName2={Day6?.exercise[1].name} 
+        exercise2reps={Day6?.exercise[1].reps} 
+        exercise2sets={Day6?.exercise[1].sets}
+        exercise3sets={Day6?.exercise[2].sets}
+        exercise3reps={Day6?.exercise[2].reps} 
+        exerciseName3={Day6?.exercise[2].name} 
         />
         <InfoTable 
        duration={Day6?.duration}
@@ -207,15 +194,15 @@ export default  function Workout() {
        <div className="w-[38%]">
         <WorkoutTable 
         day={'Day 7'} 
-        exerciseName={Day7?.exercises[0].name}  
-        exercise1reps={Day7?.exercises[0].reps} 
-        exercise1sets={Day7?.exercises[0].sets}
-        exerciseName2={Day7?.exercises[1].name} 
-        exercise2reps={Day7?.exercises[1].reps} 
-        exercise2sets={Day7?.exercises[1].sets}
-        exercise3sets={Day7?.exercises[2].sets}
-        exercise3reps={Day7?.exercises[2].reps} 
-        exerciseName3={Day7?.exercises[2].name} 
+        exerciseName={Day7?.exercise[0].name}  
+        exercise1reps={Day7?.exercise[0].reps} 
+        exercise1sets={Day7?.exercise[0].sets}
+        exerciseName2={Day7?.exercise[1].name} 
+        exercise2reps={Day7?.exercise[1].reps} 
+        exercise2sets={Day7?.exercise[1].sets}
+        exercise3sets={Day7?.exercise[2].sets}
+        exercise3reps={Day7?.exercise[2].reps} 
+        exerciseName3={Day7?.exercise[2].name} 
         />
         <InfoTable 
        duration={Day7?.duration}
