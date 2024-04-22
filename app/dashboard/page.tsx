@@ -1,11 +1,11 @@
 'use client';
 
-import {  useEffect } from 'react';
+import {  Suspense, useEffect } from 'react';
 import {useSession} from 'next-auth/react'
 import { useRouter } from 'next/navigation';
 import LineGraph from '../components/dashboardComponents/lineGraph';
 import { InvoiceSkeleton } from '../ui/skeletons';
-// import Workout from '../components/dashboardComponents/workout';
+import Workout from '../components/dashboardComponents/workout';
 import LineChart from '../components/dashboardComponents/lineChart';
 import Arc from '../components/arc';
 import Bar from '../components/bar';
@@ -111,8 +111,7 @@ export default  function Page() {
   
 
   return (
-    <div className='bg-slate-900 overflow-scroll w-full h-screen gap-8 flex flex-wrap justify-start items-start'>
-      <Profile />
+    <div className='bg-slate-900 overflow-scroll w-full h-screen gap-8 flex flex-wrap justify-between items-start'>
       {/* <Arc/>
       <LineChart /> */}
 
@@ -120,6 +119,8 @@ export default  function Page() {
         this div will be used for showcase some nutrititons food we can maybe get from an API somewhere that has a lot of data on food and there nutrition facts.
       </div>
 
+      <Profile />
+      <Workout />
 
     </div>
   )
