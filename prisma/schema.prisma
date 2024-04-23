@@ -56,5 +56,5 @@ model Account {
 
 model Quote {
   id String @id @default(auto()) @map("_id") @db.ObjectId
-  quotes String[]
+  quote String?
 }

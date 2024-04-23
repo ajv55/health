@@ -24,7 +24,7 @@ export default function ExerciseLine() {
 
     const options: any = {
         responsive: true,
-        indexAxis: 'x',
+        indexAxis: 'y',
         plugins: {
             legend: {
               labels: {
@@ -86,8 +86,8 @@ export default function ExerciseLine() {
           {
             label: 'Potential Calories To Burn',
             data: [Day1Cal, Day2Cal, Day3Cal, Day4Cal, Day5Cal, Day6Cal, Day7Cal],
-            backgroundColor: ['#e98c3a',],
-            borderColor: ['#ffc9a7'],
+            backgroundColor: ['#9afff8',],
+            borderColor: ['#004d13'],
             fill: false,
             borderWidth: 2,
           }

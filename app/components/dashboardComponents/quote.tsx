@@ -11,34 +11,41 @@ export default  function Quote() {
     const [motivate, setMotivate ] = useState<any>();
     const [isLoading, setIsLoading] = useState(true);
 
-    // const getQuote = async () => {
-    //     const res = await fetch('/api/quote');
-    //     const data = await res.json();
-    //     setMotivate(data)
-    //     setIsLoading(false)
-    //     console.log('get quote funtion ran')
-    // }
-    // useEffect(() => {
-    //   if(motivate === undefined) {
-    //     getQuote()
-    //     return console.log('motivate state is undefined')
-    //   }
+    const getQuote = async () => {
+        const res = await fetch('/api/quote');
+        const data = await res.json();
+        setMotivate(data)
+        setIsLoading(false)
+        console.log('get quote funtion ran')
+    }
+    useEffect(() => {
+      if(motivate === undefined) {
+        getQuote()
+        return console.log('motivate state is undefined')
+      }
 
-    //   if(motivate !== undefined) {
-    //     return console.log('theres a quote already')
-    //   }
+      if(motivate !== undefined) {
+        return console.log('theres a quote already')
+      }
         
-    // }, [motivate])
+    }, [motivate])
 
-    console.log(motivate)
+    const randomNumber = Math.floor(Math.random() * 50);
+
+    const randomQuote = motivate?.data[randomNumber] ;
+
+    const cleanup = randomQuote?.replace(/[^\w\s]/gi, '');
+
+
+
 
   return ( 
     <div className="w-full mt-10 h-[27rem] rounded-2xl bg-slate-200 flex flex-col justify-start items-center">
       
-      <div className="w-full h-20 rounded-2xl bg-gradient-to-br from-slate-900 via-slate-600 to-slate-300 flex justify-center items-center p-3">
+      <div className="w-full h-20 rounded-2xl shadow-lg shadow-zinc-900 bg-gradient-to-br from-slate-900 via-slate-600 to-slate-300 flex justify-center items-center p-3">
         <h1 className="text-4xl text-white font-bold tracking-wider">Quote Of The Day</h1>
       </div>
-        <motion.h1 initial={{scale: 0, opacity: 0, y: '-100%'}} animate={{y: '100%'}} transition={{duration: 1, ease: 'easeInOut'}} whileInView={{scale: 1, opacity: 1, y: '0%'}} className="text-4xl text-center text-zinc-800  font-semibold tracking-wide mt-20">{}</motion.h1>
+        <motion.h1 initial={{scale: 0, opacity: 0, y: '-100%'}} animate={{y: '100%'}} transition={{duration: 1, ease: 'easeInOut'}} whileInView={{scale: 1, opacity: 1, y: '0%'}} className="text-4xl text-center text-zinc-800 p-3  font-semibold tracking-wide mt-20">{cleanup}</motion.h1>
         {isLoading && 
 <div role="status" className="space-y-2.5 animate-pulse w-[85%]">
     <div className="flex items-center w-full">

@@ -4,10 +4,12 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
     
-    const quo = await prisma.quote.findMany();
+   const quo = await prisma.quote.findMany();
 
-    console.log(quo)
+   const data = quo && JSON.parse(quo[0]?.quote as string )
 
-    return NextResponse.json({quote: 'quote will go here'})
+   console.log(data)
+
+    return NextResponse.json({data})
     
 }

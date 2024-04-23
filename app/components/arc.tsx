@@ -3,6 +3,7 @@ import {Doughnut} from 'react-chartjs-2';
 import {Chart as ChartJS, ArcElement} from 'chart.js';
 import {useSession} from 'next-auth/react'
 import Table from './dashboardComponents/table';
+import {motion} from 'framer-motion';
 
 ChartJS.register(ArcElement)
 
@@ -46,11 +47,10 @@ export default function Arc() {
     }
 
   return (
-    <div className='w-[45%] h-content bg-slate-600 rounded-xl mt-28 ml-4 flex flex-col justify-center items-center p-3 gap-12'>
+    <motion.div initial={{scale: 0, opacity: 0, x: '-20%'}} whileInView={{scale: 1, opacity: 1, x: '0%'}} transition={{duration: 0.8 , ease: 'easeIn'}} className='w-[45%] h-content bg-slate-600 rounded-xl flex flex-col justify-center items-center p-3 gap-12'>
         <h2 className='text-white font-bold tracking-wider text-6xl'>Impact Paths</h2>
-        <Doughnut plugins={[textCenter]} options={options} data={data}/>
-        <Table />
+        <Doughnut  plugins={[textCenter]} options={options} data={data}/>
         
-    </div>
+    </motion.div>
   )
 }

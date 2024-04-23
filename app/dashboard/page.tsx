@@ -12,6 +12,7 @@ import Bar from '../components/bar';
 import Day from '../components/dashboardComponents/day';
 import Profile from '../components/dashboardComponents/profile';
 import Quote from '../components/dashboardComponents/quote';
+import Table from '../components/dashboardComponents/table';
 
 export default  function Page() {
 
@@ -113,12 +114,12 @@ export default  function Page() {
 
   return (
     <div className='bg-slate-900 overflow-scroll w-full h-screen flex flex-wrap justify-between items-start'>
-      {/* <Arc/>
-      <LineChart /> */}
       <Profile />
       <Workout />
-      <div className='border border-zinc-300 ml-2 w-[46%] h-[21rem]'>
-        this div will be used for showcase some nutrititons food we can maybe get from an API somewhere that has a lot of data on food and there nutrition facts.
+      <div className=' border-zinc-300 ml-2 w-full mt-20 flex justify-center items-center h-content'>
+      {/* <Arc/> */}
+      <LineChart />
+      {/* <Table /> */}
       </div>
 
       
