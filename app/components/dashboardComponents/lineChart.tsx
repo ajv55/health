@@ -50,7 +50,7 @@ export default function LineChart() {
 
     const options: any = {
         responsive: true,
-    indexAxis: 'x',
+    indexAxis: 'y',
     scales: {
       x: {
         ticks: {

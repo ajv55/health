@@ -52,3 +52,9 @@ model Account {
 
   @@unique([provider, providerAccountId])
 }
+
+
+model Quote {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  quotes String[]
+}

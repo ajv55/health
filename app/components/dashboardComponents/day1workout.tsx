@@ -14,7 +14,6 @@ export default function Day1Workout() {
     const exercise2 = day1?.exercise[1];
     const exercise3 = day1?.exercise[2];
 
-    console.log(exercise2);
 
   return (
     <div className='w-full overflow-scroll h-full flex justify-center items-start p-2'>

@@ -4,6 +4,8 @@ import "./globals.css";
 import Nav from "./components/nav";
 import Provider from "./context/AuthContext";
 import ToasterContext from "./context/ToasterContext";
+import reduxProvider from "./providers/reduxProvider";
+import ReduxProvider from "./providers/reduxProvider";
 
 const arapey = Arapey({ subsets: ["latin"], weight: ['400'] });
 
@@ -20,11 +22,13 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${arapey.className} relative antialiased`}>
+        <ReduxProvider>
         <Provider>
           <ToasterContext />
           
           {children}
         </Provider>
+        </ReduxProvider>
         </body>
     </html>
   );

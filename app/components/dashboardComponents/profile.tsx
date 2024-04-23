@@ -6,6 +6,7 @@ import Image from "next/image";
 import maleImg from '@/public/malePlaceholder.jpg';
 import femaleImg from '@/public/femalePlaceholder.jpg';
 import { use, useEffect, useState } from "react";
+import Quote from "./quote";
 
 
 export default function Profile() {
@@ -18,6 +19,7 @@ export default function Profile() {
     const usersCalories = session?.user?.calories;
     const usersActivityLevel = session?.user?.activity;
     const usersAge = session?.user?.age;
+    const usersWeight = session?.user?.weight
 
 
 
@@ -44,8 +46,8 @@ export default function Profile() {
 
 
   return (
-    <div className='w-[38%] mt-4 mr-3 h-[25rem] relative rounded-3xl bg-slate-200 flex flex-col justify-start gap-5'>
-        {isLoading && <div className="w-full rounded-2xl absolute top-0 left-0 h-full bg-slate-600">
+    <div className='w-[45%] mt-4 ml-3 h-content relative rounded-3xl bg-slate-200 flex flex-col justify-start gap-3'>
+        {isLoading && <div className="w-full rounded-2xl z-40 absolute top-0 left-0 h-full bg-slate-600">
                     <div role="status" className="w-[95%] p-3 h-[100%] rounded-2xl flex flex-col justify-center item-center gap-5 animate-pulse">
                 <div className="h-5 bg-gray-400 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
                 <div className="h-3 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
@@ -76,20 +78,21 @@ export default function Profile() {
             </div>
         </div>
 
-        <div className="  flex justify-evenly items-center mt-5 w-full h-[6rem]">
-            <div className=" w-[29%] h-full flex border-r-2 border-zinc-950  flex-col justify-center items-center">
+        <div className=" flex justify-evenly items-center mt-5 w-full h-[6rem]">
+            <div className=" w-[29%] h-full flex border-b-2 shadow-md shadow-zinc-950 border-r-2 border-zinc-950  flex-col justify-center items-center">
                 <h2 className="text-5xl font-bold tracking-wider ">{usersAge}</h2>
                 <h2 className="text-lg text-zinc-500 font-semibold tracking-wider">Age</h2>  
             </div>
-            <div className=" flex flex-col justify-center items-center w-[29%] h-full">
+            <div className=" flex flex-col border-b-2 border-zinc-950 justify-center  items-center w-[29%] h-full">
                 <h2 className="text-5xl font-bold tracking-wider ">{usersCalories}</h2>
                 <h2 className="text-lg text-zinc-500 font-semibold tracking-wider text-center">Maintenance Calories</h2> 
             </div>
-            <div className=" w-[29%] flex flex-col border-l-2 border-zinc-950 justify-center items-center h-full">
-               <h2 className="text-5xl font-bold tracking-wider ">{usersAge}</h2>
+            <div className=" w-[29%] flex flex-col border-b-2 shadow-md shadow-zinc-950 drop-shadow-lg border-l-2 border-zinc-950 justify-center items-center h-full">
+               <h2 className="text-5xl font-bold tracking-wider ">{usersWeight}</h2>
                 <h2 className="text-lg text-zinc-500 font-semibold tracking-wider text-center">Current Weight</h2> 
             </div>
         </div>
+        <Quote />
     </div>
   )
 }
