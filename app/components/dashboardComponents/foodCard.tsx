@@ -12,24 +12,26 @@ type FoodCardProps = {
 
 export default function FoodCard({food, carbs, fat, protein, caloriesOfIngredient, caloriesOfMeal}: FoodCardProps) {
   return (
-    <div className='w-full h-[7rem] bg-red-200 flex flex-col justify-start items-center'>
-        <div className='w-full h-32'>
-            <h1 className='text-2xl'>{food}</h1>
-            <div className='w-full flex justify-evenly items-center'>
-                <div className=' flex flex-col justify-center items-center'>
-                    <h3>{carbs}</h3>
-                    <span>Carbs</span>
+    <div className='w-full mt-4 h-content flex flex-col gap-7 justify-start items-start'>
+            <h1 className='text-4xl self-center'>{food}</h1>
+            <ul className=' flex w-full justify-evenly items-center list-inside '>
+                <div className='border bg-red-100 rounded-xl w-[20%] h-[5rem] flex flex-col justify-center items-center'>
+                   <li className='text-xl font-bold tracking-wide'>Carbs</li>
+                   <span className='text-3xl'>{carbs}</span>
                 </div>
-                <div className=' flex flex-col justify-center items-center'>
-                    <h3>{protein}</h3>
-                    <span>Protein</span>
+                <div className='border bg-purple-100 rounded-xl w-[20%] h-[5rem] flex flex-col justify-center items-center'>
+                   <li className='text-xl font-bold tracking-wide'>Protein</li>
+                   <span className='text-3xl'>{protein}</span>
                 </div>
-                <div className=' flex flex-col justify-center items-center'>
-                    <h3>{fat}</h3>
-                    <span>Fat</span>
+                <div className='border bg-orange-100 rounded-xl w-[20%] h-[5rem] flex flex-col justify-center items-center'>
+                   <li className='text-xl font-bold tracking-wide'>Fat</li>
+                   <span className='text-3xl'>{fat}</span>
                 </div>
-            </div>
-        </div>
+                <div className='border bg-blue-100 rounded-xl w-[20%] h-[5rem] flex flex-col justify-center items-center'>
+                   <li className='text-xl font-bold tracking-wide text-center'>Calories </li>
+                   <span className='text-3xl'>{caloriesOfIngredient}</span>
+                </div>
+            </ul>
     </div>
   )
 }

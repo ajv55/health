@@ -1,6 +1,8 @@
 import {Doughnut} from 'react-chartjs-2';
 import {Chart as ChartJS, ArcElement} from 'chart.js'
 import FoodCard from "./foodCard";
+import Lunch from './lunch';
+import Dinner from './dinner';
 
 ChartJS.register(ArcElement);
 
@@ -61,18 +63,37 @@ export default async function Nutrition() {
 }
 
   return (
-    <div className='w-full mt-16 h-content bg-slate-200'>
-      <div className="w-full  h-content flex flex-wrap justify-center items-center rounded-xl border-4 border-red-500">
-        <div className="w-full h-[17rem] bg-cover bg-center flex justify-center items-center" style={{backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${day1?.breakfast?.img})`}}>
+    <div className='w-full mt-16 h-content flex flex-wrap justify-center items-center gap-3 rounded-2xl bg-slate-200'>
+     
+      <div className='w-full mb-20 rounded-2xl bg-gradient-to-br from-slate-800 via-cyan-800 to-slate-300 flex justify-center items-center p-3'>
+        <h1 className='text-7xl text-white font-bold tracking-wide text-center'>Your Personalize Nutritional Guide</h1>
+      </div>
+
+       {/* breakfast card */}
+      <div className="w-[30%]  h-content flex flex-col justify-center items-center rounded-xl ">
+        <h1 className='text-7xl font-bold tracking-wide text-center'>Breakfast</h1>
+        <div className="w-full h-[17rem] bg-cover rounded-lg bg-center flex  justify-center items-center" style={{backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${day1?.breakfast?.img})`}}>
         <h3 className="text-4xl text-center text-white font-bold">{nutritiionGuide?.day_1?.breakfast?.meal}</h3>
         </div>
-        
-        <h1 className='text-4xl font-bold tracking-wide'>Ingredients</h1>
-        {day1breakfast?.map((ing: any, i: number ) => <FoodCard key={i} carbs={ing.carbs} caloriesOfIngredient={ing.calories} protein={ing.protein} fat={ing.fat} food={ing.food} />)}
-        <div className='w-full mt-3 h-[14rem] flex justify-center items-center'>
-        <Doughnut plugins={[textCenter]} options={option} data={data}/>
+        <div className='w-full flex flex-col justify-evenly items-centers '>
+          <div className='w-full mt-3 h-[20rem] flex justify-center items-center'>
+          <Doughnut plugins={[textCenter]} options={option} data={data}/>
+          </div>
+          <h1 className='text-7xl font-bold tracking-wide text-center'>Ingredients</h1>
+          <div className='w-full h-content flex flex-col justify-center items-center'>
+          {day1breakfast?.map((ing: any, i: number ) => <FoodCard key={i} carbs={ing.carbs} caloriesOfIngredient={ing.calories} protein={ing.protein} fat={ing.fat} food={ing.food} />)}
+          </div>
         </div>
       </div>
+
+      {/* lunch card */}
+      <Lunch />
+
+      {/* dinner card */}
+      <Dinner />
+
+
+
     </div>
   )
 }
