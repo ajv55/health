@@ -1,0 +1,28 @@
+import prisma from "@/app/libs/prismadb";
+import { NextResponse } from "next/server";
+import OpenAI from "openai";
+
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY!
+})
+
+export async function GET() {
+
+    // const data = await openai.chat.completions.create({
+    //     model: 'gpt-3.5-turbo',
+    //     messages: [{role: 'system', content: 'you are a expert nutritionist, you are here to help user lose weight by provide them with a list of recpies along with food nutrition facts.' + 'the final response will be in a completed JSON format string ready to be parse' + 'provide this guide for seven days with breakfast, lunch, and dinner along with how much calories per meal' + 'also add the carbs, protein, and fat in each ingredient'}, {role: 'user', content: 'need a nutrition guide that can be target for a wide range of user, make sure the guide is foods that a very common'}],
+    //     response_format: {type: 'json_object'}
+    // })
+
+    // const resutls = data.choices[0].message.content;
+
+    // const cleanup = resutls && JSON.parse(resutls);
+
+    // console.log(cleanup)
+
+    const data = await prisma.nutriton.findMany();
+    const resutls = JSON.parse(data[0]?.nutritionGuide as string);
+    const nut = resutls.data;
+
+    return NextResponse.json({nut})
+}

@@ -13,6 +13,7 @@ import Day from '../components/dashboardComponents/day';
 import Profile from '../components/dashboardComponents/profile';
 import Quote from '../components/dashboardComponents/quote';
 import Table from '../components/dashboardComponents/table';
+import Nutrition from '../components/dashboardComponents/nutrition';
 
 export default  function Page() {
 
@@ -117,13 +118,15 @@ export default  function Page() {
       <Profile />
       <Workout />
       <div className=' border-zinc-300 ml-2 w-full mt-20 flex justify-center items-center h-content'>
-      {/* <Arc/> */}
       <LineChart />
       {/* <Table /> */}
       </div>
 
-      
-      
+      <div className='w-full mt-20 flex justify-evenly items-center h-content'>
+        <Arc/>
+        <Table />
+      </div>
+      <Nutrition />
 
     </div>
   )

@@ -58,3 +58,8 @@ model Quote {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   quote String?
 }
+
+model Nutriton {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  nutritionGuide String?
+}

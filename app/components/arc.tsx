@@ -19,7 +19,10 @@ export default function Arc() {
         plugins: {
             legend: {
                 labels: {
-                    color: 'white'
+                    color: 'black',
+                    font: {
+                        size: 20
+                    }
                 }
             }
         }
@@ -30,7 +33,7 @@ export default function Arc() {
         label: 'Calories',
         data: [low, med, hi],
         backgroundColor: ['#2bd5ff' ,'#fdfd30', '#fb2525'],
-        borderColor: ['#04809f' ,'#9b9b02', '#a80000']
+        borderColor: ['#cbf4fe' ,'#ffffb4', '#ff9292']
     }]
     }
 
@@ -39,18 +42,21 @@ export default function Arc() {
         beforeDatasetsDraw(chart: any, agrs: any, pluginOptions: any) {
             const {ctx, data} = chart;
             ctx.save();
-            ctx.font = 'bolder 30px sans-serif';
-            ctx.fillStyle = 'white';
+            ctx.font = 'bolder 20px sans-serif';
+            ctx.fillStyle = 'black';
             ctx.textAlign = 'center';
             ctx.fillText('Calories', chart.getDatasetMeta(0).data[0].x, chart.getDatasetMeta(0).data[0].y)
         }
     }
 
   return (
-    <motion.div initial={{scale: 0, opacity: 0, x: '-20%'}} whileInView={{scale: 1, opacity: 1, x: '0%'}} transition={{duration: 0.8 , ease: 'easeIn'}} className='w-[45%] h-content bg-slate-600 rounded-xl flex flex-col justify-center items-center p-3 gap-12'>
-        <h2 className='text-white font-bold tracking-wider text-6xl'>Impact Paths</h2>
-        <Doughnut  plugins={[textCenter]} options={options} data={data}/>
-        
+    <motion.div initial={{scale: 0 ,opacity: 0, x: '-100vw'}} animate={{ opacity: 1, x: 0, transition: { duration: 0.5, type: 'spring', stiffness: 100 } }} whileInView={{x: 0, opacity: 1, scale: 1}}  className='w-[47%] h-content bg-slate-200 rounded-3xl flex flex-col justify-center items-center gap-12'>
+        {/* <div className='w-full h-content p-3 flex justify-center items-center bg-gradient-to-bl from-slate-200 via-slate-800 to-slate-200 rounded-2xl'>
+           <h2 className='text-white font-bold tracking-wider text-6xl'>Impact Paths</h2>
+        </div> */}
+        <div className='w-full h-[23rem] p-4 flex justify-center items-center'>
+           <Doughnut  plugins={[textCenter]} options={options} data={data}/>
+        </div>
     </motion.div>
   )
 }
