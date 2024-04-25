@@ -5,7 +5,6 @@ import {Chart as ChartJS, ArcElement} from 'chart.js'
 import FoodCard from "./foodCard";
 import Lunch from './lunch';
 import Dinner from './dinner';
-import { json } from 'stream/consumers';
 import { useEffect, useState } from 'react';
 
 ChartJS.register(ArcElement);
@@ -92,7 +91,7 @@ export default  function Nutrition() {
 }
 
   return (
-    <div className='w-[96%] ml-5 mt-16 h-content flex flex-wrap justify-evenly items-center gap-3 rounded-2xl bg-slate-200'>
+    <div className='w-[96%] ml-5 mt-16  h-content flex flex-wrap justify-evenly items-center gap-3 rounded-2xl bg-slate-200'>
      
       <div className='w-full mb-20 rounded-2xl bg-gradient-to-br from-slate-800 via-cyan-800 to-slate-300 flex justify-center items-center p-3'>
         <h1 className='text-7xl text-white font-bold tracking-wide text-center'>Your Personalize Meal Plan</h1>
@@ -100,7 +99,7 @@ export default  function Nutrition() {
 
        {/* breakfast card */}
       <div className="w-[27%] drop-shadow-2xl  h-content flex flex-col justify-center items-center rounded-xl ">
-        <h1 className='text-7xl font-bold tracking-wide text-center'>Breakfast</h1>
+        <h1 className='text-7xl mb-7 font-bold tracking-wide text-center'>Breakfast</h1>
         <div className="w-full h-[17rem] bg-cover rounded-lg bg-center flex  justify-center items-center" style={{backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${day1?.breakfast?.img})`}}>
         <h3 className="text-4xl text-center text-white font-bold">{nutritiionGuide?.day_1?.breakfast?.meal}</h3>
         </div>
@@ -120,8 +119,6 @@ export default  function Nutrition() {
 
       {/* dinner card */}
       <Dinner />
-
-
 
     </div>
   )

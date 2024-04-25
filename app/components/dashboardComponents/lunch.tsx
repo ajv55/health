@@ -92,8 +92,8 @@ export default function Lunch() {
     }
 
   return (
-    <div className="w-[27%] drop-shadow-2xl  h-content flex flex-col justify-center items-center rounded-xl ">
-    <h1 className='text-7xl font-bold tracking-wide text-center'>Lunch</h1>
+    <div className="w-[27%]  drop-shadow-2xl  h-content flex flex-col justify-center items-center rounded-xl ">
+    <h1 className='text-7xl mb-7 font-bold tracking-wide text-center'>Lunch</h1>
     <div className="w-full h-[17rem] rounded-md bg-cover bg-center flex  justify-center items-center" style={{backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(${day2?.breakfast?.img})`}}>
     <h3 className="text-4xl text-center text-white font-bold">{nutritiionGuide?.day_2?.breakfast?.meal}</h3>
     </div>

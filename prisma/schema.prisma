@@ -30,7 +30,8 @@ model User {
   gender String?
   workoutPlan String? 
 
-
+ // Define the relationship with CalorieIntakeRecord entity
+  calorieIntakeRecords CalorieIntakeRecord[]
   account Account []
 }
 
@@ -53,6 +54,19 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
+// Define the schema for the CalorieIntakeRecord entity
+model CalorieIntakeRecord {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the record
+  userId        String   @db.ObjectId                  // Foreign key to associate record with a user
+  user          User    @relation(fields: [userId], references: [id]) // Relationship with the User entity
+  date          DateTime                      // Date of the calorie intake record
+  totalCalories Int                           // Total calories consumed on the specified date
+  createdAt     DateTime @default(now())      // Timestamp when the record was created
+  updatedAt     DateTime @updatedAt           // Timestamp when the record was last updated
+  
+  // Specify unique constraint to ensure only one record per user per date
+  @@unique([userId, date])
+}
 
 model Quote {
   id String @id @default(auto()) @map("_id") @db.ObjectId

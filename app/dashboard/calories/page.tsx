@@ -1,10 +1,13 @@
 import React from 'react'
+import CaloriesHeader from '@/app/components/caloriesComponent/caloriesHeader'
+import CaloriesLine from '@/app/components/caloriesComponent/caloriesLine'
 
 export default function Page
 () {
   return (
-    <div className='bg-teal-200 w-full h-screen flex justify-center items-center'>
-        <h1 className='text-6xl'>Calories Page</h1>
+    <div className=' w-full h-screen flex flex-col justify-start items-center gap-8 overflow-scroll'>
+        <CaloriesHeader />
+        <CaloriesLine />
     </div>
   )
 }
