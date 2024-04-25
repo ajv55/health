@@ -21,8 +21,12 @@ export async function GET() {
     // console.log(cleanup)
 
     const data = await prisma.nutriton.findMany();
-    const resutls = data && JSON.parse(data[0]?.nutritionGuide as string);
-    const nut = resutls.data;
 
-    return NextResponse.json(nut)
+    const results = JSON.parse(data[0]?.nutritionGuide as string);
+
+
+
+    const nut = results;
+
+    return NextResponse.json({nut})
 }
