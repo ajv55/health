@@ -8,7 +8,6 @@ export async function GET() {
 
    const data = quo && JSON.parse(quo[0]?.quote as string )
 
-   console.log(data)
 
     return NextResponse.json({data})
     

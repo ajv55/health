@@ -61,7 +61,7 @@ export const options: NextAuthOptions = {
     ],
     callbacks: {
         jwt: async ({token, user, session, trigger}: {token: JWT, user?: User | any, session?: any, trigger?: any}): Promise<any>  => {
-           console.log('jwt callback', token, user, session)
+           
            if (trigger === 'update' && session?.calories) {
             token.calories = session.calories
            }
@@ -84,7 +84,7 @@ export const options: NextAuthOptions = {
             }
         }
 
-        //update the user info on the database
+        //updating the user info on the database
          await prisma.user.update({
             where: {
                 id: token.id as string

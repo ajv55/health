@@ -26,10 +26,11 @@ export default function CalForm({CancelBtnOnClick, selectValue, selectOnChange, 
             <h5 className="text-xl font-light tracking-wider text-zinc-500">Log your meals and track your calories.</h5>
         </div>
         <label htmlFor="small" className="block mb-1 w-full text-xl font-bold  dark:text-white">Meal Type</label>
-        <select value={selectValue} onChange={selectOnChange}  id="small"  className="block w-full px-3 py-2 drop-shadow-md border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300">
-            <option value="breakfast">Breakfast</option>
-            <option value="lunch">Lunch</option>
-            <option value="dinner">Dinner</option>
+        <select defaultValue={selectValue} onChange={selectOnChange}  id="small"  className="block w-full px-3 py-2 drop-shadow-md border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300">
+            <option disabled value="">Choose a meal type</option> 
+            <option value="Breakfast">Breakfast</option>
+            <option value="Lunch">Lunch</option>
+            <option value="Dinner">Dinner</option>
         </select>
         <div className="w-full">
            <label className="w-full text-xl font-bold" htmlFor="food">Food Item</label>
