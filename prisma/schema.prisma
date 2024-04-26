@@ -59,7 +59,8 @@ model CalorieIntakeRecord {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId // Unique identifier for the record
   userId        String   @db.ObjectId                  // Foreign key to associate record with a user
   user          User    @relation(fields: [userId], references: [id]) // Relationship with the User entity
-  date          DateTime                      // Date of the calorie intake record
+  date          DateTime   
+  time          DateTime         // Date of the calorie intake record
   totalCalories Int                           // Total calories consumed on the specified date
   createdAt     DateTime @default(now())      // Timestamp when the record was created
   updatedAt     DateTime @updatedAt           // Timestamp when the record was last updated
