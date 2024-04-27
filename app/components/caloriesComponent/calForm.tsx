@@ -18,7 +18,7 @@ type CalFormProps = {
 
 export default function CalForm({CancelBtnOnClick, selectValue, selectOnChange, foodValue, foodOnChange, caloriesValue, caloriesOnChange, onSubmit, initialDate, onDateChange}: CalFormProps) {
   return (
-    <div className='w-full absolute bg-transparent top-0 left-0 backdrop-blur-sm h-screen flex  justify-center items-center'>
+    <div className='w-full absolute bg-transparent z-30 top-0 left-0 backdrop-blur-sm h-screen flex  justify-center items-center'>
         
         <form onSubmit={onSubmit} className='w-[40%] h-content bg-slate-100 drop-shadow-2xl rounded-2xl flex flex-col justify-start p-3 gap-4 items-center'>
         <div className="w-full flex flex-col justify-start items-start px-4 py-2">

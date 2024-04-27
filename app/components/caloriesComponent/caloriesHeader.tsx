@@ -3,6 +3,9 @@ import {ChangeEvent, useState} from 'react';
 import CalForm from './calForm';
 import axios, { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState, AppDispatch } from '@/app/store';
+import {setUsersMeals} from '@/app/slices/mealSlice';
 
 type DataTypes = {
   mealType?: string,
@@ -12,6 +15,9 @@ type DataTypes = {
 }
 
 export default function CaloriesHeader() {
+
+  const list  = useSelector((state: RootState) => state.meal.usersMeals)
+  const dispatch = useDispatch<AppDispatch>()
 
   const [isOpen, setOpen] = useState(false);
   const [data, setData] = useState<DataTypes>({
@@ -23,6 +29,17 @@ export default function CaloriesHeader() {
   const [isLoading, setLoading] = useState(false); // State for loading indicator
   const [error, setError] = useState<string | null>(null); // State for error handling
 
+  const getList = async () => {
+    try {
+         await axios.get('/api/getlist');
+    } catch (error) {
+        setError('Failed to fetch user meals');
+        console.error('Error fetching user meals:', error);
+    } finally {
+        setLoading(false);
+    }
+}
+
   const handleDateTimeChange = (date: Date | null) => {
     setData({...data, date: date});
   };
@@ -33,7 +50,9 @@ export default function CaloriesHeader() {
     setError(null); // Clear any previous errors
 
     try {
-      const res = await axios.post('/api/postCalories', {data}).then((res) => console.log(res))
+      await axios.post('/api/postCalories', {data}).then(() => toast.success('Added A Meal To Your Log'));
+      const d = await axios.get('/api/getlist');
+      dispatch(setUsersMeals(d?.data?.usersList))
       setData({
         mealType: '',
         foodItem: '',
@@ -53,6 +72,8 @@ export default function CaloriesHeader() {
       setLoading(false); // Reset loading state when request is completed
     }
   };
+
+  console.log('list from slice', list);
 
   return (
     <div className='w-full h-32 relative border p-4 border-b-2 border-zinc-900 shadow-md shadow-zinc-900 flex justify-between items-center'>

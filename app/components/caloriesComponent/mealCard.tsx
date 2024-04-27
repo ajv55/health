@@ -28,8 +28,8 @@ export default function MealCard({meal, food, cal, onDelete, date}: MealCardProp
         {meal === 'Lunch' && <MdOutlineDinnerDining size={60} />}
         {meal === 'Dinner' && <MdOutlineLunchDining size={60} />}
         <div className="w-full flex justify-between items-center p-3">
-            <h4 className="font-bold text-xl tracking-wide">{food}</h4>
-            <span className="text-zinc-400 font-light text-xl tracking-wide">{cal}</span>
+            <h4 className="font-bold text-xl tracking-wide">{food?.toUpperCase()}</h4>
+            <span className="text-zinc-400 font-light text-xl tracking-wide">{cal} /cal</span>
         </div>
     </div>
   )

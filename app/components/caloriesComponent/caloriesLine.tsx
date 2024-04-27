@@ -1,13 +1,17 @@
 'use client';
 import {Line, Bar} from 'react-chartjs-2';
-import { Chart as ChartJS, BarController , BarElement , LineController, LineElement, PointElement, CategoryScale, LinearScale } from 'chart.js';
+import { Chart as ChartJS, Legend, Title, Tooltip,  BarController , BarElement , LineController, LineElement, PointElement, CategoryScale, LinearScale } from 'chart.js';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import MealCard from './mealCard';
 import { format } from 'date-fns'; 
+import {useDispatch, useSelector} from 'react-redux'
+import { RootState } from '@/app/store';
+import {setUsersMeals} from '@/app/slices/mealSlice';
+import Skeleton from './skeleton';
 
-ChartJS.register(LineController, LineElement, LinearScale, CategoryScale, PointElement, BarController, BarElement )
+ChartJS.register(LineController, Title, Tooltip, Legend, LineElement, LinearScale, CategoryScale, PointElement, BarController, BarElement )
 
 export default function CaloriesLine() {
     const [userCal, setUserCal] = useState<any>([]);
@@ -15,16 +19,21 @@ export default function CaloriesLine() {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
+    const list = useSelector((state: RootState) => state.meal.usersMeals);
+    const dispatch = useDispatch();
+
     const getList = async () => {
       try {
           const res = await axios.get('/api/getlist');
-          setUserMeals(res?.data);
+          dispatch(setUsersMeals(res?.data?.usersList))
       } catch (error) {
           setError('Failed to fetch user meals');
           console.error('Error fetching user meals:', error);
       } finally {
           setLoading(false);
       }
+
+      console.log(list)
   }
 
     useEffect(() => {
@@ -36,10 +45,9 @@ export default function CaloriesLine() {
     }, [])
 
 
-    const meals = userMeals?.usersList;
 
-    const mealCal = meals?.map((m: any) => m?.totalCalories)
-    const validMeals = meals?.filter((meal: any) => meal?.date && new Date(meal.date) instanceof Date);
+    const mealCal = list?.map((m: any) => m?.totalCalories)
+    const validMeals = list?.filter((meal: any) => meal?.date && new Date(meal.date) instanceof Date);
     validMeals?.sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
     const formattedMealDate = validMeals?.map((meal: any) => format(new Date(meal.date), 'MMM dd, yyyy'));
     // const mealDate = meals?.map((meal: any) => format(meal?.date, 'MMM dd, yyyy'));
@@ -49,7 +57,7 @@ export default function CaloriesLine() {
 
   //  const formattedMealDate = mealDate?.map((date: any) => format(date, 'MMM dd, yyyy'));
 
-    console.log(meals)
+    // console.log(meals)
 
     const option: any = {
       responsive: true,
@@ -57,19 +65,19 @@ export default function CaloriesLine() {
   scales: {
     x: {
       ticks: {
-        color: 'black',
+        color: 'teal',
         beginAtZero: true,
         font: {
           size: 18
         }
       },
       grid: {
-        color: 'black',
+        color: 'white',
       },
       title: {
         display: true,
         text: 'Days',
-        color: 'black',
+        color: 'white',
         font: {
           size: 35,
         }
@@ -77,7 +85,7 @@ export default function CaloriesLine() {
     },
     y: {
       ticks: {
-        color: 'black',
+        color: 'teal',
         beginAtZero: true,
         font:{
           size: 18
@@ -86,20 +94,20 @@ export default function CaloriesLine() {
       title: {
         display: true,
         text: 'Calories',
-        color:'black',
+        color:'white',
         font: {
           size: 35
         }
       },
       grid: {
-        color: 'black',
+        color: 'white',
       }
     }
   },
   plugins: {
     legend: {
       labels: {
-        color: 'black', 
+        color: 'white', 
         font: {
           size: 15
         }
@@ -111,13 +119,13 @@ export default function CaloriesLine() {
     const data = {
         labels: formattedMealDate,
         datasets: [{
-          label: 'My First Dataset',
+          label: 'Your Calories',
           data: mealCal,
-          backgroundColor: 'rgb(107, 248, 255)',
-          borderColor: 'rgb(0, 49, 80)',
+          backgroundColor: 'rgba(79, 70, 229, 0.5)',
+          borderColor: '#9a93ff',
           tension: 0.4,
           barThickness: 50,
-          barPercentage: 3,
+          borderWidth: 2,
 
         }]
       };
@@ -125,8 +133,8 @@ export default function CaloriesLine() {
 
       const handleDelete = async (id: string) => {
         try {
-          const res = await axios.delete(`/api/delete?mealId=${id}`).then(() => toast.success('Deleted A Meal'));
-          console.log(res)
+          await axios.delete(`/api/delete?mealId=${id}`).then(() => toast.success('Deleted A Meal'));
+          getList();
           // Handle any additional logic after successful deletion
         } catch (error) {
           console.error('Error deleting meal:', error);
@@ -135,17 +143,21 @@ export default function CaloriesLine() {
       }
 
   return (
-    <div className='w-full h-screen flex justify-evenly items-start'>    
-           <div className='w-[49%] border flex justify-center items-center h-[32rem]'>
-             <Bar options={option} data={data} />
-           </div>
-           <div className='w-[47%] h-[32rem] overflow-scroll border flex gap-8 flex-col justify-start items-center'>
-            <h1 className='text-5xl text-center font-bold tracking-wide'>Your Meal Logs</h1>
+    <div className='w-full h-screen relative flex  justify-evenly gap-10 items-center'>  
+    {loading && <Skeleton />}
+         
+           
+           <div className='w-[47%] h-[32rem] overflow-scroll  flex gap-8 flex-col justify-start items-center'>
+           {!loading && <h1 className='text-5xl text-center font-bold tracking-wide'>Your Meal Logs</h1>   }
             <div className='w-full flex flex-wrap gap-5  justify-center items-center'>
-              {meals?.map((m: any, i: number) => <MealCard onDelete={() => handleDelete(m.id)} key={i} food={m.foodItem} cal={m.totalCalories} date={m.date} meal={m.mealType} />)}
+              {list?.map((m: any, i: number) => <MealCard onDelete={() => handleDelete(m.id)} key={i} food={m.foodItem} cal={m.totalCalories} date={m.date} meal={m.mealType} />)}
             </div>
 
            </div>
+
+           {!loading && <div className='w-[47%] bg-slate-900 rounded-xl flex justify-center items-center h-[23rem] p-7'>
+             <Bar  options={option} data={data} />
+           </div>}
     </div>
   )
 }
