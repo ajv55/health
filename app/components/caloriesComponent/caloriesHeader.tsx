@@ -6,25 +6,28 @@ import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '@/app/store';
 import {setUsersMeals} from '@/app/slices/mealSlice';
+import {format} from 'date-fns'
 
 type DataTypes = {
   mealType?: string,
   foodItem: string,
   calories: number,
-  date: Date | null,
+  date: any,
+  time?: string
 }
 
 export default function CaloriesHeader() {
 
   const list  = useSelector((state: RootState) => state.meal.usersMeals)
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useDispatch<AppDispatch>();
+
 
   const [isOpen, setOpen] = useState(false);
   const [data, setData] = useState<DataTypes>({
     mealType: '',
     foodItem: '',
     calories: 0,
-    date: new Date()
+    date: new Date(),
   });
   const [isLoading, setLoading] = useState(false); // State for loading indicator
   const [error, setError] = useState<string | null>(null); // State for error handling
@@ -40,9 +43,11 @@ export default function CaloriesHeader() {
     }
 }
 
-  const handleDateTimeChange = (date: Date | null) => {
+  const handleDateTimeChange = (date: any) => {
     setData({...data, date: date});
   };
+
+   
 
   const handleMeal = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -57,7 +62,7 @@ export default function CaloriesHeader() {
         mealType: '',
         foodItem: '',
         calories: 0,
-        date: null
+        date: null,
       });
       setOpen(false);
     } catch (error: any) {
@@ -73,7 +78,7 @@ export default function CaloriesHeader() {
     }
   };
 
-  console.log('list from slice', list);
+  console.log(data);
 
   return (
     <div className='w-full h-32 relative border p-4 border-b-2 border-zinc-900 shadow-md shadow-zinc-900 flex justify-between items-center'>

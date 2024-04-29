@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
         const body = await req.json();
         const {data} = body;
         const {mealType, foodItem, calories, date} = data;
-        console.log(calories);
+        console.log(data);
         
         console.log(session?.user.id);
 
@@ -20,15 +20,13 @@ export async function POST(req: NextRequest) {
             throw new Error('no session found')
         }
 
-        
-
         const user = await prisma.user.findUnique({
             where: { id: session?.user?.id }
         });
 
 
 
-        const existingRecord = await prisma.calorieIntakeRecord.findFirst({
+        const existingRecord = await prisma.calorieIntake.findFirst({
             where: {
                 userId: user?.id,
                 createdAt: date
@@ -40,7 +38,7 @@ export async function POST(req: NextRequest) {
            throw new Error('A calorie intake record already exists for this date');
         }
 
-        const res = await prisma.calorieIntakeRecord.create({
+        const res = await prisma.calorieIntake.create({
             data: {
                 totalCalories: Number(calories),
                 date: date,

@@ -9,7 +9,7 @@ export async function DELETE(req: NextRequest){
 
   try {
     // Delete the meal from the database
-     const res = await prisma.calorieIntakeRecord.delete({
+     const res = await prisma.calorieIntake.delete({
       where: {
         id: id as string, // Assuming mealId is a string
       },
