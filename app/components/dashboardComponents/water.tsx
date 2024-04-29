@@ -4,20 +4,23 @@ import React, { useEffect, useState } from 'react'
 import { FaPlus } from "react-icons/fa6";
 import { motion, AnimatePresence } from 'framer-motion';
 import toast from 'react-hot-toast';
-import {  useSelector } from 'react-redux';
+import {  useSelector , useDispatch} from 'react-redux';
 import { RootState } from '@/app/store';
+import { incrementDailyWater } from '@/app/slices/waterSlice';
 
 
 export default function Water() {
   const [amount, setAmount] = useState(0);
   const [open, setOpen] = useState(false);
 
-  const selector = useSelector((state: RootState) => state.water.value);
+  const dispatch = useDispatch();
+
 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const res = await axios.post('/api/postWater', {amount}).then((res) => console.log(res)).then(() => toast.success('Successfully add water intake')).catch(() => toast.error('something went wrong when trying to add some water'))
+    await axios.get('/api/getWater').then((res) => dispatch(incrementDailyWater(res?.data?.addWater)));
     setOpen(false)
     console.log(res)
   }
