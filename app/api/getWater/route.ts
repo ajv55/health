@@ -6,7 +6,8 @@ import { options } from "../auth/[...nextauth]/route";
 
 export async function GET() {
 
-    const session = await getServerSession(options);
+    try {
+        const session = await getServerSession(options);
 
     const today = new Date(); // today
     const startOfDay = new Date(today);
@@ -27,5 +28,10 @@ export async function GET() {
 
     const addWater = res.map((r) => r.amount).reduce((acc, currentValue) => acc! + currentValue!);
 
-    return NextResponse.json({addWater})
+    return NextResponse.json({addWater, hasRecords: res.length > 0})
+        
+    } catch (error) {
+        console.error('Error fetching water intake records:', error);
+        return NextResponse.json({error: 'Error fetching water intake records'}, {status: 500});
+    }
 }

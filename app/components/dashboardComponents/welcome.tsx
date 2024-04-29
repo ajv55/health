@@ -9,11 +9,15 @@ import {motion} from 'framer-motion'
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/app/store';
 import { incrementDailyWater } from '@/app/slices/waterSlice';
+import {setExercises, completedExercise} from '@/app/slices/exerciseSlice'
+import toast from 'react-hot-toast';
+import ExerciseCard from './exerciseCard';
 
 export default function Welcome() {
     const [cal, setCal] = useState(0)
 
     const water = useSelector((state: RootState) => state.water.value);
+    const exercisesList = useSelector((state: RootState) => state.exercise.exercises);
     const dispatch = useDispatch();
 
     const {data: session} = useSession();
@@ -21,6 +25,9 @@ export default function Welcome() {
     const usersCal = Number(session?.user?.calories);
     const recommend = usersCal - 500;
     const recommendWaterIntake = 3.5;
+
+    //exercise challenge logic
+    const challengeLeft = exercisesList.length
 
     const user = session?.user;
     const activityLevel = user?.activity;
@@ -30,8 +37,13 @@ export default function Welcome() {
     }
 
     const getDailyWater = async () => {
-        return await axios.get('/api/getWater').then((res) => dispatch(incrementDailyWater(res?.data?.addWater)));
+        return await axios.get('/api/getWater').then((res) => dispatch(incrementDailyWater(res?.data?.addWater))).catch((error) => toast.error('No water intake yet', error) );
     }
+
+    const getDailyExcerise = async () => {
+        return await axios.get('/api/getExercise').then((res: any) => dispatch(setExercises(res?.data?.data?.exercise?.workouts))).catch(() => toast.error('Error occurred while trying to fetch daily exercises'))
+    }
+
 
     const percentage = (cal! / usersCal) * 100;
     const percentageForWater = (water / 3) * 100;
@@ -41,6 +53,7 @@ export default function Welcome() {
             
             getMeals();
             getDailyWater();
+            getDailyExcerise();
 
         } catch (error) {
             console.error('Failed to fetch users meal', error)
@@ -49,7 +62,7 @@ export default function Welcome() {
 
     const per = Math.round(percentage);
 
-    console.log(water)
+    console.log(challengeLeft)
 
 
   return (
@@ -90,30 +103,33 @@ export default function Welcome() {
         </div>
 
         {/* third section this will be for the users daily goals like caloires inake, water intake */}
-        <div className='w-full h-[32rem] border flex flex-col justify-start items-start'>
+        <div className='w-full h-[17rem] border  flex flex-col justify-start items-start'>
             <h1 className='text-2xl text-white p-2 text-center font-bold tracking-wide'>Your Daily Goals</h1>
-            <div className='w-full h-[17rem] border border-green-300 flex flex-col justify-evenly items-center'>
-                <div className='border w-[95%] flex flex-col justify-start items-start'>
+            <div className='w-full h-[17rem]  border-green-300 flex flex-col justify-evenly items-center'>
+                <div className=' w-[95%] flex flex-col justify-start items-start'>
                     <div className='w-full flex justify-between items-center'>
                       <span className='text-xl font-light text-white tracking-wide'>Calorie Intake</span>
                       <span className='text-lg text-white font-light tracking-wide'>{cal}/{recommend} kcal</span>
                     </div>
                     <div className='w-[100%] h-5 rounded-3xl bg-slate-100 overflow-hidden '>
-                        <motion.div initial={{width: '0%'}} animate={{ width: `${per}%` }} transition={{duration: 1, type: 'spring', stiffness: 100, damping: 10}} className={` h-5 rounded-3xl bg-indigo-700`}></motion.div>
+                        <motion.div initial={{width: '0%'}} animate={{ width: per < 100 ? `${per}%` : '100%' }} transition={{duration: 1, type: 'spring', stiffness: 100, damping: 10}} className={` h-5 rounded-3xl bg-indigo-700`}></motion.div>
                     </div>
                 </div>
-                <div className='border w-[95%] flex flex-col justify-start items-start'>
-                    <div className='border w-full flex justify-between items-center'>
+                <div className=' w-[95%] flex flex-col justify-start items-start'>
+                    <div className=' w-full flex justify-between items-center'>
                        <span className='text-xl font-light text-white tracking-wide'>Water Intake</span>
                        <span className='text-lg text-white font-light tracking-wide'>{water}/{recommendWaterIntake} L</span>
                     </div>
                     <div className='w-full h-5 rounded-3xl bg-slate-100'>
-                      <motion.div initial={{width: '0%'}} animate={{ width: `${Math.round(percentageForWater)}%` }} transition={{duration: 1, type: 'spring', stiffness: 100, damping: 10}} className={` h-5 rounded-3xl bg-indigo-700`}></motion.div>
+                      <motion.div initial={{width: '0%'}} animate={{ width: percentageForWater < 100 ? `${Math.round(percentageForWater)}%` : '100%' }} transition={{duration: 1, type: 'spring', stiffness: 100, damping: 10}} className={` h-5 rounded-3xl bg-indigo-700`}></motion.div>
                     
                     </div>
                 </div>
-                <div className='border w-[95%] flex flex-col justify-start items-start'>
-                    <span className='text-lg font-light text-white tracking-wide'>Calorie Intake</span>
+                <div className=' border w-[95%] flex flex-col justify-start items-start'>
+                    <div className='w-full flex justify-between justify-items-center'>
+                        <span className='text-lg font-light text-white tracking-wide'>Daily Workout Challenge</span>
+                        <span className='text-lg text-white font-light tracking-wide'>3/{challengeLeft} Challenges</span>
+                    </div>
                     <div className='w-full h-5 rounded-3xl bg-slate-100'>
                         <div className='w-[45%] h-5 rounded-3xl bg-indigo-700'></div>
                     </div>
@@ -122,7 +138,12 @@ export default function Welcome() {
         </div>
 
         {/* third section your daily task will go here maybe some workouts they can do daily ? */}
-
+        <div className='w-full h-[23rem] border-2 flex flex-col justify-start items-center'>
+            <h2 className='text-3xl text-white self-start p-1 tracking-wide font-bold'>Daily Workouts</h2>
+            <div className='w-full h-[100%] border-2 border-red-600 overflow-scroll'>
+                {exercisesList.map((el: any, i: number) => <ExerciseCard key={i} /> )}
+            </div>
+        </div>
 
     </div>
   )

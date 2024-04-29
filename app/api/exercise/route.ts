@@ -19,7 +19,7 @@ export async function GET() {
         response_format: {type: 'json_object'}
     })
 
-    const exercise = res?.choices[0]?.message?.content
+    const exercise = JSON.parse(res?.choices[0]?.message?.content as string)
     
 
     return NextResponse.json({exercise})

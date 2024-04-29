@@ -99,3 +99,8 @@ model Nutriton {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   nutritionGuide String?
 }
+
+model exerciseChallenges { 
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  challenges String?
+}
