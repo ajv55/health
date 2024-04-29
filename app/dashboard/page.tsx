@@ -15,6 +15,8 @@ import Quote from '../components/dashboardComponents/quote';
 import Table from '../components/dashboardComponents/table';
 import Nutrition from '../components/dashboardComponents/nutrition';
 import Welcome from '../components/dashboardComponents/welcome';
+import Water from '../components/dashboardComponents/water';
+import DashHeader from '../components/dashboardComponents/dashHeader';
 
 export default  function Page() {
 
@@ -115,8 +117,13 @@ export default  function Page() {
   
 
   return (
-    <div className='overflow-scroll w-full h-screen flex flex-wrap justify-between items-start'>
+    <div className='overflow-scroll w-full h-screen flex flex-wrap flex-grow  justify-between items-start'>
+      <div className='w-[69%] border-4 border-blue-400'>
+        <DashHeader />
+        <Water />
+      </div>
       <Welcome />
+     
       {/* <Profile />
       <Workout /> */}
       <div className=' border-zinc-300 ml-2 w-full mt-20 flex justify-center items-center h-content'>

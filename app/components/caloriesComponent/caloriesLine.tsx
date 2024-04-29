@@ -10,6 +10,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import { RootState } from '@/app/store';
 import {setUsersMeals} from '@/app/slices/mealSlice';
 import Skeleton from './skeleton';
+import { GiEmptyMetalBucket } from "react-icons/gi";
 
 ChartJS.register(LineController, Title, Tooltip, Legend, LineElement, LinearScale, CategoryScale, PointElement, BarController, BarElement )
 
@@ -33,8 +34,8 @@ export default function CaloriesLine() {
           setLoading(false);
       }
 
-      console.log(list)
   }
+  console.log(list.length)
 
     useEffect(() => {
 
@@ -148,8 +149,9 @@ export default function CaloriesLine() {
          
            
            <div className='w-[47%] h-[32rem] overflow-scroll  flex gap-8 flex-col justify-start items-center'>
-           {!loading && <h1 className='text-5xl text-center font-bold tracking-wide'>Your Meal Logs</h1>   }
-            <div className='w-full flex flex-wrap gap-5  justify-center items-center'>
+           {!loading && <h1 className='text-5xl w-full  border-b border-zinc-800 p-2 shadow-md shadow-zinc-800  text-center font-bold tracking-wide'>Your Meal Logs</h1>   }
+            <div className='w-full flex border-4 border-zinc-900 shadow-xl shadow-zinc-900 flex-wrap gap-5  justify-center items-center'>
+              {list.length === 0 && <div className='w-full  h-[23rem] flex flex-col justify-center items-center'><h1 className='text-4xl'>No Meal Logs 😭</h1><GiEmptyMetalBucket size={50}/> </div>}
               {list?.map((m: any, i: number) => <MealCard onDelete={() => handleDelete(m.id)} key={i} food={m.foodItem} cal={m.totalCalories} date={m.date} meal={m.mealType} />)}
             </div>
 

@@ -5,28 +5,42 @@ import Male from '@/public/malePlaceholder.jpg';
 import { IoSettingsOutline } from "react-icons/io5";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import {motion} from 'framer-motion'
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '@/app/store';
+import { incrementDailyWater } from '@/app/slices/waterSlice';
 
 export default function Welcome() {
     const [cal, setCal] = useState(0)
 
+    const water = useSelector((state: RootState) => state.water.value);
+    const dispatch = useDispatch();
+
     const {data: session} = useSession();
 
     const usersCal = Number(session?.user?.calories);
-    const recommend = usersCal - 500
+    const recommend = usersCal - 500;
+    const recommendWaterIntake = 3.5;
 
     const user = session?.user;
     const activityLevel = user?.activity;
 
     const getMeals = async () => {
-      const res =  await axios.get('/api/getMeal').then((res) => setCal(res?.data?.cal)).catch(() => setCal(0));
+      return await axios.get('/api/getMeal').then((res) => setCal(res?.data?.cal)).catch(() => setCal(0));
+    }
+
+    const getDailyWater = async () => {
+        return await axios.get('/api/getWater').then((res) => dispatch(incrementDailyWater(res?.data?.addWater)));
     }
 
     const percentage = (cal! / usersCal) * 100;
+    const percentageForWater = (water / 3) * 100;
 
     useEffect(() => {
         try {
             
-            getMeals()
+            getMeals();
+            getDailyWater();
 
         } catch (error) {
             console.error('Failed to fetch users meal', error)
@@ -35,7 +49,8 @@ export default function Welcome() {
 
     const per = Math.round(percentage);
 
-    console.log(per.toString());
+    console.log(water)
+
 
   return (
     <div className='w-[30%] h-screen rounded-2xl bg-slate-900 flex flex-col justify-start items-start'>
@@ -80,17 +95,21 @@ export default function Welcome() {
             <div className='w-full h-[17rem] border border-green-300 flex flex-col justify-evenly items-center'>
                 <div className='border w-[95%] flex flex-col justify-start items-start'>
                     <div className='w-full flex justify-between items-center'>
-                      <span className='text-lg font-light text-white tracking-wide'>Calorie Intake</span>
-                      <span className='text-md text-white'>{cal}/{recommend}</span>
+                      <span className='text-xl font-light text-white tracking-wide'>Calorie Intake</span>
+                      <span className='text-lg text-white font-light tracking-wide'>{cal}/{recommend} kcal</span>
                     </div>
-                    <div className='w-[100%] h-5 rounded-3xl bg-slate-100'>
-                        <div style={{width: `${per}%`}} className={` h-5 rounded-3xl bg-indigo-700`}></div>
+                    <div className='w-[100%] h-5 rounded-3xl bg-slate-100 overflow-hidden '>
+                        <motion.div initial={{width: '0%'}} animate={{ width: `${per}%` }} transition={{duration: 1, type: 'spring', stiffness: 100, damping: 10}} className={` h-5 rounded-3xl bg-indigo-700`}></motion.div>
                     </div>
                 </div>
                 <div className='border w-[95%] flex flex-col justify-start items-start'>
-                    <span className='text-lg font-light text-white tracking-wide'>Calorie Intake</span>
+                    <div className='border w-full flex justify-between items-center'>
+                       <span className='text-xl font-light text-white tracking-wide'>Water Intake</span>
+                       <span className='text-lg text-white font-light tracking-wide'>{water}/{recommendWaterIntake} L</span>
+                    </div>
                     <div className='w-full h-5 rounded-3xl bg-slate-100'>
-                        <div className='w-[45%] h-5 rounded-3xl bg-indigo-700'></div>
+                      <motion.div initial={{width: '0%'}} animate={{ width: `${Math.round(percentageForWater)}%` }} transition={{duration: 1, type: 'spring', stiffness: 100, damping: 10}} className={` h-5 rounded-3xl bg-indigo-700`}></motion.div>
+                    
                     </div>
                 </div>
                 <div className='border w-[95%] flex flex-col justify-start items-start'>
@@ -101,6 +120,8 @@ export default function Welcome() {
                 </div>
             </div>
         </div>
+
+        {/* third section your daily task will go here maybe some workouts they can do daily ? */}
 
 
     </div>
