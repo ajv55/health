@@ -16,8 +16,7 @@ export const exerciseSlice = createSlice({
             state.exercises = action.payload
         },
         completedExercise: (state, action: PayloadAction<any>) => {
-            console.log('payload:', action.payload );
-            state.exercises = state.exercises.filter((exercise: any) => exercise?.id !== action.payload)
+            state.exercises = state.exercises.filter((exercise: any, i: number) => exercise?.Challenges?.exercise !== action.payload)
 
         }
     }

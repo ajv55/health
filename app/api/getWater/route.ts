@@ -26,6 +26,11 @@ export async function GET() {
         }
     })
 
+
+    if(res.length === 0) {
+        return NextResponse.json({error: 'no water intake of this day add yet'}, {status: 401})
+    }
+
     const addWater = res.map((r) => r.amount).reduce((acc, currentValue) => acc! + currentValue!);
 
     return NextResponse.json({addWater, hasRecords: res.length > 0})

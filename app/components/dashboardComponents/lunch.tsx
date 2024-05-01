@@ -38,7 +38,6 @@ export default function Lunch() {
     const totalDay2Fat = day2breakfast?.map((d: any) => d.fat).reduce((accumulator: any, currentValue: any) => accumulator + currentValue)
     const totalDay2Carbs = totalCalForDay1Breakfast?.reduce((accumulator: any, currentValue: any) => accumulator + currentValue)
     const stringCal = day2?.breakfast?.calories
-    console.log(res?.nut?.data?.nutrition_guide.day_1?.lunch?.calories)
 
     const option: any = { 
         plugins: {

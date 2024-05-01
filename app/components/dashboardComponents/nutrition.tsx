@@ -18,7 +18,6 @@ export default  function Nutrition() {
     try {
       const guide = await fetch('/api/food', { method: 'GET' });
       const res = await guide.json();
-      console.log(res)
       setRes(res)
   } catch (error) {
       console.error('Something went wrong:', error);
@@ -48,7 +47,6 @@ export default  function Nutrition() {
   const totalDay1Protein = day1breakfast?.map((d: any) => d.protein).reduce((accumulator: any, currentValue: any) => accumulator + currentValue)
   const totalDay1Fat = day1breakfast?.map((d: any) => d.fat).reduce((accumulator: any, currentValue: any) => accumulator + currentValue)
   const totalDay1Carbs = totalCalForDay1Breakfast?.reduce((accumulator: any, currentValue: any) => accumulator + currentValue)
-  console.log(day1)
 
   
 

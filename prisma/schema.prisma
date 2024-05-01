@@ -34,6 +34,8 @@ model User {
   calorieIntake CalorieIntake[]
   // Define the relationship with WaterInakeRecord entity
   waterIntakeRecords waterIntakeRecord[]
+  // Define the relationship with exerciseChallenges entity
+  exerciseChallenge exerciseChallenges[]
   account Account []
 }
 
@@ -101,6 +103,16 @@ model Nutriton {
 }
 
 model exerciseChallenges { 
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  user User @relation(fields: [userId], references: [id])
+  challenges String?
+  completed Boolean?   
+  createdAt     DateTime @default(now())      // Timestamp when the record was created
+  updatedAt     DateTime @updatedAt    
+}
+
+model dailyChallenges {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   challenges String?
 }

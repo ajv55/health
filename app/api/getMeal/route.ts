@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { options } from "../auth/[...nextauth]/route";
 import {format} from 'date-fns';
+import { error } from "console";
 
 
 export async function GET() {
@@ -28,6 +29,12 @@ export async function GET() {
             }
         }
     })
+
+    if(data.length === 0) {
+        return NextResponse.json({error: 'no meal records for today'}, {status: 401})
+    }
+
+
 
     const dailyCalories = data?.map((d) => d?.totalCalories);
     const cal = dailyCalories?.reduce((acc, currentValue) => acc! + currentValue!)

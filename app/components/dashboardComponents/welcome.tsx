@@ -15,6 +15,7 @@ import ExerciseCard from './exerciseCard';
 
 export default function Welcome() {
     const [cal, setCal] = useState(0)
+    const [done, setDone] = useState(0);
 
     const water = useSelector((state: RootState) => state.water.value);
     const exercisesList = useSelector((state: RootState) => state.exercise.exercises);
@@ -40,20 +41,34 @@ export default function Welcome() {
         return await axios.get('/api/getWater').then((res) => dispatch(incrementDailyWater(res?.data?.addWater))).catch((error) => toast.error('No water intake yet', error) );
     }
 
-    const getDailyExcerise = async () => {
-        return await axios.get('/api/getExercise').then((res: any) => dispatch(setExercises(res?.data?.data?.exercise?.workouts))).catch(() => toast.error('Error occurred while trying to fetch daily exercises'))
+    // const getDailyExcerise = async () => {
+    //     return await axios.get('/api/getExercise').then((res: any) => dispatch(setExercises(res?.data?.data?.workouts))).catch(() => toast.error('Error occurred while trying to fetch daily exercises'))
+    // }
+
+    const getDailyChallenge = async () => {
+        return await axios.get('/api/getDaily').then((res) => dispatch(setExercises(res?.data?.res))).catch(() => toast.error('Error occurred while trying to fetch daily exercises'))
     }
 
+    const getExercise = async () => {
+        await axios.get('/api/exercise').then((res) => console.log('resofexerciseapi: ' ,res))
+    }
+
+    if(exercisesList?.length === 0) {
+        getExercise();
+    }
 
     const percentage = (cal! / usersCal) * 100;
     const percentageForWater = (water / 3) * 100;
+    const percentageForChanllenges = (done / challengeLeft) * 100;
+    const perForChal = 100 - Math.round(percentageForChanllenges);
+    console.log(percentageForChanllenges)
 
     useEffect(() => {
         try {
             
             getMeals();
             getDailyWater();
-            getDailyExcerise();
+            getDailyChallenge();
 
         } catch (error) {
             console.error('Failed to fetch users meal', error)
@@ -62,7 +77,14 @@ export default function Welcome() {
 
     const per = Math.round(percentage);
 
-    console.log(challengeLeft)
+    console.log('exerciseList: ',exercisesList)
+
+
+    const handleRemoveOfDailyChallenge = async (id: any) => {
+       await axios.delete(`/api/deleteChallenge?id=${id}`).then(() => toast.success(`Completed A Challenge`)) 
+       setDone(prev => prev + 1)
+       getDailyChallenge();
+    }
 
 
   return (
@@ -128,10 +150,10 @@ export default function Welcome() {
                 <div className=' border w-[95%] flex flex-col justify-start items-start'>
                     <div className='w-full flex justify-between justify-items-center'>
                         <span className='text-lg font-light text-white tracking-wide'>Daily Workout Challenge</span>
-                        <span className='text-lg text-white font-light tracking-wide'>3/{challengeLeft} Challenges</span>
+                        <span className='text-lg text-white font-light tracking-wide'>Challenges Left: {challengeLeft}</span>
                     </div>
                     <div className='w-full h-5 rounded-3xl bg-slate-100'>
-                        <div className='w-[45%] h-5 rounded-3xl bg-indigo-700'></div>
+                    <motion.div initial={{width: `${perForChal}%`}} animate={{ width: `${perForChal}%`}} transition={{duration: 1, type: 'spring', stiffness: 100, damping: 10}} className={` h-5 rounded-3xl bg-indigo-700`}></motion.div>
                     </div>
                 </div>
             </div>
@@ -141,7 +163,21 @@ export default function Welcome() {
         <div className='w-full h-[23rem] border-2 flex flex-col justify-start items-center'>
             <h2 className='text-3xl text-white self-start p-1 tracking-wide font-bold'>Daily Workouts</h2>
             <div className='w-full h-[100%] border-2 border-red-600 overflow-scroll'>
-                {exercisesList.map((el: any, i: number) => <ExerciseCard key={i} /> )}
+                {exercisesList.map((el: any, i: number) => {
+                    const cleanup = JSON.parse(el.challenges!);
+                    
+        
+                    const exercise = cleanup?.Challenge?.exercise;
+                    const workout = cleanup?.Challenge?.workout;
+                    const sets = cleanup?.Challenge?.sets;
+                    const reps = cleanup?.Challenge?.reps;
+                    const instructions = cleanup?.Challenge?.instructions;
+                    const duration = cleanup?.Challenge?.duration;
+                    const totalCalories = cleanup?.Challenge?.totalCalories;
+                    console.log(exercise)
+                    
+                    return <ExerciseCard key={i} completed={() => handleRemoveOfDailyChallenge(el?.id)} exercise={exercise} workout={workout} sets={sets} reps={reps} instructions={instructions} duration={duration} totalCalories={totalCalories} />
+                })}
             </div>
         </div>
 

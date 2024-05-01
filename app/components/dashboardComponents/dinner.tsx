@@ -39,7 +39,6 @@ export default  function Dinner() {
     const totalDay1Protein = day1dinner?.map((d: any) => d.protein).reduce((accumulator: any, currentValue: any) => accumulator + currentValue)
     const totalDay1Fat = day1dinner?.map((d: any) => d.fat).reduce((accumulator: any, currentValue: any) => accumulator + currentValue)
     const totalDay1Carbs = totalCalForDay1Dinner?.reduce((accumulator: any, currentValue: any) => accumulator + currentValue)
-    console.log(day1?.lunch?.calories)
 
     const option: any = { 
         plugins: {

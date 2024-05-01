@@ -29,7 +29,6 @@ export default function Water() {
       
       const res = await axios.post('/api/postWater', {amount}).then((res) => console.log(res)).then(() => toast.success('Successfully add water intake')).catch(() => toast.error('something went wrong when trying to add some water'))
       await axios.get('/api/getWater').then((res) => dispatch(incrementDailyWater(res?.data?.addWater)));
-      console.log(res)
 
     } catch (error) {
       setError('Failed to add water intake');
@@ -42,8 +41,6 @@ export default function Water() {
     
   }
 
-  
-console.log(amount)
 
 
   return (
