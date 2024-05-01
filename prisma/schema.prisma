@@ -126,3 +126,8 @@ model CompletedChallenges {
   challenge String?   // Assuming challengeId is a string identifier for the daily challenge
   completedAt DateTime @default(now())
 }
+
+model Fruits {
+  id   String   @id @default(auto()) @map("_id") @db.ObjectId
+  Fruits String?
+}
