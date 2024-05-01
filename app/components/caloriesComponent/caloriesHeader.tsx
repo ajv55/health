@@ -1,5 +1,5 @@
 'use client';
-import {ChangeEvent, useState} from 'react';
+import {ChangeEvent, useEffect, useState} from 'react';
 import CalForm from './calForm';
 import axios, { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
@@ -13,13 +13,16 @@ type DataTypes = {
   foodItem: string,
   calories: number,
   date: any,
-  time?: string
+  time?: string,
+  fruit?: any,
 }
 
 export default function CaloriesHeader() {
 
   const list  = useSelector((state: RootState) => state.meal.usersMeals)
   const dispatch = useDispatch<AppDispatch>();
+
+  
 
 
   const [isOpen, setOpen] = useState(false);
@@ -28,25 +31,49 @@ export default function CaloriesHeader() {
     foodItem: '',
     calories: 0,
     date: new Date(),
+    fruit: {}, 
   });
+
+
   const [isLoading, setLoading] = useState(false); // State for loading indicator
   const [error, setError] = useState<string | null>(null); // State for error handling
 
-  const getList = async () => {
-    try {
-         await axios.get('/api/getlist');
-    } catch (error) {
-        setError('Failed to fetch user meals');
-        console.error('Error fetching user meals:', error);
-    } finally {
-        setLoading(false);
+
+  const [fruitsData, setFruitsData] = useState<any>([]);
+
+  
+
+  
+
+
+    const getFruits = async () => {
+        return await axios.get('/api/getFruit').then((res) => setFruitsData(res?.data?.cleanup?.fruits))
     }
-}
+
+    
+
+
+    useEffect(() => {
+        getFruits();
+
+        
+      
+    }, [])
+
 
   const handleDateTimeChange = (date: any) => {
     setData({...data, date: date});
   };
 
+
+  const handleChoosenFruit = (e: any) => {
+    fruitsData.map((fd: any) => {
+      if(e.target.value === fd.name){
+        setData({...data, fruit: fd})
+      }
+    })
+    
+  }
    
 
   const handleMeal = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -84,6 +111,9 @@ export default function CaloriesHeader() {
     <div className='w-full h-32 relative border p-4 border-b-2 border-zinc-900 shadow-md shadow-zinc-900 flex justify-between items-center'>
       {isOpen &&  
         <CalForm 
+          selectfruit={data.fruit}
+          fruitOnChange={(e: any) => handleChoosenFruit(e)}
+          fruitsData={fruitsData}
           onDateChange={handleDateTimeChange} 
           initialDate={data.date} 
           onSubmit={handleMeal} 

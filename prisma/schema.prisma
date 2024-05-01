@@ -72,6 +72,7 @@ model CalorieIntake {
   foodItem      String?
   mealType      String?   
   totalCalories Int?                           // Total calories consumed on the specified date
+  fruit         Json?
   createdAt     DateTime? @default(now())      // Timestamp when the record was created
   updatedAt     DateTime? @updatedAt           // Timestamp when the record was last updated
   

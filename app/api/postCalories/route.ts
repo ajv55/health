@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
 
         const body = await req.json();
         const {data} = body;
-        const {mealType, foodItem, calories, date} = data;
+        const {mealType, foodItem, calories, date, fruit} = data;
         console.log(data);
         
         console.log(session?.user.id);
@@ -23,6 +23,7 @@ export async function POST(req: NextRequest) {
         const user = await prisma.user.findUnique({
             where: { id: session?.user?.id }
         });
+
 
 
 
@@ -44,6 +45,7 @@ export async function POST(req: NextRequest) {
                 date: date,
                 mealType: mealType,
                 foodItem: foodItem,
+                fruit: fruit,
                 user: {connect: {id: user?.id}}
             }
         });
