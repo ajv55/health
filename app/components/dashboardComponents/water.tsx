@@ -45,7 +45,7 @@ export default function Water() {
 
   return (
     <AnimatePresence>
-    <div className='w-[43%] h-[12rem] rounded-2xl bg-slate-900 flex relative flex-wrap justify-between items-start'>
+    <div className='w-[43%] h-[17rem] rounded-2xl bg-slate-900 flex relative flex-wrap justify-between items-start'>
       {loading && <div className='w-full h-[6rem] bg text-xl text-white'>Loading...</div>}
       {open && <motion.div initial={{opacity: 0, y: -100}} animate={{opacity: 1, y: 0}} transition={{type: 'spring', damping: 20, stiffness: 120}} exit={{opacity: 0, y: -100}}  className='w-full  h-[13rem]  flex flex-col justify-center items-center absolute top-0 left-0 rounded-xl bg-transparent backdrop-blur-sm'>
         <form onSubmit={handleSubmit} className=' w-full h-full flex flex-col justify-center items-center'>

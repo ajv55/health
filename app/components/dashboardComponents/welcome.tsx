@@ -14,8 +14,9 @@ import toast from 'react-hot-toast';
 import ExerciseCard from './exerciseCard';
 
 export default function Welcome() {
-    const [cal, setCal] = useState(0)
-    const [done, setDone] = useState(0);
+    const [cal, setCal] = useState<number>(0)
+    const [done, setDone] = useState<number>(0);
+    const [isLoading, setIsloading] = useState<boolean>(false);
 
     const water = useSelector((state: RootState) => state.water.value);
     const exercisesList = useSelector((state: RootState) => state.exercise.exercises);
@@ -41,17 +42,23 @@ export default function Welcome() {
         return await axios.get('/api/getWater').then((res) => dispatch(incrementDailyWater(res?.data?.addWater))).catch((error) => toast.error('No water intake yet', error) );
     }
 
+    const getCompleted = async () => {
+        return await axios.get('/api/getCompleted').then((res) => setDone(res?.data?.res.length))
+    }
+
     // const getDailyExcerise = async () => {
     //     return await axios.get('/api/getExercise').then((res: any) => dispatch(setExercises(res?.data?.data?.workouts))).catch(() => toast.error('Error occurred while trying to fetch daily exercises'))
     // }
 
     const getDailyChallenge = async () => {
-        return await axios.get('/api/getDaily').then((res) => dispatch(setExercises(res?.data?.res))).catch(() => toast.error('Error occurred while trying to fetch daily exercises'))
+        setIsloading(true)
+        return await axios.get('/api/getDaily').then((res) => dispatch(setExercises(res?.data?.res))).catch(() => toast.error('Error occurred while trying to fetch daily exercises')).finally(() => setIsloading(false))
     }
 
     const getExercise = async () => {
         await axios.get('/api/exercise').then((res) => console.log('resofexerciseapi: ' ,res))
     }
+
 
     if(exercisesList?.length === 0) {
         getExercise();
@@ -60,7 +67,7 @@ export default function Welcome() {
     const percentage = (cal! / usersCal) * 100;
     const percentageForWater = (water / 3) * 100;
     const percentageForChanllenges = (done / challengeLeft) * 100;
-    const perForChal = 100 - Math.round(percentageForChanllenges);
+   
     console.log(percentageForChanllenges)
 
     useEffect(() => {
@@ -69,6 +76,7 @@ export default function Welcome() {
             getMeals();
             getDailyWater();
             getDailyChallenge();
+            getCompleted();
 
         } catch (error) {
             console.error('Failed to fetch users meal', error)
@@ -80,8 +88,8 @@ export default function Welcome() {
     console.log('exerciseList: ',exercisesList)
 
 
-    const handleRemoveOfDailyChallenge = async (id: any) => {
-       await axios.delete(`/api/deleteChallenge?id=${id}`).then(() => toast.success(`Completed A Challenge`)) 
+    const handleRemoveOfDailyChallenge = async (id: any, challenge: any) => {
+       await axios.delete(`/api/deleteChallenge?id=${id}&challenge=${challenge}`).then(() => toast.success(`Completed A Challenge`)) 
        setDone(prev => prev + 1)
        getDailyChallenge();
     }
@@ -106,7 +114,7 @@ export default function Welcome() {
         </div>
 
         {/* second section where the users age, height and weight will go */}
-        <div className='w-full h-[6rem]  flex justify-between items-center'>
+        <div className='w-full h-[6rem] border-b flex justify-between items-center'>
             <div className='w-[30%] h-32 gap-2 flex flex-col justify-center items-center'>
                 <span className='text-2xl text-white font-bold tracking-wide'>{user?.weight} lbs</span>
                 <h4 className='text-md text-zinc-400 font-light tracking-wide'>Weight</h4>
@@ -125,7 +133,7 @@ export default function Welcome() {
         </div>
 
         {/* third section this will be for the users daily goals like caloires inake, water intake */}
-        <div className='w-full h-[17rem] border  flex flex-col justify-start items-start'>
+        <div className='w-full h-[17rem]   flex flex-col justify-start items-start'>
             <h1 className='text-2xl text-white p-2 text-center font-bold tracking-wide'>Your Daily Goals</h1>
             <div className='w-full h-[17rem]  border-green-300 flex flex-col justify-evenly items-center'>
                 <div className=' w-[95%] flex flex-col justify-start items-start'>
@@ -147,22 +155,33 @@ export default function Welcome() {
                     
                     </div>
                 </div>
-                <div className=' border w-[95%] flex flex-col justify-start items-start'>
+                <div className=' w-[95%] flex flex-col justify-start items-start'>
                     <div className='w-full flex justify-between justify-items-center'>
-                        <span className='text-lg font-light text-white tracking-wide'>Daily Workout Challenge</span>
-                        <span className='text-lg text-white font-light tracking-wide'>Challenges Left: {challengeLeft}</span>
+                        <span className='text-xl font-light text-white tracking-wide'>Daily Workout Challenge</span>
+                        <span className='text-lg text-white font-light tracking-wide'>{done}/{challengeLeft} Challenges</span>
                     </div>
                     <div className='w-full h-5 rounded-3xl bg-slate-100'>
-                    <motion.div initial={{width: `${perForChal}%`}} animate={{ width: `${perForChal}%`}} transition={{duration: 1, type: 'spring', stiffness: 100, damping: 10}} className={` h-5 rounded-3xl bg-indigo-700`}></motion.div>
+                    <motion.div initial={{width: '0%'}} animate={{ width: `${percentageForChanllenges}%`}} transition={{duration: 1, type: 'spring', stiffness: 100, damping: 10}} className={` h-5 rounded-3xl bg-indigo-700`}></motion.div>
                     </div>
                 </div>
             </div>
         </div>
 
         {/* third section your daily task will go here maybe some workouts they can do daily ? */}
-        <div className='w-full h-[23rem] border-2 flex flex-col justify-start items-center'>
-            <h2 className='text-3xl text-white self-start p-1 tracking-wide font-bold'>Daily Workouts</h2>
-            <div className='w-full h-[100%] border-2 border-red-600 overflow-scroll'>
+        <div className='w-full h-[23rem]  flex flex-col justify-start relative overflow-scroll items-center'>
+            {isLoading && <div className='w-full h-full flex justify-center items-center rounded-xl absolute z-20'>
+                <div role="status" className="w-[96%] mt-12 h-48 flex flex-col gap-3 animate-pulse">
+                <div className="h-3.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+                <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px] mb-2.5"></div>
+                <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+                <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[330px] mb-2.5"></div>
+                <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[300px] mb-2.5"></div>
+                <div className="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 max-w-[360px]"></div>
+                <span className="sr-only">Loading...</span>
+            </div>
+                </div>}
+            <h2 className='text-2xl text-white self-start p-1 tracking-wide font-bold border-b w-full'>Your Daily Workouts</h2>
+            <div className='w-full h-[100%] overflow-scroll'>
                 {exercisesList.map((el: any, i: number) => {
                     const cleanup = JSON.parse(el.challenges!);
                     
@@ -174,9 +193,9 @@ export default function Welcome() {
                     const instructions = cleanup?.Challenge?.instructions;
                     const duration = cleanup?.Challenge?.duration;
                     const totalCalories = cleanup?.Challenge?.totalCalories;
-                    console.log(exercise)
+                    console.log(el?.challenges)
                     
-                    return <ExerciseCard key={i} completed={() => handleRemoveOfDailyChallenge(el?.id)} exercise={exercise} workout={workout} sets={sets} reps={reps} instructions={instructions} duration={duration} totalCalories={totalCalories} />
+                    return <ExerciseCard key={i} completed={() => handleRemoveOfDailyChallenge(el?.id, el?.challenges)} exercise={exercise} workout={workout} sets={sets} reps={reps} instructions={instructions} duration={duration} totalCalories={totalCalories} />
                 })}
             </div>
         </div>

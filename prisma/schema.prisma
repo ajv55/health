@@ -36,6 +36,8 @@ model User {
   waterIntakeRecords waterIntakeRecord[]
   // Define the relationship with exerciseChallenges entity
   exerciseChallenge exerciseChallenges[]
+  //Define the relationship with CompletedChallenge entity
+  CompletedChallenges   CompletedChallenges[]
   account Account []
 }
 
@@ -115,4 +117,12 @@ model exerciseChallenges {
 model dailyChallenges {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   challenges String?
+}
+
+model CompletedChallenges {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId// Assuming userId is a string identifier for the user
+  user      User    @relation(fields: [userId], references: [id])
+  challenge String?   // Assuming challengeId is a string identifier for the daily challenge
+  completedAt DateTime @default(now())
 }
