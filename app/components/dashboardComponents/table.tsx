@@ -20,7 +20,7 @@ export default function Table() {
 
   return (
     
-        <motion.div initial={{scale: 0 ,opacity: 0, x: '-100vw'}} animate={{ opacity: 1, x: 0, transition: { duration: 0.5, type: 'spring', stiffness: 100 } }} whileInView={{x: 0, opacity: 1, scale: 1}}  className=" w-[48%]   ">
+        <motion.div initial={{scale: 0 ,opacity: 0, x: '-100vw'}} animate={{ opacity: 1, x: 0, transition: { duration: 0.5, type: 'spring', stiffness: 100 } }} whileInView={{x: 0, opacity: 1, scale: 1}}  className=" w-[39%]  ">
             <table className="w-full h-[22rem] text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 ">
                 <thead className="text-xs text-gray-700 uppercase bg-slate-700 dark:bg-gray-700 dark:text-gray-400">
                     <tr className='text-white text-3xl'>
