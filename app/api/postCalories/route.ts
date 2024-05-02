@@ -11,10 +11,16 @@ export async function POST(req: NextRequest) {
 
         const body = await req.json();
         const {data} = body;
-        const {mealType, foodItem, calories, date, fruit, meat} = data;
+        const {mealType, foodItem, calories, date, fruit, meat, vegetable} = data;
         console.log(data);
         
-        console.log(session?.user.id);
+
+        const fruitCalories = data?.fruit?.caloriesPerServingSize
+        const meatCalories = data?.meat?.caloriesPerServingSize
+        const vegetableCalories = data?.vegetable?.caloriesPerServingSize
+        const totalCal = fruitCalories + meatCalories + vegetableCalories
+
+        console.log(totalCal)
 
         if (!session) {
             throw new Error('no session found')
@@ -41,12 +47,13 @@ export async function POST(req: NextRequest) {
 
         const res = await prisma.calorieIntake.create({
             data: {
-                totalCalories: Number(calories),
+                totalCalories: totalCal,
                 date: date,
                 mealType: mealType,
                 foodItem: foodItem,
                 fruit: fruit,
                 meat: meat,
+                vegetable: vegetable,
                 user: {connect: {id: user?.id}}
             }
         });

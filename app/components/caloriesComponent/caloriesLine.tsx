@@ -47,18 +47,12 @@ export default function CaloriesLine() {
 
 
 
-    const mealCal = list?.map((m: any) => m?.totalCalories)
+    const mealCal = list?.map((m: any) => m?.totalCalories);
     const validMeals = list?.filter((meal: any) => meal?.date && new Date(meal.date) instanceof Date);
     validMeals?.sort((a: any, b: any) => new Date(b.date).getTime() - new Date(a.date).getTime());
     const formattedMealDate = validMeals?.map((meal: any) => format(new Date(meal.date), 'MMM dd, yyyy'));
-    // const mealDate = meals?.map((meal: any) => format(meal?.date, 'MMM dd, yyyy'));
     
-
-    // Format sorted mealDate array
-
-  //  const formattedMealDate = mealDate?.map((date: any) => format(date, 'MMM dd, yyyy'));
-
-    // console.log(meals)
+    console.log(mealCal)
 
     const option: any = {
       responsive: true,

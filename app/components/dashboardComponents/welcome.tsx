@@ -35,7 +35,7 @@ export default function Welcome() {
     const activityLevel = user?.activity;
 
     const getMeals = async () => {
-      return await axios.get('/api/getMeal').then((res) => setCal(res?.data?.cal)).catch(() => setCal(0));
+      return await axios.get('/api/getMeal').then((res) => setCal(res?.data?.total)).catch(() => setCal(0));
     }
 
     const getDailyWater = async () => {
@@ -68,7 +68,7 @@ export default function Welcome() {
     const percentageForWater = (water / 3) * 100;
     const percentageForChanllenges = (done / challengeLeft) * 100;
    
-    console.log(percentageForChanllenges)
+    console.log(cal)
 
     useEffect(() => {
         try {

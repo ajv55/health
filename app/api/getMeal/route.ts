@@ -36,11 +36,13 @@ export async function GET() {
 
 
 
+    const fruitCalories = data?.map((d: any) => d?.fruit?.caloriesPerServingSize).reduce((acc, currentValue) => acc + currentValue)
+    const meatCalories = data?.map((d: any) => d?.meat?.caloriesPerServingSize).reduce((acc, currentValue) => acc + currentValue)
+    const vegCalories = data?.map((d: any) => d?.vegetable?.caloriesPerServingSize).reduce((acc, currentValue) => acc + currentValue)
     const dailyCalories = data?.map((d) => d?.totalCalories);
-    const cal = dailyCalories?.reduce((acc, currentValue) => acc! + currentValue!)
+    const cal = dailyCalories?.reduce((acc, currentValue) => acc! + currentValue!);
+    const total =  Number(meatCalories!) + Number(fruitCalories!) + Number(cal) + Number(vegCalories)
 
-    console.log(cal)
 
-
-    return NextResponse.json({cal})
+    return NextResponse.json({total})
 }

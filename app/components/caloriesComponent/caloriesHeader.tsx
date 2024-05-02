@@ -16,6 +16,7 @@ type DataTypes = {
   time?: string,
   fruit?: any,
   meat?: any,
+  vegetable?: any
 }
 
 export default function CaloriesHeader() {
@@ -34,6 +35,7 @@ export default function CaloriesHeader() {
     date: new Date(),
     fruit: '', 
     meat: '',
+    vegetable: '',
   });
 
 
@@ -43,6 +45,7 @@ export default function CaloriesHeader() {
 
   const [fruitsData, setFruitsData] = useState<any>([]);
   const [meatsData, setMeatsData] = useState([]);
+  const [vegetableData, setVegetableData] = useState([]);
 
 
   
@@ -57,16 +60,20 @@ export default function CaloriesHeader() {
         return await axios.get('/api/getFruit').then((res) => setFruitsData(res?.data?.cleanup?.fruits))
     }
 
+    const getVegetables = async () => {
+      return await axios.get('/api/getVegetable').then((res) => setVegetableData(res?.data?.veg?.vegetables))
+    }
+
     
 
 
     useEffect(() => {
         getFruits();
         getMeats();
-
-        
+        getVegetables(); 
       
     }, [])
+
 
 
   const handleDateTimeChange = (date: any) => {
@@ -91,6 +98,15 @@ export default function CaloriesHeader() {
     })
     
   }
+
+  const handleVegetable = (e: any) => {
+    vegetableData.map((vd: any) => {
+      if(e.target.value === vd.name){
+        setData({...data, vegetable: vd})
+      }
+    })
+    
+  }
    
 
   const handleMeal = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -107,6 +123,9 @@ export default function CaloriesHeader() {
         foodItem: '',
         calories: 0,
         date: null,
+        vegetable: '',
+        meat: '', 
+        fruit: ''
       });
       setOpen(false);
     } catch (error: any) {
@@ -129,6 +148,9 @@ export default function CaloriesHeader() {
       {isOpen &&  
         <CalForm 
           selectMeat={data.meat}
+          vegetableOnChange={handleVegetable}
+          selectVegetable={data.vegetable}
+          vegetablesData={vegetableData}
           meatOnChange={handleMeat}
           meatsData={meatsData}
           selectfruit={data.fruit}
