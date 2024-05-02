@@ -17,12 +17,13 @@ type CalFormProps = {
     selectfruit?: string,
     fruitOnChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void,
     fruitsData?: string[],
+    meatsData?: string[],
+    selectMeat?: string,
+    meatOnChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void,
 
 }
 
-export default function CalForm({CancelBtnOnClick, selectValue, selectOnChange, foodValue, foodOnChange, caloriesValue, caloriesOnChange, onSubmit, initialDate, onDateChange, selectfruit, fruitsData, fruitOnChange}: CalFormProps) {
-
-
+export default function CalForm({CancelBtnOnClick, selectMeat, selectValue, meatsData , selectOnChange, meatOnChange, foodValue, foodOnChange, caloriesValue, caloriesOnChange, onSubmit, initialDate, onDateChange, selectfruit, fruitsData, fruitOnChange}: CalFormProps) {
 
 
   return (
@@ -43,7 +44,12 @@ export default function CalForm({CancelBtnOnClick, selectValue, selectOnChange, 
         <label htmlFor="small" className="block mb-1 w-full text-xl font-bold  dark:text-white">Fruits</label>
         <select defaultValue={selectfruit} onChange={fruitOnChange}  id="small"  className="block w-full px-3 py-2 drop-shadow-md border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300">
             <option disabled value="">Choose Fruit</option> 
-            {fruitsData?.map((fd: any, i: number) => <option value={fd.name}  key={i}>{fd?.name}</option>)}
+            {fruitsData?.map((fd: any, i: number) => <option value={fd.name}  key={i}>{fd?.name} {fd?.servingSize}</option>)}
+        </select>
+        <label htmlFor="small" className="block mb-1 w-full text-xl font-bold  dark:text-white">Meats</label>
+        <select defaultValue={selectMeat} onChange={meatOnChange}  id="small"  className="block w-full px-3 py-2 drop-shadow-md border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm dark:bg-gray-700 dark:border-gray-600 dark:text-gray-300">
+            <option disabled value="">Choose A Meat</option> 
+            {meatsData?.map((fd: any, i: number) => <option value={fd.name}  key={i}>{fd?.name} {fd?.servingSize}</option>)}
         </select>
         <div className="w-full">
            <label className="w-full text-xl font-bold" htmlFor="food">Food Item</label>

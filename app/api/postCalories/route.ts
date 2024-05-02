@@ -11,7 +11,7 @@ export async function POST(req: NextRequest) {
 
         const body = await req.json();
         const {data} = body;
-        const {mealType, foodItem, calories, date, fruit} = data;
+        const {mealType, foodItem, calories, date, fruit, meat} = data;
         console.log(data);
         
         console.log(session?.user.id);
@@ -46,6 +46,7 @@ export async function POST(req: NextRequest) {
                 mealType: mealType,
                 foodItem: foodItem,
                 fruit: fruit,
+                meat: meat,
                 user: {connect: {id: user?.id}}
             }
         });

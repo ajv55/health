@@ -15,6 +15,7 @@ type DataTypes = {
   date: any,
   time?: string,
   fruit?: any,
+  meat?: any,
 }
 
 export default function CaloriesHeader() {
@@ -31,7 +32,8 @@ export default function CaloriesHeader() {
     foodItem: '',
     calories: 0,
     date: new Date(),
-    fruit: {}, 
+    fruit: '', 
+    meat: '',
   });
 
 
@@ -40,11 +42,16 @@ export default function CaloriesHeader() {
 
 
   const [fruitsData, setFruitsData] = useState<any>([]);
+  const [meatsData, setMeatsData] = useState([]);
+
 
   
 
   
 
+    const getMeats = async () => {
+      return await axios.get('/api/getMeat').then((res) => setMeatsData(res?.data?.cleanup?.meats))
+  }
 
     const getFruits = async () => {
         return await axios.get('/api/getFruit').then((res) => setFruitsData(res?.data?.cleanup?.fruits))
@@ -55,6 +62,7 @@ export default function CaloriesHeader() {
 
     useEffect(() => {
         getFruits();
+        getMeats();
 
         
       
@@ -70,6 +78,15 @@ export default function CaloriesHeader() {
     fruitsData.map((fd: any) => {
       if(e.target.value === fd.name){
         setData({...data, fruit: fd})
+      }
+    })
+    
+  }
+
+  const handleMeat = (e: any) => {
+    meatsData.map((md: any) => {
+      if(e.target.value === md.name){
+        setData({...data, meat: md})
       }
     })
     
@@ -111,6 +128,9 @@ export default function CaloriesHeader() {
     <div className='w-full h-32 relative border p-4 border-b-2 border-zinc-900 shadow-md shadow-zinc-900 flex justify-between items-center'>
       {isOpen &&  
         <CalForm 
+          selectMeat={data.meat}
+          meatOnChange={handleMeat}
+          meatsData={meatsData}
           selectfruit={data.fruit}
           fruitOnChange={(e: any) => handleChoosenFruit(e)}
           fruitsData={fruitsData}

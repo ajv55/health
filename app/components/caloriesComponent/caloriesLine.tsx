@@ -35,7 +35,7 @@ export default function CaloriesLine() {
       }
 
   }
-  console.log(list.length)
+  console.log(list)
 
     useEffect(() => {
 

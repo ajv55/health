@@ -73,6 +73,7 @@ model CalorieIntake {
   mealType      String?   
   totalCalories Int?                           // Total calories consumed on the specified date
   fruit         Json?
+  meat          Json?
   createdAt     DateTime? @default(now())      // Timestamp when the record was created
   updatedAt     DateTime? @updatedAt           // Timestamp when the record was last updated
   
@@ -131,4 +132,9 @@ model CompletedChallenges {
 model Fruits {
   id   String   @id @default(auto()) @map("_id") @db.ObjectId
   Fruits String?
+}
+
+model Meats {
+  id   String   @id @default(auto()) @map("_id") @db.ObjectId
+  Meats String?
 }
