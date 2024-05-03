@@ -16,7 +16,9 @@ type DataTypes = {
   time?: string,
   fruit?: any,
   meat?: any,
-  vegetable?: any
+  vegetable?: any,
+  drink?: any,
+  carb?: any,
 }
 
 export default function CaloriesHeader() {
@@ -36,6 +38,8 @@ export default function CaloriesHeader() {
     fruit: '', 
     meat: '',
     vegetable: '',
+    drink: '',
+    carb: '',
   });
 
 
@@ -46,6 +50,8 @@ export default function CaloriesHeader() {
   const [fruitsData, setFruitsData] = useState<any>([]);
   const [meatsData, setMeatsData] = useState([]);
   const [vegetableData, setVegetableData] = useState([]);
+  const [drinkData, setDrinkData] = useState([]);
+  const [carbData, setCarbData] = useState([]);
 
 
   
@@ -64,6 +70,13 @@ export default function CaloriesHeader() {
       return await axios.get('/api/getVegetable').then((res) => setVegetableData(res?.data?.veg?.vegetables))
     }
 
+    const getDrink = async () => {
+      return await axios.get('/api/getDrink').then((res) => setDrinkData(res?.data?.drink?.drinks))
+    }
+
+    const getCarbs = async () => {
+      return await axios.get('/api/getCarb').then((res) => setCarbData(res?.data?.carbs?.carbs))
+    }
     
 
 
@@ -71,6 +84,8 @@ export default function CaloriesHeader() {
         getFruits();
         getMeats();
         getVegetables(); 
+        getDrink();
+        getCarbs();
       
     }, [])
 
@@ -107,6 +122,24 @@ export default function CaloriesHeader() {
     })
     
   }
+
+  const handleDrink = (e: any) => {
+    drinkData.map((dd: any) => {
+      if(e.target.value === dd.name){
+        setData({...data, drink: dd})
+      }
+    })
+    
+  }
+
+  const handleCarb = (e: any) => {
+    carbData.map((cd: any) => {
+      if(e.target.value === cd.name){
+        setData({...data, carb: cd})
+      }
+    })
+    
+  }
    
 
   const handleMeal = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -125,7 +158,8 @@ export default function CaloriesHeader() {
         date: null,
         vegetable: '',
         meat: '', 
-        fruit: ''
+        fruit: '',
+        drink: '',
       });
       setOpen(false);
     } catch (error: any) {
@@ -148,6 +182,12 @@ export default function CaloriesHeader() {
       {isOpen &&  
         <CalForm 
           selectMeat={data.meat}
+          selectCarb={data.carb}
+          carbData={carbData}
+          carbOnChange={handleCarb}
+          selectDrink={data.drink}
+          drinkData={drinkData}
+          drinkOnChange={handleDrink}
           vegetableOnChange={handleVegetable}
           selectVegetable={data.vegetable}
           vegetablesData={vegetableData}
