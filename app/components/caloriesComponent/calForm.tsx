@@ -2,6 +2,7 @@
 import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import MyDateTimePicker from "./date"
 import axios from "axios";
+import { motion } from "framer-motion";
 
 type CalFormProps = {
     CancelBtnOnClick?: () => void,
@@ -39,7 +40,7 @@ export default function CalForm({CancelBtnOnClick, selectCarb, carbData, carbOnC
   return (
     <div className='w-full absolute bg-transparent z-30 top-0 left-0 backdrop-blur-sm h-screen flex  justify-center items-center'>
         
-        <form onSubmit={onSubmit} className='w-[45%] h-content bg-slate-100 drop-shadow-2xl rounded-2xl flex flex-col justify-start p-3 gap-4 items-center'>
+        <motion.form initial={{ opacity: 0, y: '-100vh' }} animate={{ opacity: 1, y: 0 }} transition={{duration: 0.2, type: 'spring', stiffness: 100, damping: 10}} exit={{ opacity: 0, y: '-100vh' }} onSubmit={onSubmit} className='w-[45%] h-content bg-slate-100 drop-shadow-2xl rounded-2xl flex flex-col justify-start p-3 gap-4 items-center'>
         <div className="w-full flex flex-col justify-start items-start px-4 py-2">
             <h1 className="text-4xl font-bold tracking-wide">Calorie Tracker</h1>
             <h5 className="text-xl font-light tracking-wider text-zinc-500">Log your meals and track your calories.</h5>
@@ -117,7 +118,7 @@ export default function CalForm({CancelBtnOnClick, selectCarb, carbData, carbOnC
         <MyDateTimePicker  initialDate={initialDate} onDateChange={onDateChange} />
         <button type='submit' className="w-full inline-flex mt-5 justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white hover:text-black bg-indigo-600 hover:bg-indigo-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600">Log Meal</button>
         <button onClick={CancelBtnOnClick} className="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-black bg-indigo-400 hover:bg-indigo-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:bg-indigo-500 dark:hover:bg-indigo-600" type="submit">Cancel</button>
-        </form>
+        </motion.form>
 
     </div>
   )

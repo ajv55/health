@@ -1,12 +1,14 @@
-
+'use client';
+import { motion, AnimatePresence } from 'framer-motion';
 type WorkoutFormProps = {
     handleCancel: () => void;
 }
 
 export default function WorkoutForm({handleCancel}: WorkoutFormProps) {
   return (
-    <div className='w-full absolute top-0 left-0 h-screen flex justify-center items-center bg-transparent backdrop-blur-md'>
-        <div className='w-[45%] h-content p-4 bg-slate-900 rounded-xl drop-shadow-xl'>
+  
+        <div   className='w-full absolute top-0 left-0 h-screen flex justify-center items-center bg-transparent backdrop-blur-md'>
+        <motion.div initial={{ opacity: 0, y: '-100vh' }} animate={{ opacity: 1, y: 0 }} transition={{duration: 0.2, type: 'spring', stiffness: 100, damping: 10}} exit={{ opacity: 0, y: '-100vh' }}  className='w-[45%] h-content p-4 bg-slate-900 rounded-xl drop-shadow-xl'>
         <h2 className="text-3xl text-white font-bold mb-4">Log Your Workout</h2>
             <form className="flex flex-wrap justify-evenly items-center gap-5" >
                 <div className="mb-4 w-[45%]">
@@ -62,7 +64,7 @@ export default function WorkoutForm({handleCancel}: WorkoutFormProps) {
                 </button>
             </form>
 
-        </div>
+        </motion.div>
     </div>
   )
 }

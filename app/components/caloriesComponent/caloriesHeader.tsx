@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState, AppDispatch } from '@/app/store';
 import {setUsersMeals} from '@/app/slices/mealSlice';
 import {format} from 'date-fns'
+import { AnimatePresence } from 'framer-motion';
 
 type DataTypes = {
   mealType?: string,
@@ -180,6 +181,7 @@ export default function CaloriesHeader() {
 
   return (
     <div className='w-full h-32 relative border p-4 border-b-2 border-zinc-900 shadow-md shadow-zinc-900 flex justify-between items-center'>
+      <AnimatePresence>
       {isOpen &&  
         <CalForm 
           selectMeat={data.meat}
@@ -209,6 +211,7 @@ export default function CaloriesHeader() {
           CancelBtnOnClick={() => setOpen(false)} 
         />
       }
+      </AnimatePresence>
       <h1 className='text-5xl font-bold tracking-wide'>Your Calorie Tracker</h1>
       <button onClick={() => setOpen(true)} className='px-2.5 text-white py-3 w-[20%] text-2xl font-light text-center rounded-xl bg-slate-900'>Add Meal</button>
       {isLoading && <p>Loading...</p>} {/* Show loading indicator if request is in progress */}
