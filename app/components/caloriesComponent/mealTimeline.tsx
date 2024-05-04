@@ -26,7 +26,7 @@ export default function MealTimeline({date, onDelete, mealType, fruit, meat, dri
     const meatCarbs = meat === ''  ? 0 : meat?.carbs;
     const vegetableCarbs = vegetable === '' ? 0 : vegetable?.carbs;
     const drinkCarbs = drink === '' ? 0 : drink?.carbs;
-    const carbCarbs = carb === ''  ? 0 : carb?.carbs;
+    const carbCarbs = carb === ''  ? '000' : carb?.carbs;
     const carbCleanup = carbCarbs?.slice(0, 2);
     const totalCarbs = fruitCarbs + meatCarbs + drinkCarbs + vegetableCarbs + Number(carbCleanup)
     
@@ -35,7 +35,7 @@ export default function MealTimeline({date, onDelete, mealType, fruit, meat, dri
     const meatProtein = meat === '' ?  0 : meat?.protein ;
     const vegetableProtein = vegetable === '' ?  0 : vegetable?.protein ;
     const drinkProtein = drink === '' ?  0 : drink?.protein ;
-    const carbProtein = carb === '' ?  0 : carb?.protein ;
+    const carbProtein = carb === '' ?  '00' : carb?.protein ;
     const carbProteinClean = carbProtein.slice(0, 1);
     const totalProtein = fruitProtein + meatProtein + drinkProtein + vegetableProtein + Number(carbProteinClean)
 
@@ -43,11 +43,11 @@ export default function MealTimeline({date, onDelete, mealType, fruit, meat, dri
     const meatFat = meat === '' ?  0 : meat?.fat ;
     const vegetableFat = vegetable === '' ?  0 : vegetable?.fat ;
     const drinkFat = drink === '' ?  0 : drink?.fat ;
-    const carbFat = carb === '' ?  0 : carb?.fat ;
+    const carbFat = carb === '' ?  '00' : carb?.fat ;
     const carbFatClean = carbFat.slice(0, 1);
     const totalFat = fruitFat + meatFat + drinkFat + vegetableFat + Number(carbFatClean)
 
-    console.log(totalFat)
+    console.log(carbCarbs)
 
     const option: any = {
         indexAxis: 'x', 
