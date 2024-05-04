@@ -11,14 +11,15 @@ export async function POST(req: NextRequest) {
 
         const body = await req.json();
         const {data} = body;
-        const {mealType, foodItem, calories, date, fruit, meat, vegetable, drink} = data;
+        const {mealType, foodItem, calories, date, fruit, meat, vegetable, drink, carb} = data;
         console.log(data);
         
         const fruitCalories = fruit === '' ? 0 : data?.fruit?.caloriesPerServingSize
         const meatCalories = meat === '' ? 0 : data?.meat?.caloriesPerServingSize
         const vegetableCalories = vegetable === '' ? 0 : data?.vegetable?.caloriesPerServingSize
         const drinkCalories = drink === '' ? 0 : data?.drink?.caloriesPerServingSize
-        const totalCal = fruitCalories + meatCalories + vegetableCalories + drinkCalories + calories
+        const carbsCalories = carb === '' ? 0 : data?.carb?.caloriesPerServingSize;
+        const totalCal = fruitCalories + meatCalories + vegetableCalories + drinkCalories + calories + Number(carbsCalories)
 
         console.log(totalCal)
 
@@ -54,6 +55,7 @@ export async function POST(req: NextRequest) {
                 fruit: fruit,
                 meat: meat,
                 vegetable: vegetable,
+                carbs: carb,
                 drink: drink,
                 user: {connect: {id: user?.id}}
             }

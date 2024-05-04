@@ -34,15 +34,20 @@ export async function GET() {
         return NextResponse.json({error: 'no meal records for today'}, {status: 401})
     }
 
+    
 
 
-    const fruitCalories = data?.map((d: any) => d?.fruit?.caloriesPerServingSize).reduce((acc, currentValue) => acc + currentValue)
-    const meatCalories = data?.map((d: any) => d?.meat?.caloriesPerServingSize).reduce((acc, currentValue) => acc + currentValue)
-    const vegCalories = data?.map((d: any) => d?.vegetable?.caloriesPerServingSize).reduce((acc, currentValue) => acc + currentValue)
+
+    const fruitCalories = data?.map((d: any) => d?.fruit?.caloriesPerServingSize === '' || d?.fruit?.caloriesPerServingSize === undefined ? 0 : d?.fruit?.caloriesPerServingSize ).reduce((acc, currentValue) => acc + currentValue);
+    const carbCalories = data?.map((d: any) => d?.carb?.caloriesPerServingSize === '' || d?.carb?.caloriesPerServingSize === undefined ? 0 : d?.carb?.caloriesPerServingSize).reduce((acc, currentValue) => acc + currentValue);
+    const drinkCalories = data?.map((d: any) => d?.drink?.caloriesPerServingSize === '' || d?.drink?.caloriesPerServingSize === undefined ? 0 : d?.drink?.caloriesPerServingSize).reduce((acc, currentValue) => acc + currentValue)
+    const meatCalories = data?.map((d: any) => d?.meat?.caloriesPerServingSize === '' || d?.meat?.caloriesPerServingSize === undefined ? 0 : d?.meat?.caloriesPerServingSize).reduce((acc, currentValue) => acc + currentValue)
+    const vegCalories = data?.map((d: any) => d?.vegetable?.caloriesPerServingSize === '' || d?.vegetable?.caloriesPerServingSize === undefined ? 0 : d?.vegetable?.caloriesPerServingSize).reduce((acc, currentValue) => acc + currentValue)
     const dailyCalories = data?.map((d) => d?.totalCalories);
     const cal = dailyCalories?.reduce((acc, currentValue) => acc! + currentValue!);
-    const total =  Number(meatCalories!) + Number(fruitCalories!) + Number(cal) + Number(vegCalories)
+    const total =  Number(meatCalories!) + Number(fruitCalories!) + Number(cal) + Number(vegCalories) + Number(carbCalories) + Number(drinkCalories)
 
+    console.log(dailyCalories)
 
     return NextResponse.json({total})
 }
