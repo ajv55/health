@@ -142,20 +142,20 @@ export default function CaloriesLine() {
   return (
     <div className='w-full h-screen relative flex flex-col  justify-evenly gap-10 items-center'>  
     {loading && <Skeleton />}
-    {!loading && <h1 className='text-5xl w-[55%]  border-b border-zinc-800 p-2 shadow-md shadow-zinc-800  text-center font-bold tracking-wide'>Your Meal Logs</h1>   }
+    {!loading && <h1 className='text-5xl w-[55%]  border-b border-zinc-800 p-2 shadow-md shadow-zinc-800  text-center font-bold tracking-wide'>Your Meals History</h1>   }
          
-          {!loading && <div className='w-full bg-slate-900 rounded-xl flex justify-center items-center h-[23rem] p-7'>
+          {!loading && <div className='w-[85%] bg-slate-900 rounded-xl flex justify-center items-center h-[32rem] p-7'>
               <Bar  options={option} data={data} />
             </div>}
 
-
+            {!loading && <h1 className='text-5xl w-[55%]  border-b border-zinc-800 p-2 shadow-md shadow-zinc-800  text-center font-bold tracking-wide'>Your Meal Logs</h1>   }
            <div className='w-full h-content   flex gap-8 flex-col justify-start items-center'>
             <div className='w-full flex p-1 border-4 border-zinc-900 shadow-xl shadow-zinc-900 flex-wrap gap-5  justify-center items-center'>
               {list.length === 0 && <div className='w-full  h-[23rem] flex flex-col justify-center items-center'><h1 className='text-4xl'>No Meal Logs 😭</h1><GiEmptyMetalBucket size={50}/> </div>}
               {/* {list?.map((m: any, i: number) => <MealCard onDelete={() => handleDelete(m.id)} key={i} food={m.foodItem} cal={m.totalCalories} date={m.date} meal={m.mealType} />)} */}
               
               <ol className="relative w-[99%] border-s border-zinc-900 dark:border-gray-700">                  
-                  {list.map((m: any, i: number) => <MealTimeline key={i} carb={m.carbs} vegetable={m.vegetable} drink={m.drink} meat={m.meat}  date={m.date} fruit={m.fruit} mealType={m.mealType} />)}
+                  {list.map((m: any, i: number) => <MealTimeline key={i} onDelete={() => handleDelete(m.id)} carb={m.carbs} vegetable={m.vegetable} drink={m.drink} meat={m.meat}  date={m.date} fruit={m.fruit} mealType={m.mealType} />)}
               </ol>
             </div>
             
