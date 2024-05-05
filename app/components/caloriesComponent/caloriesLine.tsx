@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import MealCard from './mealCard';
+import {motion} from 'framer-motion';
 import { format } from 'date-fns'; 
 import {useDispatch, useSelector} from 'react-redux'
 import { RootState } from '@/app/store';
@@ -144,9 +145,9 @@ export default function CaloriesLine() {
     {loading && <Skeleton />}
     {!loading && <h1 className='text-5xl w-[55%]  border-b border-zinc-800 p-2 shadow-md shadow-zinc-800  text-center font-bold tracking-wide'>Your Meals History</h1>   }
          
-          {!loading && <div className='w-[85%] bg-slate-900 rounded-xl flex justify-center items-center h-[32rem] p-7'>
+          {!loading && <motion.div initial={{ x: '100vw' }} animate={{ x: 0 }} transition={{ type: 'spring', stiffness: 100, damping: 10 }} className='w-[85%] bg-slate-900 rounded-xl flex justify-center items-center h-[32rem] p-7'>
               <Bar  options={option} data={data} />
-            </div>}
+            </motion.div>}
 
             {!loading && <h1 className='text-5xl w-[55%]  border-b border-zinc-800 p-2 shadow-md shadow-zinc-800  text-center font-bold tracking-wide'>Your Meal Logs</h1>   }
            <div className='w-full h-content   flex gap-8 flex-col justify-start items-center'>
