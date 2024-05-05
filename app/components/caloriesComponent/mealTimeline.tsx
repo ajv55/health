@@ -253,16 +253,33 @@ export default function MealTimeline({date, onDelete, mealType, fruit, meat, dri
                             </tbody>
                         </table>
                     </div>
-                        {/* {meat !== '' && meat !== null &&  <div className='flex w-[26%] flex-col p-3 bg-slate-200 rounded-2xl drop-shadow-xl justify-start items-start'><ul className=' list-disc text-lg list-inside'><span className='font-bold text-xl tracking-wide'>{meat?.name}</span><li>Carbs: <span className='font-bold'>{meat?.carbs} g</span></li><li>Fat: <span className='font-bold'>{meat?.fat} g</span></li><li>Protein: <span className='font-bold'>{meat?.protein} g</span></li></ul></div>}
-                        {fruit !== '' && fruit !== null && <div className='flex w-[26%] flex-col p-3 bg-slate-200 rounded-2xl drop-shadow-xl justify-start items-start'><ul className=' list-disc text-lg list-inside'><span className='font-bold text-xl tracking-wide'>{fruit?.name}</span><li>Carbs: <span className='font-bold'>{fruit?.carbs} g</span></li><li>Fat: <span className='font-bold'>{fruit?.fat} g</span></li><li>Protein: <span className='font-bold'>{fruit?.protein} g</span></li></ul></div>}
-                        {drink !== '' && drink !== null && <div className='flex w-[26%] flex-col p-3 bg-slate-200 rounded-2xl drop-shadow-xl justify-start items-start'><ul className=' list-disc text-lg list-inside'><span className='font-bold text-xl tracking-wide'>{drink?.name}</span><li>Carbs: <span className='font-bold'>{drink?.carbs} g</span></li><li>Fat: <span className='font-bold'>{drink?.fat} g</span></li><li>Protein: <span className='font-bold'>{drink?.protein} g</span></li></ul></div>}
-                        {carb !== '' && carb !== null && <div className='flex w-[26%] flex-col p-3 bg-slate-200 rounded-2xl drop-shadow-xl justify-start items-start'><ul className=' list-disc text-lg list-inside'><span className='font-bold text-xl tracking-wide'>{carb?.name}</span><li>Carbs: <span className='font-bold'>{carb?.carbs.replace('g', '')} g</span></li><li>Fat: <span className='font-bold'>{carb?.fat.replace('g', '')} g</span></li><li>Protein: <span className='font-bold'>{carb?.protein.replace('g', '')} g</span></li></ul></div>}
-                        {vegetable !== '' && vegetable !== null && <div className='flex w-[26%] flex-col p-3 bg-slate-200 rounded-2xl drop-shadow-xl justify-start items-start'><ul className=' list-disc text-lg list-inside'><span className='font-bold text-xl tracking-wide'>{vegetable?.name}</span><li>Carbs: <span className='font-bold'>{vegetable?.carbs} g</span></li><li>Fat: <span className='font-bold'>{vegetable?.fat} g</span></li><li>Protein: <span className='font-bold'>{vegetable?.protein} g</span></li></ul></div>} */}
-                        {/* {meat !== '' && meat !== null && <CaloriesTable mealType={mealType} foodName={meat?.name} protein={meat?.protein} carbs={meat?.carbs} fat={meat?.fat} />} */}
+                
                     </div>
                     <div className='w-[50%] h-[20rem] bg-sky-800 p-3 rounded-2xl drop-shadow-2xl flex justify-center items-center'>
                     <Line options={option} data={data} />
                     </div>
+                </div>
+                <div className='w-full flex justify-center items-center'>
+                  <div className="relative w-[55%] overflow-x-auto shadow-md sm:rounded-lg">
+                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                      <thead className="text-xs  text-gray-700 uppercase dark:text-gray-400">
+                      <tr>
+                          <th scope="col" className="px-6 rounded-3xl py-3 font-bold tracking-wider text-2xl bg-gray-50 dark:bg-gray-800">
+                              Totals
+                          </th>
+                          <th scope="col" className="px-6 bg-slate-700 text-white text-lg font-bold tracking-wider py-3">
+                              Protein: <span className='text-2xl font-bold '>{totalProtein.toFixed(2)} g</span>
+                          </th>
+                          <th scope="col" className="px-6 font-bold tracking-wider py-3 text-lg bg-gray-50 dark:bg-gray-800">
+                              Carbs: <span className='text-2xl font-bold '>{totalCarbs.toFixed(2)} g</span>
+                          </th>
+                          <th scope="col" className="px-6 bg-slate-700 text-white text-lg font-bold tracking-wider py-3">
+                              Fats: <span className='text-2xl font-bold '>{totalFat.toFixed(2)} g</span>
+                          </th>
+                      </tr>
+                      </thead>
+                    </table>
+                  </div>
                 </div>
                 <LuTrash onClick={onDelete} className=" cursor-pointer" size={35} />
                 
