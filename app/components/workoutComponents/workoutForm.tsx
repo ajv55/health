@@ -9,11 +9,18 @@ type WorkoutFormProps = {
     handlePostWorkout?: (event: FormEvent<HTMLFormElement>) => void;
     initialDate?: Date,
     onDateChange?:  (date: Date | null) => void,
+    selectExercise?: string,
+    exerciseOnChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
+    selectNumSets?: string,
+    numSetsOnChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
+    selectNumReps?: string,
+    numRepsOnChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
+    
 
 
 }
 
-export default function WorkoutForm({handleCancel, selectWorkout, onDateChange, initialDate, handlePostWorkout, workoutOnChange}: WorkoutFormProps) {
+export default function WorkoutForm({handleCancel, selectNumSets, selectNumReps, numRepsOnChange,  numSetsOnChange, selectWorkout, exerciseOnChange, selectExercise, onDateChange, initialDate, handlePostWorkout, workoutOnChange}: WorkoutFormProps) {
   return (
   
         <div   className='w-full absolute top-0 left-0 h-screen flex justify-center items-center bg-transparent backdrop-blur-md'>
@@ -39,7 +46,8 @@ export default function WorkoutForm({handleCancel, selectWorkout, onDateChange, 
                         id="exercise"
                         className="w-full text-xl border rounded-md py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                         placeholder="E.g., Bench Press, Squats, Deadlifts"
-                        
+                        value={selectExercise}
+                        onChange={exerciseOnChange}
                         required
                     />
                 </div>
@@ -51,7 +59,8 @@ export default function WorkoutForm({handleCancel, selectWorkout, onDateChange, 
                             id="sets"
                             className="w-full text-xl border rounded-md py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                             placeholder="Number of sets"
-                            
+                            value={selectNumSets}
+                            onChange={numSetsOnChange}
                             required
                         />
                     </div>
@@ -62,6 +71,8 @@ export default function WorkoutForm({handleCancel, selectWorkout, onDateChange, 
                             id="reps"
                             className="w-full text-xl border rounded-md py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                             placeholder="Number of reps per set"
+                            value={selectNumReps}
+                            onChange={numRepsOnChange}
                             required
                         />
                     </div>

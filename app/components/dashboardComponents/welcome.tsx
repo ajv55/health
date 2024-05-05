@@ -5,18 +5,20 @@ import Male from '@/public/malePlaceholder.jpg';
 import { IoSettingsOutline } from "react-icons/io5";
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import {motion} from 'framer-motion'
+import {AnimatePresence, motion} from 'framer-motion'
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/app/store';
 import { incrementDailyWater } from '@/app/slices/waterSlice';
 import {setExercises, completedExercise} from '@/app/slices/exerciseSlice'
 import toast from 'react-hot-toast';
 import ExerciseCard from './exerciseCard';
+import Setting from './setting';
 
 export default function Welcome() {
     const [cal, setCal] = useState<number>(0)
     const [done, setDone] = useState<number>(0);
     const [isLoading, setIsloading] = useState<boolean>(false);
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
     const water = useSelector((state: RootState) => state.water.value);
     const exercisesList = useSelector((state: RootState) => state.exercise.exercises);
@@ -94,9 +96,16 @@ export default function Welcome() {
        getDailyChallenge();
     }
 
+    const handleSettingClick = () => {
+        setIsOpen(true)
+    }
+
 
   return (
-    <div className='w-[30%] h-screen rounded-2xl bg-slate-900 flex flex-col justify-start items-start'>
+    <div className='w-[30%] h-screen relative rounded-2xl bg-slate-900 flex flex-col justify-start items-start'>
+        <AnimatePresence>
+           {isOpen && <Setting closeOnClick={() => setIsOpen(false)} />}
+        </AnimatePresence>
         {/* first heading where user image and name go with icon for settings options */}
         <div className='w-full h-28 flex  justify-between items-center'>
             <div className=' w-full flex p-2 gap-2'>
@@ -107,7 +116,7 @@ export default function Welcome() {
                         <span className={`${activityLevel === 'Moderate-Exercise' && 'text-amber-400'}`} >{activityLevel === 'Moderate-Exercise' && 'Medium-Tier'}</span>
                     </div>
                     <div className='w-[15%]  h-14  flex justify-end items-start'>
-                        <IoSettingsOutline className='cursor-pointer' size={26} color='white' />
+                        <IoSettingsOutline onClick={handleSettingClick} className='cursor-pointer' size={26} color='white' />
                     </div>
                 </div>
             </div>

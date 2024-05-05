@@ -117,13 +117,16 @@ export default function MealTimeline({date, onDelete, mealType, fruit, meat, dri
         datasets: [{
             label: 'Protein',
             data: [totalProtein , totalCarbs, totalFat],
-            backgroundColor: ['rgba(54, 162, 235, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(54, 162, 235, 0.2)'], // Background color for the area under the line
+            backgroundColor: 'rgba(43, 138, 185, 0.492)', // Background color for the area under the line
             borderColor: ['rgba(135, 186, 227, 0.875)', 'rgba(54, 162, 235, 0.2)', 'rgba(235, 54, 220, 0.2)'], // Border color for the line
             borderWidth: 2, // Border width for the line
             pointBackgroundColor: ['#36a3ebab', '#afeb36', '#ca04d5'], // Color of the points on the line
             pointBorderColor: '#fff', // Border color of the points on the line
             pointBorderWidth: 1, // Border width of the points on the line
             pointRadius: 5, // Radius of the points on the line
+            tension: 0.2,
+            fill: true
+            
         },
         {
             label: 'Carbs',
@@ -255,7 +258,7 @@ export default function MealTimeline({date, onDelete, mealType, fruit, meat, dri
                     </div>
                 
                     </div>
-                    <div className='w-[50%] h-[20rem] bg-sky-800 p-3 rounded-2xl drop-shadow-2xl flex justify-center items-center'>
+                    <div className='w-[50%] h-[20rem] bg-sky-900 p-3 rounded-2xl drop-shadow-2xl flex justify-center items-center'>
                     <Line options={option} data={data} />
                     </div>
                 </div>

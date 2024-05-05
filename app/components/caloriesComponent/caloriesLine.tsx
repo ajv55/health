@@ -143,9 +143,9 @@ export default function CaloriesLine() {
   return (
     <div className='w-full h-screen relative flex flex-col  justify-evenly gap-10 items-center'>  
     {loading && <Skeleton />}
-    {!loading && <h1 className='text-5xl w-[55%]  border-b border-zinc-800 p-2 shadow-md shadow-zinc-800  text-center font-bold tracking-wide'>Your Meals History</h1>   }
+    {!loading && list.length !== 0 && <h1 className='text-5xl w-[55%]  border-b border-zinc-800 p-2 shadow-md shadow-zinc-800  text-center font-bold tracking-wide'>Your Meals History</h1>   }
          
-          {!loading && <motion.div initial={{ x: '100vw' }} animate={{ x: 0 }} transition={{ type: 'spring', stiffness: 100, damping: 10 }} className='w-[85%] bg-slate-900 rounded-xl flex justify-center items-center h-[32rem] p-7'>
+          {!loading && list.length !== 0 && <motion.div initial={{ x: '100vw' }} animate={{ x: 0 }} transition={{ type: 'spring', stiffness: 100, damping: 10 }} className='w-[85%] bg-slate-900 rounded-xl flex justify-center items-center h-[32rem] p-7'>
               <Bar  options={option} data={data} />
             </motion.div>}
 
