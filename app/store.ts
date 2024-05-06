@@ -3,6 +3,7 @@ import progressReducer from './slices/progressSlice';
 import mealReducer from './slices/mealSlice';
 import waterReducer from './slices/waterSlice';
 import exerciseReducer from './slices/exerciseSlice';
+import workoutReducer from './slices/workoutSlice';
 
 export const store = configureStore({
     reducer: {
@@ -10,7 +11,9 @@ export const store = configureStore({
         meal: mealReducer,
         water: waterReducer,
         exercise: exerciseReducer,
+        workout: workoutReducer
     },
+
 })
 
 export type RootState = ReturnType<typeof store.getState>

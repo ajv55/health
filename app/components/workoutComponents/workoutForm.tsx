@@ -23,8 +23,8 @@ type WorkoutFormProps = {
 export default function WorkoutForm({handleCancel, selectNumSets, selectNumReps, numRepsOnChange,  numSetsOnChange, selectWorkout, exerciseOnChange, selectExercise, onDateChange, initialDate, handlePostWorkout, workoutOnChange}: WorkoutFormProps) {
   return (
   
-        <div   className='w-full absolute top-0 left-0 h-screen flex justify-center items-center bg-transparent backdrop-blur-md'>
-        <motion.div initial={{ opacity: 0, y: '-100vh' }} animate={{ opacity: 1, y: 0 }} transition={{duration: 0.2, type: 'spring', stiffness: 100, damping: 10}} exit={{ opacity: 0, y: '-100vh' }}  className='w-[45%] h-content p-4 bg-slate-900 rounded-xl drop-shadow-xl'>
+        <div   className='w-full z-9999 absolute top-0 left-0 h-screen flex justify-center items-center bg-transparent backdrop-blur-md'>
+        <motion.div initial={{ opacity: 0, y: '-100vh' }} animate={{ opacity: 1, y: 0 }} transition={{duration: 0.2, type: 'spring', stiffness: 100, damping: 10}} exit={{ opacity: 0, y: '-100vh' }}  className='w-[45%]  h-content p-4 bg-slate-900 rounded-xl drop-shadow-xl'>
         <h2 className="text-3xl text-white font-bold mb-4">Log Your Workout</h2>
             <form onSubmit={handlePostWorkout} className="flex flex-wrap justify-evenly items-center gap-5" >
                 <div className="mb-4 w-[45%]">
