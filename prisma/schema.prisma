@@ -111,6 +111,11 @@ model Nutriton {
   nutritionGuide String?
 }
 
+model WorkoutGuide {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  workoutGuide String?
+}
+
 model exerciseChallenges { 
   id String @id @default(auto()) @map("_id") @db.ObjectId
   userId String @db.ObjectId

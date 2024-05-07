@@ -28,8 +28,13 @@ export default function WorkoutList() {
         return axios.get('/api/getEvents').then((res: any) => dispatch(setList(res?.data?.res)));
     }
 
+    const getWorkoutList = async () => {
+      return await axios.get('/api/getWorkoutList').then((res) => console.log(res?.data?.workout?.medium_intensity))
+    }
+
     useEffect(() => {
         getEvents();
+        getWorkoutList();
     }, [])
 
     const handleDateClick = (arg: any) => {

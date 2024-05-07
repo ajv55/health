@@ -6,7 +6,8 @@ interface WorkoutState {
     deleteModal?: boolean,
     list?: [],
     workoutData?: WorkoutData,
-    selectWorkout?: SelectWorkout
+    selectWorkout?: SelectWorkout,
+    workoutList?: object
 }
 
 interface SelectWorkout {
@@ -31,6 +32,7 @@ interface WorkoutData {
 const initialState: WorkoutState = {
     modalOpen: false,
     deleteModal: false,
+    workoutList: {},
     list: [],
     workoutData: {
         workout: '',
@@ -60,11 +62,14 @@ export const workoutSlice = createSlice({
         },
         setDeleteModal: (state, action) => {
             state.deleteModal = action.payload
+        },
+        setWorkoutList: (state, action) => {
+            state.workoutList = action.payload
         }
     },
 })
 
-export const {setModalOpen, setList ,setWorkoutData, setSelectWorkout, setDeleteModal} = workoutSlice.actions;
+export const {setModalOpen, setList ,setWorkoutData, setSelectWorkout, setDeleteModal, setWorkoutList} = workoutSlice.actions;
 
 export default workoutSlice.reducer;
 
