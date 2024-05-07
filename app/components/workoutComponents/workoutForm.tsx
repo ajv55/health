@@ -2,31 +2,34 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { FormEvent } from 'react';
 import WorkoutDate from './workoutDate';
-type WorkoutFormProps = {
-    handleCancel: () => void;
-    selectWorkout?: string,
-    workoutOnChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
-    handlePostWorkout?: (event: FormEvent<HTMLFormElement>) => void;
-    initialDate?: Date,
-    onDateChange?:  (date: Date | null) => void,
-    selectExercise?: string,
-    exerciseOnChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
-    selectNumSets?: string,
-    numSetsOnChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
-    selectNumReps?: string,
-    numRepsOnChange?: (event: React.ChangeEvent<HTMLInputElement>) => void,
-    
+import { useSelector, useDispatch } from 'react-redux';
+import { setModalOpen, setWorkoutData } from '@/app/slices/workoutSlice';
+import { RootState } from '@/app/store';
+import axios from 'axios';
+import toast from 'react-hot-toast';
+import MyDateTimePicker from '../caloriesComponent/date';
 
 
-}
 
-export default function WorkoutForm({handleCancel, selectNumSets, selectNumReps, numRepsOnChange,  numSetsOnChange, selectWorkout, exerciseOnChange, selectExercise, onDateChange, initialDate, handlePostWorkout, workoutOnChange}: WorkoutFormProps) {
+export default function WorkoutForm() {
+
+    const workoutData = useSelector((state: RootState) => state.workout.workoutData);
+    const dispatch = useDispatch();
+
+    const handleAddingWorkout = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        console.log(workoutData)
+        await axios.post('/api/postWorkout', {workoutData}).then((res) => console.log(res))
+        dispatch(setWorkoutData({}))
+        dispatch(setModalOpen(false));
+    }
+
   return (
   
         <div   className='w-full z-9999 absolute top-0 left-0 h-screen flex justify-center items-center bg-transparent backdrop-blur-md'>
         <motion.div initial={{ opacity: 0, y: '-100vh' }} animate={{ opacity: 1, y: 0 }} transition={{duration: 0.2, type: 'spring', stiffness: 100, damping: 10}} exit={{ opacity: 0, y: '-100vh' }}  className='w-[45%]  h-content p-4 bg-slate-900 rounded-xl drop-shadow-xl'>
         <h2 className="text-3xl text-white font-bold mb-4">Log Your Workout</h2>
-            <form onSubmit={handlePostWorkout} className="flex flex-wrap justify-evenly items-center gap-5" >
+            <form onSubmit={handleAddingWorkout} className="flex flex-wrap justify-evenly items-center gap-5" >
                 <div className="mb-4 w-[45%]">
                     <label htmlFor="muscleGroup" className="block text-white text-2xl font-bold mb-2">Muscle Group</label>
                     <input
@@ -34,8 +37,8 @@ export default function WorkoutForm({handleCancel, selectNumSets, selectNumReps,
                         id="muscleGroup"
                         className="w-full text-xl border rounded-md py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                         placeholder="E.g., Chest, Back, Legs"
-                        value={selectWorkout}
-                        onChange={workoutOnChange}
+                        value={workoutData?.workout}
+                        onChange={(e) => dispatch(setWorkoutData({...workoutData, workout: e.target.value}))}
                         required
                     />
                 </div>
@@ -46,8 +49,8 @@ export default function WorkoutForm({handleCancel, selectNumSets, selectNumReps,
                         id="exercise"
                         className="w-full text-xl border rounded-md py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                         placeholder="E.g., Bench Press, Squats, Deadlifts"
-                        value={selectExercise}
-                        onChange={exerciseOnChange}
+                        value={workoutData?.exercise}
+                        onChange={(e) => dispatch(setWorkoutData({...workoutData, exercise: e.target.value}))}
                         required
                     />
                 </div>
@@ -59,8 +62,8 @@ export default function WorkoutForm({handleCancel, selectNumSets, selectNumReps,
                             id="sets"
                             className="w-full text-xl border rounded-md py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                             placeholder="Number of sets"
-                            value={selectNumSets}
-                            onChange={numSetsOnChange}
+                            value={workoutData?.sets}
+                            onChange={(e) => dispatch(setWorkoutData({...workoutData, sets: e.target.value}))}
                             required
                         />
                     </div>
@@ -71,17 +74,17 @@ export default function WorkoutForm({handleCancel, selectNumSets, selectNumReps,
                             id="reps"
                             className="w-full text-xl border rounded-md py-2 px-3 text-gray-700 focus:outline-none focus:border-blue-500"
                             placeholder="Number of reps per set"
-                            value={selectNumReps}
-                            onChange={numRepsOnChange}
+                            value={workoutData?.reps}
+                            onChange={(e) => dispatch(setWorkoutData({...workoutData, reps: e.target.value}))}
                             required
                         />
                     </div>
                 </div>
-                <WorkoutDate initialDate={initialDate} onDateChange={onDateChange} />
+                <WorkoutDate />
                 <button type="submit" className="w-[80%] bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
                     Log Workout
                 </button>
-                <button onClick={handleCancel} type="submit" className="w-[80%] bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
+                <button onClick={() => dispatch(setModalOpen(false))} type="submit" className="w-[80%] bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">
                     Cancel
                 </button>
             </form>

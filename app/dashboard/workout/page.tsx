@@ -5,7 +5,7 @@ import React from 'react'
 export default function Page
 () {
   return (
-    <div className='w-full h-screen flex flex-col gap-10 justify-start items-start'>
+    <div className='w-full h-screen flex flex-col gap-10 justify-start overflow-scroll items-start'>
         <WorkoutHeader />
         <WorkoutList />
     </div>

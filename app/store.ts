@@ -5,6 +5,11 @@ import waterReducer from './slices/waterSlice';
 import exerciseReducer from './slices/exerciseSlice';
 import workoutReducer from './slices/workoutSlice';
 
+const defaultMiddlewareConfig = {
+    serializableCheck: false
+  };
+  
+
 export const store = configureStore({
     reducer: {
         progress: progressReducer,
@@ -13,6 +18,9 @@ export const store = configureStore({
         exercise: exerciseReducer,
         workout: workoutReducer
     },
+    middleware: (getDefaultMiddleware) => 
+        getDefaultMiddleware(defaultMiddlewareConfig),
+    
 
 })
 

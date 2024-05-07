@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import TimePicker from 'react-time-picker';
+import {  useDispatch, useSelector } from 'react-redux';
+import {setWorkoutData} from '@/app/slices/workoutSlice'
+import { RootState } from '@/app/store';
 
 type MyDateTimePickerProps = {
   initialDate?: Date | null, // Rename selectedDate to initialDate
@@ -12,6 +15,8 @@ type MyDateTimePickerProps = {
 
 const WorkoutDate = ({initialDate, onDateChange, }: MyDateTimePickerProps) => {
 
+    const dispatch = useDispatch();
+    const workoutData = useSelector((state: RootState) => state.workout.workoutData);
 
   return (
     <div className='w-full flex justify-center items-center'>
@@ -19,8 +24,8 @@ const WorkoutDate = ({initialDate, onDateChange, }: MyDateTimePickerProps) => {
          <h3 className='text-2xl text-white font-bold mb-1'>Select Date</h3>
         <DatePicker
         className='w-70 p-2.5 rounded-xl text-3xl text-black'
-        selected={initialDate}
-        onChange={onDateChange!}
+        selected={workoutData?.date}
+        onChange={(date: any) => dispatch(setWorkoutData({...workoutData, date: new Date(date)}))}
         minDate={new Date()}
         showTimeSelect
         timeFormat='h:mm'

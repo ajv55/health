@@ -9,11 +9,9 @@ export async function POST(req: NextRequest) {
     const session = await getServerSession(options);
 
     const body = await req.json();
-    const { data } = body;
-    const {workout, date, exercise, reps, sets} = data
-    console.log(body)
-
-   
+    const {workoutData} = body;
+    const { workout, exercise, reps, sets, date } = workoutData
+    console.log(workoutData)
 
     const res = await prisma.workout.create({
         data: {
