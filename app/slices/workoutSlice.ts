@@ -3,8 +3,20 @@ import { RootState } from "../store";
 
 interface WorkoutState {
     modalOpen?: boolean,
+    deleteModal?: boolean,
     list?: [],
-    workoutData?: WorkoutData
+    workoutData?: WorkoutData,
+    selectWorkout?: SelectWorkout
+}
+
+interface SelectWorkout {
+    workout?: string;
+    date?: Date;
+    time?: Date | string;
+    exercise?: string;
+    reps?: string;
+    sets?: string;
+    id?: string
 }
 
 interface WorkoutData {
@@ -18,6 +30,7 @@ interface WorkoutData {
 
 const initialState: WorkoutState = {
     modalOpen: false,
+    deleteModal: false,
     list: [],
     workoutData: {
         workout: '',
@@ -41,11 +54,17 @@ export const workoutSlice = createSlice({
         },
         setWorkoutData: (state, action) => {
             state.workoutData = action.payload
+        },
+        setSelectWorkout: (state, action) => {
+            state.selectWorkout = action.payload
+        },
+        setDeleteModal: (state, action) => {
+            state.deleteModal = action.payload
         }
     },
 })
 
-export const {setModalOpen, setList ,setWorkoutData} = workoutSlice.actions;
+export const {setModalOpen, setList ,setWorkoutData, setSelectWorkout, setDeleteModal} = workoutSlice.actions;
 
 export default workoutSlice.reducer;
 

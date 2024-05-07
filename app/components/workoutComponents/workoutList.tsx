@@ -6,7 +6,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
-import {setList, setModalOpen, setWorkoutData} from '@/app/slices/workoutSlice';
+import {setList, setModalOpen, setWorkoutData, setSelectWorkout, setDeleteModal} from '@/app/slices/workoutSlice';
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -16,12 +16,13 @@ export default function WorkoutList() {
 
     const dispatch = useDispatch();
     const [data, setData] = useState({})
-    const [selectEvent, setSelectEvent] = useState({});
 
  
     const modalOpen = useSelector((state: RootState) => state.workout.modalOpen);
+    const deleteModal = useSelector((state: RootState) => state.workout.deleteModal);
     const eventList = useSelector((state: RootState) => state.workout.list);
     const workoutData = useSelector((state: RootState) => state.workout.workoutData);
+    const selectWorkout = useSelector((state:RootState) => state.workout.selectWorkout)
 
     const getEvents = async () => {
         return axios.get('/api/getEvents').then((res: any) => dispatch(setList(res?.data?.res)));
@@ -33,29 +34,32 @@ export default function WorkoutList() {
 
     const handleDateClick = (arg: any) => {
       dispatch(setModalOpen(true))
-      dispatch(setWorkoutData({...workoutData, date: new Date(arg.dateStr)}))
+      dispatch(setWorkoutData({...workoutData, date: new Date(arg.dateStr)}));
       }
 
       const handleSelectEvent = (event: any) => {
-        setSelectEvent(event?.event?._def?.extendedProps);
-        console.log('event: ',selectEvent )
+        dispatch(setDeleteModal(true))
+        dispatch(setSelectWorkout({...selectWorkout, id: event?.event?._def?.publicId}));
+        console.log('event: ', event?.event?._def?.publicId)
       }
 
+      console.log(selectWorkout)
+
       const eventRender = (info: any) => {
-        console.log(info?.event?.extendedProps)
         return (
-          <div className=' overflow-scroll'>
+          <div className=' bg-teal-500 p-2 rounded-md overflow-scroll'>
             <p className=''>{info?.event?.extendedProps?.muscle}</p>
             <p>Exercise: {info?.event?.extendedProps?.exercise}</p>
           </div>
         );
       };
 
-      console.log(workoutData)
+
+    
 
   return (
     <div className='flex w-full justify-evenly items-center'>
-      <div className={`${modalOpen ? 'hidden' : ''} w-[54%]  rounded-xl p-3 `}>
+      <div className={`${modalOpen || deleteModal ? 'hidden' : ''} w-[54%]  rounded-xl p-3 `}>
           <FullCalendar
           dayCellClassNames=''
           dayHeaderClassNames='z-10'

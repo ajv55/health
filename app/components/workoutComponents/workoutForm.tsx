@@ -3,11 +3,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FormEvent } from 'react';
 import WorkoutDate from './workoutDate';
 import { useSelector, useDispatch } from 'react-redux';
-import { setModalOpen, setWorkoutData } from '@/app/slices/workoutSlice';
+import { setModalOpen, setWorkoutData, setList } from '@/app/slices/workoutSlice';
 import { RootState } from '@/app/store';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import MyDateTimePicker from '../caloriesComponent/date';
 
 
 
@@ -16,12 +15,17 @@ export default function WorkoutForm() {
     const workoutData = useSelector((state: RootState) => state.workout.workoutData);
     const dispatch = useDispatch();
 
+    const getWorkouts = async () => {
+        return axios.get('/api/getEvents').then((res: any) => dispatch(setList(res?.data?.res)));
+    }
+
     const handleAddingWorkout = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(workoutData)
-        await axios.post('/api/postWorkout', {workoutData}).then((res) => console.log(res))
-        dispatch(setWorkoutData({}))
+        await axios.post('/api/postWorkout', {workoutData}).then(() => toast.success('Successfully added a workout')).catch((error) => console.error('error when fetch users workouts ', error)).finally(() => getWorkouts());
+        dispatch(setWorkoutData({}));
         dispatch(setModalOpen(false));
+        
     }
 
   return (
