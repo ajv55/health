@@ -10,6 +10,7 @@ import {setList, setModalOpen, setWorkoutData, setSelectWorkout, setDeleteModal,
 import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 
 export default function WorkoutList() {
@@ -44,11 +45,15 @@ export default function WorkoutList() {
           new Draggable(draggableEl, {
             itemSelector: '.fc-workout',
             eventData: function (eventEl){
-              const exercises = eventEl.getAttribute('data-exercise')
-              console.log(exercises)
+              const exercises = eventEl.getAttribute('data-exercise');
+              const sets = eventEl.getAttribute('data-sets');
+              const reps = eventEl.getAttribute('data-reps');
+              // console.log(exercises)
               return {
                 extendedProps: {
-                  exercise: exercises
+                  exercise: exercises,
+                  sets: sets,
+                  reps: reps
                 }
               };
             }
@@ -70,13 +75,26 @@ export default function WorkoutList() {
         console.log('event: ', event?.event?._def?.publicId)
       }
 
+      const handleDropEvent = async (data: any) => {
+             const exercises = data?.draggedEl.getAttribute('data-exercise');
+             const sets = data?.draggedEl.getAttribute('data-sets');
+             const reps = data?.draggedEl.getAttribute('data-sets');
+             const date = data?.date
+             const workoutData = {exercise: exercises,sets: sets,reps: reps, date: new Date(date), workout: ''}
+             await axios.post('/api/postWorkout', {workoutData}).then(() => toast.success('Successfully added a workout 💪🏻')).then(() => getEvents());
+        // console.log(workoutData)
+      }
+
       
 
       const eventRender = (info: any) => {
+        // console.log(info?.event?.extendedProps?.sets)
         return (
-          <div className=' bg-teal-500 p-2 rounded-md overflow-scroll'>
+          <div className=' bg-violet-900 text-white p-2 flex flex-col rounded-md overflow-scroll'>
             <p className=''>{info?.event?.extendedProps?.muscle}</p>
             <p className=''>Exercise: {info?.event?.extendedProps?.exercise}</p>
+            <p>Sets: {info?.event?.extendedProps?.sets}</p>
+            <p>Reps: {info?.event?.extendedProps?.reps}</p>
           </div>
         );
       };
@@ -88,15 +106,16 @@ export default function WorkoutList() {
     <div className='flex w-full justify-evenly items-center'>
       <div className={`${modalOpen || deleteModal ? 'hidden' : ''} w-[54%]  rounded-xl p-3 `}>
           <FullCalendar
-          dayCellClassNames=''
-          dayHeaderClassNames='z-10'
-          viewClassNames='z-10 h-[27rem] '
+          dayCellClassNames='h-content '
+          dayHeaderClassNames='z-10 bg-gradient-to-br from-teal-800 via-teal-600 to-teal-300 text-white font-bold tracking-wider'
+          viewClassNames='z-10  h-[27rem] '
           plugins={[ dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin ]}
           initialView="dayGridMonth"
           dateClick={handleDateClick}
           events={eventList}
           eventContent={eventRender}
           eventClick={handleSelectEvent}
+          drop={(data) => handleDropEvent(data)}
           headerToolbar={{
               left: 'prev,next today',
               center: 'title',
@@ -105,17 +124,23 @@ export default function WorkoutList() {
           />
       </div>
 
-      <div id='drag'  className='w-[25%]  h-[32rem] bg-slate-400 rounded-lg' >
-        {workoutList.map((wl, i: number) => {
-          const exerciseList = wl?.exercise
-          const names = exerciseList.map((el: any) =>  el.name);
-        return (
-          <div data-exercise={names}  className='fc-workout w-full h-22 flex flex-wrap justify-start items-center overflow-scroll rounded-2xl bg-violet-500' key={i}>
-            <h1 id={names} className='text-3xl  font-bold'>{names}</h1>
-          </div>
-        )
-      })
-}
+      <div id='drag'  className='w-[25%] flex flex-col justify-evenly items-center gap-2 p-2  h-[35rem] bg-slate-400 rounded-lg' >
+      <h1 className='text-4xl text-white font-bolf text-center tracking-wide'>Recommended Workouts</h1>
+        {workoutList.map((wl, i:number) => {
+          const exercise = wl?.exercise[0].name;
+          const sets = wl?.exercise[0].sets;
+          const reps = wl?.exercise[0].reps;
+          console.log(wl.exercise)
+          return (
+            <div data-sets={sets} data-reps={reps} data-exercise={exercise} className='fc-workout w-full shadow-lg shadow-violet-200 h-16 flex flex-col justify-evenly items-center overflow-scroll rounded-2xl bg-violet-500' key={i}>
+              <h1 className='text-white text-3xl font-bold tracking-wide text-center'>{exercise}</h1>
+              <div className='flex justify-evenly w-full items-center'>
+                <span className='text-white text-lg font-medium tracking-wide'>sets: {sets}</span>
+                <span className='text-white text-lg font-medium tracking-wide'>reps: {reps}</span>
+              </div>
+            </div>
+          )
+        })}
       </div>
     </div>
   )
