@@ -124,7 +124,7 @@ export default function WorkoutList() {
           />
       </div>
 
-      <div id='drag'  className='w-[25%] flex flex-col justify-evenly items-center gap-2 p-2  h-[35rem] bg-slate-400 rounded-lg' >
+      <div id='drag'  className='w-[25%] flex flex-col justify-evenly items-center gap-2 p-2  h-[38rem] bg-slate-400 rounded-lg' >
       <h1 className='text-4xl text-white font-bolf text-center tracking-wide'>Recommended Workouts</h1>
         {workoutList.map((wl, i:number) => {
           const exercise = wl?.exercise[0].name;
@@ -132,9 +132,9 @@ export default function WorkoutList() {
           const reps = wl?.exercise[0].reps;
           console.log(wl.exercise)
           return (
-            <div data-sets={sets} data-reps={reps} data-exercise={exercise} className='fc-workout w-full shadow-lg shadow-violet-200 h-16 flex flex-col justify-evenly items-center overflow-scroll rounded-2xl bg-violet-500' key={i}>
-              <h1 className='text-white text-3xl font-bold tracking-wide text-center'>{exercise}</h1>
-              <div className='flex justify-evenly w-full items-center'>
+            <div data-sets={sets} data-reps={reps} data-exercise={exercise} className='fc-workout w-full shadow-lg shadow-violet-200 h-28 flex flex-col justify-evenly items-center overflow-scroll rounded-2xl bg-violet-500' key={i}>
+              <h1 className='text-white text-xl font-bold tracking-wide text-center'>{exercise}</h1>
+              <div className='flex justify-evenly w-full  items-center'>
                 <span className='text-white text-lg font-medium tracking-wide'>sets: {sets}</span>
                 <span className='text-white text-lg font-medium tracking-wide'>reps: {reps}</span>
               </div>
