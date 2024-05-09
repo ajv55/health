@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-
+import { motion } from 'framer-motion';
 
 export default function WorkoutList() {
 
@@ -26,13 +26,15 @@ export default function WorkoutList() {
     const selectWorkout = useSelector((state:RootState) => state.workout.selectWorkout);
     const workoutListObj = useSelector((state: RootState) => state.workout.workoutList);
     const workoutList = Object.values(workoutListObj!); // Convert object to array
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const getEvents = async () => {
         return axios.get('/api/getEvents').then((res: any) => dispatch(setList(res?.data?.res)));
     }
 
     const getWorkoutList = async () => {
-      return await axios.get('/api/getWorkoutList').then((res) => dispatch(setWorkoutList(res?.data?.workout?.medium_intensity)))
+      setIsLoading(true)
+      return await axios.get('/api/getWorkoutList').then((res) => dispatch(setWorkoutList(res?.data?.workout?.medium_intensity))).finally(() => setIsLoading(false))
     }
 
     useEffect(() => {
@@ -90,7 +92,7 @@ export default function WorkoutList() {
       const eventRender = (info: any) => {
         // console.log(info?.event?.extendedProps?.sets)
         return (
-          <div className=' bg-violet-900 text-white p-2 flex flex-col rounded-md overflow-scroll'>
+          <div className=' bg-violet-200 text-zinc-900 p-2 flex flex-col rounded-md overflow-scroll'>
             <p className=''>{info?.event?.extendedProps?.muscle}</p>
             <p className=''>Exercise: {info?.event?.extendedProps?.exercise}</p>
             <p>Sets: {info?.event?.extendedProps?.sets}</p>
@@ -104,11 +106,12 @@ export default function WorkoutList() {
 
   return (
     <div className='flex w-full justify-evenly items-center'>
-      <div className={`${modalOpen || deleteModal ? 'hidden' : ''} w-[54%]  rounded-xl p-3 `}>
+      <motion.div  initial={{ x: '-100vw' }} animate={{ x: 0 }}  transition={{ type: 'spring', stiffness: 120, damping: 15 }} className={`${modalOpen || deleteModal ? 'hidden' : ''} w-[60%] bg-gradient-to-tl from-violet-900 via-violet-500 to-violet-300 h-content drop-shadow-2xl  rounded-xl p-3 `}>
           <FullCalendar
-          dayCellClassNames='h-content '
-          dayHeaderClassNames='z-10 bg-gradient-to-br from-teal-800 via-teal-600 to-teal-300 text-white font-bold tracking-wider'
-          viewClassNames='z-10  h-[27rem] '
+          
+          dayCellClassNames='h-content text-white font-bold text-md '
+          dayHeaderClassNames='z-10 bg-gradient-to-br from-slate-200 via-slate-200 text-zinc-900  to-teal-100 text-white font-bold tracking-wider'
+          viewClassNames='z-10 text-white text-lg font-bold  h-full '
           plugins={[ dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin ]}
           initialView="dayGridMonth"
           dateClick={handleDateClick}
@@ -122,26 +125,35 @@ export default function WorkoutList() {
               right: 'dayGridMonth,timeGridWeek,listWeek'
           }}
           />
-      </div>
+      </motion.div>
 
-      <div id='drag'  className='w-[25%] flex flex-col justify-evenly items-center gap-2 p-2  h-[38rem] bg-slate-400 rounded-lg' >
-      <h1 className='text-4xl text-white font-bolf text-center tracking-wide'>Recommended Workouts</h1>
+      <div id='drag'  className='w-[34%]  flex flex-wrap justify-evenly items-center gap-2 p-2  h-[38rem] bg-slate-200 shadow-xl shadow-zinc-800 rounded-lg' >
+      {!isLoading && <h1 className='text-4xl  font-bold text-center w-full tracking-wide'>Recommended Workouts</h1> }
+      {isLoading && <div className='w-full flex flex-wrap  justify-center items-center h-full animate-pulse  rounded sm:w-96 dark:bg-gray-700'>
+        <div className='w-[20%] flex flex-wrap  justify-center items-center h-20    bg-gray-300 rounded sm:w-96 dark:bg-gray-700' ></div>
+        <div className='w-[20%] flex flex-wrap  justify-center items-center h-20   bg-gray-500 rounded sm:w-96 dark:bg-gray-700' ></div>
+        <div className='w-[20%] flex flex-wrap  justify-center items-center h-20   bg-gray-300 rounded sm:w-96 dark:bg-gray-700' ></div>
+        <div className='w-[20%] flex flex-wrap  justify-center items-center h-20   bg-gray-300 rounded sm:w-96 dark:bg-gray-700' ></div>
+        <div className='w-[20%] flex flex-wrap  justify-center items-center h-20   bg-gray-300 rounded sm:w-96 dark:bg-gray-700' ></div>
+        </div>}
         {workoutList.map((wl, i:number) => {
           const exercise = wl?.exercise[0].name;
           const sets = wl?.exercise[0].sets;
           const reps = wl?.exercise[0].reps;
           console.log(wl.exercise)
           return (
-            <div data-sets={sets} data-reps={reps} data-exercise={exercise} className='fc-workout w-full shadow-lg shadow-violet-200 h-28 flex flex-col justify-evenly items-center overflow-scroll rounded-2xl bg-violet-500' key={i}>
+            <div data-sets={sets} data-reps={reps} data-exercise={exercise} className='fc-workout w-[45%] shadow-lg drop-shadow-xl shadow-violet-800 h-28 flex flex-col justify-evenly items-center overflow-scroll rounded-2xl bg-violet-500' key={i}>
               <h1 className='text-white text-xl font-bold tracking-wide text-center'>{exercise}</h1>
               <div className='flex justify-evenly w-full  items-center'>
-                <span className='text-white text-lg font-medium tracking-wide'>sets: {sets}</span>
-                <span className='text-white text-lg font-medium tracking-wide'>reps: {reps}</span>
+                <span className='text-white text-center text-lg font-medium tracking-wide'>sets <br /> {sets}</span>
+                <span className='text-white text-center  text-lg font-medium tracking-wide'>reps <br /> {reps}</span>
               </div>
             </div>
           )
         })}
       </div>
+
+      
     </div>
   )
 }

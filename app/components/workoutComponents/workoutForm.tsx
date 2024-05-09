@@ -1,6 +1,6 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 import WorkoutDate from './workoutDate';
 import { useSelector, useDispatch } from 'react-redux';
 import { setModalOpen, setWorkoutData, setList } from '@/app/slices/workoutSlice';
@@ -14,8 +14,10 @@ export default function WorkoutForm() {
 
     const workoutData = useSelector((state: RootState) => state.workout.workoutData);
     const dispatch = useDispatch();
+    
 
     const getWorkouts = async () => {
+    
         return axios.get('/api/getEvents').then((res: any) => dispatch(setList(res?.data?.res)));
     }
 
@@ -30,7 +32,7 @@ export default function WorkoutForm() {
 
   return (
   
-        <div   className='w-full z-9999 absolute top-0 left-0 h-screen flex justify-center items-center bg-transparent backdrop-blur-md'>
+        <div   className='w-full z-30 absolute top-0 left-0 h-screen flex justify-center items-center bg-transparent backdrop-blur-md'>
         <motion.div initial={{ opacity: 0, y: '-100vh' }} animate={{ opacity: 1, y: 0 }} transition={{duration: 0.2, type: 'spring', stiffness: 100, damping: 10}} exit={{ opacity: 0, y: '-100vh' }}  className='w-[45%]  h-content p-4 bg-slate-900 rounded-xl drop-shadow-xl'>
         <h2 className="text-3xl text-white font-bold mb-4">Log Your Workout</h2>
             <form onSubmit={handleAddingWorkout} className="flex flex-wrap justify-evenly items-center gap-5" >

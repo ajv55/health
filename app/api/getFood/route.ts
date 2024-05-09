@@ -9,7 +9,7 @@ export async function GET(){
 
     const res = await openai.chat.completions.create({
         model: 'gpt-3.5-turbo',
-        messages: [{role: 'system', content: `You're a nutritionist expert here to give JSON formatted responses. This response will be for the most common foods and snacks eaten, along with nutritional facts` + 'the final response will always be in a JSON format string ready to be parse following this schema: [drinks: {name: , protein: , carbs: , fat: , caloriesPerServingSize: , servingSize: , } ]'}, {role: 'user', content: 'Give me a list of 50 of the most common and popular healthiest drinks, along with different serving size'}],
+        messages: [{role: 'system', content: `You're a nutritionist expert here to give JSON formatted responses.` + 'the final response will always be in a JSON format string ready to be parse following this schema: nutrition: [ {name: , protein: , carbs: , fat_total: , fat_saturated: , calories: , servingSize: , sodium: , potassium_mg: , cholesterol_mg: , fiber_g: , sugar_g:  , img:   } ]'}, {role: 'user', content: 'need nutrition fact of for the at least 10 meats '}],
         response_format: {type: 'json_object'},
     })
 

@@ -30,7 +30,7 @@ export default function DeleteModal() {
 
 
   return (
-    <div className='w-full absolute top-0 left-0 bg-transparent backdrop-blur-lg flex justify-center items-center h-screen'>
+    <div className='w-full absolute z-20 top-0 left-0 bg-transparent backdrop-blur-lg flex justify-center items-center h-screen'>
         <motion.div initial={{ opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1}} transition={{duration: 0.2, type: 'spring', stiffness: 150, damping: 20}} exit={{ opacity: 0, scale: 0.5 }} className='w-[60%] h-[20rem] bg-slate-200 rounded-xl flex justify-evenly items-start drop-shadow-xl'>
             <div className='w-20 h-20 rounded-full border mt-10 bg-red-100 flex justify-center items-center '>
                 <IoWarningOutline size={48} color='red' />

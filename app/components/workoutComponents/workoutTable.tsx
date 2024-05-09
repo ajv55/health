@@ -85,7 +85,8 @@ export default  function WorkoutTable() {
     console.log(list)
   return (
     
-    <ol className="relative  w-[99%]  flex flex-col justify-start items-start  border-s border-gray-800 dark:border-gray-700">                  
+    <ol className="relative  w-[99%] z-10  flex flex-col justify-start items-center  border-s border-gray-800 dark:border-gray-700">  
+    <h1 className="text-6xl w-[65%] p-2 mb-12 font-bold shadow-zinc-900 shadow-lg text-center tracking-wide">Your Workout History</h1>                
         {list?.map((l: List) => {
             const newDate = format(new Date(l?.date), 'MMM dd, yyyy')
             return (
@@ -99,28 +100,28 @@ export default  function WorkoutTable() {
                             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                 <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
                                     <tr>
-                                        <th scope="col" className="px-6 py-3 bg-gray-50 dark:bg-gray-800">
+                                        <th scope="col" className="px-6 py-3 text-xl tracking-wider bg-gray-50 dark:bg-gray-800">
                                             {l?.exercise}
                                         </th>
-                                        <th scope="col" className="px-6 py-3">
+                                        <th scope="col" className="px-6 text-xl tracking-wider bg-slate-700 text-white py-3">
                                             sets/reps
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr className="border-b border-gray-200 dark:border-gray-700">
-                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                                        <th scope="row" className="px-6 py-4 text-lg tracking-wide font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
                                             Sets
                                         </th>
-                                        <td className="px-6 py-4">
+                                        <td className="px-6 bg-slate-700 text-lg tracking-wide text-white py-4">
                                             {l?.sets}
                                         </td>
                                     </tr>
                                     <tr className="border-b border-gray-200 dark:border-gray-700">
-                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                                        <th scope="row" className="px-6 py-4 text-lg tracking-wide font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
                                             Reps
                                         </th>
-                                        <td className="px-6 py-4">
+                                        <td className="px-6 bg-slate-700 text-lg tracking-wide text-white py-4">
                                             {l?.reps}
                                         </td>
                                     </tr>
@@ -152,9 +153,7 @@ export default  function WorkoutTable() {
                         </div>
                     </div>
 
-                    <a href="#" className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-100 focus:text-blue-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700">Learn more <svg className="w-3 h-3 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                    </svg></a>
+                    
                 </li>
             )
         })}
