@@ -4,6 +4,7 @@ import mealReducer from './slices/mealSlice';
 import waterReducer from './slices/waterSlice';
 import exerciseReducer from './slices/exerciseSlice';
 import workoutReducer from './slices/workoutSlice';
+import nutritionReducer from './slices/nutritionSlice'
 
 const defaultMiddlewareConfig = {
     serializableCheck: false
@@ -16,7 +17,8 @@ export const store = configureStore({
         meal: mealReducer,
         water: waterReducer,
         exercise: exerciseReducer,
-        workout: workoutReducer
+        workout: workoutReducer,
+        nutrition: nutritionReducer
     },
     middleware: (getDefaultMiddleware) => 
         getDefaultMiddleware(defaultMiddlewareConfig),

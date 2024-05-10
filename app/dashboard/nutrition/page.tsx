@@ -5,7 +5,7 @@ import React from 'react'
 export default function Page
 () {
   return (
-    <div className='w-full flex flex-col justify-start items-start'>
+    <div className='w-full flex flex-col justify-start overflow-scroll items-start'>
        <NutritionHeader/>
        <NutritionTab />
     </div>
