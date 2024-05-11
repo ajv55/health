@@ -178,3 +178,8 @@ model Carbs {
 
   @@unique([userId, date])
  }
+
+ model searchWorkout {
+  id  String @id @default(auto()) @map("_id") @db.ObjectId
+  workouts  Json?
+ }

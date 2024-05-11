@@ -1,10 +1,13 @@
 'use client';
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import WorkoutForm from "./workoutForm";
 import {  useDispatch, useSelector } from 'react-redux';
 import { RootState } from "@/app/store";
-import {setModalOpen} from '@/app/slices/workoutSlice'
+import {setModalOpen, setWorkoutList} from '@/app/slices/workoutSlice'
 import DeleteModal from "./deleteModal";
+import React, { useEffect, useState } from "react";
+import { setSearchWorkout } from "@/app/slices/searchWorkoutSlice"; 
+import axios from "axios";
 
 
 
@@ -12,12 +15,57 @@ export default function WorkoutHeader() {
    
 
     const modalOpen = useSelector((state: RootState) => state.workout.modalOpen);
+    const searchWorkouts = useSelector((state: RootState) => state.searchWorkout.list);
     const deleteModal = useSelector((state: RootState) => state.workout.deleteModal);
     const dispatch = useDispatch();
     const workoutData = useSelector((state: RootState) => state.workout.workoutData);
+    const [searchValue, setSearchValue] = useState('');
+    const [filteredWorkouts, setFilteredWorkouts] = useState<any>([]);
+
+    const getSearchWorkout = async () => {
+        return await axios.get('/api/getSearchWorkout').then((res) => dispatch(setSearchWorkout(res?.data?.data?.workout?.workouts)))
+    }
+
+    useEffect(() => {
+        getSearchWorkout();
+    }, [])
 
 
-    console.log(workoutData)
+
+    const workouts = [
+      { id: 1, name: 'Push-ups' },
+      { id: 2, name: 'Squats' },
+      { id: 3, name: 'Plank' },
+      { id: 4, name: 'Jumping Jacks' },
+      // Add more workout objects as needed
+  ];
+
+  console.log(searchWorkouts)
+
+
+    const handleSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      // Filter workouts based on search term and pass the filtered list to the parent component
+      const filteredWorkouts = searchWorkouts?.filter((workout: any) =>
+          workout.name.toLowerCase().includes(searchValue.toLowerCase())
+      );
+      setFilteredWorkouts(filteredWorkouts)
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const term = event.target.value;
+    setSearchValue(term);
+
+    // Filter workouts based on search term
+    const filtered = term
+        ? searchWorkouts.filter((workout: any) =>
+            workout.name.toLowerCase().includes(term.toLowerCase())
+        )
+        : [];
+    setFilteredWorkouts(filtered);
+};
+
+    console.log(filteredWorkouts)
 
 
   return (
@@ -26,6 +74,31 @@ export default function WorkoutHeader() {
         <AnimatePresence>{modalOpen && <WorkoutForm />}</AnimatePresence>
         <AnimatePresence>{deleteModal && <DeleteModal />}</AnimatePresence>
         <h1 className='text-5xl font-bold tracking-wider'>Your Workout Tracker</h1>
+        <form className="w-[35%]  relative" onSubmit={handleSubmit}>
+           <input value={searchValue} onChange={handleChange} type="text" placeholder="Search for exercise..." className="w-full rounded-xl h-10 p-2 text-xl" />
+           <motion.ul
+                className="absolute bg-slate-100  font-bold tracking-wide text-xl  z-30 w-full p-3 rounded-xl  top-full left-0"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: filteredWorkouts.length > 0 ? 1 : 0, y: filteredWorkouts.length > 0 ? 0 : 20 }}
+                exit={{ opacity: 0, y: 20 }}
+            >
+                {filteredWorkouts.map((workout: any) => (
+                    <motion.li className='cursor-pointer hover:bg-slate-800 hover:text-white' key={workout.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>{workout.name}</motion.li>
+                ))}
+            </motion.ul>
+            <AnimatePresence>
+                {searchValue !== '' && filteredWorkouts.length === 0 && (
+                    <motion.p
+                        className="w-full top-full bg-slate-100 h-[6rem] z-30 left-0 absolute overflow-scroll rounded-xl flex justify-center items-center"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 20 }}
+                    >
+                        No matching workouts found.
+                    </motion.p>
+                )}
+            </AnimatePresence>
+        </form>
         <button className='text-4xl px-2.5 py-3 w-[20%] rounded-3xl bg-gradient-to-br from-violet-800 via-violet-600 to-violet-400 text-white hover:bg-gradient-to-bl hover:from-violet-800 hover:via-violet-400 hover:to-violet-400' onClick={() => dispatch(setModalOpen(!modalOpen))}>Add Workout</button>
     </div>
   )

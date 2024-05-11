@@ -129,7 +129,7 @@ export default  function WorkoutTable() {
                             </table>
                         </div>
 
-                        <div className="border rounded-2xl drop-shadow-2xl bg-gradient-to-bl from-slate-900 via-slate-400 to-slate-500 w-[45%] flex justify-center items-center p-2 h-[16rem]">
+                        <div className="border rounded-2xl drop-shadow-2xl bg-gradient-to-bl from-purple-900 via-slate-400 to-cyan-500 w-[37%] flex justify-center items-center p-5 h-[16rem]">
                             <Bar options={option} data={{
                                 labels: ['Total'],
                                 datasets: [{

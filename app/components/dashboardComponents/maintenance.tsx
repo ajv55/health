@@ -20,6 +20,9 @@ export default function Maintenance() {
                         size: 20
                     }
                 }
+            },
+            textCenter: {
+                calories: maintenance || '' // Access the data from props or state
             }
         }
     };
@@ -41,9 +44,11 @@ export default function Maintenance() {
             ctx.font = 'bolder 18px sans-serif';
             ctx.fillStyle = 'white';
             ctx.textAlign = 'center';
-            ctx.fillText('Calories', chart.getDatasetMeta(0).data[0].x, chart.getDatasetMeta(0).data[0].y)
+            ctx.fillText(pluginOptions.calories, chart.getDatasetMeta(0).data[0].x, chart.getDatasetMeta(0).data[0].y)
         }
     }
+
+
 
   return (
     <div className='w-[43%] h-[17rem] p-3 flex justify-center items-center bg-slate-900 rounded-2xl'>

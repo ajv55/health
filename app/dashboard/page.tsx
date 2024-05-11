@@ -126,8 +126,6 @@ export default  function Page() {
       </div>
       <Welcome />
      
-      {/* <Profile />
-      <Workout /> */}
       <div className=' ml-2 w-full mt-20 flex justify-center items-center h-content'>
       <LineChart />
       {/* <Table /> */}

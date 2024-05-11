@@ -32,14 +32,14 @@ export default function WorkoutList() {
         return axios.get('/api/getEvents').then((res: any) => dispatch(setList(res?.data?.res)));
     }
 
-    const getWorkoutList = async () => {
-      setIsLoading(true)
-      return await axios.get('/api/getWorkoutList').then((res) => dispatch(setWorkoutList(res?.data?.workout?.medium_intensity))).finally(() => setIsLoading(false))
-    }
+    // const getWorkoutList = async () => {
+    //   setIsLoading(true)
+    //   return await axios.get('/api/getWorkoutList').then((res) => dispatch(setWorkoutList(res?.data?.workout?.medium_intensity))).finally(() => setIsLoading(false))
+    // }
 
     useEffect(() => {
         getEvents();
-        getWorkoutList();
+        // getWorkoutList();
 
         
         let draggableEl = document.getElementById('drag');
@@ -128,7 +128,7 @@ export default function WorkoutList() {
       </motion.div>
 
       <div id='drag'  className='w-[34%]  flex flex-wrap justify-evenly items-center gap-2 p-2  h-[38rem] bg-slate-200 shadow-xl shadow-zinc-800 rounded-lg' >
-      {!isLoading && <h1 className='text-4xl  font-bold text-center w-full tracking-wide'>Recommended Workouts</h1> }
+       <h1 className={`${isLoading ? 'hidden' : ''} text-4xl  font-bold text-center w-full tracking-wide`}>Recommended Workouts</h1> 
       {isLoading && <div className='w-full flex flex-wrap  justify-center items-center h-full animate-pulse  rounded sm:w-96 dark:bg-gray-700'>
         <div className='w-[20%] flex flex-wrap  justify-center items-center h-20    bg-gray-300 rounded sm:w-96 dark:bg-gray-700' ></div>
         <div className='w-[20%] flex flex-wrap  justify-center items-center h-20   bg-gray-500 rounded sm:w-96 dark:bg-gray-700' ></div>
@@ -136,11 +136,11 @@ export default function WorkoutList() {
         <div className='w-[20%] flex flex-wrap  justify-center items-center h-20   bg-gray-300 rounded sm:w-96 dark:bg-gray-700' ></div>
         <div className='w-[20%] flex flex-wrap  justify-center items-center h-20   bg-gray-300 rounded sm:w-96 dark:bg-gray-700' ></div>
         </div>}
-        {workoutList.map((wl, i:number) => {
-          const exercise = wl?.exercise[0].name;
-          const sets = wl?.exercise[0].sets;
-          const reps = wl?.exercise[0].reps;
-          console.log(wl.exercise)
+        {/* {workoutList.map((wl: any, i:number) => {
+          const exercise = wl?.exercise[0]?.name;
+          const sets = wl?.exercise[0]?.sets;
+          const reps = wl?.exercise[0]?.reps;
+          console.log(wl?.exercise)
           return (
             <div data-sets={sets} data-reps={reps} data-exercise={exercise} className='fc-workout w-[45%] shadow-lg drop-shadow-xl shadow-violet-800 h-28 flex flex-col justify-evenly items-center overflow-scroll rounded-2xl bg-violet-500' key={i}>
               <h1 className='text-white text-xl font-bold tracking-wide text-center'>{exercise}</h1>
@@ -150,7 +150,7 @@ export default function WorkoutList() {
               </div>
             </div>
           )
-        })}
+        })} */}
       </div>
 
       
