@@ -8,7 +8,7 @@ import axios from 'axios';
 import {AnimatePresence, motion} from 'framer-motion'
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@/app/store';
-import { incrementDailyWater } from '@/app/slices/waterSlice';
+import { incrementDailyWater, setWater } from '@/app/slices/waterSlice';
 import {setExercises, completedExercise} from '@/app/slices/exerciseSlice'
 import toast from 'react-hot-toast';
 import ExerciseCard from './exerciseCard';
@@ -37,11 +37,11 @@ export default function Welcome() {
     const activityLevel = user?.activity;
 
     const getMeals = async () => {
-      return await axios.get('/api/getMeal').then((res) => setCal(res?.data?.total)).catch(() => setCal(0));
+      return await axios.get('/api/getMeal').then((res) => setCal(res?.data?.total)).catch((error) => console.error('no meals log for today', error)).finally(() => setCal(0));
     }
 
     const getDailyWater = async () => {
-        return await axios.get('/api/getWater').then((res) => dispatch(incrementDailyWater(res?.data?.addWater))).catch((error) => toast.error('No water intake yet', error) );
+        return await axios.get('/api/getWater').then((res) => dispatch(incrementDailyWater(res?.data?.addWater))).catch((error) => console.error('no water intake', error)).finally(() => setWater(0) );
     }
 
     const getCompleted = async () => {

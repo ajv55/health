@@ -18,12 +18,14 @@ export const waterSlice = createSlice({
         },
         decrementProgress: (state, action) => {
             state.value -= action.payload
-
+        },
+        setWater: (state, action) => {
+            state.value = action.payload
         }
     }
 })
 
-export const {incrementDailyWater} = waterSlice.actions;
+export const {incrementDailyWater, setWater} = waterSlice.actions;
 
 export const selectProgress = (state:RootState) => state.progress.value;
 

@@ -26,7 +26,7 @@ export default function WorkoutHeader() {
         <AnimatePresence>{modalOpen && <WorkoutForm />}</AnimatePresence>
         <AnimatePresence>{deleteModal && <DeleteModal />}</AnimatePresence>
         <h1 className='text-5xl font-bold tracking-wider'>Your Workout Tracker</h1>
-        <button className='text-4xl px-2.5 py-3 w-[20%] rounded-3xl bg-gradient-to-br from-cyan-800 via-cyan-600 to-cyan-400 hover:bg-gradient-to-bl hover:from-cyan-800 hover:via-cyan-400 hover:to-cyan-400' onClick={() => dispatch(setModalOpen(!modalOpen))}>Add Workout</button>
+        <button className='text-4xl px-2.5 py-3 w-[20%] rounded-3xl bg-gradient-to-br from-violet-800 via-violet-600 to-violet-400 text-white hover:bg-gradient-to-bl hover:from-violet-800 hover:via-violet-400 hover:to-violet-400' onClick={() => dispatch(setModalOpen(!modalOpen))}>Add Workout</button>
     </div>
   )
 }

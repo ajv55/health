@@ -3,14 +3,16 @@ import { RootState } from "@/app/store";
 import { useSelector } from "react-redux";
 import { Chart as ChartJS, DoughnutController, ArcElement, Tooltip, Legend  } from "chart.js";
 import { Doughnut } from "react-chartjs-2";
+import Lunch from "./lunch";
+import Day1Dinner from "./day1Dinner";
 
 ChartJS.register( ArcElement, Tooltip, Legend, DoughnutController);
 
-export default function Lunch() {
+export default function Day1() {
 
     const nutrition: any = useSelector((state: RootState) => state.nutrition.nutritionList);
     const list = nutrition && Object?.entries(nutrition)
-    console.log(list[0]?.[1]?.lunch)
+    console.log(list[0]?.[1]?.breakfast)
 
     const options = {
       plugins: {
@@ -23,7 +25,7 @@ export default function Lunch() {
               }
           },
           textCenter: {
-            calories: list[0]?.[1]?.lunch?.calories || "" // Access the data from props or state
+            calories: list[0]?.[1]?.breakfast?.calories || "" // Access the data from props or state
         }
       }
   };
@@ -33,13 +35,13 @@ export default function Lunch() {
       labels: ['Calories'],
   datasets: [{
       label: 'Calories',
-      data: [list[0]?.[1]?.lunch?.calories],
+      data: [list[0]?.[1]?.breakfast?.calories],
       backgroundColor: '#f49541',
       borderColor: '#fefbcb',
   }]
   }
 
-  console.log(list[0]?.[1]?.lunch)
+  console.log(list[0]?.[1]?.breakfast)
 
   const textCenter = {
     id: 'textCenter',
@@ -54,11 +56,11 @@ export default function Lunch() {
 }
 
   return (
-    <div className='bg-slate-900 mt-14 overflow-scroll flex flex-wrap justify-between items-center  w-full h-content'>
-      <div className="flex gap-5 w-[45%] flex-col justify-center items-center">
-        <h1 className="text-7xl text-white font-bold tracking-wide">Lunch</h1>
-        <div style={{backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url(${list[0]?.[1]?.lunch?.img})`}} className="w-[89%] h-[23rem] flex rounded-xl justify-center items-center bg-center bg-cover">
-          <h1 className="text-4xl text-white font-bold tracking-wide text-center">{list[0]?.[1]?.lunch?.meal}</h1>
+    <div className='bg-slate-900 overflow-scroll flex flex-wrap justify-between items-center  w-full h-[32rem]'>
+      <div className="flex gap-5  w-[45%] flex-col justify-center items-center">
+        <h1 className="text-7xl text-white font-bold tracking-wide">Breakfast</h1>
+        <div style={{backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url(${list[0]?.[1]?.breakfast?.img})`}} className="w-[89%] h-[23rem] flex rounded-xl justify-center items-center bg-center bg-cover">
+          <h1 className="text-4xl text-white font-bold tracking-wide text-center">{list[0]?.[1]?.breakfast?.meal}</h1>
         </div>
         
       </div>
@@ -66,7 +68,7 @@ export default function Lunch() {
       
 
 
-      <div className="w-[53%] gap-5 flex flex-col justify-center items-center">
+      <div className="w-[53%] mt-4 gap-5 flex flex-col justify-center items-center">
       <div className=" bg-gradient-to-tl from-cyan-900 via-sky-800 to-cyan-300 flex justify-center items-center p-2 w-[65%] h-[16rem] rounded-xl">
         <Doughnut plugins={[textCenter]} options={options} data={data} />
       </div>
@@ -92,7 +94,7 @@ export default function Lunch() {
                   </tr>
               </thead>
               <tbody>
-                  {list[0]?.[1]?.lunch?.ingredients.map((i: any, index: number) => {
+                  {list[0]?.[1]?.breakfast?.ingredients.map((i: any, index: number) => {
                     return (
                       <tr key={index} className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -117,6 +119,8 @@ export default function Lunch() {
           </table>
       </div>
       </div>
+      <Lunch />
+      <Day1Dinner />
 
     </div>
   )

@@ -133,11 +133,10 @@ export default  function Page() {
       {/* <Table /> */}
       </div>
 
-      <div className='w-full mt-20 flex justify-evenly items-center h-content'>
+      {/* <div className='w-full mt-20 flex justify-evenly items-center h-content'>
         <Arc/>
         <Table />
-      </div>
-      <Nutrition />
+      </div> */}
 
     </div>
   )
