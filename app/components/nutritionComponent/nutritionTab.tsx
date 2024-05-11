@@ -8,6 +8,12 @@ import { setNutritionList, setIsLoading } from '@/app/slices/nutritionSlice';
 import Day1 from './day1';
 import { RootState } from '@/app/store';
 import DaysSkeleton from './daysSkeleton';
+import Day2 from './day2';
+import Day3 from './day3';
+import Day4 from './day4';
+import Day5 from './day5';
+import Day6 from './day6';
+import Day7 from './day7';
 
 export default function NutritionTab() {
 
@@ -33,8 +39,8 @@ export default function NutritionTab() {
   return (
     
 
-    <div className='w-full  border-4 border-red-400 flex justify-between items-center'>
-        <div className="mb-4 w-[80%] relative  border-b border-gray-200 dark:border-gray-700">
+    <div className='w-full  flex justify-between items-center'>
+        <div className="mb-4 w-full  relative  border-b border-gray-200 dark:border-gray-700">
         <ul className="flex  flex-wrap bg-slate-200 justify-evenly items-center  -mb-px text-lg  tracking-wide font-semibold text-center" id="default-styled-tab" data-tabs-toggle="#default-styled-tab-content" data-tabs-active-classNamees="text-purple-600 hover:text-purple-300 dark:text-purple-500 dark:hover:text-purple-500 border-purple-600 dark:border-purple-500" data-tabs-inactive-classNamees="dark:border-transparent text-gray-500 hover:text-gray-600 dark:text-gray-400 border-gray-100 hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300" role="tablist">
             <li className="me-2" role="presentation">
                 <button aria-controls="day_1" aria-selected={activeTab === 'day_1' ? 'true' : 'false'} onClick={() => handleTabClick('day_1')} className={`${activeTab === 'day_1' && 'border-teal-300'} inline-block p-4 border-b-2 rounded-t-lg hover:text-teal-400 hover:border-gray-300  dark:hover:text-gray-300`} id="profile-styled-tab" data-tabs-target="#styled-profile" type="button" role="tab" >Day 1</button>
@@ -60,12 +66,12 @@ export default function NutritionTab() {
         </ul>
         {nutritionIsLoading && <DaysSkeleton />}
         {activeTab === 'day_1' && <Day1 />}
-        {activeTab === 'day_2' && <div className='bg-orange-300 w-full h-[32rem]'></div>}
-        {activeTab === 'day_3' && <div className='bg-purple-300 w-full h-[32rem]'></div>}
-        {activeTab === 'day_4' && <div className='bg-purple-300 w-full h-[32rem]'></div>}
-        {activeTab === 'day_5' && <div className='bg-purple-300 w-full h-[32rem]'></div>}
-        {activeTab === 'day_6' && <div className='bg-purple-300 w-full h-[32rem]'></div>}
-        {activeTab === 'day_7' && <div className='bg-purple-300 w-full h-[32rem]'></div>}
+        {activeTab === 'day_2' && <Day2 />}
+        {activeTab === 'day_3' && <Day3 />}
+        {activeTab === 'day_4' && <Day4 />}
+        {activeTab === 'day_5' && <Day5 />}
+        {activeTab === 'day_6' && <Day6 />}
+        {activeTab === 'day_7' && <Day7 />}
     </div>
     </div>
 
