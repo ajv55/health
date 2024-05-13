@@ -2,10 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 interface searchWorkoutState {
     list: [],
+    isLoading: boolean,
 }
 
  const initialState: searchWorkoutState = {
-    list: []
+    list: [],
+    isLoading: false,
 } as searchWorkoutState
 
 
@@ -15,11 +17,14 @@ export const searchWorkoutSlice = createSlice({
     reducers: {
         setSearchWorkout: (state, action) => {
             state.list = action.payload
+        },
+        setIsLoading: (state, action) => {
+            state.isLoading = action.payload
         }
     }
 })
 
 
-export const {setSearchWorkout} = searchWorkoutSlice.actions;
+export const {setSearchWorkout, setIsLoading} = searchWorkoutSlice.actions;
 
 export default searchWorkoutSlice.reducer; 

@@ -6,13 +6,19 @@ import { RootState } from "@/app/store";
 import {setModalOpen, setWorkoutList} from '@/app/slices/workoutSlice'
 import DeleteModal from "./deleteModal";
 import React, { useEffect, useState } from "react";
-import { setSearchWorkout } from "@/app/slices/searchWorkoutSlice"; 
+import { setSearchWorkout,setIsLoading } from "@/app/slices/searchWorkoutSlice"; 
 import axios from "axios";
+import Link from "next/link";
+import { useRouter, useSearchParams} from "next/navigation";
+
+
 
 
 
 export default function WorkoutHeader() {
    
+    const router: any = useRouter();
+    const searchParams = useSearchParams();
 
     const modalOpen = useSelector((state: RootState) => state.workout.modalOpen);
     const searchWorkouts = useSelector((state: RootState) => state.searchWorkout.list);
@@ -23,7 +29,8 @@ export default function WorkoutHeader() {
     const [filteredWorkouts, setFilteredWorkouts] = useState<any>([]);
 
     const getSearchWorkout = async () => {
-        return await axios.get('/api/getSearchWorkout').then((res) => dispatch(setSearchWorkout(res?.data?.data?.workout?.workouts)))
+        dispatch(setIsLoading(true))
+        return await axios.get('/api/getSearchWorkout').then((res) => dispatch(setSearchWorkout(res?.data?.data?.workout?.workouts))).finally(() => dispatch(setIsLoading(false)))
     }
 
     useEffect(() => {
@@ -31,14 +38,6 @@ export default function WorkoutHeader() {
     }, [])
 
 
-
-    const workouts = [
-      { id: 1, name: 'Push-ups' },
-      { id: 2, name: 'Squats' },
-      { id: 3, name: 'Plank' },
-      { id: 4, name: 'Jumping Jacks' },
-      // Add more workout objects as needed
-  ];
 
   console.log(searchWorkouts)
 
@@ -50,6 +49,13 @@ export default function WorkoutHeader() {
           workout.name.toLowerCase().includes(searchValue.toLowerCase())
       );
       setFilteredWorkouts(filteredWorkouts)
+      searchWorkouts.map((sw: any) => {
+        
+        if(searchValue.toLowerCase() === sw?.name?.toLowerCase()){
+            console.log(sw)
+           router.push(`/dashboard/workout/${sw.name}?name=${sw.name}&description=${sw.description}`)
+        }
+      })
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,7 +89,14 @@ export default function WorkoutHeader() {
                 exit={{ opacity: 0, y: 20 }}
             >
                 {filteredWorkouts.map((workout: any) => (
-                    <motion.li className='cursor-pointer hover:bg-slate-800 hover:text-white' key={workout.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>{workout.name}</motion.li>
+                    <Link key={workout.id} href={{
+                        pathname: `/dashboard/workout/${workout?.name.toLowerCase()}`,
+                        query: {
+                            name: workout?.name,
+                            description: workout?.description,
+                            video: workout?.demoVideo as string
+                        }
+                    }}><motion.li className='cursor-pointer hover:bg-slate-800 hover:text-white'  initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>{workout.name}</motion.li></Link>
                 ))}
             </motion.ul>
             <AnimatePresence>
