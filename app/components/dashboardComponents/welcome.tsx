@@ -37,7 +37,7 @@ export default function Welcome() {
     const activityLevel = user?.activity;
 
     const getMeals = async () => {
-      return await axios.get('/api/getMeal').then((res) => setCal(res?.data?.total)).catch((error) => console.error('no meals log for today', error)).finally(() => setCal(0));
+      return await axios.get('/api/getMeal').then((res) => setCal(res?.data?.total)).catch((error) => {console.error('no meals log for today', error), setCal(0)});
     }
 
     const getDailyWater = async () => {
@@ -87,7 +87,7 @@ export default function Welcome() {
 
     const per = Math.round(percentage);
 
-    console.log('exerciseList: ',exercisesList)
+    console.log('meals: ', cal)
 
 
     const handleRemoveOfDailyChallenge = async (id: any, challenge: any) => {

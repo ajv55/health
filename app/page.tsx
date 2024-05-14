@@ -18,7 +18,6 @@ export default  function Home() {
     <div className="w-full relative  flex flex-col justify-center items-center">
       <Nav />
       <Header />
-      <User />
       <Features/>
       <Why />
       <About/>

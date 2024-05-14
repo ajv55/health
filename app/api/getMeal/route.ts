@@ -47,7 +47,7 @@ export async function GET() {
     const cal = dailyCalories?.reduce((acc, currentValue) => acc! + currentValue!);
     const total =  Number(meatCalories!) + Number(fruitCalories!) + Number(cal) + Number(vegCalories) + Number(carbCalories) + Number(drinkCalories)
 
-    console.log(dailyCalories)
+    console.log(total)
 
     return NextResponse.json({total})
 }

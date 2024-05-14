@@ -32,14 +32,14 @@ export default function WorkoutList() {
         return axios.get('/api/getEvents').then((res: any) => dispatch(setList(res?.data?.res)));
     }
 
-    // const getWorkoutList = async () => {
-    //   setIsLoading(true)
-    //   return await axios.get('/api/getWorkoutList').then((res) => dispatch(setWorkoutList(res?.data?.workout?.medium_intensity))).finally(() => setIsLoading(false))
-    // }
+    const getWorkoutList = async () => {
+      setIsLoading(true)
+      return await axios.get('/api/getSearchWorkout').then((res) => dispatch(setWorkoutList(res?.data?.data?.workout?.workouts))).finally(() => setIsLoading(false))
+    }
 
     useEffect(() => {
         getEvents();
-        // getWorkoutList();
+        getWorkoutList();
 
         
         let draggableEl = document.getElementById('drag');
@@ -101,8 +101,9 @@ export default function WorkoutList() {
         );
       };
 
+      const newList = workoutList.filter((wl, i) => i <= 6 && wl)
 
-    
+    console.log(newList)
 
   return (
     <div className='flex w-full justify-evenly items-center'>
@@ -136,21 +137,25 @@ export default function WorkoutList() {
         <div className='w-[20%] flex flex-wrap  justify-center items-center h-20   bg-gray-300 rounded sm:w-96 dark:bg-gray-700' ></div>
         <div className='w-[20%] flex flex-wrap  justify-center items-center h-20   bg-gray-300 rounded sm:w-96 dark:bg-gray-700' ></div>
         </div>}
-        {/* {workoutList.map((wl: any, i:number) => {
-          const exercise = wl?.exercise[0]?.name;
-          const sets = wl?.exercise[0]?.sets;
-          const reps = wl?.exercise[0]?.reps;
-          console.log(wl?.exercise)
+        {newList.map((nl, i) => {
+          console.log(nl)
+          const sets = nl?.sets;
+          const reps = nl?.reps;
+          const exercise = nl?.name;
           return (
-            <div data-sets={sets} data-reps={reps} data-exercise={exercise} className='fc-workout w-[45%] shadow-lg drop-shadow-xl shadow-violet-800 h-28 flex flex-col justify-evenly items-center overflow-scroll rounded-2xl bg-violet-500' key={i}>
+             <div key={i} data-sets={sets} data-reps={reps} data-exercise={exercise} className='fc-workout w-[45%] shadow-lg drop-shadow-xl shadow-violet-800 h-28 flex flex-col justify-evenly items-center overflow-scroll rounded-2xl bg-violet-500' >
               <h1 className='text-white text-xl font-bold tracking-wide text-center'>{exercise}</h1>
               <div className='flex justify-evenly w-full  items-center'>
                 <span className='text-white text-center text-lg font-medium tracking-wide'>sets <br /> {sets}</span>
                 <span className='text-white text-center  text-lg font-medium tracking-wide'>reps <br /> {reps}</span>
               </div>
             </div>
+            
           )
-        })} */}
+        })}
+
+
+        
       </div>
 
       
