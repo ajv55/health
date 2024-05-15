@@ -4,22 +4,21 @@ import {getServerSession} from 'next-auth'
 import { options } from "../auth/[...nextauth]/route";
 
 const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY
+    apiKey: process.env.OPEN_AI_KEY!
 })
 
 export async function GET() {
 
 
-    const completion = await openai.chat.completions.create({
+    const res = await openai.chat.completions.create({
         model: 'gpt-3.5-turbo',
-        messages: [{role: 'system', content: `You're a fitness trainer here to help the user find the best exercise` + 'the final response will always be a JSON formatted string ready to be parse, following this schema: workouts: [ {id: , name: , description: , sets: , reps: , duration: , calories: , demoVideo: } ]'},
-            {role: 'user', content: `give me a list of the top 45 most common workouts`}
-        ],
-        response_format: {type: 'json_object'}
+        messages: [{role: 'system', content: `You're a nutritionist expert, here to help the user lose weight by giving them the healthiest recipes available`},
+            {role: 'user', content: 'i need some healthy recipes'}
+        ]
     })
 
-    const workout = JSON.parse(completion.choices[0].message.content as string)
+    console.log(res)
 
 
-    return NextResponse.json({workout})
+    return NextResponse.json({recipes: 'hello'})
 }

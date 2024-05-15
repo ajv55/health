@@ -27,7 +27,7 @@ export default function Maintenance() {
         }
     };
     const data = {
-        labels: ['Maintenance'],
+        labels: ['Maintenance Calories'],
     datasets: [{
         label: 'Calories',
         data: [maintenance],
@@ -51,8 +51,8 @@ export default function Maintenance() {
 
 
   return (
-    <div className='w-[43%] h-[17rem] p-3 flex justify-center items-center bg-slate-900 rounded-2xl'>
-        <Doughnut plugins={[textCenter]} options={options} data={data} />
+    <div className='w-[43%] relative h-[17rem] flex  justify-center items-center bg-slate-900 rounded-2xl'>
+        <Doughnut  className='' plugins={[textCenter]} options={options} data={data} />
     </div>
   )
 }

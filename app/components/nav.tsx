@@ -6,7 +6,7 @@ import Signing from './mainPage/signing';
 
 export default function Nav() {
   return (
-    <div className='lg:w-full bg-transparent   z-10 fixed top-0 lg:h-content py-3 flex justify-between items-center p-3'>
+    <div className='lg:w-full bg-transparent   z-10 absolute top-0 lg:h-content py-3 flex justify-between items-center p-3'>
         <div className='flex justify-center items-center gap-2'>
            <h1 className='text-4xl text-white'>FitGenius</h1>
            <FiActivity size={30} color='gold'/>
