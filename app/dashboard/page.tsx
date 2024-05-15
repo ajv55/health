@@ -5,7 +5,6 @@ import {useSession} from 'next-auth/react'
 import { useRouter } from 'next/navigation';
 import LineGraph from '../components/dashboardComponents/lineGraph';
 import { InvoiceSkeleton } from '../ui/skeletons';
-import Workout from '../components/dashboardComponents/workout';
 import LineChart from '../components/dashboardComponents/lineChart';
 import Arc from '../components/arc';
 import Bar from '../components/bar';
