@@ -8,7 +8,7 @@ import { FiActivity } from "react-icons/fi";
 
 export default function Footer() {
   return (
-    <div className='relative flex flex-wrap mt-32 justify-center items-center  bg-gradient-to-bl from-emerald-800 via-emerald-600 to-emerald-300 w-full h-screen'>
+    <div className='relative flex flex-wrap mt-20 justify-center items-center  bg-gradient-to-bl from-emerald-800 via-emerald-600 to-emerald-300 w-full h-screen'>
         <Tilt/>
 
         <div className=' w-[45%] mt-32 h-[34rem]  flex flex-col justify-evenly items-start'>
