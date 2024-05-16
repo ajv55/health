@@ -1,17 +1,31 @@
+'use client';
 import Image from 'next/image';
 import Link from 'next/link';
 import Essential from '@/public/5essential.jpg';
 import Fitness from '@/public/fitness.jpg';
 import Health from '@/public/healthy.jpg';
+import { motion, useInView, useAnimation } from 'framer-motion';
+import { useEffect, useRef } from 'react';
 
 const Resource= () => {
+
+    const ref = useRef(null);
+    const isInView = useInView(ref);
+    const mainControls = useAnimation();
+
+    useEffect(() => {
+        if(isInView){
+            mainControls.start('visible')
+        }
+    }, [isInView, mainControls])
+
     return (
-        <section className="bg-gray-100 py-12">
+        <motion.section ref={ref} variants={{visible: { opacity: 1, y: 0 } }} initial={{ opacity: 0, y: -50 }} animate={mainControls} transition={{ duration: 0.5, stiffness: 100, damping: 10, delay: 0.85 }} className="bg-gray-100 py-12">
             <div className="container mx-auto px-4">
                 <h2 className="text-7xl font-bold text-center mb-8">Explore Our Resources</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Resource Card 1 */}
-                    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <motion.div  whileHover={{ scale: 1.05 }} className="bg-white rounded-lg shadow-lg overflow-hidden">
                         <div className="relative h-64">
                             <Image
                                 src={Essential}
@@ -28,9 +42,9 @@ const Resource= () => {
                                 Read Article
                             </Link>
                         </div>
-                    </div>
+                    </motion.div>
                     {/* Resource Card 2 */}
-                    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <motion.div  whileHover={{ scale: 1.05 }} className="bg-white rounded-lg shadow-lg overflow-hidden">
                         <div className="relative h-64">
                             <Image
                                 src={Fitness}
@@ -47,9 +61,9 @@ const Resource= () => {
                                  Guide
                             </Link>
                         </div>
-                    </div>
+                    </motion.div>
                     {/* Resource Card 3 */}
-                    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <motion.div  whileHover={{ scale: 1.05 }} className="bg-white rounded-lg shadow-lg overflow-hidden">
                         <div className="relative h-64">
                             <Image
                                 src={Health}
@@ -66,10 +80,10 @@ const Resource= () => {
                                 Read Tips
                             </Link>
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
-        </section>
+        </motion.section>
     );
 };
 
