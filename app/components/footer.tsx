@@ -40,8 +40,8 @@ export default function Footer() {
 
             <nav className=' w-[33%]   text-white text-3xl font-light  tracking-wider flex flex-col justify-evenly items-start'>
                <Link className='hover:text-red-300 hover:text-3xl hover:before:scale-x-100 hover:before:origin-left relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='#features'>Features</Link>
-               <Link className='hover:text-blue-300 hover:before:scale-x-100 hover:before:origin-left relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='/blog'>Blog</Link>
-               <Link className='hover:text-orange-300 hover:before:scale-x-100 hover:before:origin-left relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='/Contact'>Privacy Policy</Link>
+               <Link className='hover:text-blue-300 hover:before:scale-x-100 hover:before:origin-left relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='/'>Blog</Link>
+               <Link className='hover:text-orange-300 hover:before:scale-x-100 hover:before:origin-left relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='/privacy'>Privacy Policy</Link>
             </nav>
 
             <nav className=' w-[33%]   text-white text-3xl font-light  tracking-wider flex flex-col justify-evenly items-start'>

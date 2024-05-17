@@ -28,6 +28,7 @@ model User {
   heightInInches String?
   calories String?
   gender String?
+  goal String?
   workoutPlan String? 
 
  // Define the relationship with CalorieIntake entity

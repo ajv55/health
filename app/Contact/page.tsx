@@ -1,9 +1,14 @@
 import React from 'react'
+import Nav from '../components/nav'
+import ContactHeader from '../components/contactComponents/contactHeader'
+import ContactInfo from '../components/contactComponents/contactInfo'
 
 export default function Page() {
   return (
-    <div className='bg-orange-200 w-full h-screen flex justify-center items-center'>
-        Contact page
+    <div  className=' w-full  flex flex-col justify-center items-center'>
+        <Nav />
+        <ContactHeader />
+        <ContactInfo />
     </div>
   )
 }
