@@ -20,8 +20,8 @@ const Resource= () => {
     }, [isInView, mainControls])
 
     return (
-        <motion.section ref={ref} variants={{visible: { opacity: 1, y: 0 } }} initial={{ opacity: 0, y: -50 }} animate={mainControls} transition={{ duration: 0.5, stiffness: 100, damping: 10, delay: 0.85 }} className="bg-gray-100 py-12">
-            <div className="container mx-auto px-4">
+        <motion.section  ref={ref} variants={{visible: { opacity: 1, y: 0 } }} initial={{ opacity: 0, y: -50 }} animate={mainControls} transition={{ duration: 0.5, stiffness: 100, damping: 10, delay: 0.85 }} className="bg-gray-100 py-12">
+            <div id='resources' className="container mx-auto px-4">
                 <h2 className="text-7xl font-bold text-center mb-8">Explore Our Resources</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Resource Card 1 */}

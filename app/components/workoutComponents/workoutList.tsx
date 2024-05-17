@@ -29,7 +29,7 @@ export default function WorkoutList() {
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const getEvents = async () => {
-        return axios.get('/api/getEvents').then((res: any) => dispatch(setList(res?.data?.res)));
+        return axios.get('/api/getEvents').then((res: any) => dispatch(setList(res?.data?.res))).catch((error) => console.error('no workout records', error));
     }
 
     const getWorkoutList = async () => {
@@ -103,7 +103,7 @@ export default function WorkoutList() {
 
       const newList = workoutList.filter((wl, i) => i <= 6 && wl)
 
-    console.log(newList)
+    console.log(eventList)
 
   return (
     <div className='flex w-full justify-evenly items-center'>

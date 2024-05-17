@@ -6,7 +6,7 @@ import Tilt from "../tilt";
 export default function Exercises() {
   return (
     <div className="w-full flex flex-col justify-start  items-start relative h-[12rem]">
-        <div className='-z-10 absolute -top-64 left-4 bg-gradient-to-br from-emerald-900 via-emerald-700 to-emerald-300  h-[25rem] w-full'>
+        <div className='-z-10 absolute -top-64 left-0 bg-gradient-to-br from-emerald-900 via-emerald-700 to-emerald-300  h-[25rem] w-full'>
             <BottomTilt/>
         </div>
 

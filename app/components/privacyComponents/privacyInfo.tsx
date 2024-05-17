@@ -9,7 +9,7 @@ export default function PrivacyInfo() {
   return (
     <div className='w-full relative flex flex-col justify-center items-center h-content'>
 
-        <div className='-z-10 absolute -top-64 left-4 bg-gradient-to-br from-emerald-900 via-emerald-700 to-emerald-300  h-[25rem] w-full'>
+        <div className='-z-10 absolute -top-64 left-0 bg-gradient-to-br from-emerald-900 via-emerald-700 to-emerald-300  h-[25rem] w-full'>
             <BottomTilt />
         </div>
 
