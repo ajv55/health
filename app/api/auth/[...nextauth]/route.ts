@@ -8,7 +8,6 @@ import NextAuth from "next-auth/next";
 import bcrypt from 'bcrypt';
 import { JWT } from "next-auth/jwt";
 import Stripe from 'stripe';
-import { userAgent } from "next/server";
 
 
 export const options: NextAuthOptions = {
@@ -69,7 +68,7 @@ export const options: NextAuthOptions = {
            if(trigger === 'update' && session?.stripeCustomerId){
             token.stripeCustomerId = session.stripeCustomerId
            }
-           console.log('user', token);
+
 
            
 
@@ -99,7 +98,7 @@ export const options: NextAuthOptions = {
             },
             data: {
                 calories: token.calories as string,
-                stripeCustomerId: token.stripeCustomerId as string
+                stripeCustomerId: token.stripeCustomerId as string,
             }
         });
 
@@ -107,7 +106,8 @@ export const options: NextAuthOptions = {
             return token
         },
         session: async ({session, token, user}): Promise<any> => {
-            
+        
+    
             // adding the users age, weight, height, gender, caloires, and id through the token on the session
             return {
                 ...session, 

@@ -18,7 +18,7 @@ export async function POST(req: NextRequest) {
 
 
     if (exist?.gender === 'Male') {
-        const calories = 88.362 + (4.799 * Number(exist.heightInInches)) + (13.397 * Number(exist.weightInKg)) - (5.677 * Number(exist.age))
+        const calories = 88.362 + (4.799 * Number(exist.heightInInches)) + (13.397 * Number(exist.weightInLbs)) - (5.677 * Number(exist.age))
         await prisma.user.update({
             where: {
                 email: email
@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (exist?.gender === 'Female') {
-        const calories = 655 + (4.35 * Number(exist.weightInKg)) + (4.7 * Number(exist.heightInInches)) - (4.7 * Number(exist.age)); 
+        const calories = 655 + (4.35 * Number(exist.weightInLbs)) + (4.7 * Number(exist.heightInInches)) - (4.7 * Number(exist.age)); 
         await prisma.user.update({
             where: {
                 email: email

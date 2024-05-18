@@ -1,11 +1,12 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 const MealGenerator = () => {
   const [goals, setGoals] = useState('');
+  const [isActive, setIsActive] = useState(false);
   const [preferences, setPreferences] = useState('');
   const [mealPlan, setMealPlan] = useState('');
   const [loading, setLoading] = useState(false);
@@ -13,11 +14,39 @@ const MealGenerator = () => {
 
   const {data: session} = useSession();
 
-  console.log(session?.user?.isActive)
+  
   const isUserActive = session?.user?.isActive;
+  const stripeCustomerId = session?.user?.stripeCustomerId;
+  console.log(isUserActive)
+  console.log(isActive)
+
+
+  useEffect(() => {
+    const updatedIsActive = async () => {
+        try {
+            const response = await fetch('/api/update', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({stripeCustomerId: stripeCustomerId})
+            });
+            if (response.ok) {
+                const data = await response.json();
+                setIsActive(data.isUserActive);
+                // Update isUserActive based on the updated status from the backend
+            } else {
+                console.error('Failed to update isUserActive:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error updating isUserActive:', error);
+        }
+    };
+
+    updatedIsActive();
+}, [stripeCustomerId]);
+
 
   const handleUser = () => {
-    if(isUserActive){
+    if(isActive){
       // here is where i will allow the user to have access to the ai generate meal plans
       console.log('youre a paid memeber now lets gooooo!!!!')
     } else {

@@ -30,39 +30,57 @@ const webhookHandler = async (req: NextRequest) => {
                 { status: 400 }
             );
         }
+
+        // Log the event type
+        console.log(`🔔 Event received: ${event.type}`);
         
         // Getting the data we want from the event
 const subscription = event.data.object as Stripe.Subscription;
 
+// Log the subscription object
+console.log(subscription);
+
+const stripeCustomerId = subscription.customer as string;
+
+let isActive = false;
 switch (event.type) {
     case "customer.subscription.created":
-            await prisma.user.update({
-            // Find the customer in our database with the Stripe customer ID linked to this purchase
-            where: {
-                stripeCustomerId: subscription.customer as string,
-            },
-            // Update that customer so their status is now active
-            data: {
-                isActive: true,
-            },
+             isActive = true;
+             const user = await prisma.user.update({
+                where: {stripeCustomerId: stripeCustomerId},
+                data: {
+                    isActive: isActive
+                }
             });
+            console.log(user)
         break;
     case "customer.subscription.deleted":
-            await prisma.user.update({
-            // Find the customer in our database with the Stripe customer ID linked to this purchase
-            where: {
-                stripeCustomerId: subscription.customer as string,
-            },
-            // Update that customer so their status is now active
+        isActive = false;
+       const bye =  await prisma.user.update({
+            where: {stripeCustomerId: stripeCustomerId},
             data: {
-                isActive: false,
-            },
-            });
+                isActive: isActive
+            }
+        });
+        console.log(bye)
         break;
     default:
             console.warn(`🤷‍♀️ Unhandled event type: ${event.type}`);
         break;
 }
+   console.log(`User with Stripe Customer ID ${stripeCustomerId} updated to isActive=${isActive}`);
+
+         // Call the update session endpoint
+         const updateSessionRes = await fetch(`/api/updateIsActive`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ stripeCustomerId })
+        });
+
+        const updateSessionData = await updateSessionRes.json();
+        console.log('Session updated:', updateSessionData);  
     
         // Return a response to acknowledge receipt of the event.
         return NextResponse.json({ received: true });
