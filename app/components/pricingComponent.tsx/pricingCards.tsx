@@ -1,8 +1,33 @@
+'use client';
+import getStripe from '@/app/utils/getStripe';
+import axios from 'axios';
 import Link from 'next/link';
 import React from 'react';
 import { GiCheckMark } from "react-icons/gi";
 
 export default function PricingCards() {
+
+    const handleCreateCheckoutSession = async () => {
+        const price = { amount: 'price_1PHh5b1EGRFj6h8h5bMn0YLh' }; 
+        const res = await fetch(`/api/stripe/checkout-session`, {
+            method: "POST",
+            body: JSON.stringify(price),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        const checkoutSession = await res.json().then((value) => {
+            return value.session;
+        });
+        const stripe = await getStripe();
+        const {error} = await stripe!.redirectToCheckout({
+            sessionId: checkoutSession.id
+        });
+        console.warn(error.message)
+
+    }
+
+
   return (
     <div className="mx-w-4xl mx-auto p-6">
         <h1 className="text-6xl font-bold text-center mb-8">Pricing Plans</h1>
@@ -41,7 +66,7 @@ export default function PricingCards() {
                         <li><strong>Priority Support:</strong> Get quick responses to your queries and issues.</li>
                     </ul>
                     <div className="flex justify-center">
-                        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Start Your 7-Day Free Trial</button>
+                        <button onClick={handleCreateCheckoutSession} className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Start Your 7-Day Free Trial</button>
                     </div>
                 </div>
             </div>

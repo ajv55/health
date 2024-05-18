@@ -5,6 +5,7 @@ import { options } from '../../auth/[...nextauth]/route';
 
 export async function POST(req: NextRequest){
     const body = await req.json();
+    console.log(body?.amount)
 
     const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {apiVersion: '2024-04-10'});
 
@@ -18,10 +19,10 @@ export async function POST(req: NextRequest){
         mode: 'subscription',
         customer: session?.user?.stripeCustomerID,
         line_items: [{
-            price: body,
+            price: body?.amount,
             quantity: 1,
         }],
-        success_url: process.env.URL + '/success',
+        success_url: process.env.URL + '/dashboard',
         cancel_url: process.env.URL,
         subscription_data: {
             metadata: {
