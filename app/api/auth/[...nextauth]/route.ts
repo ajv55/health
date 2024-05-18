@@ -7,6 +7,8 @@ import GoogleProvider from 'next-auth/providers/google'
 import NextAuth from "next-auth/next";
 import bcrypt from 'bcrypt';
 import { JWT } from "next-auth/jwt";
+import Stripe from 'stripe';
+import { userAgent } from "next/server";
 
 
 export const options: NextAuthOptions = {
@@ -61,26 +63,32 @@ export const options: NextAuthOptions = {
     ],
     callbacks: {
         jwt: async ({token, user, session, trigger}: {token: JWT, user?: User | any, session?: any, trigger?: any}): Promise<any>  => {
-           
            if (trigger === 'update' && session?.calories) {
             token.calories = session.calories
            }
-           if (trigger === 'update' && session?.workoutPlan) {
-            token.workoutPlan = session.workoutPlan
+           if(trigger === 'update' && session?.stripeCustomerId){
+            token.stripeCustomerId = session.stripeCustomerId
            }
+           console.log('user', token);
+
+           
 
            // passing in user id, calories, height, weight, age, and gender to token
            if(user) {
+           
             return {
                 ...token, 
-                id: user.id,
+                id: user?.id,
                 calories: user?.calories,
                 age: user?.age,
                 weight: user?.weightInLbs,
                 height: user?.heightInInches,
                 gender: user?.gender,
                 activity: user?.TDEE,
-                workoutPlan: user?.workoutPlan 
+                isActive: user?.isActive,
+                stripeCustomerId: user?.stripeCustomerId
+
+
             }
         }
 
@@ -91,7 +99,7 @@ export const options: NextAuthOptions = {
             },
             data: {
                 calories: token.calories as string,
-                workoutPlan: token.workoutPlan as string,
+                stripeCustomerId: token.stripeCustomerId as string
             }
         });
 
@@ -99,23 +107,24 @@ export const options: NextAuthOptions = {
             return token
         },
         session: async ({session, token, user}): Promise<any> => {
-            console.log('session callback', session, user, token)
-
-            // adding the users age, weight, height, gender, caloires, and id throught the token on the session
+            
+            // adding the users age, weight, height, gender, caloires, and id through the token on the session
             return {
                 ...session, 
                 user: {
                     ...session.user,
-                   age: token.age,
-                   weight: token.weight,
-                   id: token.id,
-                   calories: token.calories,
-                   height: token.height,
-                   gender: token.gender,
-                   activity: token.activity,
-                   workoutPlan: token.workoutPlan
+                   age: token?.age,
+                   weight: token?.weight,
+                   id: token?.id,
+                   calories: token?.calories,
+                   height: token?.height,
+                   gender: token?.gender,
+                   activity: token?.activity,
+                   isActive: token?.isActive,
+                   stripeCustomerId: token?.stripeCustomerId
                 }
             };
+
 
         return session
         }

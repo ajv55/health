@@ -7,9 +7,12 @@ import toast from 'react-hot-toast';
 import {  useSelector , useDispatch} from 'react-redux';
 import { RootState } from '@/app/store';
 import { incrementDailyWater } from '@/app/slices/waterSlice';
+import { useSession } from 'next-auth/react';
 
 
 export default function Water() {
+  const{data: session} = useSession();
+  console.log(session)
   const [amount, setAmount] = useState(0);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);

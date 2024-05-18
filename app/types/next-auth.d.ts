@@ -1,4 +1,4 @@
-import NextAuth from "next-auth"
+import NextAuth, { DefaultUser } from "next-auth"
 
 declare module "next-auth" {
   /**
@@ -16,7 +16,8 @@ declare module "next-auth" {
       height: string,
       gender: string,
       activity: string,
-      workoutPlan: string,
+      stripeCustomerID?: string,
+      isActive?: boolean,
     }
   }
 }

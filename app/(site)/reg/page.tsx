@@ -34,13 +34,9 @@ export default function Page() {
         e.preventDefault();
         ref.current?.reset()
         console.log('this is where i should be calling this function only after someone has succesfully logged in, this function will calculate there calories and update it on the database')
-        axios.post('/api/register', data).then(() => toast.success('User has been registered successfully!!!!')).then(() => router.push('/login')).catch((res) => {
-            if(res.response.status){
-                toast.error(`${res.response.data}`)
-            }
-        });
+        axios.post('/api/register', data).then(() => toast.success('User has been registered successfully!!!!')).then(() => router.push('/login')).catch((error) => console.error('error occurred when trying to register', error))
+        };
 
-    }
     console.log(data)
 
   return (
@@ -104,8 +100,8 @@ export default function Page() {
                 </div>
 
                 <div className=" w-[45%] h-[3rem] flex flex-col justify-start items-start gap-1">
-                    <label className="text-xl font-bold tracking-wider text-zinc-800" htmlFor="name">Goal Weight</label>
-                    <input className="px-2.5 py-2 border-b-2 border-r-2 drop-shadow-lg border-zinc-800 w-full text-2xl  rounded-xl placeholder:text-zinc-400 placeholder:text-2xl focus:outline-none outline-none" placeholder="Your goal weight..." type="text" value={data.goal} onChange={(e) => setData({...data, goal: e.target.value}) } name="" id="name" />  
+                    <label className="text-xl font-bold tracking-wider text-zinc-800" htmlFor="goal">Goal Weight</label>
+                    <input className="px-2.5 py-2 border-b-2 border-r-2 drop-shadow-lg border-zinc-800 w-full text-2xl  rounded-xl placeholder:text-zinc-400 placeholder:text-2xl focus:outline-none outline-none" placeholder="Your goal weight..." type="text" value={data.goal} onChange={(e) => setData({...data, goal: e.target.value}) } name="" id="goal" />  
                 </div>
             </div>
 

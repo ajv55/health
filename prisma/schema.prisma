@@ -18,18 +18,20 @@ model User {
   name String?
   email String? @unique
   emailVerified DateTime?
+  stripeCustomerId String?   @unique
+  isActive         Boolean?   @default(false)
   image String?
   hashedPassword String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   TDEE String?
+  agreed String?
   age String?
   weightInLbs String?
   heightInInches String?
   calories String?
   gender String?
   goal String?
-  workoutPlan String? 
 
  // Define the relationship with CalorieIntake entity
   calorieIntake CalorieIntake[]
