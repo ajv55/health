@@ -1,24 +1,30 @@
 'use client';
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const MealGenerator = () => {
   const [goals, setGoals] = useState('');
   const [preferences, setPreferences] = useState('');
   const [mealPlan, setMealPlan] = useState('');
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-  const generateMealPlan = async () => {
-    setLoading(true);
-    try {
-      const response = await axios.post('/api/generate-meal-plan', { goals, preferences });
-      setMealPlan(response.data);
-    } catch (error) {
-      console.error('Error generating meal plan:', error);
-    } finally {
-      setLoading(false);
+  const {data: session} = useSession();
+
+  console.log(session?.user?.isActive)
+  const isUserActive = session?.user?.isActive;
+
+  const handleUser = () => {
+    if(isUserActive){
+      // here is where i will allow the user to have access to the ai generate meal plans
+      console.log('youre a paid memeber now lets gooooo!!!!')
+    } else {
+      router.push('/pricing')
     }
-  };
+  }
+  
 
   return (
     <div className="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
@@ -51,7 +57,7 @@ const MealGenerator = () => {
           </div>
           <div>
             <button
-              onClick={generateMealPlan}
+              onClick={handleUser}
               className="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700"
               disabled={loading}
             >
