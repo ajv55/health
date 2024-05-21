@@ -4,6 +4,7 @@ import { Chart as ChartJS, LineElement, PointElement, LineController, LinearScal
 import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import { format } from "date-fns";
+import WaterSkeleton from "./waterSkeleton";
 
 
 ChartJS.register(LineController, PointElement, LineElement, Legend, Tooltip, CategoryScale, LinearScale, Filler)
@@ -11,13 +12,15 @@ ChartJS.register(LineController, PointElement, LineElement, Legend, Tooltip, Cat
 export default function WaterIntake() {
 
     const [waterList, setWaterList] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
 
     const waterDate = waterList.map((wl: {date: Date}) => format(new Date(wl.date), 'MMM Lo yy'))
 
    const waterData = waterList.map((wl: {amount: number}) => wl?.amount)
 
     const getWaterIntake = async () => {
-        return await axios.get('/api/getWaterRecord').then((res) => setWaterList(res?.data?.water))
+        setIsLoading(true);
+        return await axios.get('/api/getWaterRecord').then((res) => setWaterList(res?.data?.water)).finally(() => setIsLoading(false))
     }
 
 
@@ -26,6 +29,15 @@ export default function WaterIntake() {
     }, []) 
 
     const option = {
+        plugins: {
+            legend: {
+                labels: {
+                    font: {
+                        size: 18
+                    }
+                }
+            }
+        },
         scales: {
             x: {
                 title: {
@@ -70,17 +82,19 @@ export default function WaterIntake() {
           label: 'Liters',
           data: waterData,
           fill: true,
-          backgroundColor: 'rgba(75, 192, 192, 0.2)',
-          borderColor: 'rgb(75, 192, 192)',
+          backgroundColor: 'rgba(95, 40, 171, 0.2)',
+          borderColor: 'rgb(181, 149, 249)',
           tension: 0.2
         }]
       };
 
   return (
-    <div className='w-[45%] h-[18rem] flex flex-col justify-start items-start rounded-xl bg-slate-700'>
-        <h2 className="text-4xl text-white font-bold tracking-wide p-2">Water Intake History</h2>
-        {waterList.length === 0 && <div className="text-white text-4xl">No Water Logs 😭</div>}
-        {waterList.length !== 0 && <Line options={option} data={data} /> }
+    <div className='w-[85%] h-content flex flex-col justify-center items-center rounded-2xl bg-slate-900'>
+        {isLoading && <WaterSkeleton />}
+        {waterList.length === 0 && !isLoading && <div className="text-white text-4xl">No Water Logs 😭</div>}
+        <div className="w-full  h-full p-2 flex justify-center items-center">
+           {waterList.length !== 0 && <Line options={option} data={data} /> }
+        </div>
     </div>
   )
 }

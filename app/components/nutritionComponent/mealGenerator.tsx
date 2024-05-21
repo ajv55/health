@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { signIn, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 const MealGenerator = () => {
@@ -15,9 +15,8 @@ const MealGenerator = () => {
   const {data: session} = useSession();
 
   
-  const isUserActive = session?.user?.isActive;
   const stripeCustomerId = session?.user?.stripeCustomerId;
-  console.log(isUserActive)
+
   console.log(isActive)
 
 
@@ -56,29 +55,29 @@ const MealGenerator = () => {
   
 
   return (
-    <div className=" border w-[45%] py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
-    <div className="bg-white shadow-md rounded-lg p-8">
-      <h2 className="text-3xl font-extrabold text-gray-900 text-center">Generate Your Meal Plan</h2>
+    <div className="  w-[45%] py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+    <div className="bg-white h-[23rem] shadow-md shadow-zinc-900 rounded-lg p-8">
+      <h2 className="text-5xl font-extrabold text-gray-900 text-center">Generate Your Meal Plan</h2>
       <div className="mt-8 space-y-6">
         <div>
-          <label htmlFor="goals" className="block text-sm font-medium text-gray-700">Macronutrient Goals</label>
+          <label htmlFor="goals" className="block text-2xl font-medium text-gray-700">Macronutrient Goals</label>
           <input
             id="goals"
             name="goals"
             type="text"
-            className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+            className="mt-1 block w-full placeholder:text-xl outline-violet-500 p-2 shadow-sm sm:text-sm border-gray-300 rounded-md"
             value={goals}
             onChange={(e) => setGoals(e.target.value)}
             placeholder="e.g., 2000 calories, 150g protein"
           />
         </div>
         <div>
-          <label htmlFor="preferences" className="block text-sm font-medium text-gray-700">Dietary Preferences</label>
+          <label htmlFor="preferences" className="block text-2xl font-medium text-gray-700">Dietary Preferences</label>
           <input
             id="preferences"
             name="preferences"
             type="text"
-            className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
+            className="mt-1 block w-full p-2 placeholder:text-xl outline-violet-500  shadow-sm sm:text-sm border-gray-300 rounded-md"
             value={preferences}
             onChange={(e) => setPreferences(e.target.value)}
             placeholder="e.g., vegan, gluten-free"
@@ -87,7 +86,7 @@ const MealGenerator = () => {
         <div>
           <button
             onClick={handleUser}
-            className="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-700"
+            className="w-full bg-gradient-to-br from-violet-800 via-violet-600 to-violet-300 hover:from-violet-300 hover:via-violet-500 hover:to-violet-300 drop-shadow-2xl text-white font-bold py-2 px-4 rounded-md text-2xl"
             disabled={loading}
           >
             {loading ? 'Generating...' : 'Generate Meal Plan'}
