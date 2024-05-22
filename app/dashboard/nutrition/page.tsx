@@ -1,3 +1,4 @@
+import GeneratedMeal from '@/app/components/nutritionComponent/generatedMeal'
 import Macro from '@/app/components/nutritionComponent/macro'
 import MealGenerator from '@/app/components/nutritionComponent/mealGenerator'
 import MealPlan from '@/app/components/nutritionComponent/mealPlan'
@@ -13,9 +14,10 @@ export default function Page
     <div className='w-full flex flex-col justify-start overflow-scroll items-start'>
        <NutritionHeader/>
       <div className='w-full flex justify-evenly items-center'>
-        <MealGenerator />
+         <MealPlan />
       </div>
-      <MealPlan />
+      <GeneratedMeal />
+     
        
     </div>
   )

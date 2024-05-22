@@ -43,7 +43,18 @@ model User {
   CompletedChallenges   CompletedChallenges[]
   //Define the relationship with Workout entity
   workouts  Workout[]
+  // Define the relationship with MealPlan entity
+  mealPlans   MealPlan[] @relation("UserMealPlans")
   account Account []
+}
+
+model MealPlan {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String   @db.ObjectId
+  user        User     @relation("UserMealPlans", fields: [userId], references: [id])
+  meals       Json?    // Store meal details as JSON
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Account {

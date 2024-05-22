@@ -2,6 +2,9 @@
 import { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { setMealPlan } from '@/app/slices/generateSlice';
 
 type FormData = {
   dietaryPreferences: string;
@@ -21,11 +24,12 @@ const MealPlan: React.FC = () => {
   });
   const [isActive, setIsActive] = useState(false);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const {data: session} = useSession();
 
   const stripeCustomerId = session?.user?.stripeCustomerId;
-
+  console.log(stripeCustomerId)
   console.log(isActive)
 
   useEffect(() => {
@@ -52,15 +56,6 @@ const MealPlan: React.FC = () => {
 }, [stripeCustomerId]);
 
 
-  const handleUser = () => {
-    if(isActive){
-      // here is where i will allow the user to have access to the ai generate meal plans
-      console.log('youre a paid memeber now lets gooooo!!!!')
-    } else {
-      router.push('/pricing')
-    }
-  }
-
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement> | any) => {
     const { name, value, type, checked } = e.target;
     if (type === 'checkbox') {
@@ -75,11 +70,13 @@ const MealPlan: React.FC = () => {
     }
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     console.log('Form Data:', formData);
+    
     if(isActive){
         // here is where i will allow the user to have access to the ai generate meal plans
+        await axios.post('/api/generateMeal', formData).then((res) => dispatch(setMealPlan(res?.data?.data)))
         console.log('youre a paid memeber now lets gooooo!!!!')
       } else {
         router.push('/pricing')
@@ -88,11 +85,11 @@ const MealPlan: React.FC = () => {
 
 
   return (
-    <div className="max-w-lg mx-auto mt-10 p-6 bg-white shadow-md rounded-lg">
-      <h2 className="text-2xl font-bold mb-6">Generate Your Meal Plan</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="dietaryPreferences">
+    <div className="w-[60%] flex flex-col justify-center items-start mt-10 p-6 bg-white shadow-md rounded-2xl shadow-zinc-900">
+      <h2 className="text-5xl w-full font-bold mb-6">Generate Your Meal Plan</h2>
+      <form onSubmit={handleSubmit} className=' w-full flex gap-5 flex-wrap justify-center items-center'>
+        <div className="mb-4 w-[45%]">
+          <label className="block text-gray-700 text-xl font-bold mb-2" htmlFor="dietaryPreferences">
             Dietary Preferences
           </label>
           <select
@@ -100,7 +97,7 @@ const MealPlan: React.FC = () => {
             name="dietaryPreferences"
             value={formData.dietaryPreferences}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded-lg"
+            className="w-full p-2 border outline-violet-600 border-gray-300 rounded-lg"
           >
             <option value="">Select Preference</option>
             <option value="Vegetarian">Vegetarian</option>
@@ -110,20 +107,20 @@ const MealPlan: React.FC = () => {
           </select>
         </div>
 
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
+        <div className="mb-4  w-[45%]">
+          <label className="block  text-gray-700 text-xl font-bold mb-2">
             Allergies
           </label>
           <div className="flex flex-wrap">
             {['Nuts', 'Dairy', 'Soy'].map((allergy) => (
-              <label key={allergy} className="flex items-center mr-4 mb-2">
+              <label key={allergy} className="flex text-xl items-center mr-4 mb-2">
                 <input
                   type="checkbox"
                   name="allergies"
                   value={allergy}
                   checked={formData.allergies.includes(allergy)}
                   onChange={handleChange}
-                  className="mr-2"
+                  className="mr-2 outline-violet-600"
                 />
                 {allergy}
               </label>
@@ -131,8 +128,8 @@ const MealPlan: React.FC = () => {
           </div>
         </div>
 
-        <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="mealType">
+        <div className="mb-4  w-[32%]">
+          <label className="block text-gray-700 text-xl font-bold mb-2" htmlFor="mealType">
             Meal Type
           </label>
           <select
@@ -140,7 +137,7 @@ const MealPlan: React.FC = () => {
             name="mealType"
             value={formData.mealType}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded-lg"
+            className="w-full p-2 outline-violet-600 border border-gray-300 rounded-lg"
           >
             <option value="">Select Meal Type</option>
             <option value="Breakfast">Breakfast</option>
@@ -151,7 +148,7 @@ const MealPlan: React.FC = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="duration">
+          <label className="block text-gray-700 text-xl  font-bold mb-2" htmlFor="duration">
             Duration (days)
           </label>
           <input
@@ -160,12 +157,12 @@ const MealPlan: React.FC = () => {
             name="duration"
             value={formData.duration}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded-lg"
+            className="w-full outline-violet-600 p-2 border border-gray-300 rounded-lg"
           />
         </div>
 
         <div className="mb-6">
-          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="nutritionalGoals">
+          <label className="block text-gray-700 text-xl  font-bold mb-2" htmlFor="nutritionalGoals">
             Nutritional Goals
           </label>
           <select
@@ -173,7 +170,7 @@ const MealPlan: React.FC = () => {
             name="nutritionalGoals"
             value={formData.nutritionalGoals}
             onChange={handleChange}
-            className="w-full p-2 border border-gray-300 rounded-lg"
+            className="w-full outline-violet-600 text-xl  p-2 border border-gray-300 rounded-lg"
           >
             <option value="">Select Goal</option>
             <option value="Weight loss">Weight loss</option>
@@ -182,7 +179,7 @@ const MealPlan: React.FC = () => {
           </select>
         </div>
 
-        <button type='submit' className="w-full bg-blue-500 text-white p-2 rounded-lg font-bold">
+        <button type='submit' className="w-[85%] bg-gradient-to-tr from-violet-600 via-violet-500 to-violet-300 text-white p-2 rounded-lg text-xl  font-bold">
           Generate Meal Plan
         </button>
       </form>
