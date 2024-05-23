@@ -58,8 +58,8 @@ export default function GeneratedMeal() {
 
           console.log(meal?.meals)
           return (
-            <ol key={i} className='w-[97%] relative border-s border-zinc-900 dark:border-gray-700'>
-              <li className='mb-10 border ms-4'>
+            <ol key={i} className='w-[98%] relative border-s border-zinc-900 dark:border-gray-700'>
+              <li className='mb-10  ms-4'>
                <div className="absolute w-3 h-3 bg-zinc-800 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-zinc-800"></div>
                 <h1 className='text-3xl font-medium text-gray-400'>{format(new Date(meal?.date), 'iiii, MMMM do yyyy')}</h1>
                 {meal?.meals?.map((meal: any) => {
@@ -132,8 +132,8 @@ export default function GeneratedMeal() {
                       label: 'Grams',
                       data: [meal?.protein, meal?.carbs, meal?.fat],
                       fill: true,
-                      borderColor: 'rgb(137, 26, 234)',
-                      backgroundColor: 'rgba(105, 40, 142, 0.651)',
+                      borderColor: 'rgb(209, 169, 244)',
+                      backgroundColor: 'rgba(82, 43, 104, 0.651)',
                       tension: 0.1
                     }]
                   }
@@ -182,7 +182,7 @@ export default function GeneratedMeal() {
                   <div className='flex   justify-evenly items-center gap-8 w-full'>
                     <div className='flex h-[19rem] flex-col justify-center w-[45%]  items-center rounded-2xl gap-5'>
                       <h4 className='text-3xl font-light tracking-wide text-gray-500'>{meal?.mealType}</h4>
-                      <h1 className='text-5xl font-bold tracking-wide'>{meal?.meal}</h1>
+                      <h1 className='text-5xl text-center text-balance font-bold tracking-wide'>{meal?.meal}</h1>
                       <p className='text-2xl text-center text-balance'>{meal?.description}</p>
                     </div>
                     
@@ -211,12 +211,12 @@ export default function GeneratedMeal() {
                   </div>
 
                   <div className='w-full mb-12 flex justify-evenly items-center '>
-                    <div className='w-[45%] p-3 bg-gradient-to-bl from-slate-900 via-slate-700 to-slate-900  flex justify-center items-center h-[20rem] rounded-2xl'>
+                    <div className='w-[45%] p-3 bg-gradient-to-bl from-slate-900 via-slate-700 to-slate-900  flex justify-center items-center h-[22rem] rounded-2xl'>
                       <Doughnut plugins={[textCenter]} options={options} data={data} />
                     </div>
                     
 
-                    <div className='w-[47%] p-2 flex gap-2 flex-col justify-center items-center bg-gradient-to-bl from-slate-900 via-slate-700 to-slate-900  h-[20rem] border rounded-2xl'>
+                    <div className='w-[47%] p-3 flex gap-2 flex-col justify-center items-center bg-gradient-to-bl from-slate-900 via-slate-700 to-slate-900  h-[22rem] border rounded-2xl'>
                       <h1 className='text-center text-white font-bold text-4xl'>Micronutrients</h1>
                       <Line options={lineOption} data={lineData} />
                     </div>

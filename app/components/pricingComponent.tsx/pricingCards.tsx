@@ -4,6 +4,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import React from 'react';
 import { GiCheckMark } from "react-icons/gi";
+import Footer from '../footer';
 
 export default function PricingCards() {
 
