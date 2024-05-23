@@ -20,7 +20,7 @@ export default function Features() {
         </div>
         <h1 className='lg:text-8xl text-6xl mt-32 font-bold tracking-widest'>Features</h1>
         <p className='lg:text-4xl text-2xl text-center font-light tracking-wider'>Everything you need to <span className='font-bold bg-gradient-to-br from-cyan-950 via-cyan-600 to-cyan-300 bg-clip-text text-transparent'>reach your goals</span>.</p>
-        <div className=' w-full h-content  flex flex-col lg:flex-wrap gap-16 justify-center items-center'>
+        <div className=' w-full h-content  flex flex-col lg:flex-row lg:flex-wrap gap-16 justify-center items-center'>
             <motion.div whileHover={{ scale: 1.05 }} initial={{scale: 0, opacity: 0, translateX: '-50%'}} viewport={{once: true}} whileInView={{scale: 1, opacity: 1,  translateX: '0%'}} transition={{duration: 0.4, ease: 'easeIn'}}  className=' bg-gradient-to-br from-teal-900 via-teal-600 to-teal-400 rounded-xl drop-shadow-xl lg:w-[40%] w-[96%] lg:h-[43rem] h-content px-4 py-6 flex flex-col justify-center gap-3 items-center'>
                 <Image className='lg:w-[9rem] lg:h-[9rem]' src={Cal}  alt='caloriesimage' width={70} height={70}></Image>
                 <h1 className='lg:text-5xl text-4xl mt-4 text-center font-bold tracking-wider text-white'>Precision Calorie Tracking</h1>
