@@ -51,27 +51,27 @@ export default function Page() {
                   <Link className="hover:underline hover:underline-offset-8 text-2xl text-white tracking-widest" href='/'>Home</Link>
                </div>
             </div>
-            <Link className="text-white font-light self-start  text-lg p-2 " href='/'>Home</Link>
+            <Link className="text-white lg:hidden font-light self-start  text-lg p-2 " href='/'>Home</Link>
         </div>
 
-        <motion.form variants={{hidden: {y: '-100vh', opacity: 0}, visible: {y: 0, opacity: 1}}} initial='hidden' animate='visible' transition={{duration: 1, type: 'spring', stiffness: 80 }} className=" lg:rounded-r-2xl rounded-2xl mt-10 lg:mt-0 bg-white z-10 lg:w-[53%] w-[97%] drop-shadow-2xl lg:h-screen h-content p-4 flex  flex-wrap justify-center items-center gap-6" ref={ref} onSubmit={handleSubmit}>
+        <motion.form variants={{hidden: {x: '-100vw', opacity: 0}, visible: {x: 0, opacity: 1}}} initial='hidden' animate='visible' transition={{duration: 1, type: 'spring', stiffness: 90 }} className=" lg:rounded-r-2xl rounded-2xl mt-10 lg:mt-0 bg-white z-10 lg:w-[48%] w-[97%] drop-shadow-2xl lg:h-screen h-content p-4 flex  flex-wrap justify-center items-center gap-6" ref={ref} onSubmit={handleSubmit}>
         <h1 className=" bg-gradient-to-tr from-emerald-800 p-2 via-orange-500 to-emerald-50 bg-clip-text text-transparent text-7xl w-full text-center font-bold tracking-wide">Sign Up</h1>
-            <div className="flex  lg:w-[48%] w-full flex-col justify-start items-start gap-2">
-                <label className="lg:text-2xl text-lg font-bold tracking-wider text-zinc-800" htmlFor="name">Username</label>
-               <input className="px-2.5 py-2 border-b-2 border-r-2 drop-shadow-lg border-zinc-800 w-full text-2xl  rounded-md placeholder:text-zinc-400 lg:placeholder:text-2xl placeholder:text-lg focus:outline-none outline-none" placeholder="Enter name" type="text" value={data.name} onChange={(e) => setData({...data, name: e.target.value}) } name="" id="name" />
+            <div className="flex  lg:w-[44%] w-full flex-col justify-start items-start gap-2">
+                <label className="lg:text-xl text-lg font-bold tracking-wider text-zinc-800" htmlFor="name">Username</label>
+               <input className="px-2.5 py-2 border-b-2 border-r-2 drop-shadow-lg border-zinc-800 w-full text-2xl  rounded-md placeholder:text-zinc-400 lg:placeholder:text-xl placeholder:text-lg focus:outline-none outline-none" placeholder="Enter name" type="text" value={data.name} onChange={(e) => setData({...data, name: e.target.value}) } name="" id="name" />
             </div>
             <div className="flex  lg:w-[48%] w-full flex-col justify-start items-start gap-2">
-                <label className="lg:text-2xl text-lg font-bold tracking-wider text-zinc-800" htmlFor="passowrd">Password</label>
-                <input className="px-2.5 border-b-2 border-r-2 drop-shadow-lg border-zinc-800 text-2xl py-2 w-full rounded-md placeholder:text-zinc-400 focus:outline-none lg:placeholder:text-2xl placeholder:text-lg  outline-none" placeholder="Enter password" type="password" value={data.password} onChange={(e) => setData({...data, password: e.target.value}) } name="" id="password" />
+                <label className="lg:text-xl text-lg font-bold tracking-wider text-zinc-800" htmlFor="passowrd">Password</label>
+                <input className="px-2.5 border-b-2 border-r-2 drop-shadow-lg border-zinc-800 text-2xl py-2 w-full rounded-md placeholder:text-zinc-400 focus:outline-none lg:placeholder:text-xl placeholder:text-lg  outline-none" placeholder="Enter password" type="password" value={data.password} onChange={(e) => setData({...data, password: e.target.value}) } name="" id="password" />
             </div>
-            <div className="flex lg:w-[85%] w-full flex-col justify-start items-start gap-2">
-                <label className="lg:text-2xl text-lg font-bold tracking-wider text-zinc-800" htmlFor="email">Email</label>
-                <input className="px-2.5 py-2 text-2xl border-b-2 border-r-2 drop-shadow-lg border-zinc-800 w-full rounded-md placeholder:text-zinc-400 lg:placeholder:text-2xl placeholder:text-lg   focus:outline-none outline-none" placeholder="example@mail.com"  type="email" value={data.email} onChange={(e) => setData({...data, email: e.target.value}) } name="" id="email" />
+            <div className="flex lg:w-[45%] w-full flex-col justify-start items-start gap-2">
+                <label className="lg:text-xl text-lg font-bold tracking-wider text-zinc-800" htmlFor="email">Email</label>
+                <input className="px-2.5 py-2 text-2xl border-b-2 border-r-2 drop-shadow-lg border-zinc-800 w-full rounded-md placeholder:text-zinc-400 lg:placeholder:text-xl placeholder:text-lg   focus:outline-none outline-none" placeholder="example@mail.com"  type="email" value={data.email} onChange={(e) => setData({...data, email: e.target.value}) } name="" id="email" />
             </div>
 
            <div className=" lg:w-[38%] w-[43%]  flex flex-col justify-center gap-2 items-start">
-               <label className="text-zinc-800  lg:text-2xl text-lg font-bold tracking-wider" htmlFor="gender">Gender</label>
-               <select  value={data.gender} onChange={(e) => setData({...data, gender: e.target.value})} className="w-full px-2.5 py-2 text-zinc-800 placeholder:text-zinc-400 border-b-2 border-r-2 drop-shadow-2xl border-zinc-800  rounded-md outline-none  lg:text-2xl text-lg" name="" id="gender">
+               <label className="text-zinc-800  lg:text-xl text-lg font-bold tracking-wider" htmlFor="gender">Gender</label>
+               <select  value={data.gender} onChange={(e) => setData({...data, gender: e.target.value})} className="w-full px-2.5 py-2 text-zinc-800 placeholder:text-zinc-400 border-b-2 border-r-2 drop-shadow-2xl border-zinc-800  rounded-md outline-none  lg:text-xl text-lg" name="" id="gender">
                    <option disabled value="">Choose an gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
@@ -79,9 +79,9 @@ export default function Page() {
            </div>
 
             
-            <div className="flex lg:w-[45%] w-[43%] flex-col justify-start items-start gap-2">
-                <label className="lg:text-2xl text-lg font-bold tracking-wider text-zinc-800" htmlFor="age">Age</label>
-                <input className="px-2.5 py-2 border-b-2 border-r-2 drop-shadow-lg border-zinc-800 w-full rounded-md placeholder:text-zinc-400 lg:placeholder:text-2xl placeholder:text-lg   text-xl outline-none" placeholder="Enter age" type="text" value={data.age} onChange={(e) => setData({...data, age: e.target.value}) } name="" id="age" />
+            <div className="flex lg:w-[25%] w-[43%] flex-col justify-start items-start gap-2">
+                <label className="lg:text-xl text-lg font-bold tracking-wider text-zinc-800" htmlFor="age">Age</label>
+                <input className="px-2.5 py-2 border-b-2 border-r-2 drop-shadow-lg border-zinc-800 w-full rounded-md placeholder:text-zinc-400 lg:placeholder:text-xl placeholder:text-lg   text-xl outline-none" placeholder="Enter age" type="text" value={data.age} onChange={(e) => setData({...data, age: e.target.value}) } name="" id="age" />
             </div>
             
             <WeightInput value={data.weightInLbs} onChange={(e: any) => setData({...data, weightInLbs: e.target.value})}/>
@@ -90,7 +90,7 @@ export default function Page() {
             <div className=" flex justify-evenly items-center">
                 <div className=" w-[45%] h-[3rem] flex flex-col justify-start items-start gap-2">
                     <label className="text-zinc-800  lg:text-xl text-lg font-bold tracking-wider" htmlFor="activity">Physical Activity</label>
-                    <select value={data.TDEE} className="w-full px-2.5 py-2 text-zinc-800  border-b-2 border-r-2 drop-shadow-md border-zinc-800  rounded-md outline-none  lg:text-2xl text-lg" onChange={(e) => setData({...data, TDEE: e.target.value})} name="activity" id="activity">
+                    <select value={data.TDEE} className="w-full px-2.5 py-2 text-zinc-800  border-b-2 border-r-2 drop-shadow-md border-zinc-800  rounded-md outline-none  lg:text-xl text-lg" onChange={(e) => setData({...data, TDEE: e.target.value})} name="activity" id="activity">
                         <option disabled value="">Activity</option>
                         <option value="No-Exercise">Little to no exercise and work a desk job</option>
                         <option value="Light-Exercise">Light exercise 1-3 days per week</option>
@@ -102,7 +102,7 @@ export default function Page() {
 
                 <div className=" w-[45%] h-[3rem] flex flex-col justify-start items-start gap-1">
                     <label className="lg:text-xl text-lg font-bold tracking-wider text-zinc-800" htmlFor="goal">Goal Weight</label>
-                    <input className="px-2.5 py-2 border-b-2 border-r-2 drop-shadow-lg border-zinc-800 w-full text-2xl  rounded-md placeholder:text-zinc-400 lg:placeholder:text-2xl placeholder:text-lg focus:outline-none outline-none" placeholder="Your goal weight..." type="text" value={data.goal} onChange={(e) => setData({...data, goal: e.target.value}) } name="" id="goal" />  
+                    <input className="px-2.5 py-2 border-b-2 border-r-2 drop-shadow-lg border-zinc-800 w-full text-2xl  rounded-md placeholder:text-zinc-400 lg:placeholder:text-xl placeholder:text-lg focus:outline-none outline-none" placeholder="Your goal weight..." type="text" value={data.goal} onChange={(e) => setData({...data, goal: e.target.value}) } name="" id="goal" />  
                 </div>
             </div>
 

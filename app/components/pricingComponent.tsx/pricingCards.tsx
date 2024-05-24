@@ -5,10 +5,20 @@ import Link from 'next/link';
 import React from 'react';
 import { GiCheckMark } from "react-icons/gi";
 import Footer from '../footer';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 export default function PricingCards() {
 
+    const {data: session} = useSession();
+    const router = useRouter();
+
     const handleCreateCheckoutSession = async () => {
+
+        if(!session){
+          return  router.push('/reg')
+        }
+
         const price = { amount: 'price_1PHh5b1EGRFj6h8h5bMn0YLh' }; 
         const res = await fetch(`/api/stripe/checkout-session`, {
             method: "POST",

@@ -5,7 +5,7 @@ import Logo from '@/public/FitGenius_transparent.png'
 import { FiActivity } from "react-icons/fi";
 import Signing from './mainPage/signing';
 import { RiMenu3Line } from "react-icons/ri";
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useSession } from 'next-auth/react';
 
 export default function Nav() {
@@ -21,44 +21,47 @@ export default function Nav() {
 
   return (
     <div className='lg:w-full bg-transparent w-full absolute  top-0 left-0 lg:h-content py-3 flex justify-between items-center p-3'>
-      {isOpen && (
-                <motion.div
-                    initial={{ x: '-100vw' }}
-                    animate={{ x: 0 }}
-                    transition={{ type: 'spring', stiffness: 50 }}
-                    className="fixed top-0 left-0 w-64 h-screen bg-white flex flex-col justify-between items-start shadow-lg z-50"
-                >
-                    <nav className="flex flex-col p-4 space-y-8">
-                        <Link onClick={() => setIsOpen(!isOpen)} className="text-2xl font-semibold text-gray-800 hover:text-teal-500" href="/">
-                         Home
-                        </Link>
-                        <Link onClick={() => setIsOpen(false)} className="text-2xl font-semibold text-gray-800 hover:text-teal-500" href="/About">
-                        About
-                        </Link>
-                        <Link onClick={() => setIsOpen(false)} className="text-2xl font-semibold text-gray-800 hover:text-teal-500" href="/pricing">
-                        Pricing
-                        </Link>
-                        <Link onClick={() => setIsOpen(false)} className="text-2xl font-semibold text-gray-800 hover:text-teal-500" href="/Contact">
-                        Contact
-                        </Link>
-                    </nav>
-                    {isLoggedIn ? (
-                      <div className="flex flex-col items-start space-y-4">
-                        <span className="text-lg text-gray-800">Welcome, {userName}</span>
-                        <Link href='/signOut' className="text-lg text-gray-800 hover:text-teal-500">Logout</Link>
-                      </div>
-                    ) : (
-                      <div className="flex p-4 w-full flex-col items-start space-y-4">
-                        <Link href='/login' className="text-2xl font-semibold text-blue-600 hover:text-teal-500">Login</Link>
-                        <Link href='/reg' className="text-2xl font-semibold text-blue-600 hover:text-teal-500">Sign Up</Link>
-                      </div>
-                    )}
+      <AnimatePresence>
+          {isOpen && (
+                    <motion.div
+                        initial={{ x: '-100vw' }}
+                        animate={{ x: 0 }}
+                        exit={{ x: '-100vw' }}
+                        transition={{ type: 'spring', stiffness: 50 }}
+                        className="fixed top-0 left-0 w-64 h-screen rounded-r-2xl bg-gradient-to-bl from-teal-900 via-teal-600 to-teal-900 flex flex-col justify-between items-start shadow-lg z-50"
+                    >
+                        <nav className="flex flex-col p-4 space-y-8">
+                            <Link onClick={() => setIsOpen(!isOpen)} className="text-2xl font-semibold text-white  hover:text-teal-500" href="/">
+                            Home
+                            </Link>
+                            <Link onClick={() => setIsOpen(false)} className="text-2xl font-semibold text-white  hover:text-teal-500" href="/About">
+                            About
+                            </Link>
+                            <Link onClick={() => setIsOpen(false)} className="text-2xl font-semibold text-white  hover:text-teal-500" href="/pricing">
+                            Pricing
+                            </Link>
+                            <Link onClick={() => setIsOpen(false)} className="text-2xl font-semibold text-white  hover:text-teal-500" href="/Contact">
+                            Contact
+                            </Link>
+                        </nav>
+                        {isLoggedIn ? (
+                          <div className="flex flex-col items-start space-y-4">
+                            <span className="text-lg text-white ">Welcome, {userName}</span>
+                            <Link href='/signOut' className="text-lg text-gray-800 hover:text-teal-500">Logout</Link>
+                          </div>
+                        ) : (
+                          <div className="flex p-4 w-full flex-col items-start space-y-4">
+                            <Link href='/login' className="text-2xl font-semibold text-sky-300 hover:text-teal-500">Login</Link>
+                            <Link href='/reg' className="text-2xl font-semibold text-sky-300 hover:text-teal-500">Sign Up</Link>
+                          </div>
+                        )}
 
-                    <div className=' lg:w-full lg:mt-0 mt-8 w-[97%] h-[4rem] flex justify-center items-center'>
-                        <p className='text-lg self-end text-center lg:text-right'>Copyright © 2024 FitGenius. All rights reserved.</p>
-                    </div>
-                </motion.div>
-            )}
+                        <div className=' lg:w-full lg:mt-0 mt-8 w-[97%] h-[4rem] flex justify-center items-center'>
+                            <p className='text-lg self-end text-white  text-center lg:text-right'>Copyright © 2024 FitGenius. All rights reserved.</p>
+                        </div>
+                    </motion.div>
+                )}
+      </AnimatePresence>
 
         <div className='flex justify-center items-center gap-2'>
            <h1 className='text-4xl text-white'>FitGenius</h1>
