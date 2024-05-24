@@ -3,8 +3,8 @@ import React from 'react'
 export default function ExtraInfo() {
   return (
     
-        <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md shadow-zinc-900 mt-10">
-            <h1 className="text-6xl font-semibold mb-4">Privacy Policy</h1>
+        <div className="lg:max-w-4xl w-[95%] mx-auto p-6 bg-white rounded-lg shadow-md shadow-zinc-900 mt-10">
+            <h1 className="lg:text-6xl text-4xl font-semibold mb-4">Privacy Policy</h1>
             
             <div className="mt-6">
                 <h2 className="text-2xl font-semibold text-gray-900 mb-2">Data Security</h2>

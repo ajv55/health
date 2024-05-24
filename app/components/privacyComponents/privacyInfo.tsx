@@ -13,8 +13,8 @@ export default function PrivacyInfo() {
             <BottomTilt />
         </div>
 
-            <div className="max-w-6xl mt-36 bg-slate-100 mx-auto shadow-md shadow-zinc-950 rounded-lg p-6">
-        <h2 className="text-6xl  font-bold mb-4">Information We Collect</h2>
+            <div className="lg:max-w-6xl w-[97%] mt-36 bg-slate-100 mx-auto shadow-md shadow-zinc-950 rounded-lg p-6">
+        <h2 className="lg:text-6xl text-4xl  font-bold mb-4">Information We Collect</h2>
         <p className=" text-xl mb-6">To provide you with personalized health and fitness recommendations, we collect the following information:</p>
         
         <div className="mb-4  ">
@@ -48,8 +48,8 @@ export default function PrivacyInfo() {
         </div>
     </div>
 
-    <div className="max-w-4xl shadow-zinc-950 mx-auto my-10 p-6  rounded-lg shadow-md">
-            <h2 className="text-6xl font-bold text-gray-800 mb-6">How We Use Your Information</h2>
+    <div className="lg:max-w-4xl w-[95%] shadow-zinc-950 mx-auto my-10 p-6  rounded-lg shadow-md">
+            <h2 className="lg:text-6xl text-4xl font-bold text-gray-800 mb-6">How We Use Your Information</h2>
 
             <div className="space-y-4">
                 <div className="flex items-start space-x-4">
@@ -113,7 +113,7 @@ export default function PrivacyInfo() {
         <Share />
         <ExtraInfo />
         <MoreInfo />
-        <p className='text-4xl mt-24 w-[95%] text-center font-bold tracking-wide text-balance'>Thank you for trusting FitGenius with your health and fitness journey. We are committed to protecting your privacy and helping you achieve your goals in a safe and secure manner.</p>
+        <p className='lg:text-4xl text-2xl mt-24 w-[95%] text-center font-bold tracking-wide text-balance'>Thank you for trusting FitGenius with your health and fitness journey. We are committed to protecting your privacy and helping you achieve your goals in a safe and secure manner.</p>
         <Footer />
 
     </div>

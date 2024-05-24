@@ -11,10 +11,10 @@ export default function FaqInfo() {
         </div>
 
         <div className='mt-24 flex justify-start items-start p-3'>
-            <h1 className='text-8xl font-bold tracking-wider'>General Questions</h1>
+            <h1 className='lg:text-8xl text-6xl font-bold tracking-wider'>General Questions</h1>
         </div>
         <FaqSection />
-        <p className='text-5xl mt-24 font-medium tracking-wide p-2 text-center text-balance'>We hope this FAQ section answers your questions and helps you navigate our website effectively. If you have any other inquiries, feel free to reach out to our support team. Happy health and fitness journey!</p>
+        <p className='lg:text-5xl text-2xl mt-24 font-medium tracking-wide p-2 text-center text-balance'>We hope this <span className='font-bold'>FAQ section</span> answers your questions and helps you navigate our website effectively. If you have any other inquiries, feel free to reach out to our support team. <span className='font-bold'>Happy health</span> and <span className='font-bold'>fitness journey!</span></p>
         <Footer />
     </div>
   )

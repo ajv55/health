@@ -2,8 +2,8 @@ import React from 'react'
 
 export default function MoreInfo() {
   return (
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md shadow-zinc-900 mt-10">
-        <h2 className="text-5xl font-semibold mb-4">Your Rights</h2>
+    <div className="lg:max-w-4xl w-[95%] mx-auto p-6 bg-white rounded-lg shadow-md shadow-zinc-900 mt-10">
+        <h2 className="lg:text-5xl text-4xl font-semibold mb-4">Your Rights</h2>
         <ul className="list-disc list-inside mb-6">
             <li className="mb-2 text-xl">
                 <span className="font-semibold">Access:</span> You can request a copy of the personal information we hold about you.

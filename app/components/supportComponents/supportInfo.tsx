@@ -11,15 +11,15 @@ export default function SupportInfo() {
         </div>
 
         <div className='w-[90%] mt-32  flex justify-start items-start p-2'>
-            <p className='text-4xl font-medium text-left text-balance tracking-wide'>Welcome to our <span className='font-bold'>Health and Fitness</span> support page! Here, you&#39;ll find everything you need to get the most out of our platform, from tracking your calories and workouts to following a <span className='font-bold'>science-based</span> nutritional guide. Our goal is to help you lose weight and achieve your fitness goals using personalized, <span className='font-bold'>data-driven techniques</span>.</p>
+            <p className='lg:text-4xl text-2xl font-medium text-left text-balance tracking-wide'>Welcome to our <span className='font-bold'>Health and Fitness</span> support page! Here, you&#39;ll find everything you need to get the most out of our platform, from tracking your calories and workouts to following a <span className='font-bold'>science-based</span> nutritional guide. Our goal is to help you lose weight and achieve your fitness goals using personalized, <span className='font-bold'>data-driven techniques</span>.</p>
         </div>
 
-        <div className="max-w-6xl mt-8 mx-auto p-6">
-            <h1 className="text-6xl font-bold text-center text-gray-800 mb-8">Health and Fitness Support</h1>
+        <div className="max-w-6xl mt-8  mx-auto p-6">
+            <h1 className="lg:text-6xl text-5xl font-bold text-center text-gray-800 mb-8">Health and Fitness Support</h1>
 
             {/* <!-- Profile Setup Section --> */}
             <section className="mb-8 bg-white p-6 rounded-lg shadow-md shadow-zinc-900">
-                <h2 className="text-4xl font-semibold text-gray-700 mb-4">1. Setting Up Your Profile</h2>
+                <h2 className="lg:text-4xl text-3xl font-semibold text-gray-700 mb-4">1. Setting Up Your Profile</h2>
                 <p className="text-gray-600 text-xl mb-4">To begin, create your profile by providing your:</p>
                 <ul className="list-disc text-xl list-inside text-gray-600 mb-4">
                 <li>Age</li>
@@ -32,7 +32,7 @@ export default function SupportInfo() {
 
             {/* <!-- Calorie Tracking Section --> */}
             <section className="mb-8 bg-white p-6 rounded-lg shadow-md shadow-zinc-900">
-                <h2 className="text-4xl font-semibold text-gray-700 mb-4">2. Tracking Your Calories</h2>
+                <h2 className="lg:text-4xl text-3xl font-semibold text-gray-700 mb-4">2. Tracking Your Calories</h2>
                 <p className="text-gray-600 text-xl mb-4">Once your profile is set up, you can start tracking your calories. Here&#39;s how:</p>
                 <ul className="list-disc text-xl list-inside text-gray-600 mb-4">
                 <li><strong>Log Your Meals:</strong> Enter the foods you eat each day into our calorie tracker. Our database includes thousands of foods with their nutritional information to make this easy.</li>
@@ -42,7 +42,7 @@ export default function SupportInfo() {
 
             {/* <!-- Workout Logging Section --> */}
             <section className="mb-8 bg-white p-6 rounded-lg shadow-md shadow-zinc-900">
-                <h2 className="text-4xl font-semibold text-gray-700 mb-4">3. Logging Your Workouts</h2>
+                <h2 className="lg:text-4xl text-3xl font-semibold text-gray-700 mb-4">3. Logging Your Workouts</h2>
                 <p className="text-gray-600 text-xl mb-4">Tracking your physical activity is just as important as tracking your calories. To log your workouts:</p>
                 <ul className="list-disc list-inside text-xl text-gray-600 mb-4">
                 <li><strong>Choose Your Activity:</strong> Select from a wide range of exercises, from cardio to strength training.</li>
@@ -53,7 +53,7 @@ export default function SupportInfo() {
             </div>
 
             <SupportMoreInfo />
-            <p className='text-6xl mt-24 font-medium w-[95%] text-center tracking-wider'>We&#39;re here to help you every step of the way on <span className='font-bold'>your health</span> and <span className='font-bold'>fitness journey.</span> Let&#39;s achieve your goals together!</p>
+            <p className='lg:text-6xl text-2xl mt-24 font-medium w-[95%] text-center tracking-wider'>We&#39;re here to help you every step of the way on <span className='font-bold'>your health</span> and <span className='font-bold'>fitness journey.</span> Let&#39;s achieve your goals together!</p>
             <Footer />
 
     </div>

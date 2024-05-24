@@ -40,7 +40,11 @@ export default function PricingCards() {
 
 
   return (
-    <div className="mx-w-4xl mx-auto p-6">
+    <div className="mx-w-4xl mx-auto p-6 relative">
+        <div className=' bg-gradient-to-br from-teal-900 via-teal-400 to-teal-300 -z-10  w-[23rem] h-[23rem] lg:w-[32rem] lg:h-[32rem] opacity-45 rounded-full absolute top-44 left-72 lg:hidden'></div>
+        <div className=' bg-gradient-to-bl from-teal-900 via-teal-400 to-teal-300 -z-10 w-[23rem] h-[23rem] lg:w-[32rem] lg:h-[32rem] opacity-45 rounded-full absolute top-0 right-72 lg:hidden'></div>
+        <div className=' bg-gradient-to-br from-teal-900 via-teal-400 to-teal-300 -z-10  w-[23rem] h-[23rem] lg:w-[32rem] lg:h-[32rem] opacity-45 rounded-full absolute top-[60rem] left-72 lg:hidden'></div>
+        <div className=' bg-gradient-to-bl from-teal-900 via-teal-400 to-teal-300 -z-10 w-[23rem] h-[23rem] lg:w-[32rem] lg:h-[32rem] opacity-45 rounded-full absolute top-[34rem] right-72 lg:hidden'></div>
         <h1 className="text-6xl font-bold text-center mb-8">Pricing Plans</h1>
         <div className="flex flex-wrap justify-center">
 
