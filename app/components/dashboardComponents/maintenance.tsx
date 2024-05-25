@@ -51,7 +51,7 @@ export default function Maintenance() {
 
 
   return (
-    <div className='w-[43%] relative h-[17rem] flex  justify-center items-center bg-slate-900 rounded-2xl'>
+    <div className='lg:w-[43%] w-full relative lg:h-[17rem] h-[19rem] p-4 flex  justify-center items-center bg-slate-900 rounded-2xl'>
         <Doughnut  className='' plugins={[textCenter]} options={options} data={data} />
     </div>
   )

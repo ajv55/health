@@ -35,7 +35,7 @@ export default function About() {
 
         {/* third section */}
 
-        <motion.div initial={{scale: 0, opacity: 0, x: -100}} whileInView={{scale: 1, opacity: 1, x: 0}} transition={{duration: 0.45, type: 'spring', delay: 0.25}} className='mt-5  w-full flex-col lg:flex-row  justify-evenly items-center lg:h-[40rem]'>
+        <motion.div initial={{scale: 0, opacity: 0, x: -100}} whileInView={{scale: 1, opacity: 1, x: 0}} transition={{duration: 0.45, type: 'spring', delay: 0.25}} className='mt-5  w-full flex flex-col lg:flex-row justify-evenly items-center lg:h-[40rem]'>
             <div className='bg-cover rounded-3xl   bg-center relative  w-[95%] h-[27rem]  lg:w-[43rem] lg:h-[33rem]' style={{backgroundImage: 'linear-gradient(to right,rgba(0,0,0,0), rgba(0,0,0,0)), url("/science.jpg")'}}>
                 <div className='bg-sky-800 rounded-3xl drop-shadow-2xl w-full lg:h-[33rem] h-[27rem] absolute top-3 left-3 -z-10'></div>
             </div>
@@ -53,7 +53,7 @@ export default function About() {
                 <div className='bg-purple-900 rounded-3xl drop-shadow-2xl w-full lg:h-[33rem] h-[27rem]  absolute top-3 right-3 -z-10'></div>
             </div>
 
-            <div className=' lg:w-[45%] w-full  h-[100%] lg:mt-0 mt-10 lg:gap-0 gap-6  flex justify-evenly items-center  flex-col'>
+            <div className=' lg:w-[45%] w-full h-[100%] lg:mt-0 mt-10 lg:gap-0 gap-6  flex justify-evenly items-center  flex-col'>
                 <h1 className='font-bold tracking-wide bg-gradient-to-tr from-purple-800 via-yellow-500 to-purple-400 bg-clip-text text-transparent lg:text-6xl text-5xl text-center'>Personalization</h1>
                 <p className='tracking-wide text-3xl text-center w-[88%]'>We understand that every <span className='font-bold'>individual is unique</span>, which is why we offer personalized support tailored to your <span className='font-bold'>specific needs</span>, <span className='font-bold'>preferences</span>, and <span className='font-bold'>goals</span>.</p>
             </div>

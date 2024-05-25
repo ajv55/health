@@ -11,7 +11,7 @@ export default function Contact() {
 
     const ref = useRef<HTMLFormElement>(null);
     const animationRef = useRef(null);
-    const isInView = useInView(ref);
+    const isInView = useInView(animationRef);
     const mainControls = useAnimation();
 
     useEffect(() => {
@@ -21,7 +21,7 @@ export default function Contact() {
     }, [isInView, mainControls])
 
   return (
-    <div className='w-full h-content mt-28 flex lg:flex-rox flex-col justify-evenly items-center relative bg-gradient-to-br from-emerald-900 via-emerald-600 to-emerald-300'>
+    <div ref={animationRef} className='w-full h-content mt-28 flex lg:flex-row flex-col justify-evenly items-center relative bg-gradient-to-br from-emerald-900 via-emerald-600 to-emerald-300'>
         <Tilt/>
         <BottomTilt/>
         
@@ -32,7 +32,7 @@ export default function Contact() {
             <Image className='self-center ' src={contactImage} alt='contact-image' width={400} height={400}></Image>
         </div>
 
-        <motion.form variants={{hidden: {x: '100vw', opacity: 0}, visible: {x: 0, opacity: 1}}} initial='hidden' animate={mainControls} transition={{type: 'spring', stiffness: 70, duration: 1, delay: 0.55}} action={async (formData) => {
+        <motion.form   variants={{hidden: {x: '100vw', opacity: 0}, visible: {x: 0, opacity: 1}}} initial='hidden' animate={mainControls} transition={{type: 'spring', stiffness: 70, duration: 1, delay: 0.55}} action={async (formData) => {
             sendEmail(formData);
             ref.current?.reset()
         }} ref={ref}  className='lg:mt-64 mt-5 bg-gradient-to-br from-slate-200 via-slate-100 to-slate-200 mb-64 lg:w-[46%] w-[97%] h-content rounded-xl drop-shadow-2xl flex flex-row gap-8 flex-wrap justify-center items-center' >

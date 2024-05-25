@@ -117,13 +117,16 @@ export default  function Page() {
   
 
   return (
-    <div className='overflow-scroll w-full h-screen flex flex-wrap flex-grow  justify-between items-start'>
-      <div className='w-[69%] flex  gap-5 h-screen flex-wrap justify-evenly items-start'>
-        <DashHeader />
-        <Water />
-        <Maintenance />
+    <div className='overflow-scroll w-full border-2 border-orange-400 h-screen flex flex-col  justify-between items-start'>
+      <div className='flex lg:flex-row flex-col justify-between items-center'>
+        <Welcome />
+        <div className='lg:w-[69%] w-full mt-10 lg:mt-0 flex gap-5 lg:h-screen h-content flex-wrap  justify-evenly items-start'>
+          <DashHeader />
+          <Water />
+          <Maintenance />
+        </div>
+        
       </div>
-      <Welcome />
      
       <div className=' ml-2 w-full mt-20 flex justify-center items-center h-content'>
       <LineChart />
