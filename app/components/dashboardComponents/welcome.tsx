@@ -102,7 +102,7 @@ export default function Welcome() {
 
 
   return (
-    <div className='lg:w-[30%] w-full lg:h-screen h-content relative rounded-2xl bg-slate-900 flex flex-col justify-start items-start'>
+    <div className='lg:w-[30%] w-full lg:h-screen h-content relative rounded-2xl bg-slate-900 flex flex-col justify-start lg:mt-0 mt-2 items-start'>
         <AnimatePresence>
            {isOpen && <Setting closeOnClick={() => setIsOpen(false)} />}
         </AnimatePresence>
