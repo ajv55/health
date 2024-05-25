@@ -49,7 +49,10 @@ export default function Layout({children}: {children: React.ReactNode}) {
                     </motion.div>
                 )}
       </AnimatePresence>
-      <MdDashboard onClick={() => setIsOpen(!isOpen)} className='md:hidden' size={50} color='black'/>
+      <div className='self-end md:hidden  flex justify-between items-center w-full'>
+        <h1 className='text-2xl font-medium tracking-wide p-2'>Dashboard</h1>
+        <MdDashboard onClick={() => setIsOpen(!isOpen)} className='' size={50} color='black'/>
+      </div>
         <nav className='lg:flex hidden flex-col w-[8%] justify-evenly items-center  text-2xl bg-slate-500  h-screen'>
             <Link className='mt-16'  href='/dashboard'><IoMdAnalytics size={50} color='white'/></Link>
             <Link className='' href='/dashboard/calories'><Image src={CalImg} alt='caloires-img' width={85} height={85}></Image></Link>
