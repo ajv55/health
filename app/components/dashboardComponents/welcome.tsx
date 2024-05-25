@@ -104,7 +104,7 @@ export default function Welcome() {
   return (
     <div className='lg:w-[30%] w-full lg:h-screen h-content relative rounded-2xl bg-slate-900 flex flex-col justify-start lg:mt-0 mt-2 items-start'>
         <AnimatePresence>
-           {isOpen && <Setting closeOnClick={() => setIsOpen(false)} />}
+           {isOpen && <Setting arrowOnClick={() => setIsOpen(false)} closeOnClick={() => setIsOpen(false)} />}
         </AnimatePresence>
         {/* first heading where user image and name go with icon for settings options */}
         <div className='w-full h-28 flex  justify-between items-center'>

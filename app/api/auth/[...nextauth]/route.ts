@@ -61,20 +61,30 @@ export const options: NextAuthOptions = {
 
     ],
     callbacks: {
-        jwt: async ({token, user, session, trigger}: {token: JWT, user?: User | any, session?: any, trigger?: any}): Promise<any>  => {
+        jwt: async ({token, user, session, trigger}: {token: JWT, user?:  any , session?: any, trigger?: any}): Promise<any>  => {
            if (trigger === 'update' && session?.calories) {
             token.calories = session.calories
            }
            if(trigger === 'update' && session?.stripeCustomerId){
             token.stripeCustomerId = session.stripeCustomerId
            }
-
-
+           if(trigger === 'update' && session?.weight){
+            token.weight = session.weight
+           }
+           if(trigger === 'update' && session?.age){
+            token.age = session.age
+           }
+           if(trigger === 'update' && session?.name){
+            token.name = session.name
+           }
+           
+           console.log('token: ' , token)
+           console.log('user: ' , user)
            
 
            // passing in user id, calories, height, weight, age, and gender to token
            if(user) {
-           
+            console.log('user: ' , user)
             return {
                 ...token, 
                 id: user?.id,
@@ -85,7 +95,8 @@ export const options: NextAuthOptions = {
                 gender: user?.gender,
                 activity: user?.TDEE,
                 isActive: user?.isActive,
-                stripeCustomerId: user?.stripeCustomerId
+                stripeCustomerId: user?.stripeCustomerId,
+                password: user?.hashedPassword
 
 
             }
@@ -99,6 +110,9 @@ export const options: NextAuthOptions = {
             data: {
                 calories: token.calories as string,
                 stripeCustomerId: token.stripeCustomerId as string,
+                age: token?.age as string,
+                weightInLbs: token?.weight as string,
+                name: token?.name as string
             }
         });
 
@@ -121,12 +135,11 @@ export const options: NextAuthOptions = {
                    gender: token?.gender,
                    activity: token?.activity,
                    isActive: token?.isActive,
+                   password: token?.password,
                    stripeCustomerId: token?.stripeCustomerId
                 }
             };
 
-
-        return session
         }
     },
     secret: process.env.NEXTAUTH_SECERT as string,

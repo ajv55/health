@@ -45,6 +45,7 @@ export default  function Quote() {
     <div className="w-full h-[18rem] rounded-2xl  flex flex-col justify-center items-center">
        <RiDoubleQuotesL className={`${isLoading && 'hidden'}`} size={50} color="white"/>
         <motion.h1 initial={{x: '-100%', opacity: 0}} animate={{x: 0, opacity: 1, scale: 0}} transition={{duration: 1, ease: 'easeInOut', type: 'spring', stiffness: 100, damping: 10}} whileInView={{scale:1, opacity: 1}} className="lg:text-4xl text-xl text-center text-balance text-white p-3  font-semibold tracking-wide">{cleanup}</motion.h1>
+        
         {isLoading && 
 <div role="status" className="space-y-2.5 animate-pulse w-[85%]">
     <div className="flex items-center w-full">

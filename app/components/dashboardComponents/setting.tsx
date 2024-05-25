@@ -1,29 +1,154 @@
 'use client';
 import { motion } from "framer-motion"
 import {signOut,useSession} from 'next-auth/react';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 import Link from "next/link";
+import { MdOutlineArrowBackIosNew } from "react-icons/md";
+import { FaUser } from "react-icons/fa";
+import axios from "axios";
+import Email from "next-auth/providers/email";
 
 type SettingProps = {
     closeOnClick?: () => void;
+    arrowOnClick?: () => void
 }
 
-export default function Setting({closeOnClick}: SettingProps) {
+export default function Setting({closeOnClick, arrowOnClick}: SettingProps) {
 
-    const {data: session} = useSession();
+    const {data: session, update} = useSession();
     const router = useRouter();
+    console.log(session?.user?.password)
+
+    const [formData, setFormData] = useState({
+      name: session?.user?.name || "",
+      email: session?.user?.email || "",
+      age: session?.user?.age || "",
+      weight: session?.user?.weight || "",
+    });
+    const [passwordData, setPasswordData] = useState({
+      currentPassword: "",
+      newPassword: "",
+    });
+    const [message, setMessage] = useState("");
+  
+    const handleInputChange = (e: any) => {
+      const { name, value } = e.target;
+      setFormData({ ...formData, [name]: value });
+    };
+  
+    const handlePasswordChange = (e: any) => {
+      const { name, value } = e.target;
+      setPasswordData({ ...passwordData, [name]: value });
+    };
+  
+    const handleSubmit = async (e: any) => {
+      e.preventDefault();
+      update({name: formData.name, age: formData.age, email: formData.email, weight: formData.weight })
+    };
+  
+    const handlePasswordSubmit = async (e: any) => {
+      e.preventDefault();
+      try {
+        const res = await axios.post("/api/user/change-password", passwordData);
+        setMessage(res.data.message);
+      } catch (error) {
+        setMessage("Error updating password");
+      }
+    };
 
     if(!session) {
         router.push('/')
     }
 
-
-   
-
   return (
-    <motion.div initial={{ x: "-100%" }} animate={{ x: 0 }} transition={{ type: "spring", stiffness: 150, damping: 20 }} exit={{ x: "-100%" }} className='w-full z-20 absolute top-0 left-0 rounded-2xl h-full bg-stone-300'>
-        <h1>setting</h1>
+    <motion.div initial={{ x: "-100%" }} animate={{ x: 0 }} transition={{ type: "spring", stiffness: 150, damping: 20 }} exit={{ x: "-100%" }} className='w-full z-20 absolute top-0 left-0 rounded-2xl h-full bg-slate-200'>
+      <div className="flex flex-col gap-4 justify-start items-start p-1">
+        <MdOutlineArrowBackIosNew className="mt-2" onClick={arrowOnClick} size={30}  />
+        <h1 className="text-5xl font-bold tracking-wide">Setting</h1>
+      </div>
+
+      <div className="w-full flex flex-col justify-start items-start p-2">
+        <div className="w-full flex justify-start items-center gap-4">
+          <FaUser size={25} />
+          <h3 className="text-2xl font-bold tracking-wide">Account</h3>
+        </div>
+        <div className="flex w-full flex-col justify-start items-start p-2">
+          <form onSubmit={handleSubmit} className="mb-4 w-full">
+          <div className="mb-2">
+            <label className="block">Name</label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              className="border p-2 rounded-lg h-9 outline-teal-500 w-[85%]"
+            />
+          </div>
+          <div className="mb-2">
+            <label className="block">Email</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              className="border p-2 rounded-lg h-9 outline-teal-500  w-[85%]"
+            />
+          </div>
+          <div className="mb-2">
+            <label className="block">Age</label>
+            <input
+              type="number"
+              name="age"
+              value={formData.age}
+              onChange={handleInputChange}
+              className="border p-2 rounded-lg h-9 outline-teal-500 w-[85%]"
+            />
+          </div>
+          <div className="mb-2">
+            <label className="block">Weight</label>
+            <input
+              type="number"
+              name="weight"
+              value={formData.weight}
+              onChange={handleInputChange}
+              className="border p-2 rounded-lg h-9 outline-teal-500 w-[85%]"
+            />
+          </div>
+          <button type="submit" className="bg-blue-500 rounded-xl text-white p-2">
+            Update Profile
+          </button>
+        </form>
+        <form className="w-full" onSubmit={handlePasswordSubmit}>
+          <div className="mb-2">
+            <label className="block">Current Password</label>
+            <input
+              type="password"
+              name="currentPassword"
+              value={passwordData.currentPassword}
+              onChange={handlePasswordChange}
+              className="border p-2 rounded-lg h-9 outline-teal-500 w-[85%]"
+            />
+          </div>
+          <div className="mb-2">
+            <label className="block">New Password</label>
+            <input
+              type="password"
+              name="newPassword"
+              value={passwordData.newPassword}
+              onChange={handlePasswordChange}
+              className="border p-2 rounded-lg h-9 outline-teal-500 w-[85%]"
+            />
+          </div>
+          <button type="submit" className="bg-red-500 rounded-xl text-white p-2">
+            Change Password
+          </button>
+        </form>
+        </div>
+      </div>
+
+     
+        
         <button onClick={closeOnClick}>close</button>
         <Link href='/signOut'>sign out</Link>
     </motion.div>

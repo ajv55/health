@@ -16,6 +16,7 @@ declare module "next-auth" {
       height: string,
       gender: string,
       activity: string,
+      password: string,
       isActive?: boolean,
       stripeCustomerId?: string,
     }
