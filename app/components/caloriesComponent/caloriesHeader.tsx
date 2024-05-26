@@ -212,8 +212,8 @@ export default function CaloriesHeader() {
         />
       }
       </AnimatePresence>
-      <h1 className='text-5xl font-bold tracking-wide'>Your Calorie Tracker</h1>
-      <button onClick={() => setOpen(true)} className='px-2.5 text-white py-3 w-[20%] text-2xl font-light text-center rounded-xl bg-slate-900'>Add Meal</button>
+      <h1 className='lg:text-5xl text-3xl font-bold tracking-wide'>Calorie Tracker</h1>
+      <button onClick={() => setOpen(true)} className='px-2.5 text-white py-3 lg:w-[20%] w-[30%] lg:text-2xl text-xl font-light text-center rounded-xl bg-slate-900'>Add Meal</button>
       {isLoading && <p>Loading...</p>} {/* Show loading indicator if request is in progress */}
       {error && <p>Error: {error}</p>} {/* Show error message if request fails */}
     </div>

@@ -77,6 +77,9 @@ export const options: NextAuthOptions = {
            if(trigger === 'update' && session?.name){
             token.name = session.name
            }
+           if(trigger === 'update' && session?.password){
+            token.password = session.password
+           }
            
            console.log('token: ' , token)
            console.log('user: ' , user)

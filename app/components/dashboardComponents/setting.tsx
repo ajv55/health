@@ -8,6 +8,7 @@ import { MdOutlineArrowBackIosNew } from "react-icons/md";
 import { FaUser } from "react-icons/fa";
 import axios from "axios";
 import Email from "next-auth/providers/email";
+import toast from "react-hot-toast";
 
 type SettingProps = {
     closeOnClick?: () => void;
@@ -44,18 +45,35 @@ export default function Setting({closeOnClick, arrowOnClick}: SettingProps) {
   
     const handleSubmit = async (e: any) => {
       e.preventDefault();
-      update({name: formData.name, age: formData.age, email: formData.email, weight: formData.weight })
+      try {
+        update({name: formData.name, age: formData.age, email: formData.email, weight: formData.weight });
+        toast.success('Successfully updated your user settings');
+      } catch (error) {
+        console.error('error occur when updating user settings', error)
+      }
     };
   
     const handlePasswordSubmit = async (e: any) => {
       e.preventDefault();
       try {
-        const res = await axios.post("/api/user/change-password", passwordData);
-        setMessage(res.data.message);
+         const res = await axios.post("/api/updatePassword", passwordData).then((res) => {
+          console.log(res?.data?.status)
+          if(res?.data?.status === 200){
+            toast.success('Successfully updated password')
+          }
+          if(res?.data?.status === 401){
+            toast.error('Passwords do not match')
+          }
+          if(res?.data?.status === 400){
+            toast.error('Current and new password required')
+          }
+         });
       } catch (error) {
         setMessage("Error updating password");
       }
     };
+
+    
 
     if(!session) {
         router.push('/')
@@ -149,8 +167,9 @@ export default function Setting({closeOnClick, arrowOnClick}: SettingProps) {
 
      
         
-        <button onClick={closeOnClick}>close</button>
-        <Link href='/signOut'>sign out</Link>
+        <div className="w-full flex justify-center items-center mt-10 ">
+          <Link className="rounded-lg text-center text-3xl font-medium tracking-wide text-teal-100 bg-gradient-to-bl from-slate-950 via-slate-700 to-slate-950 w-[85%] py-3" href='/signOut'>Sign Out</Link>
+        </div>
     </motion.div>
   )
 }

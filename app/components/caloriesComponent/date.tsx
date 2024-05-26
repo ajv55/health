@@ -27,9 +27,9 @@ const MyDateTimePicker = ({initialDate, onDateChange, onTimeChange}: MyDateTimeP
   return (
     <div className='w-full flex justify-center items-center'>
       <div className='flex flex-col justify-start items-start'>
-         <h3 className='text-2xl mb-1'>Select Date</h3>
+         <h3 className='lg:text-2xl text-md mb-1'>Select Date</h3>
         <DatePicker
-        className='w-70 p-2 text-3xl text-black'
+        className='w-70 p-2 lg:text-3xl text-md text-black'
         selected={initialDate}
         onChange={onDateChange!}
         minDate={new Date()}
