@@ -51,8 +51,6 @@ export default function LineChart() {
      // Use media query to detect mobile devices
      const isMobile = useMedia({ maxWidth: 800 });
 
-     console.log(isMobile)
-
     const options: any = {
         responsive: true,
     indexAxis: 'x',

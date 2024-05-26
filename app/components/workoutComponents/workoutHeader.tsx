@@ -79,9 +79,9 @@ export default function WorkoutHeader() {
 
         <AnimatePresence>{modalOpen && <WorkoutForm />}</AnimatePresence>
         <AnimatePresence>{deleteModal && <DeleteModal />}</AnimatePresence>
-        <h1 className='text-5xl font-bold tracking-wider'>Your Workout Tracker</h1>
-        <form className="w-[35%]  relative" onSubmit={handleSubmit}>
-           <input value={searchValue} onChange={handleChange} type="text" placeholder="Search for exercise..." className="w-full rounded-xl h-10 p-2 text-xl" />
+        <h1 className='lg:text-5xl text-xl font-bold tracking-wider'>Workout Tracker</h1>
+        <form className="lg:w-[35%] w-[45%]  relative" onSubmit={handleSubmit}>
+           <input value={searchValue} onChange={handleChange} type="text" placeholder="Search for exercise..." className="w-full rounded-xl h-10 p-2  lg:text-xl text-md" />
            <motion.ul
                 className="absolute bg-slate-100  font-bold tracking-wide text-xl  z-30 w-full p-3 rounded-xl  top-full left-0"
                 initial={{ opacity: 0, y: 20 }}
@@ -112,7 +112,7 @@ export default function WorkoutHeader() {
                 )}
             </AnimatePresence>
         </form>
-        <button className='text-4xl px-2.5 py-3 w-[20%] rounded-3xl bg-gradient-to-br from-violet-800 via-violet-600 to-violet-400 text-white hover:bg-gradient-to-bl hover:from-violet-800 hover:via-violet-400 hover:to-violet-400' onClick={() => dispatch(setModalOpen(!modalOpen))}>Add Workout</button>
+        <button className='lg:text-4xl text-xl px-2.5 py-3 lg:w-[20%] w-[50%] rounded-3xl bg-gradient-to-br from-violet-800 via-violet-600 to-violet-400 text-white hover:bg-gradient-to-bl hover:from-violet-800 hover:via-violet-400 hover:to-violet-400' onClick={() => dispatch(setModalOpen(!modalOpen))}>Add Workout</button>
     </div>
   )
 }

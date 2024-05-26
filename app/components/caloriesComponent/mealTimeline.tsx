@@ -4,6 +4,7 @@ import {Chart as ChartJS, BarController, LineController, LineElement, BarElement
 import { Line } from 'react-chartjs-2';
 import { LuTrash } from "react-icons/lu";
 import CaloriesTable from './caloriesTable';
+import useMedia from 'use-media';
 
 
 
@@ -51,6 +52,8 @@ export default function MealTimeline({date, onDelete, mealType, fruit, meat, dri
 
     console.log(carbCarbs)
 
+    const isMobile = useMedia({maxWidth: 800});
+
     const option: any = {
         indexAxis: 'x', 
         scales: {
@@ -59,7 +62,7 @@ export default function MealTimeline({date, onDelete, mealType, fruit, meat, dri
                   color: 'white',
                   beginAtZero: true,
                   font:{
-                    size: 14
+                    size: isMobile ? 10 : 14
                   }
                 },
                 title: {
@@ -67,7 +70,7 @@ export default function MealTimeline({date, onDelete, mealType, fruit, meat, dri
                   text: 'Macronutrients',
                   color:'white',
                   font: {
-                    size: 18
+                    size: isMobile? 12 : 18
                   }
                 },
                 grid: {
@@ -79,7 +82,7 @@ export default function MealTimeline({date, onDelete, mealType, fruit, meat, dri
                   color: 'white',
                   beginAtZero: true,
                   font:{
-                    size: 14
+                    size: isMobile ? 10 : 14
                   }
                 },
                 title: {
@@ -87,7 +90,7 @@ export default function MealTimeline({date, onDelete, mealType, fruit, meat, dri
                   text: 'Grams',
                   color:'white',
                   font: {
-                    size: 18
+                    size: isMobile ? 12 : 18
                   }
                 },
                 grid: {
@@ -103,7 +106,7 @@ export default function MealTimeline({date, onDelete, mealType, fruit, meat, dri
                 labels: {
                     color: 'white', 
                     font: {
-                      size: 15
+                      size: isMobile ? 12 : 15
                     }
                   }
             },
@@ -162,8 +165,8 @@ export default function MealTimeline({date, onDelete, mealType, fruit, meat, dri
             <li className="mb-10 ms-4">
                 <div className="absolute w-3 h-3  bg-zinc-800 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
                 <time className="mb-1 text-3xl font-normal leading-none text-gray-400 dark:text-gray-500">{formattedDate}</time>
-                <div className='flex mt-6 mb-6 justify-evenly items-start'>
-                    <div className='w-[45%]  h-content flex flex-wrap gap-8 justify-evenly items-center'>
+                <div className='flex lg:flex-row flex-col mt-6 mb-6 justify-evenly items-start lg:gap-0 gap-5'>
+                    <div className='lg:w-[45%] w-[97%]   h-content flex flex-wrap gap-8 justify-evenly items-center'>
                       <div className="relative w-full overflow-x-auto shadow-md sm:rounded-lg">
                         <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
@@ -258,33 +261,33 @@ export default function MealTimeline({date, onDelete, mealType, fruit, meat, dri
                     </div>
                 
                     </div>
-                    <div className='w-[50%] h-[20rem] bg-sky-900 p-3 rounded-2xl drop-shadow-2xl flex justify-center items-center'>
+                    <div className='lg:w-[50%] w-full h-[20rem] bg-sky-900 p-3 rounded-2xl drop-shadow-2xl flex justify-center items-center'>
                     <Line options={option} data={data} />
                     </div>
                 </div>
                 <div className='w-full flex justify-center items-center'>
-                  <div className="relative w-[55%] overflow-x-auto shadow-md sm:rounded-lg">
+                  <div className="relative lg:w-[55%] w-full overflow-x-auto shadow-md sm:rounded-lg">
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                       <thead className="text-xs  text-gray-700 uppercase dark:text-gray-400">
                       <tr>
-                          <th scope="col" className="px-6 rounded-3xl py-3 font-bold tracking-wider text-2xl bg-gray-50 dark:bg-gray-800">
+                          <th scope="col" className="lg:px-6 px-2.5 lg:py-3 py-1 font-bold tracking-wider lg:text-2xl text-lg bg-gray-50 dark:bg-gray-800">
                               Totals
                           </th>
-                          <th scope="col" className="px-6 bg-slate-700 text-white text-lg font-bold tracking-wider py-3">
-                              Protein: <span className='text-2xl font-bold '>{totalProtein.toFixed(2)} g</span>
+                          <th scope="col" className="lg:px-6 px-2.5 bg-slate-700 text-white lg:text-lg text-md font-bold tracking-wider py-3">
+                              Protein: <span className='lg:text-2xl text-sm font-bold '>{totalProtein.toFixed(2)} g</span>
                           </th>
-                          <th scope="col" className="px-6 font-bold tracking-wider py-3 text-lg bg-gray-50 dark:bg-gray-800">
-                              Carbs: <span className='text-2xl font-bold '>{totalCarbs.toFixed(2)} g</span>
+                          <th scope="col" className="lg:px-6 px-2.5 font-bold tracking-wider py-3 lg:text-lg text-md  bg-gray-50 dark:bg-gray-800">
+                              Carbs: <span className='lg:text-2xl text-sm  font-bold '>{totalCarbs.toFixed(2)} g</span>
                           </th>
-                          <th scope="col" className="px-6 bg-slate-700 text-white text-lg font-bold tracking-wider py-3">
-                              Fats: <span className='text-2xl font-bold '>{totalFat.toFixed(2)} g</span>
+                          <th scope="col" className="lg:px-6 px-2.5 bg-slate-700 text-white tlg:text-lg text-md  font-bold tracking-wider py-3">
+                              Fats: <span className='lg:text-2xl text-sm font-bold '>{totalFat.toFixed(2)} g</span>
                           </th>
                       </tr>
                       </thead>
                     </table>
                   </div>
                 </div>
-                <LuTrash onClick={onDelete} className=" cursor-pointer" size={35} />
+                <LuTrash onClick={onDelete} className="lg:mt-0 mt-5 cursor-pointer" size={35} />
                 
                 <p className="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">{}</p>
                 

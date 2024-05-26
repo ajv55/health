@@ -86,7 +86,7 @@ export default  function WorkoutTable() {
   return (
     
     <ol className="relative  w-[99%] z-10  flex flex-col justify-start items-center  border-s border-gray-800 dark:border-gray-700">  
-    <h1 className="text-6xl w-[65%] p-2 mb-12 font-bold shadow-zinc-900 shadow-lg text-center tracking-wide">Your Workout History</h1>                
+    <h1 className="lg:text-6xl text-2xl w-[65%] p-2 mb-12 font-bold shadow-zinc-900 shadow-lg text-center tracking-wide">Your Workout History</h1>                
         {list?.map((l: List) => {
             const newDate = format(new Date(l?.date), 'MMM dd, yyyy')
             return (
@@ -94,9 +94,9 @@ export default  function WorkoutTable() {
                     <div className="absolute w-3 h-3 bg-gray-800 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"></div>
                     <time className="mb-1 text-4xl font-normal leading-none text-gray-400 dark:text-gray-500">{newDate}</time>
                     
-                    <div  className="w-full flex  justify-evenly items-center">
+                    <div  className="w-full flex lg:flex-row flex-col  justify-evenly items-center">
                         
-                        <div className="relative w-[30%] overflow-x-auto shadow-md sm:rounded-lg">
+                        <div className="relative lg:w-[30%] w-[97%] lg:mt-0 mt-10 lg:mr-0 mr-2 overflow-x-auto shadow-md sm:rounded-lg">
                             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                 <thead className="text-xs text-gray-700 uppercase dark:text-gray-400">
                                     <tr>
@@ -129,7 +129,7 @@ export default  function WorkoutTable() {
                             </table>
                         </div>
 
-                        <div className="border rounded-2xl drop-shadow-2xl bg-gradient-to-bl from-purple-900 via-slate-400 to-cyan-500 w-[37%] flex justify-center items-center p-5 h-[16rem]">
+                        <div className="border rounded-2xl drop-shadow-2xl bg-gradient-to-bl from-purple-900 via-slate-400 to-cyan-500 lg:w-[37%] lg:mt-0 mt-8 lg:mr-0 mr-2 w-[97%] flex justify-center items-center p-5 h-[16rem]">
                             <Bar options={option} data={{
                                 labels: ['Total'],
                                 datasets: [{

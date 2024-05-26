@@ -1,6 +1,6 @@
 'use client';
 import {Line, Bar} from 'react-chartjs-2';
-import { Chart as ChartJS, Legend, Title, Tooltip,  BarController , BarElement , LineController, LineElement, PointElement, CategoryScale, LinearScale } from 'chart.js';
+import { Chart as ChartJS, Legend, Title, Tooltip,  BarController , BarElement , LineController, LineElement, PointElement, CategoryScale, LinearScale, Filler } from 'chart.js';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
@@ -13,8 +13,9 @@ import {setUsersMeals} from '@/app/slices/mealSlice';
 import Skeleton from './skeleton';
 import { GiEmptyMetalBucket } from "react-icons/gi";
 import MealTimeline from './mealTimeline';
+import useMedia from 'use-media';
 
-ChartJS.register(LineController, Title, Tooltip, Legend, LineElement, LinearScale, CategoryScale, PointElement, BarController, BarElement )
+ChartJS.register(LineController, Title, Tooltip, Legend, LineElement, LinearScale, CategoryScale, PointElement, BarController, BarElement, Filler )
 
 export default function CaloriesLine() {
     const [userCal, setUserCal] = useState<any>([]);
@@ -46,6 +47,11 @@ export default function CaloriesLine() {
        
     }, [])
 
+    const isMobile = useMedia({ maxWidth: 800});
+
+    console.log(isMobile)
+    
+
 
 
     const mealCal = list?.map((m: any) => m?.totalCalories);
@@ -64,7 +70,7 @@ export default function CaloriesLine() {
         color: 'teal',
         beginAtZero: true,
         font: {
-          size: 18
+          size: isMobile ? 12 : 18
         }
       },
       grid: {
@@ -75,7 +81,7 @@ export default function CaloriesLine() {
         text: 'Days',
         color: 'white',
         font: {
-          size: 35,
+          size: isMobile ? 16 : 35,
         }
       }
     },
@@ -84,15 +90,15 @@ export default function CaloriesLine() {
         color: 'teal',
         beginAtZero: true,
         font:{
-          size: 18
+          size: isMobile ? 12 :  18
         }
       },
       title: {
-        display: true,
+        display: isMobile ? false : true,
         text: 'Calories',
         color:'white',
         font: {
-          size: 35
+          size: isMobile ? 18 : 35
         }
       },
       grid: {
@@ -105,7 +111,7 @@ export default function CaloriesLine() {
       labels: {
         color: 'white', 
         font: {
-          size: 15
+          size: isMobile ? 10 : 15
         }
       }
     }
@@ -120,6 +126,7 @@ export default function CaloriesLine() {
           backgroundColor: 'rgba(79, 70, 229, 0.5)',
           borderColor: '#9a93ff',
           tension: 0.4,
+          fill: true,
           barThickness: 50,
           borderWidth: 2,
 
@@ -143,13 +150,13 @@ export default function CaloriesLine() {
   return (
     <div className='w-full h-screen relative flex flex-col  justify-evenly gap-10 items-center'>  
     {loading && <Skeleton />}
-    {!loading && list.length !== 0 && <h1 className='text-5xl w-[55%]  border-b border-zinc-800 p-2 shadow-md shadow-zinc-800  text-center font-bold tracking-wide'>Your Meals History</h1>   }
+    {!loading && list.length !== 0 && <h1 className='lg:text-5xl text-2xl lg:w-[55%] w-[85%]  border-b border-zinc-800 p-2 shadow-md shadow-zinc-800  text-center font-bold tracking-wide'>Your Meals History</h1>   }
          
-          {!loading && list.length !== 0 && <motion.div initial={{ x: '100vw' }} animate={{ x: 0 }} transition={{ type: 'spring', stiffness: 100, damping: 10 }} className='w-[85%] bg-slate-900 rounded-xl flex justify-center items-center h-[32rem] p-7'>
+          {!loading && list.length !== 0 && <motion.div initial={{ x: '100vw' }} animate={{ x: 0 }} transition={{ type: 'spring', stiffness: 100, damping: 10 }} className='lg:w-[85%] w-[97%] bg-slate-900 rounded-xl flex justify-center items-center h-[32rem] lg:p-7 p-1'>
               <Bar  options={option} data={data} />
             </motion.div>}
 
-            {!loading && <h1 className='text-5xl w-[55%]  border-b border-zinc-800 p-2 shadow-md shadow-zinc-800  text-center font-bold tracking-wide'>Your Meal Logs</h1>   }
+            {!loading && <h1 className='lg:text-5xl text-3xl lg:w-[55%] w-[85%]  border-b border-zinc-800 p-2 shadow-md shadow-zinc-800  text-center font-bold tracking-wide'>Your Meal Logs</h1>   }
            <div className='w-full h-content   flex gap-8 flex-col justify-start items-center'>
             <div className='w-full flex p-1 border-4 border-zinc-900 shadow-xl shadow-zinc-900 flex-wrap gap-5  justify-center items-center'>
               {list.length === 0 && <div className='w-full  h-[23rem] flex flex-col justify-center items-center'><h1 className='text-4xl'>No Meal Logs 😭</h1><GiEmptyMetalBucket size={50}/> </div>}

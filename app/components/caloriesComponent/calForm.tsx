@@ -40,7 +40,7 @@ export default function CalForm({CancelBtnOnClick, selectCarb, carbData, carbOnC
   return (
     <div className='w-full absolute bg-transparent z-30 top-0 left-0 backdrop-blur-sm h-screen flex  justify-center items-center'>
         
-        <motion.form initial={{ opacity: 0, y: '-100vh' }} animate={{ opacity: 1, y: 0 }} transition={{duration: 0.2, type: 'spring', stiffness: 100, damping: 10}} exit={{ opacity: 0, y: '-100vh' }} onSubmit={onSubmit} className='lg:w-[45%] w-[96%] lg:mt-0 mt-28 h-content bg-slate-100 drop-shadow-2xl rounded-2xl flex flex-col justify-start p-3 gap-4 items-center'>
+        <motion.form initial={{ opacity: 0, y: '-100vh' }} animate={{ opacity: 1, y: 0 }} transition={{duration: 0.2, type: 'spring', stiffness: 100, damping: 10}} exit={{ opacity: 0, y: '-100vh' }} onSubmit={onSubmit} className='lg:w-[45%] w-[96%] lg:mt-0 mt-16 h-content bg-slate-100 drop-shadow-2xl rounded-2xl flex flex-col justify-start p-3 gap-4 items-center'>
         <div className="w-full flex flex-col justify-start items-start lg:px-4 px-2 py-2">
             <h1 className="lg:text-4xl text-2xl font-bold tracking-wide">Calorie Tracker</h1>
             <h5 className="lg:text-xl text-md font-light tracking-wider text-zinc-500">Log your meals and track your calories.</h5>

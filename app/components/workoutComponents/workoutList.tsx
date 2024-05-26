@@ -106,13 +106,13 @@ export default function WorkoutList() {
     console.log(eventList)
 
   return (
-    <div className='flex w-full justify-evenly items-center'>
-      <motion.div  initial={{ x: '-100vw' }} animate={{ x: 0 }}  transition={{ type: 'spring', stiffness: 120, damping: 15 }} className={`${modalOpen || deleteModal ? 'hidden' : ''} w-[60%] bg-gradient-to-tl from-violet-900 via-violet-500 to-violet-300 h-content drop-shadow-2xl  rounded-xl p-3 `}>
+    <div className='flex lg:flex-row flex-col w-full justify-evenly items-center'>
+      <motion.div  initial={{ x: '-100vw' }} animate={{ x: 0 }}  transition={{ type: 'spring', stiffness: 120, damping: 15 }} className={`${modalOpen || deleteModal ? 'hidden' : ''} lg:w-[60%] w-[97%] bg-gradient-to-tl from-violet-900 via-violet-500 to-violet-300 lg:h-content h-[32rem] drop-shadow-2xl  rounded-xl p-3 `}>
           <FullCalendar
-          
+
           dayCellClassNames='h-content text-white font-bold text-md '
           dayHeaderClassNames='z-10 bg-gradient-to-br from-slate-200 via-slate-200 text-zinc-900  to-teal-100 text-white font-bold tracking-wider'
-          viewClassNames='z-10 text-white text-lg font-bold  h-full '
+          viewClassNames='z-10 text-white text-lg font-bold  h-[23rem] '
           plugins={[ dayGridPlugin, interactionPlugin, timeGridPlugin, listPlugin ]}
           initialView="dayGridMonth"
           dateClick={handleDateClick}
@@ -128,7 +128,7 @@ export default function WorkoutList() {
           />
       </motion.div>
 
-      <div id='drag'  className='w-[34%]  flex flex-wrap justify-evenly items-center gap-2 p-2  h-[38rem] bg-slate-200 shadow-xl shadow-zinc-800 rounded-lg' >
+      <div id='drag'  className='w-[34%] hidden lg:flex flex-wrap justify-evenly items-center gap-2 p-2  h-[38rem] bg-slate-200 shadow-xl shadow-zinc-800 rounded-lg' >
        <h1 className={`${isLoading ? 'hidden' : ''} text-4xl  font-bold text-center w-full tracking-wide`}>Recommended Workouts</h1> 
       {isLoading && <div className='w-full flex flex-wrap  justify-center items-center h-full animate-pulse  rounded sm:w-96 dark:bg-gray-700'>
         <div className='w-[20%] flex flex-wrap  justify-center items-center h-20    bg-gray-300 rounded sm:w-96 dark:bg-gray-700' ></div>
