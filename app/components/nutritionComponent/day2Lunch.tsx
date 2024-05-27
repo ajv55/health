@@ -54,8 +54,8 @@ export default function Day2Lunch() {
 }
 
   return (
-    <div className='bg-slate-900 mt-14 overflow-scroll flex flex-wrap justify-between items-center  w-full h-content'>
-      <div className="flex gap-5 w-[45%] flex-col justify-center items-center">
+    <div className='bg-slate-900 mt-14 overflow-scroll flex  flex-col lg:flex-wrap lg:flex-row justify-between items-center  w-full h-content'>
+      <div className="flex gap-5 w-[45%] flex-col  justify-center items-center">
         <h1 className="text-7xl text-white font-bold tracking-wide">Lunch</h1>
         <div style={{backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url(${list[1]?.[1]?.lunch?.img})`}} className="w-[89%] h-[23rem] flex rounded-xl justify-center items-center bg-center bg-cover">
           <h1 className="text-4xl text-white font-bold tracking-wide text-center">{list[0]?.[1]?.lunch?.meal}</h1>

@@ -4,6 +4,7 @@ import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, DoughnutController, LineController, LineElement, CategoryScale, LinearScale, Filler, PointElement } from 'chart.js';
 import { Doughnut, Line } from 'react-chartjs-2';
+import useMedia from 'use-media';
 
 ChartJS.register(ArcElement, Tooltip, Legend, DoughnutController, LineController, LineElement, CategoryScale, LinearScale, Filler, PointElement)
 
@@ -42,7 +43,9 @@ export default function GeneratedMeal() {
   // const day2 = jsonMeal?.mealPlan?.map((jd: any) => jd?.Day_2);
 
   
+  const isMobile = useMedia({ maxWidth: 800});
 
+  console.log(isMobile)
 
 
 
@@ -76,7 +79,7 @@ export default function GeneratedMeal() {
                       color: 'white',
                       beginAtZero: true,
                       font: {
-                        size: 18
+                        size: isMobile ? 12 : 18
                       }
                     },
                     grid: {
@@ -88,7 +91,7 @@ export default function GeneratedMeal() {
                       text: '',
                       color: 'white',
                       font: {
-                        size: 18,
+                        size: isMobile ? 12 : 18,
                       }
                     }
                   },
@@ -97,15 +100,15 @@ export default function GeneratedMeal() {
                       color: 'white',
                       beginAtZero: true,
                       font:{
-                        size: 18
+                        size: isMobile ? 12 : 18
                       }
                     },
                     title: {
-                      display: true,
+                      display: isMobile ? false : true,
                       text: 'Grams',
                       color:'white',
                       font: {
-                        size: 24
+                        size: isMobile ? 16 : 24
                       }
                     },
                     grid: {
@@ -119,7 +122,7 @@ export default function GeneratedMeal() {
                     labels: {
                       color: 'white', 
                       font: {
-                        size: 15
+                        size: isMobile ? 10 : 15
                       }
                     }
                   }
@@ -144,7 +147,7 @@ export default function GeneratedMeal() {
                             labels: {
                                 color: 'white',
                                 font: {
-                                    size: 20
+                                    size: isMobile ? 12 : 20
                                 }
                             }
                         },
@@ -179,15 +182,15 @@ export default function GeneratedMeal() {
 
               return (
                 <div key={meal?.description} className='w-full mt-12 border-b-2 border-zinc-900 h-content flex flex-wrap justify-center items-center gap-10 '>
-                  <div className='flex   justify-evenly items-center gap-8 w-full'>
-                    <div className='flex h-[19rem] flex-col justify-center w-[45%]  items-center rounded-2xl gap-5'>
-                      <h4 className='text-3xl font-light tracking-wide text-gray-500'>{meal?.mealType}</h4>
-                      <h1 className='text-5xl text-center text-balance font-bold tracking-wide'>{meal?.meal}</h1>
-                      <p className='text-2xl text-center text-balance'>{meal?.description}</p>
+                  <div className='flex  lg:flex-row flex-col justify-evenly items-center gap-8 w-full'>
+                    <div className='flex h-[19rem] flex-col justify-center lg:w-[45%] w-[95%]  items-center rounded-2xl gap-5'>
+                      <h4 className='lg:text-3xl text-2xl font-light tracking-wide text-gray-500'>{meal?.mealType}</h4>
+                      <h1 className='lg:text-5xl text-3xl text-center text-balance font-bold tracking-wide'>{meal?.meal}</h1>
+                      <p className='lg:text-2xl text-lg text-center text-balance'>{meal?.description}</p>
                     </div>
                     
         
-                    <div className='relative w-[40%] border border-zinc-600 overflow-x-auto shadow-md shadow-zinc-900 rounded-xl"'>
+                    <div className='relative lg:w-[40%] w-[96%] border border-zinc-600 overflow-x-auto shadow-md shadow-zinc-900 rounded-xl"'>
                     <table className='w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400'>
                       <thead className='text-xs  text-gray-700 uppercase dark:text-gray-400'>
                         <tr>
@@ -210,14 +213,14 @@ export default function GeneratedMeal() {
                     
                   </div>
 
-                  <div className='w-full mb-12 flex justify-evenly items-center '>
-                    <div className='w-[45%] p-3 bg-gradient-to-bl from-slate-900 via-slate-700 to-slate-900  flex justify-center items-center h-[22rem] rounded-2xl'>
+                  <div className='w-full mb-12 flex lg:flex-row flex-col justify-evenly items-center '>
+                    <div className='lg:w-[45%] w-full p-3 bg-gradient-to-bl from-slate-900 via-slate-700 to-slate-900  flex justify-center items-center lg:h-[22rem] h-[17rem]  rounded-2xl'>
                       <Doughnut plugins={[textCenter]} options={options} data={data} />
                     </div>
                     
 
-                    <div className='w-[47%] p-3 flex gap-2 flex-col justify-center items-center bg-gradient-to-bl from-slate-900 via-slate-700 to-slate-900  h-[22rem] border rounded-2xl'>
-                      <h1 className='text-center text-white font-bold text-4xl'>Micronutrients</h1>
+                    <div className='lg:w-[47%] w-full lg:p-3 p-1 flex gap-2 flex-col justify-center items-center bg-gradient-to-bl from-slate-900 via-slate-700 to-slate-900 lg:mt-0 mt-3  lg:h-[22rem] h-[17rem] border rounded-2xl'>
+                      <h1 className='text-center text-white font-bold lg:text-4xl text-2xl'>Micronutrients</h1>
                       <Line options={lineOption} data={lineData} />
                     </div>
                   </div>

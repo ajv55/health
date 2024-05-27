@@ -41,7 +41,7 @@ export default function NutritionTab() {
 
     <div className='w-full h-screen  flex flex-col justify-between items-center'>
         <div className='w-full h-24 flex justify-center items-center  p-3'>
-            <h1 className='text-6xl font-bold tracking-wide drop-shadow-xl p-2 border-b-2  border-zinc-900 '>Simple 7 Day Meal Plan</h1>
+            <h1 className='lg:text-6xl text-2xl font-bold tracking-wide drop-shadow-xl p-2 border-b-2  border-zinc-900 '>Simple 7 Day Meal Plan</h1>
         </div>
         <div className="mb-4 w-full  relative  border-b border-gray-200 dark:border-gray-700">
         <ul className="flex  flex-wrap bg-slate-200 justify-evenly items-center  -mb-px text-lg  tracking-wide font-semibold text-center" id="default-styled-tab" data-tabs-toggle="#default-styled-tab-content" data-tabs-active-classNamees="text-purple-600 hover:text-purple-300 dark:text-purple-500 dark:hover:text-purple-500 border-purple-600 dark:border-purple-500" data-tabs-inactive-classNamees="dark:border-transparent text-gray-500 hover:text-gray-600 dark:text-gray-400 border-gray-100 hover:border-gray-300 dark:border-gray-700 dark:hover:text-gray-300" role="tablist">

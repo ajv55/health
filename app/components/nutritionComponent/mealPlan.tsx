@@ -85,11 +85,11 @@ const MealPlan: React.FC = () => {
 
 
   return (
-    <div className="w-[60%] flex flex-col justify-center items-start mt-10 p-6 bg-white shadow-md rounded-2xl shadow-zinc-900">
-      <h2 className="text-5xl w-full font-bold mb-6">Generate Your Meal Plan</h2>
+    <div className="lg:w-[60%] w-[97%] flex flex-col justify-center items-start lg:mt-10 mt-5 p-6 bg-white shadow-md rounded-2xl shadow-zinc-900">
+      <h2 className="lg:text-5xl text-2xl w-full font-bold mb-6">Generate Your Meal Plan</h2>
       <form onSubmit={handleSubmit} className=' w-full flex gap-5 flex-wrap justify-center items-center'>
         <div className="mb-4 w-[45%]">
-          <label className="block text-gray-700 text-xl font-bold mb-2" htmlFor="dietaryPreferences">
+          <label className="block text-gray-700 lg:text-xl text-md font-bold mb-2" htmlFor="dietaryPreferences">
             Dietary Preferences
           </label>
           <select
@@ -108,12 +108,12 @@ const MealPlan: React.FC = () => {
         </div>
 
         <div className="mb-4  w-[45%]">
-          <label className="block  text-gray-700 text-xl font-bold mb-2">
+          <label className="block  text-gray-700 lg:text-xl text-md font-bold mb-2">
             Allergies
           </label>
           <div className="flex flex-wrap">
             {['Nuts', 'Dairy', 'Soy'].map((allergy) => (
-              <label key={allergy} className="flex text-xl items-center mr-4 mb-2">
+              <label key={allergy} className="flex lg:text-xl text-md items-center mr-4 mb-2">
                 <input
                   type="checkbox"
                   name="allergies"
@@ -129,7 +129,7 @@ const MealPlan: React.FC = () => {
         </div>
 
         <div className="mb-4  w-[32%]">
-          <label className="block text-gray-700 text-xl font-bold mb-2" htmlFor="mealType">
+          <label className="block text-gray-700 lg:text-xl text-md font-bold mb-2" htmlFor="mealType">
             Meal Type
           </label>
           <select
@@ -148,7 +148,7 @@ const MealPlan: React.FC = () => {
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 text-xl  font-bold mb-2" htmlFor="duration">
+          <label className="block text-gray-700 lg:text-xl text-md  font-bold mb-2" htmlFor="duration">
             Duration (days)
           </label>
           <input
@@ -162,7 +162,7 @@ const MealPlan: React.FC = () => {
         </div>
 
         <div className="mb-6">
-          <label className="block text-gray-700 text-xl  font-bold mb-2" htmlFor="nutritionalGoals">
+          <label className="block text-gray-700 lg:text-xl text-md font-bold mb-2" htmlFor="nutritionalGoals">
             Nutritional Goals
           </label>
           <select
@@ -170,7 +170,7 @@ const MealPlan: React.FC = () => {
             name="nutritionalGoals"
             value={formData.nutritionalGoals}
             onChange={handleChange}
-            className="w-full outline-violet-600 text-xl  p-2 border border-gray-300 rounded-lg"
+            className="w-full outline-violet-600 lg:text-xl text-md  p-2 border border-gray-300 rounded-lg"
           >
             <option value="">Select Goal</option>
             <option value="Weight loss">Weight loss</option>
@@ -179,7 +179,7 @@ const MealPlan: React.FC = () => {
           </select>
         </div>
 
-        <button type='submit' className="w-[85%] bg-gradient-to-tr from-violet-600 via-violet-500 to-violet-300 text-white p-2 rounded-lg text-xl  font-bold">
+        <button type='submit' className="w-[85%] bg-gradient-to-tr from-violet-600 via-violet-500 to-violet-300 text-white p-2 rounded-lg lg:text-xl text-lg  font-bold">
           Generate Meal Plan
         </button>
       </form>

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 import { format } from "date-fns";
 import WaterSkeleton from "./waterSkeleton";
+import useMedia from 'use-media'
 
 
 ChartJS.register(LineController, PointElement, LineElement, Legend, Tooltip, CategoryScale, LinearScale, Filler)
@@ -28,12 +29,15 @@ export default function WaterIntake() {
         getWaterIntake();
     }, []) 
 
+    const isMobile = useMedia({ maxWidth: 800 });
+    console.log(isMobile)
+
     const option = {
         plugins: {
             legend: {
                 labels: {
                     font: {
-                        size: 18
+                        size: isMobile ? 12 : 18
                     }
                 }
             }
@@ -45,7 +49,7 @@ export default function WaterIntake() {
                     text: 'Date',
                     color: '#ffffff',
                     font: {
-                        size: 18
+                        size: isMobile ? 12 : 18
                     } // Change the color of the title text
                 },
                 ticks: {
@@ -61,7 +65,7 @@ export default function WaterIntake() {
                     text: 'Amount (L)',
                     color: '#ffffff', 
                     font: {
-                        size: 18
+                        size: isMobile ? 12 : 18
                     }// Change the color of the title text
                 },
                 ticks: {
