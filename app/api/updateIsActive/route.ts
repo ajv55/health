@@ -6,7 +6,7 @@ import { options } from "../auth/[...nextauth]/route";
 export async function POST(req: NextRequest) {
     const body = await req.json();
     const session = await getServerSession(options);
-    console.log('bodyyyyy' ,body);
+    console.log('body: ', body)
 
     const { stripeCustomerId } = body;
     
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
       ...session,
       user: {
         ...session?.user,
-        isActive: user.isActive,
+        isActive: user.isActive
       },
     };
     console.log(updatedSession)

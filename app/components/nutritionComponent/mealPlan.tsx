@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { setMealPlan } from '@/app/slices/generateSlice';
+import toast from 'react-hot-toast';
 
 type FormData = {
   dietaryPreferences: string;
@@ -76,7 +77,13 @@ const MealPlan: React.FC = () => {
     
     if(isActive){
         // here is where i will allow the user to have access to the ai generate meal plans
-        await axios.post('/api/generateMeal', formData).then((res) => dispatch(setMealPlan(res?.data?.data)))
+        await axios.post('/api/generateMeal', formData).then((res) => {
+          dispatch(setMealPlan(res?.data?.data));
+          if(res?.data?.status === 400) {
+            toast.error(res?.data?.error)
+          }
+        
+        });
         console.log('youre a paid memeber now lets gooooo!!!!')
       } else {
         router.push('/pricing')

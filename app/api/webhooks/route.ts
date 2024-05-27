@@ -38,9 +38,11 @@ const webhookHandler = async (req: NextRequest) => {
 const subscription = event.data.object as Stripe.Subscription;
 
 // Log the subscription object
-console.log(subscription);
+
 
 const stripeCustomerId = subscription.customer as string;
+const subscriptionId = subscription?.id as string;
+console.log(subscriptionId);
 
 let isActive = false;
 switch (event.type) {
@@ -49,7 +51,8 @@ switch (event.type) {
              const user = await prisma.user.update({
                 where: {stripeCustomerId: stripeCustomerId},
                 data: {
-                    isActive: isActive
+                    isActive: isActive,
+                    subscriptionId: subscriptionId
                 }
             });
             console.log(user)
@@ -76,7 +79,7 @@ switch (event.type) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ stripeCustomerId })
+            body: JSON.stringify({ stripeCustomerId, subscriptionId })
         });
 
         const updateSessionData = await updateSessionRes.json();

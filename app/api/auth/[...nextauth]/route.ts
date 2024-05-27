@@ -81,13 +81,11 @@ export const options: NextAuthOptions = {
             token.password = session.password
            }
            
-           console.log('token: ' , token)
-           console.log('user: ' , user)
            
 
            // passing in user id, calories, height, weight, age, and gender to token
            if(user) {
-            console.log('user: ' , user)
+         
             return {
                 ...token, 
                 id: user?.id,
@@ -99,7 +97,8 @@ export const options: NextAuthOptions = {
                 activity: user?.TDEE,
                 isActive: user?.isActive,
                 stripeCustomerId: user?.stripeCustomerId,
-                password: user?.hashedPassword
+                password: user?.hashedPassword,
+                subscriptionId: user?.subscriptionId
 
 
             }
@@ -139,7 +138,8 @@ export const options: NextAuthOptions = {
                    activity: token?.activity,
                    isActive: token?.isActive,
                    password: token?.password,
-                   stripeCustomerId: token?.stripeCustomerId
+                   stripeCustomerId: token?.stripeCustomerId,
+                   subscriptionId: token?.subscriptionId
                 }
             };
 

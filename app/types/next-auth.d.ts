@@ -19,6 +19,7 @@ declare module "next-auth" {
       password: string,
       isActive?: boolean,
       stripeCustomerId?: string,
+      subscriptionId?: string,
     }
   }
 }

@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 import { getServerSession } from "next-auth";
 import { options } from "../auth/[...nextauth]/route";
+import { error } from "console";
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY!
@@ -22,7 +23,12 @@ export async function POST(req: NextRequest) {
     console.log(body);
     const {dietaryPreferences, allergies, duration, mealType, nutritionalGoals} = body;
 
-   
+   if(dietaryPreferences === '' || mealType ===  '' || duration === '' || nutritionalGoals === '' || allergies.length === 0 ) {
+    return NextResponse.json({
+        error: 'Missing fields',
+        status: 400
+    })
+   }
 
 
 

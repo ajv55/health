@@ -20,6 +20,7 @@ model User {
   emailVerified DateTime?
   stripeCustomerId String?   @unique
   isActive         Boolean?   @default(false)
+  subscriptionId String?
   image String?
   hashedPassword String?
   createdAt DateTime @default(now())
