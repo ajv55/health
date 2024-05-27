@@ -56,7 +56,7 @@ export default function Day1Dinner() {
   return (
     <div className='bg-slate-900 mt-14 overflow-scroll flex flex-col lg:flex-wrap lg:flex-row justify-between items-center  w-full h-[32rem]'>
       <div className="flex gap-5 lg:w-[45%] w-full flex-col justify-center items-center">
-        <h1 className="lg:text-7xl text-4xl text-white font-bold tracking-wide">Dinner</h1>
+        <h1 className="text-7xl text-white font-bold tracking-wide">Dinner</h1>
         <div style={{backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url(${list[0]?.[1]?.dinner?.img})`}} className="lg:w-[65%] w-[85%] h-[23rem] flex rounded-xl justify-center items-center bg-center bg-cover">
           <h1 className="text-4xl text-white font-bold tracking-wide text-center">{list[0]?.[1]?.dinner?.meal}</h1>
         </div>

@@ -55,9 +55,9 @@ export default function Day2Lunch() {
 
   return (
     <div className='bg-slate-900 mt-14 overflow-scroll flex  flex-col lg:flex-wrap lg:flex-row justify-between items-center  w-full h-content'>
-      <div className="flex gap-5 w-[45%] flex-col  justify-center items-center">
+      <div className="flex gap-5 lg:w-[45%] w-full flex-col  justify-center items-center">
         <h1 className="text-7xl text-white font-bold tracking-wide">Lunch</h1>
-        <div style={{backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url(${list[1]?.[1]?.lunch?.img})`}} className="w-[89%] h-[23rem] flex rounded-xl justify-center items-center bg-center bg-cover">
+        <div style={{backgroundImage: `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url(${list[1]?.[1]?.lunch?.img})`}} className="lg:w-[89%] w-[95%] h-[23rem] flex rounded-xl justify-center items-center bg-center bg-cover">
           <h1 className="text-4xl text-white font-bold tracking-wide text-center">{list[0]?.[1]?.lunch?.meal}</h1>
         </div>
         
@@ -66,11 +66,11 @@ export default function Day2Lunch() {
       
 
 
-      <div className="w-[53%] gap-5 flex flex-col justify-center items-center">
-      <div className=" bg-gradient-to-tl from-cyan-900 via-sky-800 to-cyan-300 flex justify-center items-center p-2 w-[65%] h-[16rem] rounded-xl">
+      <div className="lg:w-[53%] w-full gap-5 flex flex-col justify-center items-center">
+      <div className=" bg-gradient-to-tl from-cyan-900 via-sky-800 to-cyan-300 flex justify-center items-center p-2 lg:w-[65%] w-[90%] lg:mt-0 mt-3 h-[16rem] rounded-xl">
         <Doughnut plugins={[textCenter]} options={options} data={data} />
       </div>
-      <div className="relative w-full mr-6 overflow-x-auto shadow-md sm:rounded-lg">
+      <div className="relative lg:w-full w-[96%] lg:mr-6 mr-0 overflow-x-auto shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
               <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
