@@ -15,11 +15,11 @@ export const options: NextAuthOptions = {
     providers: [
         GithubProvider({
             clientId: process.env.GITHUB_ID!,
-            clientSecret: process.env.GITHUB_SECERT!
+            clientSecret: process.env.GITHUB_SECRET!
         }),
         GoogleProvider({
-            clientId: process.env.GOOGLE_ID as string,
-            clientSecret: process.env.GOOGLE_SECERT as string
+            clientId: process.env.GOOGLE_ID!,
+            clientSecret: process.env.GOOGLE_SECRET!
         }),
         CredentialsProvider({
             name: "credentials",
@@ -145,7 +145,7 @@ export const options: NextAuthOptions = {
 
         }
     },
-    secret: process.env.NEXTAUTH_SECERT as string,
+    secret: process.env.NEXTAUTH_SECERT!,
     session: {
         strategy: 'jwt'
     },
@@ -158,4 +158,4 @@ export const options: NextAuthOptions = {
 
  const handler = NextAuth(options);
 
-export  {handler as GET, handler as POST};
+export {handler as GET, handler as POST};
