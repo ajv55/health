@@ -9,6 +9,7 @@ import { FaUser } from "react-icons/fa";
 import axios from "axios";
 import Email from "next-auth/providers/email";
 import toast from "react-hot-toast";
+import CancelModal from "./cancelModal";
 
 type SettingProps = {
     closeOnClick?: () => void;
@@ -32,6 +33,7 @@ export default function Setting({closeOnClick, arrowOnClick}: SettingProps) {
     });
     const [message, setMessage] = useState("");
     const [subId, setSubId] = useState('');
+    const [cancelModal, setCancelModel] = useState(false);
   
     const handleInputChange = (e: any) => {
       const { name, value } = e.target;
@@ -53,7 +55,13 @@ export default function Setting({closeOnClick, arrowOnClick}: SettingProps) {
       }
     };
     const getSub = async () => {
-      await axios.get('/api/updateSub').then((res) => setSubId(res?.data?.subId))
+
+      await axios.get('/api/updateSub').then((res) => {
+        console.log(res)
+        if(res.statusText === 'OK') {
+          setSubId(res?.data?.subId)
+        }
+      })
     }
 
     useEffect(() => {
@@ -73,7 +81,19 @@ export default function Setting({closeOnClick, arrowOnClick}: SettingProps) {
       } catch (error) {
         toast.error(`Error occurred ${error}`)
       }
+    };
+
+    const handleCancelModal = () => {
+      if(subId === '') {
+        toast.error('No current subscription');
+        setTimeout(() => {
+          router.push('/pricing')
+        }, 3000)
+      } else {
+        setCancelModel(true)
+      }
     }
+
   
     const handlePasswordSubmit = async (e: any) => {
       e.preventDefault();
@@ -101,10 +121,11 @@ export default function Setting({closeOnClick, arrowOnClick}: SettingProps) {
         router.push('/')
     }
 
-    console.log(subId)
+    console.log('subId: ',subId)
 
   return (
-    <motion.div initial={{ x: "-100%" }} animate={{ x: 0 }} transition={{ type: "spring", stiffness: 150, damping: 20 }} exit={{ x: "-100%" }} className='w-full z-20 absolute top-0 left-0 rounded-2xl h-full bg-slate-200'>
+    <motion.div initial={{ x: "-100%" }} animate={{ x: 0 }} transition={{ type: "spring", stiffness: 150, damping: 20 }} exit={{ x: "-100%" }} className='w-full z-20  absolute top-0 left-0 rounded-2xl h-full bg-slate-200'>
+      {cancelModal && <CancelModal handleModal={() => setCancelModel(false)} handleDelete={handleCancellation} />}
       <div className="flex flex-col gap-4 justify-start items-start p-1">
         <MdOutlineArrowBackIosNew className="mt-2" onClick={arrowOnClick} size={30}  />
         <h1 className="text-5xl font-bold tracking-wide">Setting</h1>
@@ -190,7 +211,7 @@ export default function Setting({closeOnClick, arrowOnClick}: SettingProps) {
       </div>
 
       <div className="w-full flex justify-center items-center ">
-        <button onClick={handleCancellation} className="rounded-lg text-center text-xl font-medium tracking-wide text-teal-100 bg-gradient-to-bl from-slate-950 via-slate-700 to-slate-950 w-[85%] py-3">Cancel Subscription</button>
+        <button onClick={handleCancelModal} className="rounded-lg text-center text-xl font-medium tracking-wide text-teal-100 bg-gradient-to-bl from-slate-950 via-slate-700 to-slate-950 w-[85%] py-3">Cancel Subscription</button>
       </div>
         
         <div className="w-full flex justify-center items-center mt-10 ">
