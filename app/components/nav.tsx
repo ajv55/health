@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link'
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Logo from '@/public/FitGenius_transparent.png'
 import { FiActivity } from "react-icons/fi";
 import Signing from './mainPage/signing';
@@ -17,6 +17,12 @@ export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  useEffect(() => {
+    if(session) {
+      return setIsLoggedIn(true)
+    }
+  }, [])
+  
   console.log(isOpen)
 
   return (
@@ -45,9 +51,10 @@ export default function Nav() {
                             </Link>
                         </nav>
                         {isLoggedIn ? (
-                          <div className="flex flex-col items-start space-y-4">
-                            <span className="text-lg text-white ">Welcome, {userName}</span>
-                            <Link href='/signOut' className="text-lg text-gray-800 hover:text-teal-500">Logout</Link>
+                          <div className="flex flex-col items-start p-2 space-y-4">
+                            <span className="text-2xl text-white ">Welcome, {userName?.toUpperCase()}</span>
+                            <Link href='/dashboard' className="text-2xl text-white hover:text-teal-500">Dashboard</Link>
+                            <Link href='/signOut' className="text-2xl text-white hover:text-teal-500">Logout</Link>
                           </div>
                         ) : (
                           <div className="flex p-4 w-full flex-col items-start space-y-4">

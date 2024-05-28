@@ -124,17 +124,17 @@ export default function Setting({closeOnClick, arrowOnClick}: SettingProps) {
     console.log('subId: ',subId)
 
   return (
-    <motion.div initial={{ x: "-100%" }} animate={{ x: 0 }} transition={{ type: "spring", stiffness: 150, damping: 20 }} exit={{ x: "-100%" }} className='w-full z-20  absolute top-0 left-0 rounded-2xl h-full bg-slate-200'>
+    <motion.div initial={{ x: "-100%" }} animate={{ x: 0 }} transition={{ type: "spring", stiffness: 150, damping: 20 }} exit={{ x: "-100%" }} className='w-full z-20 overflow-scroll absolute top-0 left-0 rounded-2xl h-full bg-slate-200'>
       {cancelModal && <CancelModal handleModal={() => setCancelModel(false)} handleDelete={handleCancellation} />}
       <div className="flex flex-col gap-4 justify-start items-start p-1">
         <MdOutlineArrowBackIosNew className="mt-2" onClick={arrowOnClick} size={30}  />
-        <h1 className="text-5xl font-bold tracking-wide">Setting</h1>
+        <h1 className="text-5xl lg:text-3xl font-bold tracking-wide">Setting</h1>
       </div>
 
       <div className="w-full flex flex-col justify-start items-start p-2">
         <div className="w-full flex justify-start items-center gap-4">
-          <FaUser size={25} />
-          <h3 className="text-2xl font-bold tracking-wide">Account</h3>
+          <FaUser size={25} className="lg:w-5 lg:h-5" />
+          <h3 className="text-2xl lg:text-xl font-bold tracking-wide">Account</h3>
         </div>
         <div className="flex w-full flex-col justify-start items-start p-2">
           <form onSubmit={handleSubmit} className="mb-4 w-full">

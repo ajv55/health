@@ -8,12 +8,23 @@ import CalImg from '@/public/calories-svgrepo-com.svg';
 import NutritionImg from '@/public/nutrition-svgrepo-com (1).svg';
 import WorkoutImg from '@/public/workout-day-svgrepo-com.svg';
 import { MdDashboard } from "react-icons/md";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useSession } from 'next-auth/react';
 
 export default function Layout({children}: {children: React.ReactNode}) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  const {data: session} = useSession();
+
+  const userName = session?.user?.name;
+
+  useEffect(() => {
+    if(session) {
+      return setIsLoggedIn(true)
+    }
+  }, [])
 
 
   return (
@@ -42,6 +53,14 @@ export default function Layout({children}: {children: React.ReactNode}) {
                             Nutrition
                             </Link>
                         </nav>
+
+                        {isLoggedIn && (
+                          <div className="flex flex-col items-start p-2 space-y-4">
+                            <span className="text-2xl text-white ">Welcome, {userName?.toUpperCase()}</span>
+                            <Link href='/' className="text-2xl text-white hover:text-teal-500">Home</Link>
+                            <Link href='/signOut' className="text-2xl text-white hover:text-teal-500">Logout</Link>
+                          </div>
+                        )}
                         
                         <div className=' lg:w-full lg:mt-0 mt-8 w-[97%] h-[4rem] flex justify-center items-center'>
                             <p className='text-lg self-end text-white  text-center lg:text-right'>Copyright © 2024 FitGenius. All rights reserved.</p>
