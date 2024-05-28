@@ -8,7 +8,8 @@ export async function POST(req: NextRequest) {
     const session = await getServerSession(options);
     console.log('body: ', body)
 
-    const { stripeCustomerId } = body;
+    const { stripeCustomerId, subscriptionId } = body;
+    console.log(subscriptionId)
     
     // Fetch the user data from the database based on stripeCustomerId
     const user = await prisma.user.findUnique({
@@ -25,7 +26,9 @@ export async function POST(req: NextRequest) {
       ...session,
       user: {
         ...session?.user,
-        isActive: user.isActive
+        isActive: user?.isActive,
+        subscriptionId: user?.subscriptionId
+        
       },
     };
     console.log(updatedSession)

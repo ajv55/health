@@ -62,7 +62,8 @@ switch (event.type) {
        const bye =  await prisma.user.update({
             where: {stripeCustomerId: stripeCustomerId},
             data: {
-                isActive: isActive
+                isActive: isActive,
+                subscriptionId: ''
             }
         });
         console.log(bye)

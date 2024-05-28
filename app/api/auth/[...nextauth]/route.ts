@@ -114,7 +114,7 @@ export const options: NextAuthOptions = {
                 stripeCustomerId: token.stripeCustomerId as string,
                 age: token?.age as string,
                 weightInLbs: token?.weight as string,
-                name: token?.name as string
+                name: token?.name as string,
             }
         });
 

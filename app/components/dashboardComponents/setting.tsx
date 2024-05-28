@@ -19,7 +19,6 @@ export default function Setting({closeOnClick, arrowOnClick}: SettingProps) {
 
     const {data: session, update} = useSession();
     const router = useRouter();
-    console.log(session?.user?.password)
 
     const [formData, setFormData] = useState({
       name: session?.user?.name || "",
@@ -32,6 +31,7 @@ export default function Setting({closeOnClick, arrowOnClick}: SettingProps) {
       newPassword: "",
     });
     const [message, setMessage] = useState("");
+    const [subId, setSubId] = useState('');
   
     const handleInputChange = (e: any) => {
       const { name, value } = e.target;
@@ -52,6 +52,28 @@ export default function Setting({closeOnClick, arrowOnClick}: SettingProps) {
         console.error('error occur when updating user settings', error)
       }
     };
+    const getSub = async () => {
+      await axios.get('/api/updateSub').then((res) => setSubId(res?.data?.subId))
+    }
+
+    useEffect(() => {
+      try {
+        getSub()
+      } catch (error) {
+        console.log(error)
+      }
+
+    
+    }, [])
+
+    const handleCancellation = async () => {
+      try {
+        await axios.post('/api/cancel', {subId}).then(() => toast.success('Succesfully cancelled your subscription'))
+        
+      } catch (error) {
+        toast.error(`Error occurred ${error}`)
+      }
+    }
   
     const handlePasswordSubmit = async (e: any) => {
       e.preventDefault();
@@ -78,6 +100,8 @@ export default function Setting({closeOnClick, arrowOnClick}: SettingProps) {
     if(!session) {
         router.push('/')
     }
+
+    console.log(subId)
 
   return (
     <motion.div initial={{ x: "-100%" }} animate={{ x: 0 }} transition={{ type: "spring", stiffness: 150, damping: 20 }} exit={{ x: "-100%" }} className='w-full z-20 absolute top-0 left-0 rounded-2xl h-full bg-slate-200'>
@@ -165,7 +189,9 @@ export default function Setting({closeOnClick, arrowOnClick}: SettingProps) {
         </div>
       </div>
 
-     
+      <div className="w-full flex justify-center items-center ">
+        <button onClick={handleCancellation} className="rounded-lg text-center text-xl font-medium tracking-wide text-teal-100 bg-gradient-to-bl from-slate-950 via-slate-700 to-slate-950 w-[85%] py-3">Cancel Subscription</button>
+      </div>
         
         <div className="w-full flex justify-center items-center mt-10 ">
           <Link className="rounded-lg text-center text-3xl font-medium tracking-wide text-teal-100 bg-gradient-to-bl from-slate-950 via-slate-700 to-slate-950 w-[85%] py-3" href='/signOut'>Sign Out</Link>
