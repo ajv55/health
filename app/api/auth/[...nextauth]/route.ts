@@ -4,7 +4,7 @@ import {PrismaAdapter} from '@next-auth/prisma-adapter'
 import CredentialsProvider  from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from 'next-auth/providers/google'
-import NextAuth from "next-auth";
+import NextAuth from "next-auth/next";
 import bcrypt from 'bcrypt';
 import { JWT } from "next-auth/jwt";
 import Stripe from 'stripe';
