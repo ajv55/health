@@ -36,7 +36,7 @@ export default function Contact() {
             sendEmail(formData);
             ref.current?.reset()
         }} ref={ref}  className='lg:mt-64 mt-5 bg-gradient-to-br from-slate-200 via-slate-100 to-slate-200 mb-64 lg:w-[46%] w-[97%] h-content rounded-xl drop-shadow-2xl flex flex-row gap-8 flex-wrap justify-center items-center' >
-            <h1 className='text-4xl p-1 font-bold tracking-wide'>Send A Message!</h1>
+            <h1 className='text-4xl lg:text-6xl w-full p-1 lg:p-3 lg:text-center font-bold tracking-wide'>Send A Message!</h1>
             <div className='flex lg:mt-8 mt-2  flex-col gap-3 lg:w-[14rem] w-[95%] justify-start'>
                 <label htmlFor="firstname" className='text-md font-semibold tracking-widest '>Firstname</label>
                 <input className='block p-2.5 w-full  text-lg text-gray-200  rounded-lg  focus:outline-teal-400  ' placeholder='Firstname ...' type="text" name='firstname' id='firstname' />
