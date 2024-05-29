@@ -11,6 +11,7 @@ import { MdDashboard } from "react-icons/md";
 import { useEffect, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useSession } from 'next-auth/react';
+import { IoMdHome } from "react-icons/io";
 
 export default function Layout({children}: {children: React.ReactNode}) {
   const [isOpen, setIsOpen] = useState(false);
@@ -72,7 +73,8 @@ export default function Layout({children}: {children: React.ReactNode}) {
         <MdDashboard onClick={() => setIsOpen(!isOpen)} className='' size={50} color='black'/>
       </div>
         <nav className='lg:flex hidden flex-col w-[8%] justify-evenly items-center  text-2xl bg-slate-500  h-screen'>
-            <Link className='mt-16'  href='/dashboard'><IoMdAnalytics size={50} color='white'/></Link>
+        <Link className=''  href='/'><IoMdHome size={50} color='white'/></Link>
+            <Link className=''  href='/dashboard'><IoMdAnalytics size={50} color='white'/></Link>
             <Link className='' href='/dashboard/calories'><Image src={CalImg} alt='caloires-img' width={85} height={85}></Image></Link>
             <Link className=''  href='/dashboard/workout'><Image src={WorkoutImg} alt='workout-img' width={55} height={55}></Image></Link>
             <Link className=''  href='/dashboard/nutrition'><Image src={NutritionImg} alt='nutrition-img' width={55} height={55}></Image></Link>

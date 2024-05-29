@@ -53,10 +53,15 @@ export default function Page() {
             <div>
             <p className="text-xl text-white tracking-wide">Don&#39;t have an account? <Link className="underline underline-offset-4 lg:text-2xl text-lg text-sky-200" href={'/reg'}>Sign up now!</Link></p>
             </div>
-            <div className=" w-full lg:h-[15rem] h-[8rem] flex flex-col justify-end items-start lg:gap-8 gap-3">
-                <button onClick={() => signIn('github')} className="lg:text-3xl text-lg self-center rounded-xl flex justify-center items-center gap-4 lg:w-[55%] w-[75%] px-2.5 py-3 bg-black hover:bg-gradient-to-tr hover:from-zinc-500 hover:via-zinc-300 hover:to-zinc-500  hover:text-black text-white "><FaGithub size={30} color="white"/>Sign in with Github</button>
-                <button onClick={() => signIn('google')} className="lg:text-3xl text-lg  self-center rounded-xl lg:w-[55%] w-[75%] flex justify-center items-center gap-4 px-2.5 py-3 bg-zinc-100 hover:bg-gradient-to-tr hover:from-zinc-700 hover:via-zinc-950 hover:to-zinc-700 hover:text-zinc-200 text-zinc-800 "><FcGoogle size={30}/> Sign in with Google</button>
+            <div className=" w-full lg:h-[15rem] h-[8rem] flex flex-col justify-end items-start lg:gap-4 gap-3">
+                <button onClick={() => signIn('github')} className="lg:text-2xl text-lg self-center rounded-xl flex justify-center items-center gap-4 lg:w-[55%] w-[75%] px-2.5 py-3 bg-black hover:bg-gradient-to-tr hover:from-zinc-500 hover:via-zinc-300 hover:to-zinc-500  hover:text-black text-white "><FaGithub size={30} color="white"/>Sign in with Github</button>
+                <button onClick={() => signIn('google')} className="lg:text-2xl text-lg  self-center rounded-xl lg:w-[55%] w-[75%] flex justify-center items-center gap-4 px-2.5 py-3 bg-zinc-100 hover:bg-gradient-to-tr hover:from-zinc-700 hover:via-zinc-950 hover:to-zinc-700 hover:text-zinc-200 text-zinc-800 "><FcGoogle size={30}/> Sign in with Google</button>
+                <div className="w-full flex justify-center gap-5 items-center">
+                  <h5 className="text-lg text-white font-ligh tracking-wide">Email: test@test.com</h5>
+                  <h5 className="text-lg text-white font-ligh tracking-wide">Password: 123123</h5>
+                </div>
             </div>
+
             <div className=" md:mt-28 lg:mt-0 w-full  h-[4rem] flex justify-start items-end">
                <Link className="text-lg text-white hover:text-2xl hover:text-orange-600  w-[4rem] underline underline-offset-4" href='/'>Home</Link>
             </div>
