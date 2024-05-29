@@ -1,7 +1,8 @@
 import prisma from "@/app/libs/prismadb";
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { options } from "../auth/[...nextauth]/route";
+import { options } from "../auth/[...nextauth]/option";
+
 
 
 export async function DELETE(req: NextRequest) {

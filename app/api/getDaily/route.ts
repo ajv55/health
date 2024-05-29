@@ -2,7 +2,7 @@ import prisma from "@/app/libs/prismadb";
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 import { getServerSession } from "next-auth";
-import { options } from "../auth/[...nextauth]/route";
+import { options } from "../auth/[...nextauth]/option";
 
 
 const openai = new OpenAI({

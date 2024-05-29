@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from 'openai';
 import {getServerSession} from 'next-auth'
-import { options } from "../auth/[...nextauth]/route";
+import { options } from "../auth/[...nextauth]/option";
 
 const openai = new OpenAI({
     apiKey: process.env.OPEN_AI_KEY!

@@ -1,10 +1,12 @@
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
-import { options } from "../auth/[...nextauth]/route";
+
 import prisma from "@/app/libs/prismadb";
 import { connect } from "http2";
 import { error } from "console";
+import { options } from "../auth/[...nextauth]/option";
+
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY!
