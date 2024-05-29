@@ -7,7 +7,7 @@ import Footer from '../components/footer';
 
 export default function Page() {
   return (
-    <div className='w-full'>
+    <div className='w-full '>
        <PricingNav />
        <PricingHeader />
        <PricingCards />

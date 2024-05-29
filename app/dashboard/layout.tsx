@@ -21,11 +21,10 @@ export default function Layout({children}: {children: React.ReactNode}) {
   const userName = session?.user?.name;
 
   useEffect(() => {
-    if(session) {
+    if(session?.user) {
       return setIsLoggedIn(true)
     }
   }, [])
-
 
   return (
     <div className= 'w-full bg-slate-100 relative h-screen rounded-tr-lg flex flex-col lg:flex-row lg:flex-1 '>
