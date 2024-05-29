@@ -1,7 +1,7 @@
 import prisma from "@/app/libs/prismadb";
 import {getServerSession} from 'next-auth'
 import { NextRequest, NextResponse } from "next/server";
-import { authOptions } from "../auth/[...nextauth]/option";
+import {authOptions} from '../../libs/option'
 import toast from "react-hot-toast";
 
 export async function GET() {

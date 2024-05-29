@@ -5,7 +5,7 @@ import OpenAI from "openai";
 import prisma from "@/app/libs/prismadb";
 import { connect } from "http2";
 import { error } from "console";
-import { authOptions } from "../auth/[...nextauth]/option";
+import { authOptions } from "../../libs/option";
 
 
 const openai = new OpenAI({

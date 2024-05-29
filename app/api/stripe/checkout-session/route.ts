@@ -1,7 +1,7 @@
 import {NextRequest, NextResponse} from 'next/server';
 import { getServerSession } from 'next-auth';
 import Stripe from 'stripe';
-import { authOptions } from '../../auth/[...nextauth]/option';
+import { authOptions } from '../../../libs/option';
 
 export async function POST(req: NextRequest){
     const body = await req.json();
