@@ -1,13 +1,13 @@
 import prisma from "@/app/libs/prismadb";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
-import { options } from "../auth/[...nextauth]/option";
+import { authOptions } from "../auth/[...nextauth]/option";
 import {format} from 'date-fns';
 import { error } from "console";
 
 
 export async function GET() {
-    const session = await getServerSession(options);
+    const session = await getServerSession(authOptions);
 
     if(!session) {
         return new NextResponse('No session found', {status: 403})

@@ -8,11 +8,10 @@ import NextAuth from "next-auth";
 import bcrypt from 'bcrypt';
 import { JWT } from "next-auth/jwt";
 import Stripe from 'stripe';
-import {options} from '@/app/api/auth/[...nextauth]/option';
-import { NextApiRequest, NextApiResponse } from "next";
+import {authOptions} from '@/app/api/auth/[...nextauth]/option';
 
 
-const handler = (req: NextApiRequest, res: NextApiResponse) => NextAuth(req, res, options);
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
 export default handler;

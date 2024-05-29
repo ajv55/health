@@ -1,12 +1,12 @@
 import { NextResponse } from "next/server";
 import prisma from "../../libs/prismadb";
 import { getServerSession } from "next-auth";
-import { options } from "../auth/[...nextauth]/option";
+import { authOptions } from "../auth/[...nextauth]/option";
 
 
 export async function GET(){
 
-    const session = await getServerSession(options);
+    const session = await getServerSession(authOptions);
 
     const water = await prisma.waterIntakeRecord.findMany({
         where: {

@@ -1,11 +1,11 @@
 import { getServerSession } from "next-auth/next";
 import prisma from "@/app/libs/prismadb";
 import { NextRequest, NextResponse } from "next/server";
-import { options } from "../auth/[...nextauth]/option";
+import { authOptions } from "../auth/[...nextauth]/option";
 
 export async function POST(req: NextRequest) {
     const body = await req.json();
-    const session = await getServerSession(options);
+    const session = await getServerSession(authOptions);
     console.log('body: ', body)
 
     const { stripeCustomerId, subscriptionId } = body;

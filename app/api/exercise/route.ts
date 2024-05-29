@@ -5,7 +5,7 @@ import OpenAI from "openai";
 import prisma from "@/app/libs/prismadb";
 import { connect } from "http2";
 import { error } from "console";
-import { options } from "../auth/[...nextauth]/option";
+import { authOptions } from "../auth/[...nextauth]/option";
 
 
 const openai = new OpenAI({
@@ -13,7 +13,7 @@ const openai = new OpenAI({
 })
 
 export async function GET() {
-    const session = await getServerSession(options);
+    const session = await getServerSession(authOptions);
 
     const sessionUserId = session?.user?.id
 

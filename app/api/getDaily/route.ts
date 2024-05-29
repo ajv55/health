@@ -2,7 +2,7 @@ import prisma from "@/app/libs/prismadb";
 import { NextResponse } from "next/server";
 import OpenAI from "openai";
 import { getServerSession } from "next-auth";
-import { options } from "../auth/[...nextauth]/option";
+import { authOptions } from "../auth/[...nextauth]/option";
 
 
 const openai = new OpenAI({
@@ -11,7 +11,7 @@ const openai = new OpenAI({
 
 export async function GET() {
 
-    const session = await getServerSession(options)
+    const session = await getServerSession(authOptions)
 
 
     const res = await prisma.dailyChallenges.findMany();

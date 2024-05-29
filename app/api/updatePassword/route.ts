@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from 'bcrypt';
 import { getServerSession } from "next-auth";
-import { options } from "../auth/[...nextauth]/option";
+import { authOptions } from "../auth/[...nextauth]/option";
 import prisma from "@/app/libs/prismadb";
 
 export async function POST(req: NextRequest) {
 
-    const session = await getServerSession(options);
+    const session = await getServerSession(authOptions);
     console.log(session)
 
     const body = await req.json();
