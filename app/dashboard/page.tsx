@@ -8,7 +8,6 @@ import { InvoiceSkeleton } from '../ui/skeletons';
 import LineChart from '../components/dashboardComponents/lineChart';
 import Arc from '../components/arc';
 import Bar from '../components/bar';
-import Day from '../components/dashboardComponents/day';
 import Profile from '../components/dashboardComponents/profile';
 import Quote from '../components/dashboardComponents/quote';
 import Table from '../components/dashboardComponents/table';
