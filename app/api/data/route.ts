@@ -1,11 +1,11 @@
 import prisma from "@/app/libs/prismadb";
 import {getServerSession} from 'next-auth'
 import { NextRequest, NextResponse } from "next/server";
-import { options } from "../auth/[...nextauth]/route";
+import { authOptions } from "../auth/[...nextauth]/option";
 import toast from "react-hot-toast";
 
 export async function GET() {
-    const session = await getServerSession(options)
+    const session = await getServerSession(authOptions)
 
     if (!session) {
         return toast.error('no session found')
