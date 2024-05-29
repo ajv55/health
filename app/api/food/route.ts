@@ -24,8 +24,6 @@ export async function GET() {
 
     const results = JSON.parse(data[0]?.nutritionGuide as string);
 
-
-
     const nut = results;
 
     return NextResponse.json({nut})
