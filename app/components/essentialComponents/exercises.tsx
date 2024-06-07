@@ -6,16 +6,19 @@ import Tilt from "../tilt";
 export default function Exercises() {
   return (
     <div className="w-full flex flex-col justify-start  items-start relative h-[12rem]">
-        <div className='-z-10 absolute -top-64 left-0 bg-gradient-to-br from-emerald-900 via-emerald-700 to-emerald-300  h-[25rem] w-full'>
+        <div className='-z-20 absolute  -top-64 left-0 bg-gradient-to-br from-indigo-950 via-indigo-800 to-indigo-950  h-[25rem] w-full'>
+            <Tilt />
             <BottomTilt/>
         </div>
+        
 
-        <p className="mt-24 lg:mt-20 lg:text-3xl text-2xl lg:w-[65%] p-2 w-full">Welcome to <span className="font-bold">Fitness Fundamentals</span>, your go-to resource for <span className="font-bold">beginner-friendly</span> exercises to kickstart your fitness journey. Whether you&#39;re <span className="font-bold">new</span> to working out or looking to refresh your routine, mastering these <span className="font-bold">five essential</span> exercises will lay a <span className="font-bold">solid foundation</span> for building strength and improving overall fitness.</p>
+        <p className="mt-24 lg:ml-4 mb-8 lg:mt-20 lg:text-4xl text-2xl lg:w-[65%] p-2 w-full">Welcome to <span className="font-bold">Fitness Fundamentals</span>, your go-to resource for <span className="font-bold">beginner-friendly</span> exercises to kickstart your fitness journey. Whether you&#39;re <span className="font-bold">new</span> to working out or looking to refresh your routine, mastering these <span className="font-bold">five essential</span> exercises will lay a <span className="font-bold">solid foundation</span> for building strength and improving overall fitness.</p>
+
 
         {/* exercise section */}
-        <div className=" w-full relative">
+        <div className=" max-w-6xl mx-auto flex flex-col gap-8 relative">
             {/* first exercise */}
-            <div className=" rounded-lg p-6 shadow-md shadow-zinc-900">
+            <div className=" rounded-lg p-6  shadow-md shadow-indigo-900">
                 <h2 className="lg:text-6xl text-4xl font-bold mb-4">Bodyweight Squats</h2>
                 <p className="text-gray-700 lg:text-2xl text-xl mb-4">Bodyweight squats are a fundamental lower body exercise that targets the quadriceps, hamstrings, glutes, and calves.</p>
                 <ol className="list-decimal text-lg pl-6">
@@ -33,7 +36,7 @@ export default function Exercises() {
 
 
             {/* second exercise */}
-            <div className=" rounded-lg p-6 shadow-md shadow-zinc-900">
+            <div className=" rounded-lg p-6 shadow-md shadow-indigo-900">
                 <h2 className="lg:text-6xl text-4xl font-bold mb-4">Push-Ups</h2>
                 <p className="text-gray-700 lg:text-2xl text-xl mb-4">Push-ups are a classic compound exercise that primarily works the chest, shoulders, and triceps, while also engaging the core muscles.</p>
                 <ol className="list-decimal text-lg pl-6">
@@ -49,30 +52,27 @@ export default function Exercises() {
                 </ol>
                 </div>
 
-                <div className=" -z-10 bg-gradient-to-br from-emerald-900 via-emerald-700 to-emerald-300   w-full lg:h-[30rem] h-[47rem] lg:top-1/2 top-[94rem] left-1/2 -translate-x-1/2 -translate-y-1/2 absolute">
-                    <Tilt />
-                    <BottomTilt />
-                </div>
+                
 
                 {/* third exercise */}
-                <div className=" rounded-lg  p-6 shadow-md shadow-zinc-900">
-                    <h2 className="lg:text-6xl text-4xl text-white font-bold mb-4">Plank</h2>
-                    <p className="text-white lg:text-2xl text-xl mb-4">The plank is an isometric exercise that targets the core muscles, including the abdominals, obliques, and lower back.</p>
-                    <ol className="list-decimal text-white text-lg pl-6">
+                <div className=" rounded-lg  p-6 shadow-md shadow-indigo-900">
+                    <h2 className="lg:text-6xl text-4xl  font-bold mb-4">Plank</h2>
+                    <p className=" lg:text-2xl text-xl mb-4">The plank is an isometric exercise that targets the core muscles, including the abdominals, obliques, and lower back.</p>
+                    <ol className="list-decimal  text-lg pl-6">
                         <li className="mb-2">
-                        <p className="text-white">Begin in a push-up position, then lower yourself onto your forearms, keeping your elbows directly beneath your shoulders.</p>
+                        <p className="">Begin in a push-up position, then lower yourself onto your forearms, keeping your elbows directly beneath your shoulders.</p>
                         </li>
                         <li className="mb-2">
-                        <p className="text-white">Keep your body in a straight line from head to heels, engaging your core muscles to hold the position.</p>
+                        <p className="">Keep your body in a straight line from head to heels, engaging your core muscles to hold the position.</p>
                         </li>
                         <li className="mb-2">
-                        <p className="text-white">Aim to hold the plank for 30 seconds to a minute, focusing on maintaining proper form and breathing steadily.</p>
+                        <p className="">Aim to hold the plank for 30 seconds to a minute, focusing on maintaining proper form and breathing steadily.</p>
                         </li>
                     </ol>
                     </div>
 
                     {/* fourth exercise */}
-                    <div className=" rounded-lg p-6 shadow-md shadow-zinc-900">
+                    <div className=" rounded-lg p-6 shadow-md shadow-indigo-900">
                         <h2 className="lg:text-6xl text-4xl font-bold mb-4">Lunges</h2>
                         <p className="text-gray-700 lg:text-2xl text-xl mb-4">Lunges are a unilateral lower body exercise that targets the quadriceps, hamstrings, glutes, and calves, while also improving balance and coordination.</p>
                         <ol className="list-decimal text-lg  pl-6">
@@ -89,7 +89,7 @@ export default function Exercises() {
                         </div>
 
                         {/* fifth exercise */}
-                        <div className=" rounded-lg p-6 shadow-md shadow-zinc-900">
+                        <div className=" rounded-lg p-6 shadow-md shadow-indigo-900">
                         <h2 className="lg:text-6xl text-4xl font-bold mb-4">Dumbbell Rows</h2>
                         <p className="text-gray-700 lg:text-2xl text-xl  mb-4">Dumbbell rows are a compound exercise that primarily targets the muscles of the upper back, including the latissimus dorsi, rhomboids, and traps, while also engaging the biceps and forearms.</p>
                         <ol className="list-decimal text-lg pl-6">
@@ -115,7 +115,7 @@ export default function Exercises() {
 
         </div>
 
-        <p className=" mt-20 lg:text-4xl text-2xl text-center text-balance tracking-wide">Thank you for visiting Fitness Fundamentals! Remember to consult with a fitness professional before starting any new exercise program, especially if you have any <span className="font-bold">pre-existing health conditions</span> or concerns. Stay tuned for more beginner-friendly workouts and tips to help you reach your fitness goals.</p>
+        <p className=" mt-20 lg:mb-20 mb-20 lg:text-4xl text-2xl text-center text-balance tracking-wide">Thank you for visiting Fitness Fundamentals! Remember to consult with a fitness professional before starting any new exercise program, especially if you have any <span className="font-bold">pre-existing health conditions</span> or concerns. Stay tuned for more beginner-friendly workouts and tips to help you reach your fitness goals.</p>
 
         <Footer/>
     </div>
