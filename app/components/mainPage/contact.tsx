@@ -22,16 +22,13 @@ export default function Contact() {
 
   return (
     <div ref={animationRef} className="w-full h-full bg-slate-100 py-16 flex flex-col lg:flex-row justify-center items-center relative space-y-12 lg:space-y-0 lg:space-x-12">
-      <div className="lg:w-1/2 flex flex-col items-center justify-center">
+      <div className="lg:w-1/2 lg:h-[39rem] flex  flex-col items-center justify-evenly">
         <h1 className="text-5xl lg:text-6xl font-bold text-center mb-8 lg:mb-12 text-indigo-600">
           Contact Us <br /> We&#39;re Here <span className="font-extrabold">to Help</span>
         </h1>
-        <p className="text-lg lg:text-xl text-center font-light text-gray-800 mb-8 lg:mb-12 max-w-lg">
+        <p className="text-lg lg:text-2xl text-center font-light text-gray-800 mb-8 lg:mb-12 max-w-xl">
           Our team is standing by to assist you with any inquiries you may have. Whether you need help navigating the app, have a question about your account, or just want to chat about your fitness goals, we&#39;re here to help. Reach out to us today and let&#39;s make magic happen together!
         </p>
-        <div className="w-72">
-          <Image src={contactImage} alt="contact image" />
-        </div>
       </div>
       <motion.form
         variants={{

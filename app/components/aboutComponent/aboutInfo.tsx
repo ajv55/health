@@ -2,11 +2,13 @@ import React from 'react'
 import BottomTilt from '../bottomTilt'
 import Footer from '../footer'
 import Link from 'next/link'
+import Tilt from '../tilt'
 
 export default function AboutInfo() {
   return (
     <div className='w-full relative'>
-        <div className='-z-10 absolute -top-64 lg:left-4 left-0 bg-gradient-to-br from-emerald-900 via-emerald-700 to-emerald-300  h-[25rem] w-full'>
+        <div className='-z-10 absolute -top-64 lg:left-0 left-0 bg-gradient-to-br from-indigo-950 via-indigo-800 to-indigo-950  h-[25rem] w-full'>
+            <Tilt />
             <BottomTilt/>
         </div>
         <div className='w-full flex justify-start items-start p-2'>
@@ -61,7 +63,7 @@ export default function AboutInfo() {
                 <h2 className="lg:text-6xl text-5xl  font-bold text-center mb-6">Get Started Today</h2>
                 <p className="lg:text-3xl text-xl text-gray-700 text-center mb-8">Ready to take the first step towards a healthier, happier you? <Link className="text-blue-500 hover:underline hover:text-blue-600 transition duration-300 ease-in-out" href='/reg'>Sign up</Link> now to unlock access to our suite of tools and resources designed to help you <span className='font-bold'>achieve your goals</span> and <span className='font-bold'>transform your life</span>. Let&#39;s make your health and fitness aspirations a reality, together.</p>
                 <div className="flex justify-center">
-                <Link href="/reg" className=" bg-gradient-to-bl from-cyan-800 via-cyan-600 to-cyan-200 hover:bg-gradient-to-tl hover:from-cyan-300 hover:via-cyan-600 hover:to-cyan-900  text-white lg:text-3xl text-2xl font-bold py-3 px-8 rounded-full shadow-md transition duration-300 ease-in-out">Sign Up</Link>
+                <Link href="/reg" className=" bg-gradient-to-bl from-indigo-800 via-indigo-600 to-indigo-200 hover:bg-gradient-to-tl hover:from-indigo-300 hover:via-indigo-600 hover:to-indigo-900  text-white lg:text-3xl text-2xl font-bold py-3 px-8 rounded-full shadow-md transition duration-300 ease-in-out">Sign Up</Link>
                 </div>
             </div>
         </div>
