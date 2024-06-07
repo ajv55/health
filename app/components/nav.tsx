@@ -34,7 +34,7 @@ export default function Nav() {
                         animate={{ x: 0 }}
                         exit={{ x: '-100vw' }}
                         transition={{ type: 'spring', stiffness: 50 }}
-                        className="fixed top-0 left-0 w-64 h-screen rounded-r-2xl bg-gradient-to-bl from-teal-900 via-teal-600 to-teal-900 flex flex-col justify-between items-start shadow-lg z-50"
+                        className="fixed top-0 left-0 w-64 h-screen rounded-r-2xl bg-gradient-to-bl from-indigo-900 via-indigo-600 to-indigo-900 flex flex-col justify-between items-start shadow-lg z-50"
                     >
                         <nav className="flex flex-col p-4 space-y-8">
                             <Link onClick={() => setIsOpen(!isOpen)} className="text-2xl font-semibold text-white  hover:text-teal-500" href="/">
@@ -74,7 +74,7 @@ export default function Nav() {
            <h1 className='text-4xl '>FitGenius</h1>
            <FiActivity size={30} color='gold'/>
         </div>
-        <RiMenu3Line onClick={() => setIsOpen(!isOpen)} className='lg:hidden' size={30} color='white' />
+        
 
         <div className=' w-full flex justify-end items-center'>
         <nav className='hidden lg:text-2xl lg:w-[75%]  lg:flex justify-end gap-10 items-center'>
@@ -83,7 +83,7 @@ export default function Nav() {
             <Link className='  hover:text-2xl hover:before:scale-x-100 hover:before:origin-right relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-zinc-900 before:absolute before:left-0 before:bottom-0' href='/About'>About</Link>
             {session &&  <Link className='  hover:text-2xl hover:before:scale-x-100 hover:before:origin-right relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-zinc-900 before:absolute before:left-0 before:bottom-0' href='/dashboard'>Dashboard</Link> }
         </nav>
-        
+        <RiMenu3Line onClick={() => setIsOpen(!isOpen)} className='lg:hidden' size={30} color='black' />
         <Signing />
         </div>
     </div>

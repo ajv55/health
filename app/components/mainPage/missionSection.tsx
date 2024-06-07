@@ -6,7 +6,7 @@ const MissionSection: React.FC = () => {
   const cardVariants = {
     initial: { scale: 0.7, opacity: 0 },
     animate: { scale: 1, opacity: 1, transition: { duration: 1, stiffness: 100, delay: 0.4 } },
-    hover: { scale: 1.1, transition: { duration: 1, stiffness: 100 }, boxShadow: '0px 0px 15px rgba(183, 180, 251, 0.989)' },
+    hover: { scale: 1.1, transition: { duration: 1, stiffness: 100 }, boxShadow: '0px 3px 15px rgba(183, 180, 251, 0.989)' },
   };
 
   return (
@@ -19,7 +19,7 @@ const MissionSection: React.FC = () => {
         {["Empowerment", "Inclusivity", "Science-Based Approach", "Personalization"].map((title, index) => (
           <motion.div
             key={index}
-            className="bg-white rounded-full hover:rounded-2xl transition-all ease-in-out shadow-lg flex items-center justify-center lg:w-[12rem] w-full h-20 lg:h-[12rem] hover:w-[15rem] hover:h-[15rem] overflow-hidden cursor-pointer"
+            className="bg-white rounded-full hover:rounded-2xl transition-all ease-in-out shadow-lg flex items-center justify-center lg:w-[12rem] w-48 h-48 lg:h-[12rem] hover:w-[15rem] hover:h-[15rem] overflow-hidden cursor-pointer"
             initial="initial"
             animate="animate"
             whileHover="hover"

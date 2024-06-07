@@ -46,7 +46,7 @@ export default function Contact() {
           ref.current?.reset();
         }}
         ref={ref}
-        className="lg:w-1/2 bg-white rounded-xl shadow-xl flex flex-col justify-center items-center p-8 lg:p-12"
+        className="lg:w-1/2 w-[95%] bg-white rounded-xl shadow-xl flex flex-col justify-center items-center p-8 lg:p-12"
       >
         <h1 className="text-4xl lg:text-5xl w-full text-center font-bold text-indigo-600 mb-8 lg:mb-12">Send A Message!</h1>
         <div className="flex flex-col gap-6 w-full max-w-lg">
