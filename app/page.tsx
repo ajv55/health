@@ -10,6 +10,12 @@ import Footer from "./components/footer";
 import User from "./components/user";
 import Nav from "./components/nav";
 import Resource from "./components/mainPage/resource";
+import FeatureCard from "./components/mainPage/featureCard";
+import FeatureForWeight from "./components/mainPage/featureForWeight";
+import WeightLossSuccess from "./components/mainPage/weightLoss";
+import MissionSection from "./components/mainPage/missionSection";
+import HowItWorksComponent from "./components/mainPage/howItWorks";
+import Thanks from "./components/mainPage/thanks";
 
 export default  function Home() {
 
@@ -19,13 +25,17 @@ export default  function Home() {
     <div className="w-full relative  flex flex-col justify-center items-center">
       <Nav />
       <Header />
-      <Features/>
-      <Why />
-      <About/>
-      <How />
+      {/* <Features/> */}
+      <FeatureCard />
+      {/* <Why /> */}
+      <WeightLossSuccess />
+      {/* <About/> */}
+      <MissionSection />
+      {/* <How /> */}
+      <HowItWorksComponent />
       <Resource />
       <Contact />
-      <p className="text-center font-bold  mt-28 tracking-wider lg:text-5xl text-3xl w-full lg:w-[85%]">Thank you for visiting FitGenius &#45; your trusted partner in <span className="lg:text-7xl text-4xl font-extrabold bg-gradient-to-br from-orange-800 via-orange-200 to-orange-400 bg-clip-text text-transparent">achieving your fitness goals</span>. Ready to start your journey to a healthier, happier you? <span className="lg:text-6xl text-4xl font-extrabold underline hover:cursor-pointer bg-gradient-to-tr from-blue-900 via-blue-300 to-blue-600 bg-clip-text text-transparent">Sign up now</span> and let&#39;s get moving together! Remember, every step counts towards a <span className="font-extrabold lg:text-6xl text-4xl bg-gradient-to-br from-red-800 via-red-200 to-red-500 bg-clip-text text-transparent">brighter, fitter future</span>. See you on the other side!</p>
+      <Thanks />
       <Footer /> 
     </div>
   );

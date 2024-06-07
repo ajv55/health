@@ -21,9 +21,7 @@ export default function Why() {
   }, [isInView, mainControls])
 
   return (
-    <div className='w-full h-[content] flex justify-start  relative bg-gradient-to-tl from-emerald-900 via-emerald-700 to-emerald-300 mt-4 items-start flex-col gap-10'>
-      <Tilt />
-      <BottomTilt />
+    <div className='w-full h-[content]  flex justify-start  relative bg-slate-100  items-start flex-col gap-10'>
 
         <motion.h1 ref={ref} variants={{hidden: {opacity: 0, x: -75}, visible: {opacity: 1, x: 0}}} initial='hidden' animate={mainControls} transition={{duration: 0.65, type: 'spring', stiffness: 100, damping: 10, delay: 0.25}} className='lg:text-6xl text-4xl text-white lg:ml-10 ml-5 mt-44 text-start w-[90%] font-bold tracking-wider'><span className=' font-extrabold bg-gradient-to-br from-amber-900 via-amber-500 to-amber-300 bg-clip-text text-transparent '>Unlocking </span>Your Weight Loss Success: <br /> <span className='font-extrabold bg-gradient-to-br from-red-900 via-red-400 to-red-200 bg-clip-text text-transparent'>Here&#39;s How!</span></motion.h1>
         <div className=' w-full h-content mt-24 lg:gap-24 gap-44 flex flex-col justify-center '>

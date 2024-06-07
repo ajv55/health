@@ -8,18 +8,17 @@ import { FiActivity } from "react-icons/fi";
 
 export default function Footer() {
   return (
-    <div className='relative flex flex-col lg:flex-wrap lg:flex-row mt-20 justify-center items-center  bg-gradient-to-bl from-emerald-800 via-emerald-600 to-emerald-300 w-full lg:h-screen h-content'>
-        <Tilt/>
-
-        <div className='  w-full lg:w-[45%]  lg:mt-32 mt-32 lg:h-[34rem] h-[28rem]  flex flex-col justify-evenly items-start'>
+    <div className='relative flex  flex-col lg:flex-wrap lg:flex-row  justify-center items-start  bg-gradient-to-bl from-indigo-950 via-indigo-800 to-indigo-950 w-full lg:h-[33rem] h-content'>
+        <div className='w-full border-[6px] border-indigo-300'></div>
+        <div className='  w-full  lg:w-[45%] lg:h-content h-[28rem]  flex flex-col justify-evenly items-start'>
                <div className='flex  justify-center items-center gap-3'>
-                    <h1 className='font-light lg:text-8xl text-5xl tracking-wider'>FitGenius</h1>
-                    <FiActivity className='lg:w-20 lg:h-20' size={40} color='gold'/>
+                    <h1 className='font-light lg:text-6xl text-white text-5xl tracking-wider'>FitGenius</h1>
+                    <FiActivity className='lg:w-16 lg:h-16' size={40} color='gold'/>
                 </div>
             <div className='flex mt-4 lg:mt-0 ml-2 justify-between gap-2 items-center'>
                 
                 <MdOutlineMailOutline size={37} color='white' />
-                <h4 className='lg:text-2xl text-3xl text-center'>contact@fitgenius.com</h4>
+                <h4 className='lg:text-2xl text-3xl text-white text-center'>contact@fitgenius.com</h4>
             </div>
 
             <form  className=' w-full'>
@@ -30,7 +29,7 @@ export default function Footer() {
             </form>
         </div>
 
-        <div className=' relative  lg:mt-48 mt-0 p-2 lg:p-0 flex lg:w-[52%] w-full lg:h-[19rem] h-content'>
+        <div className=' relative   p-2 lg:p-0 flex lg:w-[52%] w-full lg:h-[19rem] h-content'>
             <nav className=' lg:w-[33%] w-[34%]    text-white lg:text-3xl text-lg font-light  tracking-wider flex flex-col justify-evenly lg:items-start items-center'>
                <Link className='hover:text-red-300 hover:text-3xl hover:before:scale-x-100 hover:before:origin-left relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='/'>Home</Link>
                <Link className='hover:text-blue-300 hover:before:scale-x-100 hover:before:origin-left relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='/About'>About</Link>
@@ -53,11 +52,10 @@ export default function Footer() {
             </nav>
 
         </div>
-        
         <div className=' lg:w-full lg:mt-0 mt-8 w-[97%] h-[4rem] flex justify-center items-center'>
-            <p className='text-xl text-white text-center lg:text-right'>Copyright © 2024 FitGenius. All rights reserved.</p>
+            <p className='text-xl text-center text-white lg:text-right'>Copyright © 2024 FitGenius. All rights reserved.</p>
         </div>
-
+        
     </div>
   )
 }

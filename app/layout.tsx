@@ -6,6 +6,7 @@ import Provider from "./context/AuthContext";
 import ToasterContext from "./context/ToasterContext";
 import reduxProvider from "./providers/reduxProvider";
 import ReduxProvider from "./providers/reduxProvider";
+import Head from "next/head";
 
 const arapey = Arapey({ subsets: ["latin"], weight: ['400'] });
 

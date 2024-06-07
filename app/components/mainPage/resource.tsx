@@ -21,11 +21,11 @@ const Resource= () => {
 
     return (
         <motion.section  ref={ref} variants={{visible: { opacity: 1, y: 0 } }} initial={{ opacity: 0, y: -50 }} animate={mainControls} transition={{ duration: 0.5, stiffness: 100, damping: 10, delay: 0.85 }} className="bg-gray-100 py-12">
-            <div id='resources' className="container mx-auto px-4">
-                <h2 className="text-7xl font-bold text-center mb-8">Explore Our Resources</h2>
+            <div id='resources' className="mx-w-8xl mx-auto px-4">
+                <h2 className="text-7xl font-bold text-center text-indigo-600 mb-12">Explore Our Resources</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Resource Card 1 */}
-                    <motion.div  whileHover={{ scale: 1.05 }} className="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <motion.div  whileHover={{ scale: 1.05 }} className="bg-white rounded-lg shadow-md hover:shadow-indigo-600 overflow-hidden">
                         <div className="relative h-64">
                             <Image
                                 src={Essential}
@@ -44,7 +44,7 @@ const Resource= () => {
                         </div>
                     </motion.div>
                     {/* Resource Card 2 */}
-                    <motion.div  whileHover={{ scale: 1.05 }} className="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <motion.div  whileHover={{ scale: 1.05 }} className="bg-white rounded-lg hover:shadow-indigo-600 shadow-md overflow-hidden">
                         <div className="relative h-64">
                             <Image
                                 src={Fitness}
@@ -63,7 +63,7 @@ const Resource= () => {
                         </div>
                     </motion.div>
                     {/* Resource Card 3 */}
-                    <motion.div  whileHover={{ scale: 1.05 }} className="bg-white rounded-lg shadow-lg overflow-hidden">
+                    <motion.div  whileHover={{ scale: 1.05 }} className="bg-white hover:shadow-indigo-600  rounded-lg shadow-md overflow-hidden">
                         <div className="relative h-64">
                             <Image
                                 src={Health}

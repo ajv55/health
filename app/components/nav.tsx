@@ -26,7 +26,7 @@ export default function Nav() {
   console.log(isOpen)
 
   return (
-    <div className='lg:w-full bg-transparent w-full absolute  top-0 left-0 lg:h-content py-3 flex justify-between items-center p-3'>
+    <div className='lg:w-full bg-transparent border-b border-zinc-200 w-full absolute  top-0 left-0 lg:h-content py-3 flex justify-between items-center p-3'>
       <AnimatePresence>
           {isOpen && (
                     <motion.div
@@ -71,17 +71,21 @@ export default function Nav() {
       </AnimatePresence>
 
         <div className='flex justify-center items-center gap-2'>
-           <h1 className='text-4xl text-white'>FitGenius</h1>
+           <h1 className='text-4xl '>FitGenius</h1>
            <FiActivity size={30} color='gold'/>
         </div>
-        
-        <nav className='hidden lg:text-3xl lg:w-[75%] text-white lg:flex justify-evenly items-center'>
-            <Link className='  hover:text-2xl hover:before:scale-x-100 hover:before:origin-right relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='/'>Home</Link>
-            <Link className='  hover:text-2xl hover:before:scale-x-100 hover:before:origin-right relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='/Contact'>Contact</Link>
-            <Link className='  hover:text-2xl hover:before:scale-x-100 hover:before:origin-right relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='/About'>About</Link>
-        </nav>
         <RiMenu3Line onClick={() => setIsOpen(!isOpen)} className='lg:hidden' size={30} color='white' />
+
+        <div className=' w-full flex justify-end items-center'>
+        <nav className='hidden lg:text-2xl lg:w-[75%]  lg:flex justify-end gap-10 items-center'>
+            <Link className='  hover:text-2xl hover:before:scale-x-100 hover:before:origin-right relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-zinc-900 before:absolute before:left-0 before:bottom-0' href='/'>Home</Link>
+            <Link className='  hover:text-2xl hover:before:scale-x-100 hover:before:origin-right relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-zinc-900 before:absolute before:left-0 before:bottom-0' href='/Contact'>Contact</Link>
+            <Link className='  hover:text-2xl hover:before:scale-x-100 hover:before:origin-right relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-zinc-900 before:absolute before:left-0 before:bottom-0' href='/About'>About</Link>
+            {session &&  <Link className='  hover:text-2xl hover:before:scale-x-100 hover:before:origin-right relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-zinc-900 before:absolute before:left-0 before:bottom-0' href='/dashboard'>Dashboard</Link> }
+        </nav>
+        
         <Signing />
+        </div>
     </div>
   )
 }
