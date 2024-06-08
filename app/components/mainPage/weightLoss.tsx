@@ -2,6 +2,7 @@
 // WeightLossSuccess.tsx
 import React from 'react';
 import FeatureForWeight from './featureForWeight';
+import style from '@/app/style.module.css'
 
 const features = [
   {
@@ -38,7 +39,7 @@ const features = [
 
 const WeightLossSuccess: React.FC = () => {
   return (
-    <div className="w-full bg-gray-100 py-12 flex flex-col items-center">
+    <div className={`${style.background} w-full bg-gray-100 py-12 flex flex-col items-center`}>
       <h1 className="lg:text-6xl text-4xl font-bold text-center text-indigo-600 lg:mb-20 mb-8">Unlocking Your Weight Loss Success: Here&#39;s How!</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full px-4 lg:px-24">
         {features.map((feature) => (

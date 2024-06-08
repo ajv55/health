@@ -3,22 +3,23 @@ import BottomTilt from '../bottomTilt'
 import Footer from '../footer'
 import Link from 'next/link'
 import Tilt from '../tilt'
+import style from '@/app/style.module.css';
 
 export default function AboutInfo() {
   return (
-    <div className='w-full relative'>
-        <div className='-z-10 absolute -top-64 lg:left-0 left-0 bg-gradient-to-br from-indigo-950 via-indigo-800 to-indigo-950  h-[25rem] w-full'>
+    <div className={`${style.grid} w-full -z-10 relative`}>
+        <div className='-z-10 absolute lg:-top-64 -top-48 lg:left-0 left-0 bg-gradient-to-br from-indigo-950 via-indigo-800 to-indigo-950  h-[23rem] w-full'>
             <Tilt />
             <BottomTilt/>
         </div>
         <div className='w-full flex justify-start items-start p-2'>
-            <p className='mt-24 lg:text-4xl text-2xl text-left font-medium tracking-wide'>At <span className=' bg-gradient-to-bl from-orange-900 via-red-500 to-orange-400 bg-clip-text text-transparent'>FitGenius</span>, we understand that the journey to a <span className='font-bold'>healthier lifestyle </span> can be challenging, which is why we&#39;ve designed a <span className='font-bold'>comprehensive platform</span> to support you every step of the way. Whether your aim is to shed a <span className='font-bold'>few pounds</span>, <span className='font-bold'>build muscle</span>, or simply adopt <span className='font-bold'>healthier habits</span>, we&#39;re here to empower you with the tools and knowledge you need to succeed.</p>
+            <p className='lg:mt-28 mt-32 lg:text-4xl text-2xl text-left font-medium tracking-wide'>At <span className=' bg-gradient-to-bl from-orange-900 via-red-500 to-orange-400 bg-clip-text text-transparent'>FitGenius</span>, we understand that the journey to a <span className='font-bold'>healthier lifestyle </span> can be challenging, which is why we&#39;ve designed a <span className='font-bold'>comprehensive platform</span> to support you every step of the way. Whether your aim is to shed a <span className='font-bold'>few pounds</span>, <span className='font-bold'>build muscle</span>, or simply adopt <span className='font-bold'>healthier habits</span>, we&#39;re here to empower you with the tools and knowledge you need to succeed.</p>
         </div>
 
         {/* infomation section begins */}
         <div className='w-full mt-20   flex flex-col gap-9 justify-center items-center'>
             {/* first section */}
-            <div className="lg:w-[75%] w-full  py-8 px-4">
+            <div className={`lg:w-[75%] w-full  py-8 px-4`}>
                 <h2 className="lg:text-6xl text-5xl font-bold text-center mb-6">Our Mission</h2>
                 <p className="lg:text-2xl text-xl text-gray-700 leading-relaxed text-center">Our mission is simple: to help you achieve your health and fitness goals in a sustainable and enjoyable way. We believe in the power of education, empowerment, and community support to drive lasting change. Through our evidence-based approach, we aim to demystify the complexities of nutrition and exercise, making it easier for you to make informed choices that align with your unique needs and preferences.</p>
             </div>

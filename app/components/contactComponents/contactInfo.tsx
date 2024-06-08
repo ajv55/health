@@ -20,7 +20,7 @@ export default function ContactInfo() {
             <BottomTilt />
         </div>
 
-        <div className='w-full  mt-32 flex lg:flex-row flex-col justify-evenly items-center'>
+        <div className='w-full  mt-32 flex lg:gap-0 gap-8 lg:flex-row flex-col justify-evenly items-center'>
           <div className='lg:w-[37%] w-[93%] bg-white shadow-md shadow-indigo-200 rounded-md gap-6 flex flex-col justify-start items-start p-2 border lg:h-[40rem] h-content'>
               <h1 className='text-6xl text-center text-indigo-600 font-bold tracking-wide'>Contact Us</h1>
               <p className='text-lg text-left text-balance tracking-wide font-medium'>Thank you for your interest in our health and fitness platform! We&#39;re here to assist you in reaching your fitness goals and living a healthier lifestyle. Whether you have questions about calorie tracking, workouts, nutrition, or anything else, we&#39;re here to help.</p>

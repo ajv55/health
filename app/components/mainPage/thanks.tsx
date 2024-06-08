@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import React from 'react'
+import style from '@/app/style.module.css'
 
 export default function Thanks() {
   return (
-    <div className="w-full bg-slate-100 py-12 px-4 lg:px-16 flex flex-col items-center text-center space-y-6">
+    <div className={`${style.background} w-full bg-slate-100 py-12 px-4 lg:px-16 flex flex-col items-center text-center space-y-6`}>
         <h2 className="text-3xl lg:text-4xl font-bold text-indigo-600">Thank you for visiting FitGenius</h2>
         <p className="text-lg lg:text-3xl text-gray-800 max-w-4xl">
         Your trusted partner in achieving your fitness goals. Ready to start your journey to a healthier, happier you? Sign up now and let&#39;s get moving together! Remember, every step counts towards a brighter, fitter future. See you on the other side!

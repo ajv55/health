@@ -1,5 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
+import style from '@/app/style.module.css'
 
 export default function RoadmapToSuccess() {
   const cardVariants = {
@@ -8,7 +9,7 @@ export default function RoadmapToSuccess() {
   };
 
   return (
-    <div className="bg-slate-100 py-16 px-4 lg:px-16">
+    <div className={`${style.background} bg-slate-100 py-16 px-4 lg:px-16`}>
       <h2 className="text-4xl lg:text-6xl font-bold text-center text-indigo-600 mb-8">Your Roadmap to Success</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Card 1 */}

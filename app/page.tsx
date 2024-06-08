@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import Header from "./components/mainPage/header";
 import Features from "./components/mainPage/features";

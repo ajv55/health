@@ -7,6 +7,7 @@ import { sendEmail } from '@/app/action/sendEmail';
 import { FiMail, FiUser, FiMessageCircle } from 'react-icons/fi';
 import { useRef, useEffect } from 'react';
 import { motion, useInView, useAnimation } from 'framer-motion';
+import style from '@/app/style.module.css'
 
 export default function Contact() {
   const ref = useRef<HTMLFormElement>(null);
@@ -21,7 +22,7 @@ export default function Contact() {
   }, [isInView, mainControls]);
 
   return (
-    <div ref={animationRef} className="w-full h-full bg-slate-100 py-16 flex flex-col lg:flex-row justify-center items-center relative space-y-12 lg:space-y-0 lg:space-x-12">
+    <div ref={animationRef} className={`${style.background} w-full h-full bg-slate-100 py-16 flex flex-col lg:flex-row justify-center items-center relative space-y-12 lg:space-y-0 lg:space-x-12`}>
       <div className="lg:w-1/2 lg:h-[39rem] flex  flex-col items-center justify-evenly">
         <h1 className="text-5xl lg:text-6xl font-bold text-center mb-8 lg:mb-12 text-indigo-600">
           Contact Us <br /> We&#39;re Here <span className="font-extrabold">to Help</span>

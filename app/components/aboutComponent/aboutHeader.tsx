@@ -1,17 +1,16 @@
 import React from 'react'
+import style from '@/app/style.module.css';
 
 export default function AboutHeader() {
   return (
-    <div className="w-full h-screen flex justify-center items-center  bg-center bg-cover">
-  <h1 className="lg:text-6xl text-4xl text-center font-light tracking-wide text-gray-900">
-    Welcome to 
-    <span className="bg-gradient-to-r from-indigo-700 via-indigo-500 to-indigo-300 bg-clip-text text-transparent font-semibold"> FitGenius</span>,
-    your ultimate destination for achieving your health and fitness goals through
-    <span className="bg-gradient-to-r from-red-700 via-red-500 to-red-300 bg-clip-text text-transparent font-semibold"> science-based </span>
-    techniques and
-    <span className="bg-gradient-to-r from-teal-700 via-teal-500 to-teal-300 bg-clip-text text-transparent font-semibold"> personalized</span> guidance.
-  </h1>
-</div>
+    <div className={`w-full grid-background h-[32rem] lg:mb-10 py-16 px-4 lg:px-16  flex flex-col items-center justify-center`}>
+    <h1 className="text-5xl  lg:text-7xl font-bold text-center text-indigo-600 mb-4 lg:mb-6">
+      Welcome to FitGenius
+    </h1>
+    <p className="text-xl lg:text-3xl text-center text-gray-800 max-w-4xl">
+      Your ultimate destination for achieving your health and fitness goals through science-based techniques and personalized guidance.
+    </p>
+  </div>
 
   )
 }

@@ -1,6 +1,7 @@
 'use client';
 import { motion, useInView, useAnimation } from 'framer-motion';
 import { useEffect, useRef } from 'react';
+import style from '@/app/style.module.css';
 
 const FeatureCard = () => {
 
@@ -34,7 +35,7 @@ const FeatureCard = () => {
   };
 
   return (
-    <div  className="bg-gray-100 py-12">
+    <div  className={`${style.background} bg-gray-100 py-12`}>
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-5xl text-indigo-600 font-semibold tracking-wider uppercase mb-10">Features</h2>

@@ -6,6 +6,7 @@ import Fitness from '@/public/fitness.jpg';
 import Health from '@/public/healthy.jpg';
 import { motion, useInView, useAnimation } from 'framer-motion';
 import { useEffect, useRef } from 'react';
+import style from '@/app/style.module.css'
 
 const Resource= () => {
 
@@ -20,8 +21,8 @@ const Resource= () => {
     }, [isInView, mainControls])
 
     return (
-        <motion.section  ref={ref} variants={{visible: { opacity: 1, y: 0 } }} initial={{ opacity: 0, y: -50 }} animate={mainControls} transition={{ duration: 0.5, stiffness: 100, damping: 10, delay: 0.85 }} className="bg-gray-100 py-12">
-            <div id='resources' className="mx-w-8xl mx-auto px-4">
+        <section  ref={ref}  className={`${style.background} bg-gray-100 py-12`}>
+            <motion.div variants={{visible: { opacity: 1, y: 0 } }} initial={{ opacity: 0, y: -50 }} animate={mainControls} transition={{ duration: 0.5, stiffness: 100, damping: 10, delay: 0.85 }} id='resources' className="mx-w-8xl mx-auto px-4">
                 <h2 className="text-7xl font-bold text-center text-indigo-600 mb-12">Explore Our Resources</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Resource Card 1 */}
@@ -82,8 +83,8 @@ const Resource= () => {
                         </div>
                     </motion.div>
                 </div>
-            </div>
-        </motion.section>
+            </motion.div>
+        </section>
     );
 };
 

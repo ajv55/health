@@ -3,11 +3,12 @@ import Link from 'next/link'
 import React from 'react';
 import { Typewriter } from 'react-simple-typewriter'
 import { IoIosArrowRoundForward } from "react-icons/io";
+import style from '@/app/style.module.css'
 
 
 export default function Header() {
   return (
-    <div  className=' bg-slate-100 lg:w-full h-[37rem] flex flex-col lg:gap-16  bg-cover bg-center justify-center items-center gap-12 lg:justify-center lg:items-center '>
+    <div  className={`${style.background} bg-slate-100 lg:w-full h-[33rem] flex flex-col lg:gap-16  bg-cover bg-center justify-center items-center gap-12 lg:justify-center lg:items-center`}>
         <div className='max-w-6xl mx-auto h-full flex flex-col justify-center gap-10 mt-32 items-start'>
         <h1 className='lg:text-7xl text-5xl text-center lg:mt-32 font-bold tracking-wide'>Lose Weight The <span className=' bg-gradient-to-br lg:text-7xl text-4xl from-indigo-900 via-indigo-600 to-indigo-300 bg-clip-text text-transparent '><Typewriter words={['Scientific', 'Accurate', 'Deductive', 'Methodical ', 'Mathematical', 'Experimental']} loop={0} typeSpeed={100} deleteSpeed={80} delaySpeed={2000}   /></span> Way</h1>
         
