@@ -18,9 +18,9 @@ const FaqSection = () => {
             onClick={() => handleToggle(index)}
           >
             <h3 className="text-3xl font-medium">{faq.question}</h3>
-            <span className="text-3xl">{activeIndex === index ? '-' : '+'}</span>
+            <span className="text-3xl text-indigo-600">{activeIndex === index ? '-' : '+'}</span>
           </div>
-          {activeIndex === index && <div className="py-2 text-xl">{faq.answer}</div>}
+          {activeIndex === index && <div className="py-2 text-indigo-400 tracking-wide font-light text-xl">{faq.answer}</div>}
         </div>
       ))}
     </div>
