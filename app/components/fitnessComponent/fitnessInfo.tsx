@@ -9,7 +9,7 @@ export default function FitnessInfo() {
     <div className={`${style.background} w-full flex flex-col justify-center items-center  relative`}>
         {/* introduciton */}
         <div className='w-full mb-10  flex justify-start items-start'>
-            <p className=' w-full lg:text-4xl text-2xl tracking-wide text-center p-1 lg:p-3'>Welcome to <span className='font-bold text-indigo-600'>Fitness Finesse</span>, your go-to resource for all things fitness and nutrition. In this <span className='font-bold text-indigo-600'>comprehensive guide</span>, we&#39;ll delve into the essentials of <span className='font-bold text-indigo-600'>nutrition</span>, providing you with the <span className='font-bold text-indigo-600'>knowledge</span> and tools you need to make <span className='font-bold text-indigo-600'>informed decisions</span> about your diet and optimize your health and <span className='font-bold text-indigo-600'>wellness</span>.</p>
+            <p className=' w-full lg:text-4xl text-2xl text-gray-500 tracking-wide text-center p-1 lg:p-3'>Welcome to <span className='font-bold text-indigo-600'>Fitness Finesse</span>, your go-to resource for all things fitness and nutrition. In this <span className='font-bold text-indigo-600'>comprehensive guide</span>, we&#39;ll delve into the essentials of <span className='font-bold text-indigo-600'>nutrition</span>, providing you with the <span className='font-bold text-indigo-600'>knowledge</span> and tools you need to make <span className='font-bold text-indigo-600'>informed decisions</span> about your diet and optimize your health and <span className='font-bold text-indigo-600'>wellness</span>.</p>
         </div>
 
         {/* the guide */}
@@ -67,7 +67,7 @@ export default function FitnessInfo() {
 
             </div>
         </div>
-        <p className='mt-16 mb-16 lg:text-4xl text-2xl tracking-wider text-center lg:w-[85%] w-full lg:p-0 p-2'>Thank you for visiting <span className='font-bold text-indigo-600'>Fitness Finesse</span>. We hope this <span className='font-bold text-indigo-600'>ultimate nutrition guide</span> has provided you with valuable insights and <span className='font-bold text-indigo-600'>practical tips</span> to optimize your diet and <span className='font-bold text-indigo-600'>enhance your overall health</span> and fitness journey. Be sure to check back regularly for more informative articles and resources to support your wellness goals.</p>
+        <p className='mt-16 mb-16 lg:text-4xl text-gray-500 text-2xl tracking-wider text-center lg:w-[85%] w-full lg:p-0 p-2'>Thank you for visiting <span className='font-bold text-indigo-600'>Fitness Finesse</span>. We hope this <span className='font-bold text-indigo-600'>ultimate nutrition guide</span> has provided you with valuable insights and <span className='font-bold text-indigo-600'>practical tips</span> to optimize your diet and <span className='font-bold text-indigo-600'>enhance your overall health</span> and fitness journey. Be sure to check back regularly for more informative articles and resources to support your wellness goals.</p>
         <Footer />
     </div>
   )
