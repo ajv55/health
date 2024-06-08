@@ -39,7 +39,7 @@ const FeatureCard = () => {
       <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-5xl text-indigo-600 font-semibold tracking-wider uppercase mb-10">Features</h2>
-          <p className="mt-2 text-4xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+          <p className="mt-2 text-4xl leading-8 font-extrabold tracking-tight text-gray-500 sm:text-4xl">
             Achieve Your Fitness Goals with Our Comprehensive Tools
           </p>
         </div>

@@ -1,18 +1,14 @@
 import BottomTilt from "../bottomTilt";
 import Footer from "../footer";
 import Tilt from "../tilt";
+import style from '@/app/style.module.css'
 
 
 export default function Exercises() {
   return (
-    <div className="w-full flex flex-col justify-start  items-start relative h-[12rem]">
-        <div className='-z-20 absolute  -top-64 left-0 bg-gradient-to-br from-indigo-950 via-indigo-800 to-indigo-950  h-[25rem] w-full'>
-            <Tilt />
-            <BottomTilt/>
-        </div>
-        
+    <div className={`${style.background} w-full flex flex-col justify-start  items-start relative h-[12rem]`}>
 
-        <p className="mt-24 lg:ml-4 mb-8 lg:mt-20 lg:text-4xl text-2xl lg:w-[65%] p-2 w-full">Welcome to <span className="font-bold">Fitness Fundamentals</span>, your go-to resource for <span className="font-bold">beginner-friendly</span> exercises to kickstart your fitness journey. Whether you&#39;re <span className="font-bold">new</span> to working out or looking to refresh your routine, mastering these <span className="font-bold">five essential</span> exercises will lay a <span className="font-bold">solid foundation</span> for building strength and improving overall fitness.</p>
+        <p className="mt-24 lg:ml-4 mb-8 lg:text-4xl text-2xl lg:w-full lg:text-center p-2 w-full">Welcome to <span className="font-bold">Fitness Fundamentals</span>, your go-to resource for <span className="font-bold">beginner-friendly</span> exercises to kickstart your fitness journey. Whether you&#39;re <span className="font-bold">new</span> to working out or looking to refresh your routine, mastering these <span className="font-bold">five essential</span> exercises will lay a <span className="font-bold">solid foundation</span> for building strength and improving overall fitness.</p>
 
 
         {/* exercise section */}

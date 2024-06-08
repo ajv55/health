@@ -7,20 +7,16 @@ import { FaPhone } from "react-icons/fa";
 import { IoLocationSharp } from "react-icons/io5";
 import { sendEmail } from "@/app/action/sendEmail";
 import { FiMail, FiUser, FiMessageCircle } from 'react-icons/fi';
-import Tilt from '../tilt';
+import style from '@/app/style.module.css'
 
 export default function ContactInfo() {
 
   const ref = useRef<HTMLFormElement | null>(null);
 
   return (
-    <div className='w-full  relative'>
-        <div className='-z-10 absolute -top-[12rem] lg:left-0 left-0 bg-gradient-to-br from-indigo-950 via-indigo-800 to-indigo-950  h-[20rem] w-full'>
-            <Tilt />
-            <BottomTilt />
-        </div>
+    <div className={`${style.background} w-full relative`}>
 
-        <div className='w-full  mt-32 flex lg:gap-0 gap-8 lg:flex-row flex-col justify-evenly items-center'>
+        <div className='w-full  flex lg:gap-0 gap-8 lg:flex-row flex-col justify-evenly items-center'>
           <div className='lg:w-[37%] w-[93%] bg-white shadow-md shadow-indigo-200 rounded-md gap-6 flex flex-col justify-start items-start p-2 border lg:h-[40rem] h-content'>
               <h1 className='text-6xl text-center text-indigo-600 font-bold tracking-wide'>Contact Us</h1>
               <p className='text-lg text-left text-balance tracking-wide font-medium'>Thank you for your interest in our health and fitness platform! We&#39;re here to assist you in reaching your fitness goals and living a healthier lifestyle. Whether you have questions about calorie tracking, workouts, nutrition, or anything else, we&#39;re here to help.</p>
@@ -82,7 +78,7 @@ export default function ContactInfo() {
         </div>
 
         <div className=' flex justify-start items-start p-2 mt-24 mb-20 w-full  '>
-            <p className='lg:text-4xl text-2xl text-center text-balance font-medium tracking-wide'><span className='font-bold'>Thank you</span> for your interest in our health and fitness platform! We&#39;re here to assist you in <span className='font-bold'>reaching your fitness goals</span> and living a <span className='font-bold'>healthier lifestyle</span>. Whether you have questions about <span className='font-bold'>calorie tracking</span>, <span className='font-bold'>workouts</span>, <span className='font-bold'>nutrition</span>, or <span className='font-bold'>anything else</span>, we&#39;re here to help.</p>
+            <p className='lg:text-4xl text-gray-500 text-2xl text-center text-balance font-medium tracking-wide'><span className='font-bold text-indigo-600 '>Thank you</span> for your interest in our health and fitness platform! We&#39;re here to assist you in <span className='font-bold text-indigo-600 '>reaching your fitness goals</span> and living a <span className='font-bold text-indigo-600 '>healthier lifestyle</span>. Whether you have questions about <span className='font-bold text-indigo-600 '>calorie tracking</span>, <span className='font-bold text-indigo-600 '>workouts</span>, <span className='font-bold text-indigo-600 '>nutrition</span>, or <span className='font-bold text-indigo-600 '>anything else</span>, we&#39;re here to help.</p>
         </div>
         <Footer />
     </div>
