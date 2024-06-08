@@ -9,7 +9,6 @@ export default function Page() {
         <Nav/>
         <PrivacyHeader />
         <PrivacyInfo />
-        
     </div>
   )
 }
