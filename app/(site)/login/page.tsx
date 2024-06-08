@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { FaGithub } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { motion } from "framer-motion";
+import style from '@/app/style.module.css'
 
 export default function Page() {
     const session = useSession();
@@ -35,10 +36,10 @@ export default function Page() {
         })
     }
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8">
+    <div className={`${style.background} min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8`}>
     <div className="max-w-lg w-full space-y-8">
       <div>
-        <h2 className="mt-6 text-center text-5xl leading-12 font-extrabold text-indigo-600">
+        <h2 className="mt-6 text-center lg:text-5xl text-3xl leading-12 font-extrabold text-indigo-600">
           Sign in to your account
         </h2>
       </div>
@@ -55,7 +56,7 @@ export default function Page() {
               onChange={(e) => setData({...data, email: e.target.value}) }
               autoComplete="email"
               required
-              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 text-xl"
+              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 lg:text-xl text-md"
               placeholder="Email address"
             />
           </div>
@@ -69,7 +70,7 @@ export default function Page() {
               onChange={(e) => setData({...data, password: e.target.value}) }
               autoComplete="current-password"
               required
-              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 text-xl"
+              className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 lg:text-xl text-md"
               placeholder="Password"
             />
           </div>
@@ -98,9 +99,9 @@ export default function Page() {
         <div>
           <button
             type="submit"
-            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-xl font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            Sign in
+            Sign In
           </button>
         </div>
 
@@ -119,7 +120,7 @@ export default function Page() {
           <button
             type="button"
             onClick={() => signIn('google')} 
-            className="group relative w-full flex justify-center py-2 px-4 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="group relative w-full flex justify-center py-2 px-4 border border-gray-300 text-xl font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
             <svg
               className="w-5 h-5 mr-2"
