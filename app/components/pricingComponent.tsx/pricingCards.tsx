@@ -7,6 +7,7 @@ import { GiCheckMark } from "react-icons/gi";
 import Footer from '../footer';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import style from '@/app/style.module.css';
 
 export default function PricingCards() {
 
@@ -40,7 +41,7 @@ export default function PricingCards() {
 
 
   return (
-    <div className="mx-w-4xl mx-auto overflow-hidden p-6 relative">
+    <div className={`${style.background} mx-w-4xl mx-auto overflow-hidden p-6 relative`}>
         <h1 className="text-6xl font-bold text-center mb-8">Pricing Plans</h1>
         <div className="flex flex-wrap justify-center">
 

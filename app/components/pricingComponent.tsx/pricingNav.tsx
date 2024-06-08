@@ -16,7 +16,7 @@ export default function PricingNav() {
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   return (
-    <div className='lg:w-full w-full bg-transparent   z-10 absolute top-0 lg:h-content py-3 flex justify-between items-center p-3'>
+    <div className='lg:w-full w-full bg-slate-50 border-b border-gray-300 z-10 absolute top-0 lg:h-content py-3 flex justify-between items-center p-3'>
       <AnimatePresence>
           {isOpen && (
                     <motion.div
