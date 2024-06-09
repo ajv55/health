@@ -1,21 +1,14 @@
 'use client';
 
-import {  Suspense, useEffect } from 'react';
+import {  useEffect } from 'react';
 import {useSession} from 'next-auth/react'
 import { useRouter } from 'next/navigation';
-import LineGraph from '../components/dashboardComponents/lineGraph';
-import { InvoiceSkeleton } from '../ui/skeletons';
 import LineChart from '../components/dashboardComponents/lineChart';
-import Arc from '../components/arc';
-import Bar from '../components/bar';
-import Profile from '../components/dashboardComponents/profile';
-import Quote from '../components/dashboardComponents/quote';
-import Table from '../components/dashboardComponents/table';
-import Nutrition from '../components/dashboardComponents/nutrition';
 import Welcome from '../components/dashboardComponents/welcome';
 import Water from '../components/dashboardComponents/water';
 import DashHeader from '../components/dashboardComponents/dashHeader';
 import Maintenance from '../components/dashboardComponents/maintenance';
+import Information from '../components/dashboardComponents/infomation';
 
 export default  function Page() {
 
@@ -116,8 +109,9 @@ export default  function Page() {
   
 
   return (
-    <div className='overflow-scroll w-full  h-screen flex flex-col  justify-between items-start'>
-      <div className='flex lg:flex-row flex-col justify-between items-center'>
+    <div className='overflow-scroll w-full  h-screen flex flex-col  justify-start p-3 items-start'>
+      <Information />
+      {/* <div className='flex lg:flex-row flex-col justify-between items-center'>
         <Welcome />
         <div className='lg:w-[69%] w-full mt-10 lg:mt-0 flex gap-5 lg:h-screen h-content flex-wrap  justify-evenly items-start'>
           <DashHeader />
@@ -125,12 +119,12 @@ export default  function Page() {
           <Maintenance />
         </div>
         
-      </div>
+      </div> */}
      
-      <div className=' lg:ml-2 ml-0 w-full mt-20 flex justify-center items-center h-content'>
+      {/* <div className=' lg:ml-2 ml-0 w-full mt-20 flex justify-center items-center h-content'>
       <LineChart />
-      {/* <Table /> */}
-      </div>
+      <Table />
+      </div> */}
 
       {/* <div className='w-full mt-20 flex justify-evenly items-center h-content'>
         <Arc/>

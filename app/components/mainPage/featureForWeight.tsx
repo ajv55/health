@@ -16,7 +16,7 @@ const FeatureForWeight: React.FC<FeatureProps> = ({ number, title, description, 
       whileInView={{ opacity: 1, y: 0 }} 
       transition={{ duration: 0.6, ease: 'easeInOut', delay }} 
       viewport={{ once: true }}
-      className="bg-white p-8 rounded-lg hover:shadow-indigo-300 shadow-lg w-full"
+      className="bg-white p-8 rounded-lg  hover:shadow-indigo-300 shadow-lg w-full"
     >
       <div className="flex items-center justify-center w-12 h-12 rounded-full bg-indigo-600 text-white font-bold text-xl mb-4">
         {number}

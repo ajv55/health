@@ -8,9 +8,9 @@ import { FiActivity } from "react-icons/fi";
 
 export default function Footer() {
   return (
-    <div className='relative flex  flex-col lg:flex-wrap lg:flex-row  justify-center items-start  bg-gradient-to-bl from-indigo-950 via-indigo-800 to-indigo-950 w-full lg:h-[33rem] h-content'>
+    <div className='relative flex  flex-col lg:flex-wrap lg:flex-row  justify-center items-start  bg-gradient-to-bl from-indigo-950 via-indigo-950 to-indigo-950 w-full lg:h-[26rem] h-content'>
         <div className='w-full border-[6px] border-indigo-300'></div>
-        <div className='  w-full  lg:w-[45%] lg:h-content h-[28rem]  flex flex-col justify-evenly items-start'>
+        <div className='  w-full  lg:w-[45%] lg:h-content  h-[20rem]  flex flex-col justify-evenly items-start'>
                <div className='flex  justify-center items-center gap-3'>
                     <h1 className='font-light lg:text-6xl text-white text-5xl tracking-wider'>FitGenius</h1>
                     <FiActivity className='lg:w-16 lg:h-16' size={40} color='gold'/>
@@ -29,22 +29,22 @@ export default function Footer() {
             </form>
         </div>
 
-        <div className=' relative  mt-20  p-2 lg:p-0 flex lg:w-[52%] w-full lg:h-[19rem] h-content'>
-            <nav className=' lg:w-[33%] w-[34%]    text-white lg:text-3xl text-lg font-light  tracking-wider flex flex-col justify-evenly lg:items-start items-center'>
+        <div className=' relative   p-2 lg:p-0 flex lg:w-[52%]  w-full lg:h-[19rem] h-content'>
+            <nav className=' lg:w-[33%] w-[34%]    text-white lg:text-2xl text-lg font-light  tracking-wider flex flex-col justify-evenly lg:items-start items-center'>
                <Link className='hover:text-indigo-300 hover:text-3xl hover:before:scale-x-100 hover:before:origin-left relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='/'>Home</Link>
                <Link className='hover:text-indigo-300 hover:before:scale-x-100 hover:before:origin-left relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='/About'>About</Link>
                <Link className='hover:text-indigo-300 hover:before:scale-x-100 hover:before:origin-left relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='/Contact'>Contact</Link>
                <Link className='hover:text-indigo-300 hover:before:scale-x-100 hover:before:origin-left relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='/pricing'>Pricing</Link>
             </nav>
 
-            <nav className=' lg:w-[33%] w-[34%]   text-white lg:text-3xl text-lg font-light  tracking-wider flex flex-col justify-evenly lg:items-start items-center'>
+            <nav className=' lg:w-[33%] w-[34%]   text-white lg:text-2xl text-lg font-light  tracking-wider flex flex-col justify-evenly lg:items-start items-center'>
                <Link className='hover:text-indigo-300 hover:text-3xl hover:before:scale-x-100 hover:before:origin-left relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='#features'>Features</Link>
                <Link className='hover:text-indigo-300 hover:before:scale-x-100 hover:before:origin-left relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='#resources'>Blog</Link>
                <Link className='hover:text-indigo-300 hover:before:scale-x-100 hover:before:origin-left relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='/privacy'>Privacy Policy</Link>
                <Link className='hover:text-indigo-300 hover:text-3xl hover:before:scale-x-100 hover:before:origin-left relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='/faq'>FAQs</Link>
             </nav>
 
-            <nav className=' lg:w-[33%] w-[30%]  text-white lg:text-3xl text-lg font-light  tracking-wider flex flex-col justify-evenly lg:items-start items-center'>
+            <nav className=' lg:w-[33%] w-[30%]  text-white lg:text-2xl text-lg font-light  tracking-wider flex flex-col justify-evenly lg:items-start items-center'>
                
                <Link className='hover:text-indigo-300 hover:before:scale-x-100 hover:before:origin-left relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='/support'>Support</Link>
                <Link className='hover:text-indigo-300 text-center hover:before:scale-x-100 hover:before:origin-left relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-white before:absolute before:left-0 before:bottom-0' href='/reg'>Sign Up / Register</Link>

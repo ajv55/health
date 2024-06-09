@@ -58,7 +58,7 @@ const FeatureCard = () => {
             <p className="mt-2 text-gray-600 group-hover:text-gray-300 font-light">Get real-time feedback and insights to optimize your diet for maximum results.</p>
           </motion.div>
           {/* Card 2 */}
-          <motion.div transition={{duration: 0.5, stiffness: 120, type: 'spring'}} whileHover={{scale: 1.1, rotate: -5}}  className="bg-white group hover:bg-gradient-to-br hover:from-indigo-950 hover:via-indigo-700  hover:to-indigo-950 rounded-lg shadow-md p-6" variants={cardVariants}>
+          <motion.div transition={{duration: 0.5, stiffness: 120, type: 'spring'}} whileHover={{scale: 1.1, rotate: -5}}  className="bg-white group   hover:bg-gradient-to-br hover:from-indigo-950 hover:via-indigo-700  hover:to-indigo-950 rounded-lg shadow-md p-6" variants={cardVariants}>
             <h3 className="text-lg font-semibold group-hover:text-white  text-indigo-600">Customized Workout Plans</h3>
             <p className="mt-4 text-gray-600 group-hover:text-gray-300 font-light ">Access a variety of tailored workout plans designed by fitness experts.</p>
             <p className="mt-2 text-gray-600 group-hover:text-gray-300 font-light">Choose from different workout styles, durations, and intensity levels to suit your preferences.</p>

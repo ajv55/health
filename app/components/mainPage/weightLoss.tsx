@@ -1,8 +1,8 @@
-
-// WeightLossSuccess.tsx
+'use client';
 import React from 'react';
 import FeatureForWeight from './featureForWeight';
 import style from '@/app/style.module.css'
+import { motion } from 'framer-motion';
 
 const features = [
   {
@@ -40,7 +40,24 @@ const features = [
 const WeightLossSuccess: React.FC = () => {
   return (
     <div className={`${style.background} w-full bg-gray-100 py-12 flex flex-col items-center`}>
-      <h1 className="lg:text-6xl text-4xl font-bold text-center text-indigo-600 lg:mb-20 mb-8">Unlocking Your Weight Loss Success: Here&#39;s How!</h1>
+       <div className="w-full py-12 px-4 lg:px-16 flex flex-col items-center justify-center">
+      <motion.h2
+        className="text-4xl lg:text-3xl font-bold text-center text-indigo-600 mb-4 lg:mb-6"
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        Unlocking Your Weight Loss Success: Here&#39;s How!
+      </motion.h2>
+      <motion.p
+        className="text-lg lg:text-3xl text-center text-gray-500 max-w-4xl"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+      >
+        Discover the effective strategies and personalized guidance to achieve your weight loss goals. FitGenius provides you with the tools and support needed to succeed in your fitness journey.
+      </motion.p>
+    </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full px-4 lg:px-24">
         {features.map((feature) => (
           <FeatureForWeight

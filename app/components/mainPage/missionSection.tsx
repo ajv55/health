@@ -11,8 +11,8 @@ const MissionSection: React.FC = () => {
 
   return (
     <div className="w-full bg-gradient-to-bl from-indigo-950 via-indigo-800 to-indigo-950 py-16 px-4 lg:px-16">
-      <h2 className="text-4xl lg:text-6xl font-bold text-center text-indigo-50 mb-8">Our Mission</h2>
-      <p className="text-xl lg:text-3xl text-gray-400 text-center mb-12 max-w-5xl mx-auto">
+      <h2 className="text-4xl lg:text-4xl font-bold text-center text-indigo-50 mb-8">Our Mission</h2>
+      <p className="text-xl lg:text-2xl text-gray-400 text-center mb-12 max-w-5xl mx-auto">
         At WeightTrack, our mission is crystal clear: we&#39;re here to empower individuals like you to take control of your health and wellness journey. We&#39;re not just another weight loss app - we&#39;re your dedicated partner in achieving lasting, meaningful change.
       </p>
       <div className="flex flex-col lg:flex-row gap-12 justify-center items-center lg:items-stretch">

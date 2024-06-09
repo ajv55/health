@@ -5,9 +5,10 @@ import {toast} from "react-hot-toast";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FaGithub } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
+
 import { motion } from "framer-motion";
 import style from '@/app/style.module.css'
+import { FcGoogle } from "react-icons/fc";
 
 export default function Page() {
     const session = useSession();
@@ -120,30 +121,9 @@ export default function Page() {
           <button
             type="button"
             onClick={() => signIn('google')} 
-            className="group relative w-full flex justify-center py-2 px-4 border border-gray-300 text-xl font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            className="group relative w-full flex justify-center gap-2 items-center py-2 px-4 border border-gray-300 text-xl font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            <svg
-              className="w-5 h-5 mr-2"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 48 48"
-            >
-              <path
-                fill="#4285F4"
-                d="M24 9.5c3.15 0 5.72 1.18 7.57 3.08l5.67-5.67C33.69 4.09 29.24 2 24 2 14.78 2 7.16 7.82 4.57 16h7.84c1.22-3.72 4.71-6.5 8.59-6.5z"
-              />
-              <path
-                fill="#34A853"
-                d="M46.46 24.46c0-1.45-.14-2.84-.39-4.17H24v8.25h12.6c-.55 2.89-2.08 5.3-4.47 6.96l7.12 5.54c4.13-3.8 6.21-9.41 6.21-16.58z"
-              />
-              <path
-                fill="#FBBC05"
-                d="M11.21 28.94c-1.48-.87-2.76-2.15-3.63-3.63H.55v7.84c2.84 5.57 8.66 9.5 15.45 9.5 4.35 0 8.21-1.57 11.3-4.17l-7.12-5.54c-1.22.78-2.7 1.25-4.18 1.25-3.88 0-7.09-2.62-8.19-6.25z"
-              />
-              <path
-                fill="#EA4335"
-                d="M24 46c6.13 0 11.27-2.12 15.03-5.76l-7.12-5.54c-2.22 1.5-4.97 2.39-7.91 2.39-5.98 0-11.1-4.02-12.94-9.39H.55v7.84C3.73 41.74 12.94 46 24 46z"
-              />
-            </svg>
+            < FcGoogle size={23} />   
             Sign in with Google
           </button>
         </div>
