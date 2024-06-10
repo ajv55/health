@@ -26,10 +26,10 @@ export default function LogMenu() {
     transition={{ duration: 0.5, type: 'spring', stiffness: 50 }}
   >
     <div className="bg-white rounded-lg shadow-lg flex flex-col justify-start items-start  w-[10%]">
-      <Link href='/dashboard/calories' className='w-full text-left p-2 hover:bg-gradient-to-r from-white to-gray-200 hover:bg-opacity-20 text-xl hover:text-indigo-500 font-light hover:border-r-4 hover:border-indigo-600'>Log Breakfast</Link>
-      <Link href='/dashboard/calories' className='w-full text-left p-2 hover:bg-gradient-to-r from-white to-gray-200 hover:bg-opacity-20 text-xl font-light hover:text-indigo-500 hover:border-r-4 hover:border-indigo-600'>Log Lunch</Link>
-      <Link href='/dashboard/calories' className='w-full text-left p-2 hover:bg-gradient-to-r from-white to-gray-200 hover:bg-opacity-20 text-xl font-light hover:text-indigo-500 hover:border-r-4 hover:border-indigo-600'>Log Dinner</Link>
-      <Link href='/dashboard/calories' className='w-full text-left p-2 hover:bg-gradient-to-r from-white to-gray-200 hover:bg-opacity-20 text-xl font-light hover:text-indigo-500 hover:border-r-4 hover:border-indigo-600'>Log Snack</Link>
+      <Link href='/dashboard/calories?meal=breakfast' className='w-full text-left p-2 hover:bg-gradient-to-r from-white to-gray-200 hover:bg-opacity-20 text-xl hover:text-indigo-500 font-light hover:border-r-4 hover:border-indigo-600'>Log Breakfast</Link>
+      <Link href='/dashboard/calories?meal=lunch' className='w-full text-left p-2 hover:bg-gradient-to-r from-white to-gray-200 hover:bg-opacity-20 text-xl font-light hover:text-indigo-500 hover:border-r-4 hover:border-indigo-600'>Log Lunch</Link>
+      <Link href='/dashboard/calories?meal=dinner' className='w-full text-left p-2 hover:bg-gradient-to-r from-white to-gray-200 hover:bg-opacity-20 text-xl font-light hover:text-indigo-500 hover:border-r-4 hover:border-indigo-600'>Log Dinner</Link>
+      <Link href='/dashboard/calories?meal=snack' className='w-full text-left p-2 hover:bg-gradient-to-r from-white to-gray-200 hover:bg-opacity-20 text-xl font-light hover:text-indigo-500 hover:border-r-4 hover:border-indigo-600'>Log Snack</Link>
       <Link href='/workout' className='w-full text-left p-2 hover:bg-gradient-to-r from-white to-gray-200 hover:bg-opacity-20 text-xl font-light hover:text-indigo-500 hover:border-r-4 hover:border-indigo-600'>Log Workout</Link>
     </div>
   </motion.div>

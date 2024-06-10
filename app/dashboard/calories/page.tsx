@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import CaloriesHeader from '@/app/components/caloriesComponent/caloriesHeader'
 import CaloriesLine from '@/app/components/caloriesComponent/caloriesLine'
 import { IoSearchOutline } from "react-icons/io5";
@@ -10,9 +10,19 @@ import { IoIosArrowUp } from "react-icons/io";
 import Breakfast from '@/app/components/newDashboarComponent/breakfast';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
-import { setDinnerModal, setLunchModal } from '@/app/slices/logSlice';
+import { setBreakfastModal, setDinnerModal, setLunchModal, setSnackModal } from '@/app/slices/logSlice';
 import Lunch from '@/app/components/newDashboarComponent/lunch';
 import Dinner from '@/app/components/newDashboarComponent/dinner';
+import Snack from '@/app/components/newDashboarComponent/snack';
+import BreakfastList from '@/app/components/newDashboarComponent/breakfastList';
+import LunchList from '@/app/components/newDashboarComponent/lunchList';
+import DinnerList from '@/app/components/newDashboarComponent/dinnerList';
+import SnackList from '@/app/components/newDashboarComponent/snackList';
+import { useSearchParams } from 'next/navigation';
+
+interface FoucsedState {
+  focusedInput?: 'breakfast' | 'lunch'
+}
 
 export default function Page() {
 
@@ -20,7 +30,42 @@ export default function Page() {
   const breakfastModal = useSelector((state: RootState) => state.log.breakfastModal);
   const lunchModal = useSelector((state: RootState) => state.log.lunchModal);
   const dinnerModal = useSelector((state: RootState) => state.log.dinnerModal);
+  const snackModal = useSelector((state: RootState) => state.log.snackModal);
   const dispatch = useDispatch();
+
+
+  const workoutsRef = useRef<HTMLInputElement>(null);
+
+  
+
+  const searchParams = useSearchParams();
+  const meal = searchParams.get('meal');
+  console.log(meal)
+
+  useEffect(() => {
+    if (meal) {
+      switch (meal) {
+        case 'breakfast':
+          dispatch(setBreakfastModal(true))
+          break;
+        case 'lunch':
+          dispatch(setLunchModal(true))
+          break;
+        case 'dinner':
+          dispatch(setDinnerModal(true))
+          break;
+        case 'snacks':
+          dispatch(setSnackModal(true))
+          break;
+        case 'workouts':
+          workoutsRef.current?.focus();
+          break;
+        default:
+          break;
+      }
+    }
+  }, [meal]);
+
 
   const amounts = ["0", "0 g", "0 g", "0 g", "0 g", "0 g", "0 g", "0 g", "0 %"]
 
@@ -43,13 +88,16 @@ export default function Page() {
                 </div>
                 {/* Second section where the breakfast, lunch, and dinner go */}
                 <Breakfast />
-                {breakfastModal && <div className='bg-slate-200 w-full h-12'></div>}
+                {breakfastModal && <BreakfastList  />}
                 {/* Second section where the breakfast, lunch, and dinner go */}
                 <Lunch />
-                {lunchModal && <div className='bg-slate-200 w-full h-12'></div>}
+                {lunchModal && <LunchList  />}
                 {/* Second section where the breakfast, lunch, and dinner go */}
                 <Dinner />
-                {dinnerModal && <div className='bg-slate-200 w-full h-12'></div>}
+                {dinnerModal && <DinnerList  />}
+                <Snack />
+                {snackModal && <SnackList  />}
+                
             </div>
         </div>
   )
