@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setLogModal } from '@/app/slices/logSlice';
 import { RootState } from '@/app/store';
 import LogMenu from './logMenu';
+import { AnimatePresence } from 'framer-motion';
 
 export default function Main() {
 
@@ -22,8 +23,8 @@ export default function Main() {
     <div className='flex w-full p-2 relative justify-between items-center'>
         {modalTrue && <div className='w-[20%] absolute -bottom-2 -left-3 h-4 rounded-md bg-black bg-opacity-30 flex justify-center items-center'><p className='text-xs text-white font-thin'>Click here to start logging.</p></div>}
         {moreDetailModal && <div className='w-[20%] absolute -bottom-2 -right-3 h-4 rounded-md bg-black bg-opacity-30 flex justify-center items-center'><p className='text-xs text-white font-thin'>Click for more Diet Info.</p></div>}
-        {logModal && <LogMenu />}
-        <div onClick={() => dispatch(setLogModal(true)) } onMouseLeave={() => setModalTrue(false)} onMouseOver={() => setModalTrue(true)}  className='bg-indigo-600 hover:bg-indigo-800 cursor-pointer shadow-md shadow-zinc-500 bg-opacity-86 w-[65px] h-14 flex justify-center items-center rounded-full'>
+        <AnimatePresence>{logModal && <LogMenu />}</AnimatePresence>
+        <div onClick={() => dispatch(setLogModal(true)) } onMouseLeave={() => setModalTrue(false)} onMouseOver={() => setModalTrue(true)}  className='bg-indigo-600 hover:bg-indigo-800 cursor-pointer shadow-sm shadow-zinc-500 bg-opacity-86 w-[65px] h-14 flex justify-center items-center rounded-full'>
           <FaPlus className=' text-white' size={27} />
         </div>
         <div className='flex flex-col w-full justify-end  items-center'>
