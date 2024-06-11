@@ -54,10 +54,10 @@ export default function Page() {
         case 'dinner':
           dispatch(setDinnerModal(true))
           break;
-        case 'snacks':
+        case 'snack':
           dispatch(setSnackModal(true))
           break;
-        case 'workouts':
+        case 'workout':
           workoutsRef.current?.focus();
           break;
         default:
