@@ -6,16 +6,21 @@ import { RootState } from "@/app/store";
 import { motion, AnimatePresence } from "framer-motion"; 
 import axios from "axios";
 import { IoCaretDownOutline } from "react-icons/io5";
+import { setIsFocusedOn } from "@/app/slices/logSlice";
+import { set } from "date-fns";
 
 
 
 export default function BreakfastList() {
 
     const breakfastModal = useSelector((state: RootState) => state.log.breakfastModal);
+    const isFocusedOn = useSelector((state: RootState) => state.log.isFocusedOn);
     const [focused, setFocused] = useState<boolean>(false);
     const [showDropdown, setShowDropdown] = useState<boolean>(false); // State to control dropdown visibility
     const [foods, setFoods] = useState<any>([]); 
+    const [option, setOption] = useState(false); 
     const [searchTerm, setSearchTerm] = useState<string>(""); 
+    const dispatch = useDispatch();
 
     const ref = useRef<HTMLInputElement>(null);
 
@@ -44,7 +49,9 @@ export default function BreakfastList() {
 
     const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
         setFocused(true);
+        setOption(true);
         fetchBreakfastFoods(); 
+
     };
 
     const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -56,9 +63,9 @@ export default function BreakfastList() {
         setSearchTerm(event.target.value); // Update search term state
     };
 
-    // const filteredFoods = foods?.filter((food: any) =>
-    //     food.name.toLowerCase().includes(searchTerm.toLowerCase())
-    // );
+    const filteredFoods = foods?.filter((food: any) =>
+        food.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     console.log(showDropdown)
 
@@ -69,20 +76,19 @@ export default function BreakfastList() {
            <FaPencilAlt className='text-indigo-500 mt-3' size={20} />
            <div className="relative z-0  w-full group">
                 <input onBlur={handleBlur} onChange={handleInputChange} onFocus={handleFocus} ref={ref} type="text" name="breakfast" id="breakfast" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer" placeholder=" " required />
-                <label htmlFor="breakfast" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-indigo-600 peer-focus:dark:text-indigo-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Please enter a food name</label>
+                <label htmlFor="breakfast" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-indigo-600 peer-focus:dark:text-indigo-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Please enter a food name</label>
             </div>
-        </div>
-        <AnimatePresence>
+            <AnimatePresence>
                 {showDropdown && (
                     <motion.div
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.3 }}
-                        className="absolute top-[188px]  w-[30%] h-[23rem] bg-white shadow-md border border-indigo-300 mt-1 overflow-scroll rounded-md z-80"
+                        className="absolute top-12 left-0  z-50 w-[110%] h-[23rem] bg-white shadow-md border border-indigo-300 mt-1 overflow-scroll rounded-md "
                     >
                         {/* Render fetched foods */}
-                        {foods.map((food: any, index: number) => (
+                        {filteredFoods.map((food: any, index: number) => (
                             <div key={index} className="p-2 w-full hover:bg-indigo-100 hover:text-indigo-600 hover:border-r-4 border-indigo-700 flex justify-between items-center cursor-pointer">
                                 <h1 className="text-md font-medium tracking-wide">{food?.name}</h1>
                                 <span>{food?.calories} cal</span>
@@ -91,8 +97,10 @@ export default function BreakfastList() {
                     </motion.div>
                 )}
             </AnimatePresence>
+        </div>
+        
         <AnimatePresence>
-                {(focused || showDropdown) && (
+                {(focused) && (
                     <motion.div
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -109,7 +117,7 @@ export default function BreakfastList() {
                         {/* my food button will first have a modal pop up and the modal will have links to the search page where their favorite foods, recent foods, and frequent foods */}
                         <button className="hover:bg-indigo-200 hover:text-indigo-800 flex justify-center items-center gap-1 text-indigo-500 px-3 py-2 rounded-md">My Foods<IoCaretDownOutline size={12} className="text-indigo-500" /></button>
 
-                        <button className="hover:bg-indigo-200 hover:text-indigo-800 text-indigo-500 px-3 py-2 rounded-md">Cancel</button>
+                        <button  className="hover:bg-indigo-200 hover:text-indigo-800 text-indigo-500 px-3 py-2 rounded-md">Cancel</button>
                     </motion.div>
                 )}
             </AnimatePresence>

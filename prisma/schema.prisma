@@ -179,6 +179,21 @@ model Carbs {
   breakfast  String?
  }
 
+ model LunchFoods {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  lunch String?
+ }
+
+ model DinnerFoods {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  dinner String?
+ }
+
+ model SnackFoods {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  snack String?
+ }
+
  model Drinks {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
   Drinks  String?

@@ -1,6 +1,7 @@
 'use client';
-import { setIsFocused } from '@/app/slices/logSlice';
+import { setIsFocused, setIsFocusedOn } from '@/app/slices/logSlice';
 import { RootState } from '@/app/store';
+import axios from 'axios';
 import { AnimatePresence, motion } from 'framer-motion';
 import React, { useEffect, useRef, useState } from 'react'
 import { FaPencilAlt } from 'react-icons/fa'
@@ -13,32 +14,76 @@ export default function DinnerList() {
     const dinnerModal = useSelector((state: RootState) => state.log.dinnerModal);
     const [focused, setFocused] = useState<boolean>(false);
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
-
+    const [foods, setFoods] = useState<any>([]); 
+    const [searchTerm, setSearchTerm] = useState<string>(""); 
+    const dispatch = useDispatch();
 
     const ref = useRef<HTMLInputElement>(null);
 
+    // Fetch Dinner foods from backend (replace with your actual API call)
+    const fetchDinnerFoods = async () => {
+        try {
+            console.log('fetching....')
+            await axios.get("/api/getDinner").then((res) => {
+                console.log(res?.data)
+                if(res.status === 201) {
+                    setFoods(res?.data); // Update state with fetched foods
+                    setShowDropdown(true); // Show dropdown after fetching data
+                }
+            });
+            
+        } catch (error) {
+            console.error("Error fetching breakfast foods:", error);
+        }
+    };
+
     const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
         setFocused(true);
+        fetchDinnerFoods();
     };
 
     const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
         setFocused(false)
+        setShowDropdown(false); 
     };
 
     useEffect(() => {
         if(dinnerModal === true){ 
             ref.current?.focus()
         }
-    }, [])
+    }, [dinnerModal])
+
+    const filteredFoods = foods?.filter((food: any) =>
+        food.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
   return (
     <div className='w-full h-20 flex justify-start items-center bg-slate-100'>
-        <div className='flex w-[30%] justify-center gap-3 p-1 items-center'>
+        <div className='flex relative w-[30%] justify-center gap-3 p-1 items-center'>
            <FaPencilAlt className='text-indigo-500 mt-3' size={20} />
            <div className="relative z-0 w-full group">
                 <input onFocus={handleFocus} onBlur={handleBlur} ref={ref} type="text" name="breakfast" id="breakfast" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer" placeholder=" " required />
                 <label htmlFor="breakfast" className="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-indigo-600 peer-focus:dark:text-indigo-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Please enter a food name</label>
             </div>
+            <AnimatePresence>
+                {showDropdown && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.3 }}
+                        className="absolute top-12 left-0  z-50 w-[110%] h-[23rem] bg-white shadow-md border border-indigo-300 mt-1 overflow-scroll rounded-md "
+                    >
+                        {/* Render fetched foods */}
+                        {filteredFoods.map((food: any, index: number) => (
+                            <div key={index} className="p-2 w-full hover:bg-indigo-100 hover:text-indigo-600 hover:border-r-4 border-indigo-700 flex justify-between items-center cursor-pointer">
+                                <h1 className="text-md font-medium tracking-wide">{food?.name}</h1>
+                                <span>{food?.calories} cal</span>
+                            </div>
+                        ))}
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
         <AnimatePresence>
                 {(focused || showDropdown) && (

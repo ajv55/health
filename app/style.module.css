@@ -66,31 +66,44 @@
   }
 
   /* ripple effect */
-  @keyframes ripple {
-    from {
-      transform: scale(0);
-      opacity: 0.5;
-    }
-    to {
-      transform: scale(2.5);
-      opacity: 0;
-    }
-  }
-  
-  .ripple {
+  .pressed {
     position: relative;
-    overflow: hidden;
-  }
-  
-  .ripple::after {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    width: 200%;
-    height: 200%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: rgba(128, 128, 128, 0.5);
-    animation: ripple 0.6s linear;
-  } 
+    animation: ripple 0.5s linear;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+/* icon  */
+
+.icon {
+  position: relative;
+}
+
+.icon::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 0.3s ease-in-out;
+  pointer-events: none; /* Ensure the ripple effect doesn't interfere with clicking the icon */
+}
+
+.icon::hover {
+  background-color: #a9a9a9;
+}
+
+.icon.pressed::after {
+  transform: scale(1);
+}
