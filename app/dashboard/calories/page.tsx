@@ -102,7 +102,7 @@ useEffect(() => {
                 <Breakfast />
                 {mealLogs?.length !== 0 && breakfastModal && mealLogs?.map((meals: any, idx: number) => {
                   console.log(meals)
-                  return <BreakfastLogs key={idx} name={meals?.name} fiber={meals?.fiber} carbs={meals?.carbs} calories={meals?.calories} fat={meals?.fat} protein={meals?.protein} transFat={meals?.transFat} satFat={meals?.satFat} calcium={meals?.calcium} sodium={meals?.sodium} />
+                  return <BreakfastLogs key={idx} id={meals?.id} name={meals?.name} fiber={meals?.fiber} carbs={meals?.carbs} calories={meals?.calories} fat={meals?.fat} protein={meals?.protein} transFat={meals?.transFat} satFat={meals?.satFat} calcium={meals?.calcium} sodium={meals?.sodium} />
                 })}
                 {breakfastModal && <BreakfastList  />}
                 {/* Second section where the breakfast, lunch, and dinner go */}

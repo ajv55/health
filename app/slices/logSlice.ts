@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { setOptions } from "react-chartjs-2/dist/utils";
 
 interface LogState  {
     logModal?: boolean,
@@ -10,6 +11,7 @@ interface LogState  {
     isFocusedOn?: string,
     meal?: string,
     userMealLogs?: [],
+    optionsModal?: boolean 
 }
 
 const initialState: LogState = {
@@ -21,7 +23,8 @@ const initialState: LogState = {
     isFocused: false,
     isFocusedOn: '',
     meal: '',
-    userMealLogs: []
+    userMealLogs: [],
+    optionsModal: false
 }
 
 export const logSlice = createSlice({
@@ -60,10 +63,13 @@ export const logSlice = createSlice({
           }, 
         setUserMealLogs: (state, action) => {
             state.userMealLogs = action.payload
+        },
+        setOptionsModal: (state, action) => {
+            state.optionsModal = action.payload
         }
     }
 })
 
-export const {setLogModal, setBreakfastModal, setDinnerModal, setLunchModal, setSnackModal, setIsFocused, setIsFocusedOn, setMeal, resetModals, setUserMealLogs } = logSlice.actions;
+export const {setLogModal, setBreakfastModal, setDinnerModal, setLunchModal, setSnackModal, setIsFocused, setIsFocusedOn, setMeal, resetModals, setUserMealLogs, setOptionsModal } = logSlice.actions;
 
 export default logSlice.reducer;
