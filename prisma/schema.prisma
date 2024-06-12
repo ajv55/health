@@ -46,6 +46,8 @@ model User {
   workouts  Workout[]
   // Define the relationship with MealPlan entity
   mealPlans   MealPlan[] @relation("UserMealPlans")
+
+   mealLogs  MealLog[]
   account Account []
 }
 
@@ -56,6 +58,23 @@ model MealPlan {
   meals       Json?    // Store meal details as JSON
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model MealLog {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String  @db.ObjectId
+  name       String?
+  calories   Float?
+  fat        Float?
+  carbs      Float?
+  protein    Float?
+  sodium     Float?
+  transFat   Float?
+  satFat     Float?
+  calcium    Float?
+  fiber      Float?
+  createdAt  DateTime @default(now())
 }
 
 model Account {

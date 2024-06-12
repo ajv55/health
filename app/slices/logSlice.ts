@@ -8,7 +8,8 @@ interface LogState  {
     snackModal?: boolean,
     isFocused?: boolean,
     isFocusedOn?: string,
-    meal?: string
+    meal?: string,
+    userMealLogs?: [],
 }
 
 const initialState: LogState = {
@@ -20,6 +21,7 @@ const initialState: LogState = {
     isFocused: false,
     isFocusedOn: '',
     meal: '',
+    userMealLogs: []
 }
 
 export const logSlice = createSlice({
@@ -56,9 +58,12 @@ export const logSlice = createSlice({
             state.dinnerModal = false;
             state.snackModal = false;
           }, 
+        setUserMealLogs: (state, action) => {
+            state.userMealLogs = action.payload
+        }
     }
 })
 
-export const {setLogModal, setBreakfastModal, setDinnerModal, setLunchModal, setSnackModal, setIsFocused, setIsFocusedOn, setMeal, resetModals } = logSlice.actions;
+export const {setLogModal, setBreakfastModal, setDinnerModal, setLunchModal, setSnackModal, setIsFocused, setIsFocusedOn, setMeal, resetModals, setUserMealLogs } = logSlice.actions;
 
 export default logSlice.reducer;

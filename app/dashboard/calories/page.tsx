@@ -8,7 +8,7 @@ import { TbChefHat } from "react-icons/tb";
 import Breakfast from '@/app/components/newDashboarComponent/breakfast';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
-import { resetModals, setBreakfastModal, setDinnerModal, setLunchModal, setMeal, setSnackModal } from '@/app/slices/logSlice';
+import { resetModals, setBreakfastModal, setDinnerModal, setLunchModal, setMeal, setSnackModal, setUserMealLogs } from '@/app/slices/logSlice';
 import Lunch from '@/app/components/newDashboarComponent/lunch';
 import Dinner from '@/app/components/newDashboarComponent/dinner';
 import Snack from '@/app/components/newDashboarComponent/snack';
@@ -17,6 +17,8 @@ import LunchList from '@/app/components/newDashboarComponent/lunchList';
 import DinnerList from '@/app/components/newDashboarComponent/dinnerList';
 import SnackList from '@/app/components/newDashboarComponent/snackList';
 import { useSearchParams } from 'next/navigation';
+import BreakfastLogs from '@/app/components/newDashboarComponent/breakfastLogs';
+import axios from 'axios';
 
 
 export default function Page() {
@@ -26,6 +28,7 @@ export default function Page() {
   const lunchModal = useSelector((state: RootState) => state.log.lunchModal);
   const dinnerModal = useSelector((state: RootState) => state.log.dinnerModal);
   const snackModal = useSelector((state: RootState) => state.log.snackModal);
+  const mealLogs = useSelector((state: RootState) => state.log.userMealLogs);
   const dispatch = useDispatch();
 
 
@@ -35,7 +38,19 @@ export default function Page() {
 
   const searchParams = useSearchParams();
   const meal = searchParams.get('meal');
-  console.log(meal)
+  console.log(mealLogs)
+
+  const fetchMealLogs = async () => {
+    await axios.get('/api/getMealLogs').then((res: any) => {
+        if(res.status === 201) {
+            dispatch(setUserMealLogs(res.data))
+        }
+    })
+};
+
+useEffect(() => {
+    fetchMealLogs();
+}, [])
 
   useEffect(() => {
     if (meal) {
@@ -85,6 +100,10 @@ export default function Page() {
                 </div>
                 {/* Second section where the breakfast, lunch, and dinner go */}
                 <Breakfast />
+                {mealLogs?.length !== 0 && breakfastModal && mealLogs?.map((meals: any, idx: number) => {
+                  console.log(meals)
+                  return <BreakfastLogs key={idx} name={meals?.name} fiber={meals?.fiber} carbs={meals?.carbs} calories={meals?.calories} fat={meals?.fat} protein={meals?.protein} transFat={meals?.transFat} satFat={meals?.satFat} calcium={meals?.calcium} sodium={meals?.sodium} />
+                })}
                 {breakfastModal && <BreakfastList  />}
                 {/* Second section where the breakfast, lunch, and dinner go */}
                 <Lunch />
