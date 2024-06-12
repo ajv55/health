@@ -1,5 +1,5 @@
 'use client';
-import { setIsFocused, setIsFocusedOn } from '@/app/slices/logSlice';
+import { setIsFocused, setIsFocusedOn, setLunchModal } from '@/app/slices/logSlice';
 import { RootState } from '@/app/store';
 import React, { useRef, useEffect, useState } from 'react'
 import { FaPencilAlt } from 'react-icons/fa'
@@ -7,17 +7,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import { motion, AnimatePresence } from "framer-motion"; 
 import { IoCaretDownOutline } from 'react-icons/io5';
 import axios from 'axios';
-import { L } from '@fullcalendar/list/internal-common';
+import { usePathname } from 'next/navigation';
 
 
 export default function LunchList() {
 
     const lunchModal = useSelector((state: RootState) => state.log.lunchModal);
+    const meal = useSelector((state: RootState) => state.log.meal);
     const [focused, setFocused] = useState<boolean>(false)
     const [showDropdown, setShowDropdown] = useState<boolean>(false); 
     const [foods, setFoods] = useState<any>([]); 
     const [searchTerm, setSearchTerm] = useState<string>(""); 
     const dispatch = useDispatch();
+    const pathname = usePathname();
 
     const ref = useRef<HTMLInputElement>(null);
 
@@ -38,7 +40,7 @@ export default function LunchList() {
         }
     };
 
-    const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+    const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {        
         setFocused(true);
         fetchLunchFoods();
     };
@@ -49,10 +51,10 @@ export default function LunchList() {
     };
 
     useEffect(() => {
-        if(lunchModal === true){ 
+        if(meal === 'lunch'){ 
             ref.current?.focus()
         }
-    }, [lunchModal])
+    }, [meal])
 
     const filteredFoods = foods?.filter((food: any) =>
         food.name.toLowerCase().includes(searchTerm.toLowerCase())

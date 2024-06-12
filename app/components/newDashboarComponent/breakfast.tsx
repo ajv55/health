@@ -2,25 +2,29 @@
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 import { TbChefHat } from 'react-icons/tb'
 import { useSelector, useDispatch } from 'react-redux';
-import { setBreakfastModal } from '@/app/slices/logSlice';
+import { resetModals, setBreakfastModal } from '@/app/slices/logSlice';
 import { RootState } from '@/app/store';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Breakfast() {
 
     const breakfastModal = useSelector((state: RootState) => state.log.breakfastModal);
+    const meal = useSelector((state: RootState) => state.log.meal);
     const dispatch = useDispatch();
     const [pressed, setPressed] = useState<boolean>(false);
 
+
     const amounts = ["0", "0 g", "0 g", "0 g", "0 g", "0 g", "0 g", "0 g", "0 %"];
 
-    const handleButtonClick = () => {
-        setPressed(true);
-        dispatch(setBreakfastModal(!breakfastModal));
-        setTimeout(() => {
-            setPressed(false);
-        }, 300); // Set timeout to reset the button after the animation duration
-    };
+    useEffect(() => {
+        console.log(meal)
+        if(meal === 'breakfast'){
+            dispatch(setBreakfastModal(true));
+        } 
+    }, [meal, dispatch])
+
+
+
 
   return (
     
@@ -29,13 +33,13 @@ export default function Breakfast() {
                 <div className=' flex w-[30%] justify-between  items-center'>
                     {breakfastModal ? (
                     <IoIosArrowUp
-                        onClick={handleButtonClick}
+                        onClick={() => dispatch(setBreakfastModal(false))}
                         size={25}
-                        className={`text-gray-500 hover:bg-gray-500 hover:bg-opacity-15 p-1 w-8 h-8 rounded-full cursor-pointer ${pressed ? 'pressed' : ''}`}
+                        className={`text-gray-500 hover:bg-gray-500 hover:bg-opacity-15 p-1 w-8 h-8 rounded-full cursor-pointer`}
                     />
                 ) : (
                     <IoIosArrowDown
-                        onClick={handleButtonClick}
+                        onClick={() => dispatch(setBreakfastModal(true))}
                         size={25}
                         className={`text-gray-500 hover:bg-gray-500 hover:bg-opacity-15 p-1 w-8 h-8 rounded-full cursor-pointer ${pressed ? 'pressed' : ''}`}
                     />

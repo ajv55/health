@@ -1,5 +1,5 @@
 'use client';
-import { setIsFocused, setIsFocusedOn } from '@/app/slices/logSlice';
+import { setIsFocused, setIsFocusedOn, setSnackModal } from '@/app/slices/logSlice';
 import { RootState } from '@/app/store';
 import axios from 'axios';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -8,6 +8,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { FaPencilAlt } from 'react-icons/fa'
 import { IoCaretDownOutline } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
+import { usePathname } from 'next/navigation'
 
 
 
@@ -16,9 +17,11 @@ export default function SnackList() {
     const snackModal = useSelector((state: RootState) => state.log.snackModal);
     const [focused, setFocused] = useState<boolean>(false);
     const [showDropdown, setShowDropdown] = useState<boolean>(false); 
+    const meal = useSelector((state: RootState) => state.log.meal);
     const [searchTerm, setSearchTerm] = useState<string>(""); 
     const [foods, setFoods] = useState<any>([]); 
     const dispatch = useDispatch();
+    const pathname = usePathname();
 
     const ref = useRef<HTMLInputElement>(null);
 
@@ -40,14 +43,15 @@ export default function SnackList() {
     };
 
     useEffect(() => {
-        if(snackModal === true){
+        console.log(meal)
+        if(meal === 'snack'){
             ref.current?.focus();
         } 
-    }, [snackModal])
+    }, [meal])
 
     const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
-        setFocused(true);
-        fetchSnacks();
+          setFocused(true);
+            fetchSnacks();
     };
 
     const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {

@@ -3,19 +3,21 @@ import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 import { useDispatch, useSelector } from 'react-redux';
 import { setSnackModal } from '@/app/slices/logSlice';
 import { RootState } from '@/app/store';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import style from '@/app/style.module.css';
 
 export default function Snack() {
     const dispatch = useDispatch();
     const snackModal = useSelector((state: RootState) => state.log.snackModal);
+    const meal = useSelector((state: RootState) => state.log.meal);
     const amounts = ["0", "0 g", "0 g", "0 g", "0 g", "0 g", "0 g", "0 g", "0 %"];
 
-    const [ripple, setRipple] = useState(false);
-
-    const handleClick = () => {
-        dispatch(setSnackModal(!snackModal));
-      };
+    useEffect(() => {
+        console.log(meal)
+        if(meal === 'snack'){
+            dispatch(setSnackModal(true));
+        } 
+    }, [meal, dispatch])
 
   return (
     <div className='w-full h-16 p-2 bg-indigo-200 flex justify-between items-center'>

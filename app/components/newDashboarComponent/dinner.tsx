@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDinnerModal } from '@/app/slices/logSlice';
@@ -8,8 +8,16 @@ export default function Dinner() {
 
     const dispatch = useDispatch();
     const dinnerModal = useSelector((state: RootState) => state.log.dinnerModal);
+    const meal = useSelector((state: RootState) => state.log.meal);
 
     const amounts = ["0", "0 g", "0 g", "0 g", "0 g", "0 g", "0 g", "0 g", "0 %"]
+
+    useEffect(() => {
+        console.log(meal)
+        if(meal === 'dinner'){
+            dispatch(setDinnerModal(true));
+        } 
+    }, [meal, dispatch])
 
   return (
     <div className='w-full h-16 p-2 bg-indigo-200 flex justify-between items-center'>

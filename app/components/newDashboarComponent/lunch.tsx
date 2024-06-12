@@ -1,13 +1,25 @@
 'use client';
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 import { useDispatch, useSelector } from 'react-redux';
-import { setLunchModal } from '@/app/slices/logSlice';
+import { setBreakfastModal, setLunchModal } from '@/app/slices/logSlice';
 import { RootState } from '@/app/store';
+import { useEffect } from 'react';
 
 export default function Lunch() {
     const dispatch = useDispatch();
     const lunchModal = useSelector((state: RootState) => state.log.lunchModal);
+    const meal = useSelector((state: RootState) => state.log.meal);
     const amounts = ["0", "0 g", "0 g", "0 g", "0 g", "0 g", "0 g", "0 g", "0 %"]
+
+    useEffect(() => {
+        console.log(meal)
+        if(meal === 'lunch'){
+            dispatch(setLunchModal(true));
+        } 
+    }, [meal, dispatch])
+
+    
+
   return (
     <div className='w-full h-16 p-2 bg-indigo-200 flex justify-between items-center'>
                     <div className=' flex  w-[30%] justify-between items-center'>

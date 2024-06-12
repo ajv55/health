@@ -6,14 +6,16 @@ import { RootState } from "@/app/store";
 import { motion, AnimatePresence } from "framer-motion"; 
 import axios from "axios";
 import { IoCaretDownOutline } from "react-icons/io5";
-import { setIsFocusedOn } from "@/app/slices/logSlice";
+import { resetModals, setBreakfastModal, setIsFocusedOn } from "@/app/slices/logSlice";
 import { set } from "date-fns";
+import { usePathname } from 'next/navigation'
 
 
 
 export default function BreakfastList() {
 
     const breakfastModal = useSelector((state: RootState) => state.log.breakfastModal);
+    const meal = useSelector((state: RootState) => state.log.meal);
     const isFocusedOn = useSelector((state: RootState) => state.log.isFocusedOn);
     const [focused, setFocused] = useState<boolean>(false);
     const [showDropdown, setShowDropdown] = useState<boolean>(false); // State to control dropdown visibility
@@ -21,14 +23,21 @@ export default function BreakfastList() {
     const [option, setOption] = useState(false); 
     const [searchTerm, setSearchTerm] = useState<string>(""); 
     const dispatch = useDispatch();
+    const pathname = usePathname();
+    console.log(pathname)
+
 
     const ref = useRef<HTMLInputElement>(null);
 
+
     useEffect(() => {
-        if(breakfastModal === true){
+        console.log(meal)
+        if(meal === 'breakfast'){
             ref.current?.focus();
-        } 
-    }, [breakfastModal])
+        }
+    }, [meal])
+
+    
 
     // Fetch breakfast foods from backend (replace with your actual API call)
     const fetchBreakfastFoods = async () => {
@@ -49,8 +58,7 @@ export default function BreakfastList() {
 
     const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {
         setFocused(true);
-        setOption(true);
-        fetchBreakfastFoods(); 
+        fetchBreakfastFoods();
 
     };
 
@@ -58,6 +66,8 @@ export default function BreakfastList() {
         setFocused(false);
         setShowDropdown(false)
     };
+
+    console.log(meal)
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value); // Update search term state
@@ -68,6 +78,8 @@ export default function BreakfastList() {
     );
 
     console.log(showDropdown)
+
+    
 
 
   return (

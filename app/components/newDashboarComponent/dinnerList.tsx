@@ -1,8 +1,9 @@
 'use client';
-import { setIsFocused, setIsFocusedOn } from '@/app/slices/logSlice';
+import { setDinnerModal, setIsFocused, setIsFocusedOn } from '@/app/slices/logSlice';
 import { RootState } from '@/app/store';
 import axios from 'axios';
 import { AnimatePresence, motion } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react'
 import { FaPencilAlt } from 'react-icons/fa'
 import { IoCaretDownOutline } from 'react-icons/io5';
@@ -12,11 +13,13 @@ import { useDispatch, useSelector } from 'react-redux';
 export default function DinnerList() {
 
     const dinnerModal = useSelector((state: RootState) => state.log.dinnerModal);
+    const meal = useSelector((state: RootState) => state.log.meal);
     const [focused, setFocused] = useState<boolean>(false);
     const [showDropdown, setShowDropdown] = useState<boolean>(false);
     const [foods, setFoods] = useState<any>([]); 
     const [searchTerm, setSearchTerm] = useState<string>(""); 
     const dispatch = useDispatch();
+    const pathname = usePathname();
 
     const ref = useRef<HTMLInputElement>(null);
 
@@ -48,10 +51,10 @@ export default function DinnerList() {
     };
 
     useEffect(() => {
-        if(dinnerModal === true){ 
+        if(meal === 'dinner'){ 
             ref.current?.focus()
         }
-    }, [dinnerModal])
+    }, [meal])
 
     const filteredFoods = foods?.filter((food: any) =>
         food.name.toLowerCase().includes(searchTerm.toLowerCase())

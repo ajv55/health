@@ -5,12 +5,10 @@ import CaloriesLine from '@/app/components/caloriesComponent/caloriesLine'
 import { IoSearchOutline } from "react-icons/io5";
 import { IoStar } from "react-icons/io5";
 import { TbChefHat } from "react-icons/tb";
-import { IoIosArrowDown } from "react-icons/io";
-import { IoIosArrowUp } from "react-icons/io";
 import Breakfast from '@/app/components/newDashboarComponent/breakfast';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
-import { setBreakfastModal, setDinnerModal, setLunchModal, setSnackModal } from '@/app/slices/logSlice';
+import { resetModals, setBreakfastModal, setDinnerModal, setLunchModal, setMeal, setSnackModal } from '@/app/slices/logSlice';
 import Lunch from '@/app/components/newDashboarComponent/lunch';
 import Dinner from '@/app/components/newDashboarComponent/dinner';
 import Snack from '@/app/components/newDashboarComponent/snack';
@@ -20,9 +18,6 @@ import DinnerList from '@/app/components/newDashboarComponent/dinnerList';
 import SnackList from '@/app/components/newDashboarComponent/snackList';
 import { useSearchParams } from 'next/navigation';
 
-interface FoucsedState {
-  focusedInput?: 'breakfast' | 'lunch'
-}
 
 export default function Page() {
 
@@ -45,17 +40,17 @@ export default function Page() {
   useEffect(() => {
     if (meal) {
       switch (meal) {
-        case 'breakfast':
-          dispatch(setBreakfastModal(true))
+        case 'breakfast': 
+          dispatch(setMeal('breakfast'));
           break;
         case 'lunch':
-          dispatch(setLunchModal(true))
+          dispatch(setMeal('lunch'));
           break;
         case 'dinner':
-          dispatch(setDinnerModal(true))
+          dispatch(setMeal('dinner'));
           break;
         case 'snack':
-          dispatch(setSnackModal(true))
+          dispatch(setMeal('snack'));
           break;
         case 'workout':
           workoutsRef.current?.focus();
@@ -64,7 +59,9 @@ export default function Page() {
           break;
       }
     }
-  }, [meal]);
+      dispatch(resetModals())
+    
+  }, []);
 
 
   const amounts = ["0", "0 g", "0 g", "0 g", "0 g", "0 g", "0 g", "0 g", "0 %"]
