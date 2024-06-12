@@ -9,11 +9,14 @@ import Water from '../components/dashboardComponents/water';
 import DashHeader from '../components/dashboardComponents/dashHeader';
 import Maintenance from '../components/dashboardComponents/maintenance';
 import Information from '../components/dashboardComponents/infomation';
+import { useDispatch } from 'react-redux';
+import { resetModals } from '../slices/logSlice';
 
 export default  function Page() {
 
   const {data: session, status ,update} = useSession();
   const router = useRouter();
+  const dispatch = useDispatch();
 
 
   if(status === 'unauthenticated') {
@@ -104,6 +107,10 @@ export default  function Page() {
 
 
 }, [session, update]);
+
+useEffect(() => {
+  dispatch(resetModals());
+}, [])
 
 
   

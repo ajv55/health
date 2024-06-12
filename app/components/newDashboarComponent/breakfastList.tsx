@@ -23,7 +23,6 @@ export default function BreakfastList() {
     const [searchTerm, setSearchTerm] = useState<string>(""); 
     const [amount, setAmount] = useState<number>(0); // State to manage amount input
     const [unit, setUnit] = useState<string>("grams"); // State to manage selected unit
-    const [calories, setCalories] = useState<number>(0); // State to manage calculated calories
     const [nutrients, setNutrients] = useState<any>({}); 
     const dispatch = useDispatch();
     const pathname = usePathname();
@@ -66,7 +65,6 @@ export default function BreakfastList() {
 
     const handleFoodSelect = (food: any) => {
         setSelectedFood(food);
-        setCalories(food.calories);
         setNutrients(food); 
         setSearchTerm(food.name);
         setAmount(0); 
@@ -218,16 +216,6 @@ export default function BreakfastList() {
                                 <option value="oz">oz</option>
                             </select>
                             <span>{nutrients.calories} cal</span>
-                        </div>
-                        <div className="flex flex-col">
-                            <span>Fat: {nutrients.fat}g</span>
-                            <span>Carbs: {nutrients.carbs}g</span>
-                            <span>Protein: {nutrients.protein}g</span>
-                            <span>Sodium: {nutrients.sodium}mg</span>
-                            <span>Trans Fat: {nutrients.transFat}g</span>
-                            <span>Sat Fat: {nutrients.satFat}g</span>
-                            <span>Calcium: {nutrients.calcium}mg</span>
-                            <span>Fiber: {nutrients.fiber}g</span>
                         </div>
                         <div className="flex justify-start items-center gap-5">
                             <button onClick={postMealLog} className="hover:bg-indigo-200 hover:text-indigo-800 text-indigo-500 px-3 py-2 rounded-md">Add</button>

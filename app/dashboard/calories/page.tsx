@@ -37,8 +37,9 @@ export default function Page() {
   
 
   const searchParams = useSearchParams();
-  const meal = searchParams.get('meal');
-  console.log(mealLogs)
+  // const meal = useSelector((state: RootState) => state.log.meal);
+  const meal = searchParams.get('meal')
+  console.log(meal)
 
   const fetchMealLogs = async () => {
     await axios.get('/api/getMealLogs').then((res: any) => {
@@ -56,7 +57,7 @@ useEffect(() => {
     if (meal) {
       switch (meal) {
         case 'breakfast': 
-          dispatch(setMeal('breakfast'));
+          dispatch(setBreakfastModal(true))
           break;
         case 'lunch':
           dispatch(setMeal('lunch'));
@@ -74,12 +75,9 @@ useEffect(() => {
           break;
       }
     }
-      dispatch(resetModals())
     
-  }, []);
+  }, [meal,dispatch]);
 
-
-  const amounts = ["0", "0 g", "0 g", "0 g", "0 g", "0 g", "0 g", "0 g", "0 %"]
 
   return (
     <div className='w-full h-content flex flex-col justify-start items-center gap-8 overflow-scroll'>
