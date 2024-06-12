@@ -1,5 +1,5 @@
 'use client';
-import { setIsFocused, setIsFocusedOn, setLunchModal } from '@/app/slices/logSlice';
+import { setIsFocused, setIsFocusedOn, setLunchLog, setLunchModal } from '@/app/slices/logSlice';
 import { RootState } from '@/app/store';
 import React, { useRef, useEffect, useState } from 'react'
 import { FaPencilAlt } from 'react-icons/fa'
@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { IoCaretDownOutline } from 'react-icons/io5';
 import axios from 'axios';
 import { usePathname } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 
 export default function LunchList() {
@@ -115,6 +116,14 @@ export default function LunchList() {
         setNutrients(calculatedNutrients);
     };
 
+    const fetchLunchLogs = async () => {
+        await axios.get('/api/getLunchLogs').then((res: any) => {
+            if(res.status === 201) {
+                dispatch(setLunchLog(res.data))
+            }
+        })
+    };
+
     const mealData = {
         name: selectedFood?.name,
         calories: nutrients?.calories,
@@ -127,6 +136,18 @@ export default function LunchList() {
         calcium: nutrients?.calcium,
         fiber: nutrients?.fiber,
       };
+
+      const postLunchLog = async () => {
+        await axios.post('/api/postLunch', mealData).then((res) => {
+            console.log(res)
+            if(res.status === 201){
+                toast.success('Successfully added a breakfast item')
+                setSelectedFood(null);
+                setSearchTerm('');
+                fetchLunchLogs();
+            }
+        })
+      }
 
     
 
@@ -190,7 +211,7 @@ export default function LunchList() {
                             <span>{nutrients.calories} cal</span>
                         </div>
                         <div className="flex justify-start items-center gap-5">
-                            <button className="hover:bg-indigo-200 hover:text-indigo-800 text-indigo-500 px-3 py-2 rounded-md">Add</button>
+                            <button onClick={postLunchLog} className="hover:bg-indigo-200 hover:text-indigo-800 text-indigo-500 px-3 py-2 rounded-md">Add</button>
                             <button onClick={() => setSelectedFood(null)} className="hover:bg-indigo-200 hover:text-indigo-800 text-indigo-500 px-3 py-2 rounded-md">Cancel</button>
                         </div>
                     </motion.div>

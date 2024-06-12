@@ -8,7 +8,7 @@ import { TbChefHat } from "react-icons/tb";
 import Breakfast from '@/app/components/newDashboarComponent/breakfast';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
-import { resetModals, setBreakfastModal, setDinnerModal, setLunchModal, setMeal, setSnackModal, setUserMealLogs } from '@/app/slices/logSlice';
+import { resetModals, setBreakfastModal, setDinnerModal, setLunchLog, setLunchModal, setMeal, setSnackModal, setUserMealLogs } from '@/app/slices/logSlice';
 import Lunch from '@/app/components/newDashboarComponent/lunch';
 import Dinner from '@/app/components/newDashboarComponent/dinner';
 import Snack from '@/app/components/newDashboarComponent/snack';
@@ -19,6 +19,7 @@ import SnackList from '@/app/components/newDashboarComponent/snackList';
 import { useSearchParams } from 'next/navigation';
 import BreakfastLogs from '@/app/components/newDashboarComponent/breakfastLogs';
 import axios from 'axios';
+import LunchLog from '@/app/components/newDashboarComponent/lunchLog';
 
 
 export default function Page() {
@@ -29,6 +30,7 @@ export default function Page() {
   const dinnerModal = useSelector((state: RootState) => state.log.dinnerModal);
   const snackModal = useSelector((state: RootState) => state.log.snackModal);
   const mealLogs = useSelector((state: RootState) => state.log.userMealLogs);
+  const lunchLogs = useSelector((state: RootState) => state.log.userLunchLogs);
   const dispatch = useDispatch();
 
 
@@ -49,8 +51,17 @@ export default function Page() {
     })
 };
 
+const fetchLunchLogs = async () => {
+  await axios.get('/api/getLunchLogs').then((res: any) => {
+      if(res.status === 201) {
+          dispatch(setLunchLog(res.data))
+      }
+  })
+};
+
 useEffect(() => {
     fetchMealLogs();
+    fetchLunchLogs();
 }, [])
 
   useEffect(() => {
@@ -105,6 +116,10 @@ useEffect(() => {
                 {breakfastModal && <BreakfastList  />}
                 {/* Second section where the breakfast, lunch, and dinner go */}
                 <Lunch />
+                {lunchLogs?.length !== 0 && lunchModal && lunchLogs?.map((meals: any, idx: number) => {
+                  console.log(meals)
+                  return <LunchLog key={idx} id={meals?.id} name={meals?.name} fiber={meals?.fiber} carbs={meals?.carbs} calories={meals?.calories} fat={meals?.fat} protein={meals?.protein} transFat={meals?.transFat} satFat={meals?.satFat} calcium={meals?.calcium} sodium={meals?.sodium} />
+                })}
                 {lunchModal && <LunchList  />}
                 {/* Second section where the breakfast, lunch, and dinner go */}
                 <Dinner />
