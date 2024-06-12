@@ -152,8 +152,9 @@ export default function BreakfastList() {
         await axios.post('/api/mealLog', mealData).then((res) => {
             console.log(res)
             if(res.status === 201){
-                toast.success('Successfully added a meal log')
+                toast.success('Successfully added a breakfast item')
                 setSelectedFood(null);
+                setSearchTerm('');
                 fetchMealLogs();
             }
         })
