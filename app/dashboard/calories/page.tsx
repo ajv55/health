@@ -8,7 +8,7 @@ import { TbChefHat } from "react-icons/tb";
 import Breakfast from '@/app/components/newDashboarComponent/breakfast';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
-import { resetModals, setBreakfastModal, setDinnerModal, setLunchLog, setLunchModal, setMeal, setSnackModal, setUserMealLogs } from '@/app/slices/logSlice';
+import { resetModals, setBreakfastModal, setDinnerLog, setDinnerModal, setLunchLog, setLunchModal, setMeal, setSnackLog, setSnackModal, setUserMealLogs } from '@/app/slices/logSlice';
 import Lunch from '@/app/components/newDashboarComponent/lunch';
 import Dinner from '@/app/components/newDashboarComponent/dinner';
 import Snack from '@/app/components/newDashboarComponent/snack';
@@ -20,6 +20,8 @@ import { useSearchParams } from 'next/navigation';
 import BreakfastLogs from '@/app/components/newDashboarComponent/breakfastLogs';
 import axios from 'axios';
 import LunchLog from '@/app/components/newDashboarComponent/lunchLog';
+import DinnerLog from '@/app/components/newDashboarComponent/dinnerLogs';
+import SnackLog from '@/app/components/newDashboarComponent/snackLogs';
 
 
 export default function Page() {
@@ -31,6 +33,9 @@ export default function Page() {
   const snackModal = useSelector((state: RootState) => state.log.snackModal);
   const mealLogs = useSelector((state: RootState) => state.log.userMealLogs);
   const lunchLogs = useSelector((state: RootState) => state.log.userLunchLogs);
+  const dinnerLogs = useSelector((state: RootState) => state.log.userDinnerLogs);
+  const snackLogs = useSelector((state: RootState) => state.log.userSnackLogs);
+  const [snackIsLoading, setSnackIsLoading] = useState(false);
   const dispatch = useDispatch();
 
 
@@ -59,9 +64,31 @@ const fetchLunchLogs = async () => {
   })
 };
 
+const fetchDinnerLogs = async () => {
+  await axios.get('/api/getDinnerLogs').then((res: any) => {
+      if(res.status === 201) {
+          dispatch(setDinnerLog(res.data))
+      }
+  })
+};
+
+const fetchSnackLogs = async () => {
+  setSnackIsLoading(true)
+  await axios.get('/api/getSnackLogs').then((res: any) => {
+      if(res.status === 201) {
+          dispatch(setSnackLog(res.data))
+          setSnackIsLoading(false)
+      }
+  })
+
+  
+};
+
 useEffect(() => {
     fetchMealLogs();
     fetchLunchLogs();
+    fetchDinnerLogs();
+    fetchSnackLogs();
 }, [])
 
   useEffect(() => {
@@ -123,8 +150,16 @@ useEffect(() => {
                 {lunchModal && <LunchList  />}
                 {/* Second section where the breakfast, lunch, and dinner go */}
                 <Dinner />
+                {dinnerLogs?.length !== 0 && dinnerModal && dinnerLogs?.map((meals: any, idx: number) => {
+                  console.log(meals)
+                  return <DinnerLog key={idx} id={meals?.id} name={meals?.name} fiber={meals?.fiber} carbs={meals?.carbs} calories={meals?.calories} fat={meals?.fat} protein={meals?.protein} transFat={meals?.transFat} satFat={meals?.satFat} calcium={meals?.calcium} sodium={meals?.sodium} />
+                })}
                 {dinnerModal && <DinnerList  />}
                 <Snack />
+                {snackLogs?.length !== 0 && snackModal && snackLogs?.map((meals: any, idx: number) => {
+                  console.log(meals)
+                  return <SnackLog key={idx} id={meals?.id} name={meals?.name} fiber={meals?.fiber} carbs={meals?.carbs} calories={meals?.calories} fat={meals?.fat} protein={meals?.protein} transFat={meals?.transFat} satFat={meals?.satFat} calcium={meals?.calcium} sodium={meals?.sodium} />
+                })}
                 {snackModal && <SnackList  />}
                 
             </div>
