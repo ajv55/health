@@ -2,27 +2,76 @@
 import { IoIosArrowDown, IoIosArrowUp } from 'react-icons/io'
 import { TbChefHat } from 'react-icons/tb'
 import { useSelector, useDispatch } from 'react-redux';
-import { resetModals, setBreakfastModal } from '@/app/slices/logSlice';
+import { resetModals, setBreakfastModal, setUserMealLogs } from '@/app/slices/logSlice';
 import { RootState } from '@/app/store';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
+
+type TotalState = {
+    calories?: number,
+    carbs?: number,
+    protein?: number,
+    fat?: number,
+    satFat?: number,
+    calcium?: number,
+    transFat?: number,
+    fiber?: number,
+    sodium?: number
+
+}
 
 export default function Breakfast() {
 
     const breakfastModal = useSelector((state: RootState) => state.log.breakfastModal);
     const meal = useSelector((state: RootState) => state.log.meal);
+    const breakfastLog = useSelector((state: RootState) => state.log.userMealLogs);
     const dispatch = useDispatch();
     const [pressed, setPressed] = useState<boolean>(false);
+    const [totals, setTotals] = useState<TotalState>({});
+
+    function safeAdd(value: any) {
+        return isNaN(value) || value === null ? 0 : value;
+      }
+
+      function calculateTotalsFromLogs(logs: any) {
+        return logs.reduce((totals: any, log: any) => {
+          totals.calcium += safeAdd(log.calcium);
+          totals.calories += safeAdd(log.calories);
+          totals.carbs += safeAdd(log.carbs);
+          totals.fat += safeAdd(log.fat);
+          totals.fiber += safeAdd(log.fiber);
+          totals.protein += safeAdd(log.protein);
+          totals.satFat += safeAdd(log.satFat);
+          totals.transFat += safeAdd(log.transFat); // Updated key to match state
+          totals.sodium += safeAdd(log.sodium);
+          return totals;
+        }, {
+          calcium: 0,
+          calories: 0,
+          carbs: 0,
+          fat: 0,
+          fiber: 0,
+          protein: 0,
+          satFat: 0,
+          sodium: 0,
+          transFat: 0,
+        });
+      }
 
 
-    const amounts = ["0", "0 g", "0 g", "0 g", "0 g", "0 g", "0 g", "0 g", "0 %"];
+    const amounts = [`${totals?.calories}`, `${totals?.protein?.toFixed(2)}g`, `${totals?.carbs?.toFixed(2)}g`, `${totals?.fat?.toFixed(2)}g`, `${totals?.satFat?.toFixed(2)}g`, `${totals?.transFat?.toFixed(2)}g`, `${totals?.fiber?.toFixed(2)}g`, `${totals?.calcium?.toFixed(2)}mg`, `${totals?.sodium?.toFixed(2)}%`];
 
     useEffect(() => {
         console.log(meal)
         if(meal === 'breakfast'){
             dispatch(setBreakfastModal(true));
         } 
-    }, [meal, dispatch])
+        const totalValues = calculateTotalsFromLogs(breakfastLog);
+      setTotals(totalValues);
+    }, [meal, dispatch, breakfastLog])
 
+    console.log(breakfastLog)
+    console.log(totals)
 
 
 
