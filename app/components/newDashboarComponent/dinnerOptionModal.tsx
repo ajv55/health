@@ -1,5 +1,5 @@
 'use client';
-import { setLunchLog, setUserMealLogs } from '@/app/slices/logSlice';
+import { setDinnerLog, setLunchLog, setUserMealLogs } from '@/app/slices/logSlice';
 import axios from 'axios';
 import { motion } from 'framer-motion';
 import toast from 'react-hot-toast';
@@ -18,7 +18,7 @@ const DinnerOptionsModal = ({id, onClose}: LunchOptionModalProps) => {
     const fetchDinnerLogs = async () => {
         await axios.get('/api/getDinnerLogs').then((res: any) => {
             if(res.status === 201) {
-                dispatch(setLunchLog(res.data))
+                dispatch(setDinnerLog(res.data))
             }
         })
     };

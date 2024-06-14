@@ -37,24 +37,63 @@ export default function LunchList() {
      // Fetch breakfast foods from backend (replace with your actual API call)
      const fetchLunchFoods = async () => {
         try {
-            console.log('fetching....')
-            await axios.get("/api/getLunch").then((res) => {
-                console.log(res?.data)
-                if(res.status === 201) {
-                    setFoods(res?.data); // Update state with fetched foods
-                    setShowDropdown(true); // Show dropdown after fetching data
-                }
-            });
-            
+            const res = await axios.get("/api/getLunch");
+            if (res.status === 201) {
+                return res.data; // Return the dinner foods array
+            } else {
+                console.error("Error fetching lunch foods:", res.status);
+                return []; // Return empty array on error
+            }
         } catch (error) {
-            console.error("Error fetching breakfast foods:", error);
+            console.error("Error fetching lunch foods:", error);
+            return []; // Return empty array on error
+        }
+    };
+
+    const fetchCommonCarbs = async () => {
+        try {
+            const res = await axios.get('/api/getCommonCarbs');
+            if (res.status === 201) {
+                return res.data; // Return the common carbs array
+            } else {
+                console.error("Error fetching common carbs:", res.status);
+                return []; // Return empty array on error
+            }
+        } catch (error) {
+            console.error("Error fetching common carbs:", error);
+            return []; // Return empty array on error
+        }
+    };
+
+    const mergeAndSetFoods = async () => {
+        try {
+            console.log('Fetching dinner foods and common carbs...');
+            const lunchFoods = await fetchLunchFoods();
+            const commonCarbs = await fetchCommonCarbs();
+
+            console.log(commonCarbs)
+            // Merge arrays and remove duplicates based on name
+            const mergedFoods = [...lunchFoods, ...commonCarbs].reduce((acc, curr) => {
+                const found = acc.some((item: any) => item.name === curr.name);
+                if (!found) {
+                    acc.push(curr);
+                }
+                return acc;
+            }, []);
+
+            console.log(mergedFoods)
+
+            setFoods(mergedFoods); // Update state with merged and deduplicated foods
+            setShowDropdown(true); // Show dropdown after fetching data
+        } catch (error) {
+            console.error("Error merging and setting foods:", error);
         }
     };
 
     const handleFocus = (event: React.FocusEvent<HTMLInputElement>) => {        
         setFocused(true);
         setSelectedFood(null)
-        fetchLunchFoods();
+        mergeAndSetFoods();
     };
 
     const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -90,11 +129,58 @@ export default function LunchList() {
 
     const calculateNutrients = (amount: number, unit: string) => {
         if (!selectedFood) return;
-
-        // Extract the serving size in grams from the serving size string
-        const servingSizeInGrams = parseFloat(selectedFood.servingSize.match(/(\d+(\.\d+)?)g/)[1]);
-        const multiplier = unit === "grams" ? amount / servingSizeInGrams : (amount * 28.35) / servingSizeInGrams;
-
+    
+        const servingSize = selectedFood.servingSize;
+        let servingSizeInGrams: number | undefined;
+    
+        // Regular expressions to match serving size formats
+        const regexGrams = /\((\d+(\.\d+)?)g\)/; // Matches "(number.g)"
+        const regexOunces = /(\d+(\.\d+)?)\s*oz/; // Matches "number oz"
+        const regexCup = /(\d+(\.\d+)?)\s*cup/; // Matches "number cup"
+        const regexMedium = /(\d+(\.\d+)?)\s*medium/; // Matches "number medium"
+        const regexSlice = /(\d+(\.\d+)?)\s*slice/; // Matches "number slice"
+    
+        // Attempt to match different serving size formats and assign serving size in grams
+        if (regexGrams.test(servingSize)) {
+            servingSizeInGrams = parseFloat(servingSize.match(regexGrams)![1]);
+        } else if (regexOunces.test(servingSize)) {
+            const ounces = parseFloat(servingSize.match(regexOunces)![1]);
+            servingSizeInGrams = ounces * 28.35; // Convert ounces to grams
+        } else if (regexCup.test(servingSize)) {
+            const cups = parseFloat(servingSize.match(regexCup)![1]);
+            servingSizeInGrams = cups * 128; // Approximate grams in a cup
+        } else if (regexMedium.test(servingSize)) {
+            const medium = parseFloat(servingSize.match(regexMedium)![1]);
+            servingSizeInGrams = medium * 131; // Approximate grams for a medium size
+        } else if (regexSlice.test(servingSize)) {
+            const slice = parseFloat(servingSize.match(regexSlice)![1]);
+            servingSizeInGrams = slice * 25; // Approximate grams for a slice
+        } else {
+            console.error("Serving size format is invalid or doesn't match selected unit:", servingSize, unit);
+            return; // Handle the error case here if needed
+        }
+    
+        // Calculate multiplier based on selected unit
+        let multiplier: number;
+        if (unit === "grams") {
+            multiplier = amount / servingSizeInGrams;
+        } else if (unit === "oz") {
+            multiplier = amount * 28.35 / servingSizeInGrams; // Convert amount to grams and calculate
+        } else if (unit === "cup") {
+            multiplier = amount * 128 / servingSizeInGrams; // Convert amount to grams and calculate
+        } else if (unit === "medium" && regexMedium.test(servingSize)) {
+            // Handle the case where serving size is in medium and regex matches
+            const medium = parseFloat(servingSize.match(regexMedium)![1]);
+            multiplier = amount * medium / servingSizeInGrams;
+        } else if (unit === "slice" && regexSlice.test(servingSize)) {
+            // Handle the case where serving size is in slice and regex matches
+            const slice = parseFloat(servingSize.match(regexSlice)![1]);
+            multiplier = amount * slice / servingSizeInGrams;
+        } else {
+            console.error("Selected unit is not recognized or does not match serving size:", unit, servingSize);
+            return; // Handle the error case here if needed
+        }
+    
         // Calculate nutrients based on the multiplier
         const calculatedNutrients: any = {
             calories: (selectedFood.calories * multiplier) || 0,
@@ -102,19 +188,22 @@ export default function LunchList() {
             carbs: (selectedFood.carbs * multiplier) || 0,
             protein: (selectedFood.protein * multiplier) || 0,
             sodium: (selectedFood.sodium * multiplier) || 0,
-            transFat: (selectedFood?.['trans fat'] * multiplier) || 0,
-            satFat: (selectedFood?.['sat fat'] * multiplier) || 0,
+            transFat: (selectedFood.transFat * multiplier) || 0,
+            satFat: (selectedFood.satFat * multiplier) || 0,
             calcium: (selectedFood.calcium * multiplier) || 0,
             fiber: (selectedFood.fiber * multiplier) || 0,
         };
-
+    
         // Convert all calculated values to fixed decimals and ensure they are not NaN
         for (const key in calculatedNutrients) {
             calculatedNutrients[key] = isNaN(calculatedNutrients[key]) ? 0 : parseFloat(calculatedNutrients[key].toFixed(1));
         }
-
-        setNutrients(calculatedNutrients);
+    
+        setNutrients(calculatedNutrients); // Update state with calculated nutrients
     };
+    
+    
+    
 
     const fetchLunchLogs = async () => {
         await axios.get('/api/getLunchLogs').then((res: any) => {
@@ -198,6 +287,7 @@ export default function LunchList() {
                                 className="block py-2 px-4 w-[36%] text-sm text-gray-900 bg-transparent border-2 border-gray-300 rounded-md appearance-none dark:text-white dark:border-gray-600 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer"
                                 placeholder="Amount"
                                 required
+                                value={unit}
                                 onChange={handleAmountChange}
                             />
                             <select
@@ -205,6 +295,9 @@ export default function LunchList() {
                                 required
                                 onChange={handleUnitChange}
                             >
+                                {selectedFood && selectedFood.servingSize.includes('medium') && <option value="medium">medium</option>}
+                                {selectedFood && selectedFood.servingSize.includes('slice') && <option value="slice">slice</option>}
+                                {selectedFood && selectedFood.servingSize.includes('cup') && <option value="cup">cup</option>}
                                 <option value="grams">grams</option>
                                 <option value="oz">oz</option>
                             </select>
