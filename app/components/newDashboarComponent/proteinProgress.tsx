@@ -1,6 +1,8 @@
+'use client';
 import { RootState } from '@/app/store'
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { motion } from 'framer-motion';
 
 export default function ProteinProgress() {
 
@@ -30,13 +32,19 @@ export default function ProteinProgress() {
             </div>
         </div>
 
-        <div className='w-full h-5 bg-indigo-50 rounded-lg '>
-            <div className='h-full bg-indigo-400 rounded-lg' style={{ width: `${proteinPercentage}%` }}></div>
-        </div>
+        <div className='w-full h-5 bg-indigo-50 rounded-lg overflow-hidden'>
+        <motion.div
+          initial={false}
+          animate={{ width: `${proteinPercentage}%` }}
+          transition={{ duration: 0.5, ease: 'easeInOut' }}
+          className='h-full bg-indigo-400 rounded-lg'
+          style={{ width: `${proteinPercentage}%`}}
+        />
+      </div>
 
         <div className='flex w-full justify-between items-center'>
             <span>{Math.round(grams?.proteinGrams)}g</span>
-            <span>left {proteinLeft} g</span>
+            <span>left {Math.round(proteinLeft)} g</span>
         </div>
 
     </div>
