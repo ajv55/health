@@ -14,7 +14,10 @@ interface LogState  {
     userDinnerLogs?: [],
     userSnackLogs?: [],
     optionsModal?: boolean,
-    stepsModal?: boolean 
+    stepsModal?: boolean,
+    todaysSteps?: number,
+    totals?: any, 
+    grams?: any,
 }
 
 const initialState: LogState = {
@@ -31,7 +34,10 @@ const initialState: LogState = {
     userDinnerLogs: [],
     userSnackLogs: [],
     optionsModal: false,
-    stepsModal: false
+    stepsModal: false,
+    todaysSteps: 0,
+    totals: { calories: 0, fat: 0, protein: 0, carbs: 0 },
+    grams: {proteinGrams: 0, carbGrams: 0, fatGrams: 0}
 }
 
 export const logSlice = createSlice({
@@ -85,10 +91,19 @@ export const logSlice = createSlice({
         },
         setStepsModal: (state, action) => {
             state.stepsModal = action.payload
+        },
+        setTodaysSteps: (state, action) => {
+            state.todaysSteps = action.payload
+        },
+        setTotals: (state, action) => {
+            state.totals = action.payload
+        },
+        setGrams: (state, action) => {
+            state.grams = action.payload
         }
     }
 })
 
-export const {setLogModal, setBreakfastModal, setDinnerModal, setLunchModal, setSnackModal, setIsFocused, setIsFocusedOn, setMeal, resetModals, setUserMealLogs, setOptionsModal, setLunchLog, setDinnerLog, setSnackLog, setStepsModal } = logSlice.actions;
+export const {setLogModal, setBreakfastModal, setDinnerModal, setLunchModal, setSnackModal, setIsFocused, setIsFocusedOn, setMeal, resetModals, setUserMealLogs, setOptionsModal, setLunchLog, setDinnerLog, setSnackLog, setStepsModal, setTodaysSteps, setTotals, setGrams } = logSlice.actions;
 
 export default logSlice.reducer;

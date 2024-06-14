@@ -9,14 +9,18 @@ import Water from '../components/dashboardComponents/water';
 import DashHeader from '../components/dashboardComponents/dashHeader';
 import Maintenance from '../components/dashboardComponents/maintenance';
 import Information from '../components/dashboardComponents/infomation';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { resetModals } from '../slices/logSlice';
+import LogDailySteps from '../components/newDashboarComponent/loggingSteps';
+import { RootState } from '../store';
+import { AnimatePresence } from 'framer-motion';
 
 export default  function Page() {
 
   const {data: session, status ,update} = useSession();
   const router = useRouter();
   const dispatch = useDispatch();
+  const stepsModal = useSelector((state: RootState) => state.log.stepsModal);
 
 
   if(status === 'unauthenticated') {
@@ -110,7 +114,9 @@ export default  function Page() {
 
 useEffect(() => {
   dispatch(resetModals());
-}, [])
+}, []);
+
+
 
 
   
@@ -118,6 +124,7 @@ useEffect(() => {
   return (
     <div className='overflow-scroll w-full  h-screen flex flex-col  justify-start p-3 items-start'>
       <Information />
+      <AnimatePresence>{stepsModal && <LogDailySteps />}</AnimatePresence>
       {/* <div className='flex lg:flex-row flex-col justify-between items-center'>
         <Welcome />
         <div className='lg:w-[69%] w-full mt-10 lg:mt-0 flex gap-5 lg:h-screen h-content flex-wrap  justify-evenly items-start'>

@@ -1,5 +1,5 @@
 'use client';
-import { setUserMealLogs, setLunchLog, setDinnerLog, setSnackLog } from "@/app/slices/logSlice";
+import { setUserMealLogs, setLunchLog, setDinnerLog, setSnackLog, setTotals } from "@/app/slices/logSlice";
 import { RootState } from "@/app/store";
 import axios, { all } from "axios";
 import { useSession } from "next-auth/react";
@@ -49,7 +49,9 @@ const fetchSnackLogs = async () => {
   const lunchLogs = useSelector((state: RootState) => state.log.userLunchLogs);
   const dinnerLogs = useSelector((state: RootState) => state.log.userDinnerLogs);
   const snackLogs = useSelector((state: RootState) => state.log.userMealLogs);
+  const total = useSelector((state: RootState) => state.log.totals);
   const [totalCalories, setTotalCalories] = useState(0);
+
 
  useEffect(() => {
   fetchMealLogs();
@@ -61,8 +63,19 @@ const fetchSnackLogs = async () => {
   useEffect(() => {
    
 
-    function calculateTotalCalories(logs: any) {
-      return logs.reduce((total: any, log: any) => total + (log.calories || 0), 0);
+    function calculateTotalNutrients(logs: any) {
+      return logs.reduce((totals: any, log: any) => {
+        totals.calories += log.calories || 0;
+        totals.fat += log.fat || 0;
+        totals.protein += log.protein || 0;
+        totals.carbs += log.carbs || 0;
+        return totals;
+      }, {
+        calories: 0,
+        fat: 0,
+        protein: 0,
+        carbs: 0
+      });
     }
 
     // Combine all logs into one array
@@ -73,18 +86,17 @@ const fetchSnackLogs = async () => {
 
     console.log('all log: ', uniqueLogs)
     // Calculate total calories from combined logs
-    const total = calculateTotalCalories(uniqueLogs);
-    console.log('total: ', total)
-    setTotalCalories(total);
-  }, [breakfastLogs, lunchLogs, dinnerLogs, snackLogs]);
+    const totalNutrients = calculateTotalNutrients(allLogs);
+    dispatch(setTotals(totalNutrients));
+  }, [breakfastLogs, lunchLogs, dinnerLogs, snackLogs, dispatch]);
 
   const maintenanceCalories = Number(userCalories) || 0;
-  const caloriesLeft = maintenanceCalories - totalCalories;
+  const caloriesLeft = maintenanceCalories - total?.calories;
 
-  console.log(breakfastLogs)
+  console.log(total)
 
   const circumference = 2 * Math.PI * 120;
-  const progress = Math.max(0, Math.min(1, totalCalories / maintenanceCalories));
+  const progress = Math.max(0, Math.min(1, total?.calories / maintenanceCalories));
   const offset = circumference - progress * circumference;
   
   console.log(Math.round(circumference))
@@ -113,7 +125,7 @@ const fetchSnackLogs = async () => {
         />
       </svg>
       <div className="absolute flex flex-col justify-center items-center gap-2 text-xl font-bold">
-        <span className="text-3xl text-indigo-600 font-light">{Math.round(totalCalories)}</span>
+        <span className="text-3xl text-indigo-600 font-light">{Math.round(total.calories)}</span>
         <span className="text-xl text-gray-400 font-extralight">Calories Left</span>
         <span className="text-xl text-gray-500 font-light">{Math.round(caloriesLeft)}</span>
       </div>

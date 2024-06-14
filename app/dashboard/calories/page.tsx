@@ -22,6 +22,8 @@ import axios from 'axios';
 import LunchLog from '@/app/components/newDashboarComponent/lunchLog';
 import DinnerLog from '@/app/components/newDashboarComponent/dinnerLogs';
 import SnackLog from '@/app/components/newDashboarComponent/snackLogs';
+import LogDailySteps from '@/app/components/newDashboarComponent/loggingSteps';
+import { AnimatePresence } from 'framer-motion';
 
 
 export default function Page() {
@@ -118,7 +120,7 @@ useEffect(() => {
 
 
   return (
-    <div className='w-full h-content flex flex-col justify-start items-center gap-8 overflow-scroll'>
+    <div className='w-full h-content  flex flex-col justify-start items-center gap-8 overflow-scroll'>
             <div className='w-[90%] h-[43rem] rounded-md mt-8 drop-shadow-2xl'>
                 {/* First heading section */}
                 <div className='w-full h-16  bg-slate-50 rounded-t-md p-2 flex justify-between items-center'>
