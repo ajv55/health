@@ -129,8 +129,8 @@ useEffect(() => {
                         <span className='text-xs hover:text-indigo-600 hover:cursor-pointer text-indigo-400 self-end font-bold'>Consumed food, amount</span>
                     </div>
                     <div className='w-[67%]  flex justify-evenly items-center'>
-                        {["Calories", "Protein", "Carbs", "Fat", "Sat. Fat", "Trans Fat", "Fiber", "Sodium", "Calcium"].map((item, index) => (
-                            <span key={index} className='text-xs hover:text-indigo-600 hover:cursor-pointer text-indigo-400 font-bold'>{item}</span>
+                        {["Calories", "Protein g", "Carbs g", "Fat g", "Sat. Fat g", "Trans. Fat g", "Fiber g", "Sodium mg", "Calcium %"].map((item, index) => (
+                            <span key={index} className='text-md  w-32 flex justify-center items-center  hover:text-indigo-600 hover:cursor-pointer text-indigo-400 font-bold'>{item}</span>
                         ))}
                     </div>
                 </div>

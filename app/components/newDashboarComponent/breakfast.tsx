@@ -28,6 +28,7 @@ export default function Breakfast() {
     const dispatch = useDispatch();
     const [pressed, setPressed] = useState<boolean>(false);
     const [totals, setTotals] = useState<TotalState>({});
+    const [isLoading, setIsLoading] = useState(false);
 
     function safeAdd(value: any) {
         return isNaN(value) || value === null ? 0 : value;
@@ -59,7 +60,7 @@ export default function Breakfast() {
       }
 
 
-    const amounts = [`${totals?.calories}`, `${totals?.protein?.toFixed(2)}g`, `${totals?.carbs?.toFixed(2)}g`, `${totals?.fat?.toFixed(2)}g`, `${totals?.satFat?.toFixed(2)}g`, `${totals?.transFat?.toFixed(2)}g`, `${totals?.fiber?.toFixed(2)}g`, `${totals?.calcium?.toFixed(2)}mg`, `${totals?.sodium?.toFixed(2)}%`];
+    const amounts = [`${totals?.calories === undefined ? 0 : Math.round(totals?.calories)}`, `${totals?.protein?.toFixed(2) === undefined ? 0 : totals.protein.toFixed(2)}`, `${totals?.carbs?.toFixed(2) === undefined ? 0 : totals.carbs.toFixed(2) }`, `${totals?.fat?.toFixed(2) === undefined ? 0 : totals?.fat?.toFixed(2)}`, `${totals?.satFat?.toFixed(2) === undefined ? 0 : totals?.satFat?.toFixed(2)}`, `${totals?.transFat?.toFixed(2) === undefined ? 0 : totals?.transFat?.toFixed(2)}`, `${totals?.fiber?.toFixed(2) === undefined ? 0 : totals?.fiber?.toFixed(2)}`, `${totals?.calcium?.toFixed(2) === undefined ? 0 : totals?.calcium?.toFixed(2)}`, `${totals?.sodium?.toFixed(2) ? 0 : totals?.sodium?.toFixed(2)}`];
 
     useEffect(() => {
         console.log(meal)
@@ -96,9 +97,9 @@ export default function Breakfast() {
                     <h1 className='text-xl font-medium tracking-wider leading-5'>Breakfast</h1>
                     <button className='text-indigo-600 self-end text-lg tracking-wide font-bold'>ADD</button>
                 </div>
-                <div className='w-[67%]  flex justify-evenly items-center'>
+                <div className='w-[67%]   flex justify-evenly  items-center'>
                     {amounts.map((value, index) => (
-                        <span key={index} className='text-md hover:text-indigo-600 hover:cursor-pointer text-indigo-400 font-bold'>{value}</span>
+                        <span key={index} className='text-lg   w-32 flex justify-center items-center hover:text-indigo-600 hover:cursor-pointer text-indigo-400 font-bold'>{value}</span>
                     ))}
                 </div>
             </div>

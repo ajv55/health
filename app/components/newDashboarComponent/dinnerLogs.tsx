@@ -32,7 +32,7 @@ export default function DinnerLog({name, carbs, calories, fat, protein, transFat
     const dispatch = useDispatch();
     console.log(dinnerLog)
 
-    const amounts = [Math.round(calories!), `${protein}g`, `${carbs}g`, `${fat}g`, `${satFat}g`, `${transFat === null ?  0 : transFat} g`, `${fiber}g`, `${sodium}mg`, `${calcium}%`];
+    const amounts = [Math.round(calories!), `${protein}`, `${carbs}`, `${fat}`, `${satFat}`, `${transFat === null ?  0 : transFat} `, `${fiber}`, `${sodium}`, `${calcium}`];
 
   return (
     <div className='w-full group hover:bg-indigo-300 hover:bg-opacity-45 hover:text-indigo-600 hover:cursor-pointer h-14 flex justify-start gap-5 items-center bg-slate-100'>
@@ -44,9 +44,9 @@ export default function DinnerLog({name, carbs, calories, fat, protein, transFat
             </div>
             
         </div>
-            <div className='w-[67%]  flex justify-evenly items-center'>
+            <div className='w-[66%] mr-2   flex justify-evenly items-center'>
                 {amounts.map((value, index) => (
-                    <span key={index} className={`text-md  text-indigo-400 hover:text-indigo-600 hover:cursor-pointer font-bold`}>{value}</span>
+                    <span key={index} className={`text-md  w-32 flex justify-center items-center text-indigo-400 hover:text-indigo-600 hover:cursor-pointer font-bold`}>{value}</span>
                 ))}
             </div>
     </div>
