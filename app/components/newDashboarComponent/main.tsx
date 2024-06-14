@@ -24,7 +24,7 @@ export default function Main() {
         {modalTrue && <div className='w-[20%] absolute -bottom-2 -left-3 h-4 rounded-md bg-black bg-opacity-30 flex justify-center items-center'><p className='text-xs text-white font-thin'>Click here to start logging.</p></div>}
         {moreDetailModal && <div className='w-[20%] absolute -bottom-2 -right-3 h-4 rounded-md bg-black bg-opacity-30 flex justify-center items-center'><p className='text-xs text-white font-thin'>Click for more Diet Info.</p></div>}
         <AnimatePresence>{logModal && <LogMenu />}</AnimatePresence>
-        <div onClick={() => dispatch(setLogModal(true)) } onMouseLeave={() => setModalTrue(false)} onMouseOver={() => setModalTrue(true)}  className='bg-indigo-600 hover:bg-indigo-800 cursor-pointer shadow-sm shadow-zinc-500 bg-opacity-86 w-[65px] h-14 flex justify-center items-center rounded-full'>
+        <div onClick={() => dispatch(setLogModal(true)) } onMouseLeave={() => setModalTrue(false)} onMouseOver={() => setModalTrue(true)}  className='bg-indigo-600 hover:bg-indigo-800 cursor-pointer drop-shadow-xl bg-opacity-86 lg:w-[68px] xl:w-[65px] w-[64px] h-14 flex justify-center items-center rounded-full'>
           <FaPlus className=' text-white' size={27} />
         </div>
         <div className='flex flex-col w-full justify-end  items-center'>
