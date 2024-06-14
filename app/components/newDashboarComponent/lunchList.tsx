@@ -139,6 +139,7 @@ export default function LunchList() {
         const regexCup = /(\d+(\.\d+)?)\s*cup/; // Matches "number cup"
         const regexMedium = /(\d+(\.\d+)?)\s*medium/; // Matches "number medium"
         const regexSlice = /(\d+(\.\d+)?)\s*slice/; // Matches "number slice"
+        const regexTablespoon = /(\d+(\.\d+)?)\s*tbsp/; // Matches "number tbsp"
     
         // Attempt to match different serving size formats and assign serving size in grams
         if (regexGrams.test(servingSize)) {
@@ -155,6 +156,9 @@ export default function LunchList() {
         } else if (regexSlice.test(servingSize)) {
             const slice = parseFloat(servingSize.match(regexSlice)![1]);
             servingSizeInGrams = slice * 25; // Approximate grams for a slice
+        } else if (regexTablespoon.test(servingSize)) {
+            const tbsp = parseFloat(servingSize.match(regexTablespoon)![1]);
+            servingSizeInGrams = tbsp * 14.3; // Approximate grams for a tablespoon
         } else {
             console.error("Serving size format is invalid or doesn't match selected unit:", servingSize, unit);
             return; // Handle the error case here if needed
@@ -168,16 +172,14 @@ export default function LunchList() {
             multiplier = amount * 28.35 / servingSizeInGrams; // Convert amount to grams and calculate
         } else if (unit === "cup") {
             multiplier = amount * 128 / servingSizeInGrams; // Convert amount to grams and calculate
-        } else if (unit === "medium" && regexMedium.test(servingSize)) {
-            // Handle the case where serving size is in medium and regex matches
-            const medium = parseFloat(servingSize.match(regexMedium)![1]);
-            multiplier = amount * medium / servingSizeInGrams;
-        } else if (unit === "slice" && regexSlice.test(servingSize)) {
-            // Handle the case where serving size is in slice and regex matches
-            const slice = parseFloat(servingSize.match(regexSlice)![1]);
-            multiplier = amount * slice / servingSizeInGrams;
+        } else if (unit === "medium") {
+            multiplier = amount / servingSizeInGrams; // No conversion needed as we're using the already converted grams for medium
+        } else if (unit === "slice") {
+            multiplier = amount / servingSizeInGrams; // No conversion needed as we're using the already converted grams for slice
+        } else if (unit === "tbsp") {
+            multiplier = amount * 14.3 / servingSizeInGrams; // Convert amount to grams and calculate
         } else {
-            console.error("Selected unit is not recognized or does not match serving size:", unit, servingSize);
+            console.error("Selected unit is not recognized:", unit);
             return; // Handle the error case here if needed
         }
     
@@ -201,6 +203,7 @@ export default function LunchList() {
     
         setNutrients(calculatedNutrients); // Update state with calculated nutrients
     };
+    
     
     
     
@@ -287,17 +290,19 @@ export default function LunchList() {
                                 className="block py-2 px-4 w-[36%] text-sm text-gray-900 bg-transparent border-2 border-gray-300 rounded-md appearance-none dark:text-white dark:border-gray-600 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer"
                                 placeholder="Amount"
                                 required
-                                value={unit}
+                                
                                 onChange={handleAmountChange}
                             />
                             <select
                                 className="block py-2 px-4 w-[36%] text-sm text-gray-900 bg-transparent border-2 border-gray-300 rounded-md appearance-none dark:text-white dark:border-gray-600 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer"
                                 required
+                                value={unit}
                                 onChange={handleUnitChange}
                             >
                                 {selectedFood && selectedFood.servingSize.includes('medium') && <option value="medium">medium</option>}
                                 {selectedFood && selectedFood.servingSize.includes('slice') && <option value="slice">slice</option>}
                                 {selectedFood && selectedFood.servingSize.includes('cup') && <option value="cup">cup</option>}
+                                {selectedFood && selectedFood.servingSize.includes('tbsp') && <option value="tbsp">tbsp</option>}
                                 <option value="grams">grams</option>
                                 <option value="oz">oz</option>
                             </select>
