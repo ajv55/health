@@ -140,6 +140,7 @@ export default function LunchList() {
         const regexMedium = /(\d+(\.\d+)?)\s*medium/; // Matches "number medium"
         const regexSlice = /(\d+(\.\d+)?)\s*slice/; // Matches "number slice"
         const regexTablespoon = /(\d+(\.\d+)?)\s*tbsp/; // Matches "number tbsp"
+        const regexCustom = /(\d+(\.\d+)?)\s*([a-zA-Z]+)\s*\((\d+(\.\d+)?)g\)/; // Matches "number custom_unit (number.g)"
     
         // Attempt to match different serving size formats and assign serving size in grams
         if (regexGrams.test(servingSize)) {
@@ -159,6 +160,11 @@ export default function LunchList() {
         } else if (regexTablespoon.test(servingSize)) {
             const tbsp = parseFloat(servingSize.match(regexTablespoon)![1]);
             servingSizeInGrams = tbsp * 14.3; // Approximate grams for a tablespoon
+        } else if (regexCustom.test(servingSize)) {
+            const match = servingSize.match(regexCustom);
+            if (match && match[3] === unit) {
+                servingSizeInGrams = parseFloat(match[4]);
+            }
         } else {
             console.error("Serving size format is invalid or doesn't match selected unit:", servingSize, unit);
             return; // Handle the error case here if needed
@@ -167,17 +173,19 @@ export default function LunchList() {
         // Calculate multiplier based on selected unit
         let multiplier: number;
         if (unit === "grams") {
-            multiplier = amount / servingSizeInGrams;
+            multiplier = amount / servingSizeInGrams!;
         } else if (unit === "oz") {
-            multiplier = amount * 28.35 / servingSizeInGrams; // Convert amount to grams and calculate
+            multiplier = amount * 28.35 / servingSizeInGrams!; // Convert amount to grams and calculate
         } else if (unit === "cup") {
-            multiplier = amount * 128 / servingSizeInGrams; // Convert amount to grams and calculate
+            multiplier = amount * 128 / servingSizeInGrams!; // Convert amount to grams and calculate
         } else if (unit === "medium") {
-            multiplier = amount / servingSizeInGrams; // No conversion needed as we're using the already converted grams for medium
+            multiplier = amount / servingSizeInGrams!; // No conversion needed as we're using the already converted grams for medium
         } else if (unit === "slice") {
-            multiplier = amount / servingSizeInGrams; // No conversion needed as we're using the already converted grams for slice
+            multiplier = amount / servingSizeInGrams!; // No conversion needed as we're using the already converted grams for slice
         } else if (unit === "tbsp") {
-            multiplier = amount * 14.3 / servingSizeInGrams; // Convert amount to grams and calculate
+            multiplier = amount * 14.3 / servingSizeInGrams!; // Convert amount to grams and calculate
+        } else if (unit === "egg" && regexCustom.test(servingSize)) {
+            multiplier = amount / servingSizeInGrams!; // Custom unit with specified grams
         } else {
             console.error("Selected unit is not recognized:", unit);
             return; // Handle the error case here if needed
@@ -203,6 +211,7 @@ export default function LunchList() {
     
         setNutrients(calculatedNutrients); // Update state with calculated nutrients
     };
+    
     
     
     

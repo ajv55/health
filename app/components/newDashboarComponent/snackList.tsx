@@ -209,6 +209,7 @@ export default function SnackList() {
                             <select
                                 className="block py-2 px-4 w-[36%] text-sm text-gray-900 bg-transparent border-2 border-gray-300 rounded-md appearance-none dark:text-white dark:border-gray-600 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer"
                                 required
+                                value={unit}
                                 onChange={handleUnitChange}
                             >
                                 <option value="grams">grams</option>
