@@ -109,23 +109,23 @@ export default function LogProgress() {
 
   return (
     <motion.div
-    className='w-[90%] h-[45rem] flex justify-start  items-center bg-gradient-to-br from-indigo-100 via-slate-200 to-indigo-100 rounded-xl mb-8'
+    className='w-[90%] h-[45rem] flex justify-start  items-center bg-white rounded-xl mb-8'
     initial={{ y: '100vh', opacity: 0 }}
     animate={{ y: 0, opacity: 1 }}
     exit={{ y: '100vh', opacity: 0 }}
     transition={{ type: 'spring', stiffness: 50, damping: 20 }}
     >
-    <div className=' border-red-600 w-[28%] h-full'>
+    <div className=' w-[28%] h-full'>
        <ProgressBar />
     </div>
 
-    <div className='w-[24%] flex flex-col border-red-600 h-full  '>
+    <div className='w-[23%] flex flex-col  h-full  '>
             <LogProtein />
             <LogCarb />
             <LogFat />
         </div>
 
-    <div className='border border-purple-500 w-[38%] h-full '>
+    <div className=' w-[50%] h-full '>
         <NutritionComponent />
     </div>
     </motion.div>
