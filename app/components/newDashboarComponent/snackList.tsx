@@ -96,11 +96,95 @@ export default function SnackList() {
 
     const calculateNutrients = (amount: number, unit: string) => {
         if (!selectedFood) return;
+    
+        const servingSize = selectedFood.servingSize;
+        const item = selectedFood.name
+        let servingSizeInGrams: number | undefined;
 
-        // Extract the serving size in grams from the serving size string
-        const servingSizeInGrams = parseFloat(selectedFood.servingSize.match(/(\d+(\.\d+)?)g/)[1]);
-        const multiplier = unit === "grams" ? amount / servingSizeInGrams : (amount * 28.35) / servingSizeInGrams;
-
+        console.log(item)
+    
+        // Regular expressions to match serving size formats
+        const regexGrams = /\((\d+(\.\d+)?)g\)/; // Matches "(number.g)"
+        const regexOunces = /(\d+(\.\d+)?)\s*oz/; // Matches "number oz"
+        const regexCup = /(\d+(\.\d+)?)\s*cup/; // Matches "number cup"
+        const regexMedium = /(\d+(\.\d+)?)\s*medium/; // Matches "number medium"
+        const regexSlice = /(\d+(\.\d+)?)\s*slice/; // Matches "number slice"
+        const regexTablespoon = /(\d+(\.\d+)?)\s*tbsp/; // Matches "number tbsp"
+        const regexCustom = /(\d+(\.\d+)?)\s*([a-zA-Z]+)\s*\((\d+(\.\d+)?)g\)/; // Matches "number custom_unit (number.g)"
+    
+        // Unit to gram conversion map
+        const unitToGramMap: { [key: string]: number } = {
+            "cup": 128,
+            "medium": 131,
+            "slice": 25,
+            "tbsp": 14.3,
+            "egg": 50,
+            "patty": 25,
+            "link": 45,
+            "container": 170,
+            "pancake": 35,
+            "bagel": 105,
+            "muffin": 57,
+            "croissant": 67,
+            "avocado": 100,
+            "waffle": 35,
+            "tablespoon": 16,
+            "egg white": 33,
+            "egg yolk": 18,
+            "bar": item === 'Granola Bar' ? 24 : 60,
+            "piece": 28,
+            "cake": 9,
+            "cookie": 20,
+            "small box": 43,
+            "crackers": 30,
+            "olives": 15,
+            "spear": 35,
+            "large egg": 50,
+            "carrots": item === 'Baby Carrots' ? 85 : 34 ,
+            // Add more custom units here as needed
+        };
+    
+        // Attempt to match different serving size formats and assign serving size in grams
+        if (regexGrams.test(servingSize)) {
+            servingSizeInGrams = parseFloat(servingSize.match(regexGrams)![1]);
+        } else if (regexOunces.test(servingSize)) {
+            const ounces = parseFloat(servingSize.match(regexOunces)![1]);
+            servingSizeInGrams = ounces * 28.35; // Convert ounces to grams
+        } else if (regexCup.test(servingSize)) {
+            const cups = parseFloat(servingSize.match(regexCup)![1]);
+            servingSizeInGrams = cups * unitToGramMap["cup"];
+        } else if (regexMedium.test(servingSize)) {
+            const medium = parseFloat(servingSize.match(regexMedium)![1]);
+            servingSizeInGrams = medium * unitToGramMap["medium"];
+        } else if (regexSlice.test(servingSize)) {
+            const slice = parseFloat(servingSize.match(regexSlice)![1]);
+            servingSizeInGrams = slice * unitToGramMap["slice"];
+        } else if (regexTablespoon.test(servingSize)) {
+            const tbsp = parseFloat(servingSize.match(regexTablespoon)![1]);
+            servingSizeInGrams = tbsp * unitToGramMap["tbsp"];
+        } else if (regexCustom.test(servingSize)) {
+            const match = servingSize.match(regexCustom);
+            if (match) {
+                servingSizeInGrams = parseFloat(match[4]);
+            }
+        } else {
+            console.error("Serving size format is invalid:", servingSize);
+            return; // Handle the error case here if needed
+        }
+    
+        // Calculate multiplier based on selected unit
+        let multiplier: number;
+        if (unit === "grams") {
+            multiplier = amount / servingSizeInGrams!;
+        } else if (unit === "oz") {
+            multiplier = amount * 28.35 / servingSizeInGrams!; // Convert amount to grams and calculate
+        } else if (unitToGramMap[unit]) {
+            multiplier = amount * unitToGramMap[unit] / servingSizeInGrams!; // Use the map to get the gram value
+        } else {
+            console.error("Selected unit is not recognized:", unit);
+            return; // Handle the error case here if needed
+        }
+    
         // Calculate nutrients based on the multiplier
         const calculatedNutrients: any = {
             calories: (selectedFood.calories * multiplier) || 0,
@@ -108,18 +192,18 @@ export default function SnackList() {
             carbs: (selectedFood.carbs * multiplier) || 0,
             protein: (selectedFood.protein * multiplier) || 0,
             sodium: (selectedFood.sodium * multiplier) || 0,
-            transFat: (selectedFood?.['trans fat'] * multiplier) || 0,
-            satFat: (selectedFood?.['sat fat'] * multiplier) || 0,
+            transFat: (selectedFood.transFat * multiplier) || 0,
+            satFat: (selectedFood.satFat * multiplier) || 0,
             calcium: (selectedFood.calcium * multiplier) || 0,
             fiber: (selectedFood.fiber * multiplier) || 0,
         };
-
+    
         // Convert all calculated values to fixed decimals and ensure they are not NaN
         for (const key in calculatedNutrients) {
             calculatedNutrients[key] = isNaN(calculatedNutrients[key]) ? 0 : parseFloat(calculatedNutrients[key].toFixed(1));
         }
-
-        setNutrients(calculatedNutrients);
+    
+        setNutrients(calculatedNutrients); // Update state with calculated nutrients
     };
 
     const fetchSnackLogs = async () => {
@@ -212,6 +296,19 @@ export default function SnackList() {
                                 value={unit}
                                 onChange={handleUnitChange}
                             >
+                                {selectedFood && selectedFood.servingSize.includes('medium') && <option value="medium">medium</option>}
+                                {selectedFood && selectedFood.servingSize.includes('slice') && <option value="slice">slice</option>}
+                                {selectedFood && selectedFood.servingSize.includes('bar') && <option value="bar">bar</option>}
+                                {selectedFood && selectedFood.servingSize.includes('piece') && <option value="piece">piece</option>}
+                                {selectedFood && selectedFood.servingSize.includes('cake') && <option value="cake">cake</option>}
+                                {selectedFood && selectedFood.servingSize.includes('cookie') && <option value="cookie">cookie</option>}
+                                {selectedFood && selectedFood.servingSize.includes('small box') && <option value="small box">small box</option>}
+                                {selectedFood && selectedFood.servingSize.includes('crackers') && <option value="crackers">crackers</option>}
+                                {selectedFood && selectedFood.servingSize.includes('olives') && <option value="olives">5 olives</option>}
+                                {selectedFood && selectedFood.servingSize.includes('spear') && <option value="spear">spear</option>}
+                                {selectedFood && selectedFood.servingSize.includes('large egg') && <option value="large egg ">1 large egg </option>}
+                                
+                                
                                 <option value="grams">grams</option>
                                 <option value="oz">oz</option>
                             </select>

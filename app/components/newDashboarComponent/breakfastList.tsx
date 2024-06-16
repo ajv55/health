@@ -126,7 +126,11 @@ export default function BreakfastList() {
             "bagel": 105,
             "muffin": 57,
             "croissant": 67,
-            "avocado": 100
+            "avocado": 100,
+            "waffle": 35,
+            "tablespoon": 16,
+            "egg white": 33,
+            "egg yolk": 18
             // Add more custom units here as needed
         };
     
@@ -294,6 +298,10 @@ export default function BreakfastList() {
                                 {selectedFood && selectedFood.servingSize.includes('muffin') && <option value="muffin">muffin</option>}
                                 {selectedFood && selectedFood.servingSize.includes('croissant') && <option value="croissant">croissant</option>}
                                 {selectedFood && selectedFood.servingSize.includes('avocado') && <option value="avocado">avocado</option>}
+                                {selectedFood && selectedFood.servingSize.includes('waffle') && <option value="waffle">waffle</option>}
+                                {selectedFood && selectedFood.servingSize.includes('tablespoon') && <option value="tablespoon">tablespoon</option>}
+                                {selectedFood && selectedFood.servingSize.includes('egg white') && <option value="egg white">egg white</option>}
+                                {selectedFood && selectedFood.servingSize.includes('egg yolk') && <option value="egg yolk">egg yolk</option>}
                                 <option value="grams">grams</option>
                                 <option value="oz">oz</option>
                             </select>

@@ -24,21 +24,45 @@ export default function Infomation() {
   const dispatch = useDispatch();
   const grams = useSelector((state: RootState) => state?.log?.grams);
 
-  const calculateMacros = (maintenanceCalories: any) => {
+  const calculateMacros = (maintenanceCalories: number) => {
+    // Calculate macronutrient calories
     const proteinCalories = maintenanceCalories * 0.3;
     const carbCalories = maintenanceCalories * 0.4;
     const fatCalories = maintenanceCalories * 0.3;
-  
+
+    // Convert macronutrient calories to grams
     const proteinGrams = proteinCalories / 4;
     const carbGrams = carbCalories / 4;
     const fatGrams = fatCalories / 9;
-  
+
+    // Calculate saturated fat calories (10% of total calories) and convert to grams
+    const satFatCalories = maintenanceCalories * 0.1;
+    const satFatGrams = satFatCalories / 9;
+
+    // Trans fat grams (recommended to be as low as possible, here we set a small value)
+    const transFatGrams = 0;  // Ideally zero
+
+    // Sodium in mg (standard recommendation)
+    const sodiumMg = 2300;
+
+    // Calcium in mg (standard recommendation)
+    const calciumMg = 1000;
+
+    // Fiber in grams (average between recommendations for men and women)
+    const fiberGrams = (25 + 38) / 2;
+
     return {
-      proteinGrams,
-      carbGrams,
-      fatGrams
+        proteinGrams,
+        carbGrams,
+        fatGrams,
+        satFatGrams,
+        transFatGrams,
+        sodiumMg,
+        calciumMg,
+        fiberGrams
     };
-  };
+};
+
   
 
   useEffect(() => {

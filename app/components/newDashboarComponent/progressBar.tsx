@@ -50,7 +50,6 @@ const fetchSnackLogs = async () => {
   const dinnerLogs = useSelector((state: RootState) => state.log.userDinnerLogs);
   const snackLogs = useSelector((state: RootState) => state.log.userMealLogs);
   const total = useSelector((state: RootState) => state.log.totals);
-  const [totalCalories, setTotalCalories] = useState(0);
 
 
  useEffect(() => {
@@ -65,18 +64,29 @@ const fetchSnackLogs = async () => {
 
     function calculateTotalNutrients(logs: any) {
       return logs.reduce((totals: any, log: any) => {
-        totals.calories += log.calories || 0;
-        totals.fat += log.fat || 0;
-        totals.protein += log.protein || 0;
-        totals.carbs += log.carbs || 0;
+        totals.calories += (log.calories || 0);
+        totals.fat += (log.fat || 0);
+        totals.protein += (log.protein || 0);
+        totals.carbs += (log.carbs || 0);
+        totals.sodium += (log.sodium || 0);
+        totals.transFat += (log.transFat || 0);
+        totals.satFat += (log.satFat || 0);
+        totals.calcium += (log.calcium || 0);
+        totals.fiber += (log.fiber || 0);
         return totals;
       }, {
         calories: 0,
         fat: 0,
         protein: 0,
-        carbs: 0
+        carbs: 0,
+        sodium: 0,
+        transFat: 0,
+        satFat: 0,
+        calcium: 0,
+        fiber: 0
       });
     }
+    
 
     // Combine all logs into one array
     const allLogs = [...breakfastLogs!, ...lunchLogs!, ...dinnerLogs!, ...snackLogs!];
@@ -99,7 +109,7 @@ const fetchSnackLogs = async () => {
   const progress = Math.max(0, Math.min(1, total?.calories / maintenanceCalories));
   const offset = circumference - progress * circumference;
   
-  console.log(Math.round(circumference))
+  console.log(breakfastLogs)
 
   return (
     <div className="relative flex  items-center justify-center w-full h-full">
