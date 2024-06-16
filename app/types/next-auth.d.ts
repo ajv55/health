@@ -20,6 +20,7 @@ declare module "next-auth" {
       isActive?: boolean,
       stripeCustomerId?: string,
       subscriptionId?: string,
+      goal?: string,
     }
   }
 }

@@ -95,7 +95,8 @@ export const authOptions: NextAuthOptions = {
                 isActive: user?.isActive,
                 stripeCustomerId: user?.stripeCustomerId,
                 password: user?.hashedPassword,
-                subscriptionId: user?.subscriptionId
+                subscriptionId: user?.subscriptionId,
+                goal: user?.goal
 
 
             }
@@ -136,7 +137,8 @@ export const authOptions: NextAuthOptions = {
                    isActive: token?.isActive,
                    password: token?.password,
                    stripeCustomerId: token?.stripeCustomerId,
-                   subscriptionId: token?.subscriptionId
+                   subscriptionId: token?.subscriptionId,
+                   goal: token?.goal
                 }
             };
 

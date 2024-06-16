@@ -14,6 +14,7 @@ import { resetModals } from '../slices/logSlice';
 import LogDailySteps from '../components/newDashboarComponent/loggingSteps';
 import { RootState } from '../store';
 import { AnimatePresence } from 'framer-motion';
+import WeightTracker from '../components/newDashboarComponent/weightTracker';
 
 export default  function Page() {
 
@@ -122,8 +123,9 @@ useEffect(() => {
   
 
   return (
-    <div className='overflow-scroll w-full  h-screen flex flex-col  justify-start p-3 items-start'>
+    <div className='overflow-scroll w-full  h-screen flex lg:flex-row justify-start p-3 items-start'>
       <Information />
+      <WeightTracker />
       <AnimatePresence>{stepsModal && <LogDailySteps />}</AnimatePresence>
       {/* <div className='flex lg:flex-row flex-col justify-between items-center'>
         <Welcome />
