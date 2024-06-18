@@ -82,6 +82,8 @@ export const authOptions: NextAuthOptions = {
 
            // passing in user id, calories, height, weight, age, and gender to token
            if(user) {
+
+            console.log(user)
          
             return {
                 ...token, 
@@ -96,7 +98,8 @@ export const authOptions: NextAuthOptions = {
                 stripeCustomerId: user?.stripeCustomerId,
                 password: user?.hashedPassword,
                 subscriptionId: user?.subscriptionId,
-                goal: user?.goal
+                goal: user?.goal,
+                createdAt: user?.createdAt
 
 
             }
@@ -138,7 +141,8 @@ export const authOptions: NextAuthOptions = {
                    password: token?.password,
                    stripeCustomerId: token?.stripeCustomerId,
                    subscriptionId: token?.subscriptionId,
-                   goal: token?.goal
+                   goal: token?.goal,
+                   createdAt: token?.createdAt
                 }
             };
 
