@@ -114,7 +114,7 @@ const WeightTracker: React.FC = () => {
 
   return (
     <div className="w-[40%] mx-auto p-4 bg-white shadow-lg rounded-lg">
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-between items-center ">
         <div>
           <h2 className="text-xl font-bold text-gray-800">Weight Plan</h2>
           <p className="text-gray-600">
@@ -126,14 +126,15 @@ const WeightTracker: React.FC = () => {
         <Line data={chartData} options={chartOptions} />
       </div>
       <div className="text-center">
-        <h3 className="text-xl font-bold text-gray-800 mb-2">Recommended Path</h3>
-        <div className="bg-gray-100 p-4 rounded-lg shadow-inner">
-          <p className="text-lg font-medium text-gray-800">Current Weight: {userWeight} lb</p>
-          <p className="text-lg font-medium text-gray-800">Goal Weight: {goal} lb</p>
+        <div className="bg-gray-100 flex flex-col justify-center items-center p-4 rounded-lg shadow-inner">
+          <div className='flex justify-between w-full items-center'>
+             <p className="text-xl font-medium text-indigo-600"><span className='text-xs text-gray-500'>Current Weight</span> {userWeight} lb</p>
+             <p className="text-xl font-medium text-indigo-600"><span className='text-xs text-gray-500'>Goal Weight</span> {goal} lb</p>
+          </div>
           <div className="my-4">
-            <h4 className="text-lg font-semibold text-blue-600">Recommended</h4>
+            <h4 className="text-xl font-semibold text-blue-600">Estimated End Date</h4>
             <p className="text-gray-800">
-              Estimated End Date: {formatDate(recommendedEndDate)}
+              {formatDate(recommendedEndDate)}
             </p>
           </div>
         </div>
