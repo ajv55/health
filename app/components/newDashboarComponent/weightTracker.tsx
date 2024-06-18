@@ -35,7 +35,7 @@ const WeightTracker = () => {
     };
   };
 
-  const weightLossPlan = calculateWeightLossTimeframe(userCalories - 300);
+  const weightLossPlan = calculateWeightLossTimeframe(userCalories - middleImpactDeficit);
 
    // Simulate weight loss data for the next 7 days for different impact levels
    const generateWeightLossData = (currentWeight: number, dailyLoss: number, days: number) => {
@@ -131,11 +131,14 @@ const WeightTracker = () => {
   };
 
   return (
-    <div onClick={() => router.push('/dashboard/plan')} className="w-[40%] hover:cursor-pointer mx-auto p-4 bg-white shadow-lg rounded-lg">
+    <div  className="w-[40%] mx-auto p-4 bg-white shadow-lg rounded-lg">
       <div className="flex justify-between items-center mb-4">
-        <div>
+        <div onClick={() => router.push('/dashboard/plan')} className=' flex flex-col justify-start items-start  hover:cursor-pointer  w-full'>
           <h2 className="text-xl font-bold text-gray-800">Weight Plan</h2>
-          <p className="text-gray-600">Lose {userWeight - goal} lb</p>
+         <div className='flex justify-center items-center gap-1'>
+           <p className="text-gray-600">Lose {userWeight - goal} lb</p>
+           <p className="text-gray-600">in {weightLossPlan.readableFormat}</p>
+         </div>
         </div>
       </div>
       <div className="mb-4">
@@ -145,7 +148,6 @@ const WeightTracker = () => {
         <p className="text-lg font-medium text-gray-800">Current Weight: {userWeight} lb</p>
         <p className="text-lg font-medium text-gray-800">Goal Weight: {goal} lb</p>
         <p className="text-lg font-medium text-gray-800">Daily Caloric Deficit: {userCalories - 300} kcal</p>
-        <p className="text-gray-600">Estimated time to reach goal weight: {weightLossPlan.readableFormat}</p>
         <button
           className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded shadow"
         >
