@@ -1,10 +1,12 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { format, addDays, isValid, parseISO } from 'date-fns';
+import { setDaysToLoseWeight, setWeeks } from '@/app/slices/weightSlice';
 
 interface User {
   weight: number;
@@ -21,6 +23,7 @@ interface SessionData {
 const WeightTracker: React.FC = () => {
   const { data: session } = useSession() as { data: SessionData | null };
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const userWeight = session?.user?.weight ?? 0;
   const goal = session?.user?.goal ?? 0;
@@ -84,6 +87,12 @@ const WeightTracker: React.FC = () => {
   const { endDate: recommendedEndDate, totalDays: recommendedTotalDays } =
     calculateEstimatedEndDate(userWeight, goal, recommend);
 
+    useEffect(() => {
+      dispatch(setDaysToLoseWeight(recommendedTotalDays));
+      dispatch(setWeeks(recommendedEndDate));
+    }, [])
+
+
   const formatDate = (date: Date | string) =>
     isValid(new Date(date)) ? format(new Date(date), 'MMMM d, yyyy') : 'Invalid date';
 
@@ -115,7 +124,7 @@ const WeightTracker: React.FC = () => {
   return (
     <div className="w-[40%] mx-auto p-4 bg-white shadow-lg rounded-lg">
       <div className="flex justify-between items-center ">
-        <div>
+        <div onClick={() => router.push('/dashboard/plan')} className='w-full hover:cursor-pointer'>
           <h2 className="text-xl font-bold text-gray-800">Weight Plan</h2>
           <p className="text-gray-600">
             Lose {userWeight - goal} lb in {recommendedTotalDays} days
@@ -140,7 +149,7 @@ const WeightTracker: React.FC = () => {
         </div>
         <button
           className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded shadow"
-          onClick={() => router.push('/dashboard/plan')}
+          onClick={() => router.push('/dashboard/plan?tab=Weight Loss Paths')}
         >
           View Other Weight Loss Paths
         </button>

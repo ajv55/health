@@ -57,7 +57,7 @@ export default  function Page() {
       update({calories: calToString.toString() }) 
     }
 
-    if (session?.user?.gender === 'Male' && session.user.activity === 'Moderate-Exercise') {
+    if (session?.user?.gender === 'Male' && session.user.activity === 'Heavy-Exercise') {
       const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
       const MainCal = calories * 1.725
       const calToString = Math.round(MainCal)
@@ -93,7 +93,7 @@ export default  function Page() {
       update({calories: calToString.toString() }) 
     }
 
-    if (session?.user?.gender === 'Female' && session.user.activity === 'Moderate-Exercise') {
+    if (session?.user?.gender === 'Female' && session.user.activity === 'Heavy-Exercise') {
       const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
       const MainCal = calories * 1.725
       const calToString = Math.round(MainCal)
