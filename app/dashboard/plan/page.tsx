@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
 import { useSearchParams } from 'next/navigation';
 import { format } from 'date-fns';
+import Percentages from '@/app/components/tabComponents/percentages';
 
 const Page = () => {
 
@@ -55,7 +56,7 @@ const Page = () => {
 
     return (
         <div className=" w-full min-h-screen bg-gray-100 p-6">
-            <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-md p-6">
+            <div className="max-w-6xl h-[39rem] mx-auto bg-white rounded-lg shadow-md p-6">
                 <nav className="flex space-x-4 border-b-2 border-indigo-600 mb-6">
                     {tabs.map((tab) => (
                         <button
@@ -73,11 +74,11 @@ const Page = () => {
                 </nav>
                 <div>
                     {activeTab === 'Weight & Calories' && (
-                        <div className="w-full h-auto p-6 bg-gray-50 rounded-lg shadow-lg">
+                        <div className="w-full h-auto p-6 bg-gray-100 mt-16 rounded-lg shadow-lg">
                         <div className="w-full flex justify-between items-center mb-6">
                             <h1 className="text-2xl font-light tracking-wide">I plan to lose <span className="text-2xl font-medium text-indigo-600">22 lb </span>in <span className="text-indigo-600 text-2xl font-medium">{days} days </span>by eating less than <span className="text-indigo-600 font-medium text-2xl">{rec} cals </span>daily.</h1>
                             <span className="text-md font-light tracking-wider text-gray-500">
-                                Maintenance <span className="text-indigo-600 font-medium text-2xl">{maintenance}</span>
+                                Maintenance <span className="text-indigo-500 font-medium text-2xl">{maintenance}</span>
                             </span>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -106,10 +107,7 @@ const Page = () => {
                         </div>
                     )}
                     {activeTab === 'Carbs, Protein & Fat' && (
-                        <div>
-                            <h1 className="text-xl font-semibold mb-4">Carbs, Protein & Fat</h1>
-                            <p>Details for Carbs, Protein & Fat.</p>
-                        </div>
+                        <Percentages />
                     )}
                     {activeTab === 'Exercise Plan' && (
                         <div>

@@ -51,6 +51,12 @@ export default function Infomation() {
     // Fiber in grams (average between recommendations for men and women)
     const fiberGrams = (25 + 38) / 2;
 
+    // Calculate percentages of macronutrients
+    const proteinPercent = (proteinCalories / maintenanceCalories) * 100;
+    const carbPercent = (carbCalories / maintenanceCalories) * 100;
+    const fatPercent = (fatCalories / maintenanceCalories) * 100;
+
+
     return {
         proteinGrams,
         carbGrams,
@@ -59,7 +65,10 @@ export default function Infomation() {
         transFatGrams,
         sodiumMg,
         calciumMg,
-        fiberGrams
+        fiberGrams,
+        proteinPercent,
+        carbPercent,
+        fatPercent
     };
 };
 
@@ -73,6 +82,7 @@ export default function Infomation() {
     }
     
   }, [session?.user.calories])
+
 
  
 
