@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
 import { useSearchParams } from 'next/navigation';
+import { format } from 'date-fns';
 
 const Page = () => {
 
@@ -30,11 +31,15 @@ const Page = () => {
     const recommend = maintenance - 300;
 
     const days = useSelector((state: RootState) => state.weight.daysToLoseWeight);
-    const week = useSelector((state: RootState) => state.weight.weeks) || new Date();
+    const week = useSelector((state: RootState) => state.weight.weeks) ?? new Date();
 
    
 
-    const newDate = week?.toDateString();
+    // Ensure `week` is a Date object
+    const endDate = week ? new Date(week) : new Date();
+
+    // Format the end date
+    const newDate = format(endDate, 'MMMM d, yyyy');
 
     console.log('new Date: ', newDate);
 
@@ -67,10 +72,10 @@ const Page = () => {
                 </nav>
                 <div>
                     {activeTab === 'Weight & Calories' && (
-                        <div>
+                        <div className='w-full h-[23rem]'>
                             <h1 className="text-xl font-semibold mb-4">I plan to lose 22 lb in {days} days by eating less than {recommend} cals daily.</h1>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div className='w-full flex flex-col justify-start items-start'>
+                                <div className='w-full border flex flex-col justify-start items-start'>
                                     <p><strong>Current Weight:</strong> {userWeight} lb</p>
                                     <p><strong>Target Weight:</strong> {goal} lb</p>
                                     <p><strong>Target Date:</strong> {newDate}</p>

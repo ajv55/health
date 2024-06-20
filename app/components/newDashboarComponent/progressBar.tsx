@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 const ProgressBar = () => {
   const {data: session} = useSession();
 
-  const userCalories = session?.user.calories;
+  const userCalories = session?.user.recommend;
   const dispatch = useDispatch();
 
   const fetchMealLogs = async () => {

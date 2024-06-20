@@ -48,6 +48,10 @@ export async function POST(req: NextRequest) {
     });
 
     try {
+
+
+        
+
         // Create a Stripe customer
         const customer = await stripe.customers.create({
             email: user.email!,
@@ -63,16 +67,11 @@ export async function POST(req: NextRequest) {
         });
 
         console.log('Stripe customer created successfully:', customer);
+        return  NextResponse.json(user, {status: 201})
     } catch (error) {
         console.error('Error creating Stripe customer:', error);
         return new NextResponse('Error creating Stripe customer', { status: 500 });
     }
-
-
-
-    
-
-    return NextResponse.json(user)
 }
 
 

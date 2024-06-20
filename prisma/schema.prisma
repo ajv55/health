@@ -28,6 +28,7 @@ model User {
   TDEE String?
   agreed String?
   age String?
+  recommend Int?
   weightInLbs String?
   heightInInches String?
   calories String?

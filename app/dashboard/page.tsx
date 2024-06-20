@@ -15,6 +15,8 @@ import LogDailySteps from '../components/newDashboarComponent/loggingSteps';
 import { RootState } from '../store';
 import { AnimatePresence } from 'framer-motion';
 import WeightTracker from '../components/newDashboarComponent/weightTracker';
+import { setRecommend } from '../slices/weightSlice';
+import { s } from '@fullcalendar/core/internal-common';
 
 export default  function Page() {
 
@@ -40,35 +42,40 @@ export default  function Page() {
       const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
       const MainCal = calories * 1.2
       const calToString = Math.round(MainCal)
-      update({calories: calToString.toString() }) 
+      const rec = calToString - 200
+      update({calories: calToString.toString(), recommend: rec }) 
     }
 
     if (session?.user?.gender === 'Male' && session.user.activity === 'Light-Exercise') {
       const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
       const MainCal = calories * 1.375
-      const calToString = Math.round(MainCal)
-      update({calories: calToString.toString() }) 
+      const calToString = Math.round(MainCal);
+      const rec = calToString - 250
+      update({calories: calToString.toString(), recommend: rec }) 
     }
 
     if (session?.user?.gender === 'Male' && session.user.activity === 'Moderate-Exercise') {
       const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
       const MainCal = calories * 1.55
-      const calToString = Math.round(MainCal)
-      update({calories: calToString.toString() }) 
+      const calToString = Math.round(MainCal);
+      const rec = calToString - 350
+      update({calories: calToString.toString(), recommend: rec}) 
     }
 
     if (session?.user?.gender === 'Male' && session.user.activity === 'Heavy-Exercise') {
       const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
       const MainCal = calories * 1.725
       const calToString = Math.round(MainCal)
-      update({calories: calToString.toString() }) 
+      const rec = calToString - 400
+      update({calories: calToString.toString(), recommend: rec }) 
     }
 
     if (session?.user?.gender === 'Male' && session.user.activity === 'Strenuous-Exercise') {
       const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
       const MainCal = calories * 1.9
       const calToString = Math.round(MainCal)
-      update({calories: calToString.toString() }) 
+      const rec = calToString - 500
+      update({calories: calToString.toString(), recommend: rec }) 
     }
     
     // if statements checking for female and physical activity level
@@ -76,42 +83,45 @@ export default  function Page() {
       const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
       const MainCal = calories * 1.2
       const calToString = Math.round(MainCal)
-      update({calories: calToString.toString() }) 
+      const rec = calToString - 200
+      update({calories: calToString.toString(), recommend: rec })
     }
 
     if (session?.user?.gender === 'Female' && session.user.activity === 'Light-Exercise') {
       const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
       const MainCal = calories * 1.375
       const calToString = Math.round(MainCal)
-      update({calories: calToString.toString() }) 
+      const rec = calToString - 300
+      update({calories: calToString.toString(), recommend: rec })
     }
 
     if (session?.user?.gender === 'Female' && session.user.activity === 'Moderate-Exercise') {
       const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
       const MainCal = calories * 1.55
       const calToString = Math.round(MainCal)
-      update({calories: calToString.toString() }) 
+      const rec = calToString - 350
+      update({calories: calToString.toString(), recommend: rec }) 
     }
 
     if (session?.user?.gender === 'Female' && session.user.activity === 'Heavy-Exercise') {
       const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
       const MainCal = calories * 1.725
       const calToString = Math.round(MainCal)
-      update({calories: calToString.toString() }) 
+      const rec = calToString - 400
+      update({calories: calToString.toString(), recommend: rec }) 
     }
 
     if (session?.user?.gender === 'Female' && session.user.activity === 'Strenuous-Exercise') {
       const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
       const MainCal = calories * 1.9
       const calToString = Math.round(MainCal)
-      update({calories: calToString.toString() }) 
+      const rec = calToString - 500
+      update({calories: calToString.toString(), recommend: rec }) 
     }
 
 
- 
 
-
-}, [session, update]);
+}, [session]);
 
 useEffect(() => {
   dispatch(resetModals());

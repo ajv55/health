@@ -2,7 +2,7 @@
 import { SlOptionsVertical } from 'react-icons/sl';
 import { useSession } from 'next-auth/react';
 import { FaPlus } from "react-icons/fa6";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLogModal } from '@/app/slices/logSlice';
 import { RootState } from '@/app/store';
@@ -11,14 +11,20 @@ import { AnimatePresence } from 'framer-motion';
 
 export default function Main() {
 
-    const {data: session} = useSession();
+    const {data: session, update} = useSession();
     const [modalTrue, setModalTrue] = useState<boolean>(false);
     const [moreDetailModal, setMoreDetailModal] = useState<boolean>(false);
     const logModal = useSelector((state: RootState) => state.log.logModal);
     const dispatch = useDispatch();
+    const recommend = useSelector((state: RootState) => state.weight.recommend);
+    const activity = session?.user.activity ?? 'Moderate-Exercise';
+    const userCalories = Number(session?.user.calories);
+    const userRecommend = session?.user?.recommend
 
-  const userCalories = session?.user.calories;
+    console.log(userCalories)
 
+
+   
   return (
     <div className='flex w-full p-2 relative justify-between items-center'>
         {modalTrue && <div className='w-[20%] absolute -bottom-2 -left-3 h-4 rounded-md bg-black bg-opacity-30 flex justify-center items-center'><p className='text-xs text-white font-thin'>Click here to start logging.</p></div>}
@@ -29,7 +35,7 @@ export default function Main() {
         </div>
         <div className='flex flex-col w-full justify-end  items-center'>
           <h1 className='text-xl text-gray-400'>Calories Allowance</h1>
-          <span className='text-4xl text-indigo-600 font-light'>{userCalories}</span>
+          <span className='text-4xl text-indigo-600 font-light'>{userRecommend}</span>
         </div>
         <div onMouseLeave={() => setMoreDetailModal(false)} onMouseOver={() => setMoreDetailModal(true)} className='hover:bg-slate-200 hover:bg-opacity-55 w-[65px] h-14 flex justify-center items-center rounded-full'>
           <SlOptionsVertical className='cursor-pointer' size={27} />

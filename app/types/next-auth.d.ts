@@ -21,7 +21,8 @@ declare module "next-auth" {
       stripeCustomerId?: string,
       subscriptionId?: string,
       goal?: string,
-      createdAt?: Date
+      createdAt?: Date,
+      recommend?: number
     }
   }
 }

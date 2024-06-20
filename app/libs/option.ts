@@ -77,6 +77,9 @@ export const authOptions: NextAuthOptions = {
            if(trigger === 'update' && session?.password){
             token.password = session.password
            }
+           if(trigger === 'update' && session?.recommend){
+            token.recommend = session.recommend
+           }
            
            
 
@@ -99,7 +102,8 @@ export const authOptions: NextAuthOptions = {
                 password: user?.hashedPassword,
                 subscriptionId: user?.subscriptionId,
                 goal: user?.goal,
-                createdAt: user?.createdAt
+                createdAt: user?.createdAt,
+                recommend: user?.recommend
 
 
             }
@@ -116,6 +120,7 @@ export const authOptions: NextAuthOptions = {
                 age: token?.age as string,
                 weightInLbs: token?.weight as string,
                 name: token?.name as string,
+                recommend: token?.recommend as number
             }
         });
 
@@ -142,7 +147,8 @@ export const authOptions: NextAuthOptions = {
                    stripeCustomerId: token?.stripeCustomerId,
                    subscriptionId: token?.subscriptionId,
                    goal: token?.goal,
-                   createdAt: token?.createdAt
+                   createdAt: token?.createdAt,
+                   recommend: token?.recommend
                 }
             };
 

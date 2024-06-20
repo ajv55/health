@@ -1,12 +1,13 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { format, addDays, isValid, parseISO } from 'date-fns';
 import { setDaysToLoseWeight, setWeeks } from '@/app/slices/weightSlice';
+import { RootState } from '@/app/store';
 
 interface User {
   weight: number;
@@ -28,6 +29,9 @@ const WeightTracker: React.FC = () => {
   const userWeight = session?.user?.weight ?? 0;
   const goal = session?.user?.goal ?? 0;
   const maintenanceCalories = session?.user?.calories ?? 0;
+  const recommendCal = useSelector((state: RootState) => state.weight.recommend) ?? 0;
+
+  console.log('recommend: ',recommendCal)
 
   const start = session?.user?.createdAt ? parseISO(session.user.createdAt) : new Date();
 
@@ -90,7 +94,7 @@ const WeightTracker: React.FC = () => {
     useEffect(() => {
       dispatch(setDaysToLoseWeight(recommendedTotalDays));
       dispatch(setWeeks(recommendedEndDate));
-    }, [])
+    }, [dispatch, recommendedEndDate, recommendedTotalDays])
 
 
   const formatDate = (date: Date | string) =>

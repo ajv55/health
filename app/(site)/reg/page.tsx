@@ -30,7 +30,7 @@ export default function Register() {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         ref.current?.reset();
-        axios.post('/api/register', data)
+        await axios.post('/api/reg', data)
             .then(() => {
                 toast.success('User has been registered successfully!');
                 router.push('/login');
