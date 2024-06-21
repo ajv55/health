@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { RootState } from '@/app/store';
 import { setGrams } from '@/app/slices/logSlice';
+import axios from 'axios';
 
 export default function Infomation() {
 
@@ -72,14 +73,23 @@ export default function Infomation() {
     };
 };
 
+
   
+const createMarcos = async () => {
+  const macros = calculateMacros(userCalories)
+  await axios.post('/api/postMacros', macros).then((res: any) => {
+    console.log(res)
+  })
+}
 
   useEffect(() => {
     
-    if(session?.user?.calories !== undefined){ 
+    if(session?.user?.calories !== undefined || session?.user.recommend === undefined){ 
       const gram = calculateMacros(userCalories)
      dispatch(setGrams(gram))
     }
+    
+    createMarcos();
     
   }, [session?.user.calories])
 

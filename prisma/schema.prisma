@@ -34,6 +34,8 @@ model User {
   calories String?
   gender String?
   goal String?
+  macronutrients   Macronutrient?  
+  macronutrientId  String        @db.ObjectId
 
  // Define the relationship with CalorieIntake entity
   calorieIntake CalorieIntake[]
@@ -55,6 +57,24 @@ model User {
    dinnerLogs DinnerLog[]
    snackLogs SnackLog[]
   account Account []
+}
+
+model Macronutrient {
+  id             String  @id @default(auto()) @map("_id") @db.ObjectId
+  proteinGrams   Float?
+  carbGrams      Float?
+  fatGrams       Float?
+  satFatGrams    Float?
+  transFatGrams  Float?
+  sodiumMg       Float?
+  calciumMg      Float?
+  fiberGrams     Float?
+  proteinPercent Float?
+  carbPercent    Float?
+  fatPercent     Float?
+  userId         String  @db.ObjectId @unique
+  user           User    @relation(fields: [userId], references: [id])
+  
 }
 
 model MealPlan {

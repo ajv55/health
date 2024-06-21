@@ -1,13 +1,28 @@
 'use client';
 import { RootState } from '@/app/store'
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { motion } from 'framer-motion';
+import axios from 'axios';
+import { setGrams } from '@/app/slices/logSlice';
 
 export default function ProteinProgress() {
 
   const total = useSelector((state: RootState) => state.log.totals);
   const grams = useSelector((state: RootState) => state?.log?.grams);
+  const dispatch = useDispatch();
+
+  const fetchMarcos = async () => {
+  await axios.get('/api/getMacros').then((res: any) => {
+    if(res.status === 201){
+      dispatch(setGrams(res?.data))
+    }
+  })
+}
+
+useEffect(() => {
+  fetchMarcos();
+}, [])
   console.log(grams)
   console.log(total)
 
