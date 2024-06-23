@@ -8,6 +8,7 @@ import { AnimatePresence } from "framer-motion";
 import Nutrients from "./nutrients";
 import { setGrams } from "@/app/slices/logSlice";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export default function Percentages() {
 
@@ -16,6 +17,8 @@ export default function Percentages() {
     const macros = useSelector((state: RootState) => state.log.grams);
     const recommend = session?.user?.recommend;
     const dispatch = useDispatch();
+    const isActive = session?.user.isActive;
+    const router = useRouter();
     console.log(macros)
 
     const [protein, setProtein] = useState(30);
@@ -27,38 +30,61 @@ export default function Percentages() {
         , proteinPercent
         , fatPercent } = macros;
 
-        const handleInputChange = (value: number, type: string) => {
-            let remainingPercent = 100 - value;
-            
-            switch (type) {
-                case 'protein':
-                    if (remainingPercent >= 0) {
-                        const remaining = remainingPercent / (carb + fat);
-                        setCarb(carb * remaining);
-                        setFat(fat * remaining);
-                        setProtein(value);
-                    }
-                    break;
-                case 'carb':
-                    if (remainingPercent >= 0) {
-                        const remaining = remainingPercent / (protein + fat);
-                        setProtein(protein * remaining);
-                        setFat(fat * remaining);
-                        setCarb(value);
-                    }
-                    break;
-                case 'fat':
-                    if (remainingPercent >= 0) {
-                        const remaining = remainingPercent / (protein + carb);
-                        setProtein(protein * remaining);
-                        setCarb(carb * remaining);
-                        setFat(value);
-                    }
-                    break;
-                default:
-                    break;
+       
+    const handleInputChange = (value: number, type: string) => {
+        if (value < 0 || value > 100) return;
+
+        let remainingPercent = 100 - value;
+        let newProtein = protein;
+        let newCarb = carb;
+        let newFat = fat;
+
+        switch (type) {
+            case 'protein':
+                if (remainingPercent >= 0) {
+                    const remaining = remainingPercent / (carb + fat);
+                    newCarb = Math.round(carb * remaining);
+                    newFat = Math.round(fat * remaining);
+                    newProtein = value;
+                }
+                break;
+            case 'carb':
+                if (remainingPercent >= 0) {
+                    const remaining = remainingPercent / (protein + fat);
+                    newProtein = Math.round(protein * remaining);
+                    newFat = Math.round(fat * remaining);
+                    newCarb = value;
+                }
+                break;
+            case 'fat':
+                if (remainingPercent >= 0) {
+                    const remaining = remainingPercent / (protein + carb);
+                    newProtein = Math.round(protein * remaining);
+                    newCarb = Math.round(carb * remaining);
+                    newFat = value;
+                }
+                break;
+            default:
+                break;
+        }
+
+        const total = newProtein + newCarb + newFat;
+        if (total !== 100) {
+            const difference = 100 - total;
+
+            if (newProtein >= newCarb && newProtein >= newFat) {
+                newProtein += difference;
+            } else if (newCarb >= newProtein && newCarb >= newFat) {
+                newCarb += difference;
+            } else {
+                newFat += difference;
             }
-        };
+        }
+
+        setProtein(newProtein);
+        setCarb(newCarb);
+        setFat(newFat);
+    };
 
         const calculateMacros = (maintenanceCalories: number, proteinPercent: number, carbPercent: number, fatPercent: number) => {
             // Calculate macronutrient calories
@@ -106,15 +132,19 @@ export default function Percentages() {
         const calculatedMacros = calculateMacros(maintenanceCalories, protein, carb, fat);
 
         const handleMacros = async () => {
-           const macros = calculateMacros(maintenanceCalories, protein, carb, fat);
-            
-            await axios.put('/api/updateMacros', macros).then((res) => {
+           
+           if(isActive === false) {
+             router.push('/pricing')
+           } else {
+            const macros = calculateMacros(maintenanceCalories, protein, carb, fat);
+              await axios.put('/api/updateMacros', macros).then((res) => {
                 if(res.status === 201){
                     console.log(res)
                     dispatch(setGrams(res?.data));
                     setAdjustModal(false);
                 }
             }).catch((error) => console.log(error))
+           }
             
         }
 

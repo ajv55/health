@@ -6,6 +6,7 @@ import { RootState } from '@/app/store';
 import { useSearchParams } from 'next/navigation';
 import { format } from 'date-fns';
 import Percentages from '@/app/components/tabComponents/percentages';
+import Link from 'next/link';
 
 const Page = () => {
 
@@ -74,7 +75,7 @@ const Page = () => {
                 </nav>
                 <div>
                     {activeTab === 'Weight & Calories' && (
-                        <div className="w-full h-auto p-6 bg-gray-100 mt-16 rounded-lg shadow-lg">
+                        <div className="w-full h-auto p-6 bg-gray-100 mt-5 rounded-lg shadow-lg">
                         <div className="w-full flex justify-between items-center mb-6">
                             <h1 className="text-2xl font-light tracking-wide">I plan to lose <span className="text-2xl font-medium text-indigo-600">22 lb </span>in <span className="text-indigo-600 text-2xl font-medium">{days} days </span>by eating less than <span className="text-indigo-600 font-medium text-2xl">{rec} cals </span>daily.</h1>
                             <span className="text-md font-light tracking-wider text-gray-500">
@@ -96,6 +97,9 @@ const Page = () => {
                             <button className="bg-indigo-600 text-white py-2 px-4 rounded-full hover:bg-indigo-700 transition-colors">
                                 Get Personalized Plan
                             </button>
+                        </div>
+                        <div className='w-full h-10 flex justify-end items-center '>
+                                <Link className=' text-indigo-400 hover:cursor-pointer hover:text-indigo-600 hover:bg-indigo-300 hover:rounded-md p-2 hover:bg-opacity-50' href='/planning'>READ ARTICLE</Link>
                         </div>
                     </div>
                     
