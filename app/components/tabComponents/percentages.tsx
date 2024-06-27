@@ -9,6 +9,7 @@ import Nutrients from "./nutrients";
 import { setGrams } from "@/app/slices/logSlice";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Percentages() {
 
@@ -192,7 +193,9 @@ export default function Percentages() {
 
                     {/* <Nutrients calculatedMacros={calculatedMacros} /> */}
 
-            
+            <div className="w-full h-12 flex justify-end items-center ">
+                <Link className=' text-indigo-400 hover:cursor-pointer hover:text-indigo-600 hover:bg-indigo-300 hover:rounded-md p-2 hover:bg-opacity-50' href='/dashboard/analysis'>Nutrients Analysis</Link>
+            </div>
         </div>
     );
 }

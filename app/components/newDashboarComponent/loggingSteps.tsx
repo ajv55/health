@@ -35,7 +35,6 @@ const LogDailySteps = () => {
 
   return (
     <div>
-    {stepsModal && (
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -79,7 +78,6 @@ const LogDailySteps = () => {
           
         </motion.div>
       </motion.div>
-    )}
   </div>
   );
 };

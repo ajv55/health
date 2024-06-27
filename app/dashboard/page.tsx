@@ -24,14 +24,17 @@ export default  function Page() {
   const router = useRouter();
   const dispatch = useDispatch();
   const stepsModal = useSelector((state: RootState) => state.log.stepsModal);
+  const waterModal = useSelector((state: RootState) => state.water.waterModal);
 
 
-  if(status === 'unauthenticated') {
-
-    router.push('/')
-  } 
+  
 
   useEffect(() => {
+
+    if(status === 'unauthenticated') {
+
+      return router.push('/')
+    } 
 
     if (session?.user.calories !== null ) {
      
@@ -133,10 +136,14 @@ useEffect(() => {
   
 
   return (
-    <div className='overflow-scroll w-full  h-screen flex lg:flex-row justify-start p-3 items-start'>
+    <div className='overflow-scroll w-full relative  h-screen flex lg:flex-row justify-start p-3 items-start'>
       <Information />
       <WeightTracker />
-      <AnimatePresence>{stepsModal && <LogDailySteps />}</AnimatePresence>
+      <AnimatePresence>
+        {stepsModal && <LogDailySteps />}
+        {waterModal && <Water />}
+        </AnimatePresence>
+      
       {/* <div className='flex lg:flex-row flex-col justify-between items-center'>
         <Welcome />
         <div className='lg:w-[69%] w-full mt-10 lg:mt-0 flex gap-5 lg:h-screen h-content flex-wrap  justify-evenly items-start'>

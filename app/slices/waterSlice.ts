@@ -2,11 +2,13 @@ import { createSlice, } from '@reduxjs/toolkit';
 import { RootState } from '../store';
 
 interface WaterState{
-    value: number
+    value: number,
+    waterModal?: boolean
 }
 
 const initialState: WaterState = {
-    value: 0
+    value: 0,
+    waterModal: false
 } as WaterState
 
 export const waterSlice = createSlice({
@@ -21,11 +23,14 @@ export const waterSlice = createSlice({
         },
         setWater: (state, action) => {
             state.value = action.payload
+        },
+        setWaterModal: (state, action) => {
+            state.waterModal = action.payload
         }
     }
 })
 
-export const {incrementDailyWater, setWater} = waterSlice.actions;
+export const {incrementDailyWater, setWater, setWaterModal} = waterSlice.actions;
 
 export const selectProgress = (state:RootState) => state.progress.value;
 
