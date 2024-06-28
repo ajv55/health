@@ -23,8 +23,6 @@ export default function CarbProgress() {
 useEffect(() => {
   fetchMarcos();
 }, [])
-  console.log(grams)
-  console.log(total)
 
     // Assuming you have access to the user's daily protein goal in grams
     const carbGoalGrams = Math.round(grams?.carbGrams); // Replace with actual user's daily protein goal
@@ -34,8 +32,6 @@ useEffect(() => {
 
     // Calculate remaining protein based on the goal and total consumed
   const carbLeft = Math.max(0, carbGoalGrams - (total?.carbs || 0));
-
-   console.log(carbLeft)
 
   return (
     <div className='w-[32%] h-full flex p-2  flex-col justify-center gap-1 items-center'>

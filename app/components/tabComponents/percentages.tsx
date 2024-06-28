@@ -151,7 +151,7 @@ export default function Percentages() {
 
 
     return (
-        <div className="max-w-4xl mx-auto p-6 bg-gray-100 rounded-lg shadow-lg">
+        <div className="w-[75%] mx-auto p-6 bg-gray-100 rounded-lg shadow-lg">
             <h2 className="text-2xl font-semibold text-indigo-600 mb-4 text-center">Macronutrient Percentages</h2>
             <p className="text-lg text-gray-700 mb-6 text-center">
                 Your macronutrient targets are providing <span className="font-medium text-indigo-600">{recommend} cals</span> per day.
@@ -196,6 +196,7 @@ export default function Percentages() {
             <div className="w-full h-12 flex justify-end items-center ">
                 <Link className=' text-indigo-400 hover:cursor-pointer hover:text-indigo-600 hover:bg-indigo-300 hover:rounded-md p-2 hover:bg-opacity-50' href='/dashboard/analysis'>Nutrients Analysis</Link>
             </div>
+            
         </div>
     );
 }

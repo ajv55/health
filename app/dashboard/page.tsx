@@ -36,7 +36,7 @@ export default  function Page() {
       return router.push('/')
     } 
 
-    if (session?.user.calories !== null ) {
+    if (session?.user.calories !== null) {
      
       return  console.log('theres caloires existing alread')
     }

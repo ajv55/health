@@ -19,9 +19,9 @@ export default function Main() {
     const recommend = useSelector((state: RootState) => state.weight.recommend);
     const activity = session?.user.activity ?? 'Moderate-Exercise';
     const userCalories = Number(session?.user.calories);
-    const userRecommend = session?.user?.recommend
+    const userRecommend = session?.user?.recommend ?? 0
 
-    console.log(userCalories)
+    console.log(userRecommend)
 
 
    

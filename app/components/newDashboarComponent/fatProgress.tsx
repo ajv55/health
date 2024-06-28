@@ -23,8 +23,6 @@ export default function FatProgress() {
 useEffect(() => {
   fetchMarcos();
 }, [])
-  console.log(grams)
-  console.log(total)
 
    // Assuming you have access to the user's daily protein goal in grams
    const fatGoalGrams = Math.round(grams?.fatGrams); // Replace with actual user's daily protein goal
@@ -35,7 +33,6 @@ useEffect(() => {
     // Calculate remaining protein based on the goal and total consumed
   const fatLeft = Math.max(0, fatGoalGrams - (total?.fat || 0));
 
-   console.log(fatPercentage)
 
   return (
     <div className='w-[32%] h-full flex p-2  flex-col justify-center gap-1 items-center'>

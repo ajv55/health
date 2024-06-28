@@ -35,7 +35,7 @@ model User {
   gender String?
   goal String?
   macronutrients   Macronutrient?  
-  macronutrientId  String        @db.ObjectId
+  macronutrientId  String?        @db.ObjectId
 
  // Define the relationship with CalorieIntake entity
   calorieIntake CalorieIntake[]
@@ -302,6 +302,11 @@ model CommonCarbs {
  model SnackFoods {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   snack String?
+ }
+
+ model HighFatFoods {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  fatFoods String?
  }
 
  model Drinks {

@@ -5,9 +5,10 @@ import { authOptions } from "../../libs/option";
 
 
 export async function GET() {
+    const session = await getServerSession(authOptions);
 
     try {
-        const session = await getServerSession(authOptions);
+        
 
     const today = new Date(); // today
     const startOfDay = new Date(today);
@@ -26,14 +27,13 @@ export async function GET() {
         }
     })
 
-
     if(res.length === 0) {
         return NextResponse.json({error: 'no water intake of this day add yet'}, {status: 401})
     }
 
-    const addWater = res.map((r) => r.amount).reduce((acc, currentValue) => acc! + currentValue!);
+    const addWater = res.map((r) => r.amount).reduce((acc, currentValue) => acc! + currentValue!) ?? 0;
 
-    return NextResponse.json({addWater, hasRecords: res.length > 0})
+    return NextResponse.json({addWater, hasRecords: res.length > 0, status: 201})
         
     } catch (error) {
         console.error('Error fetching water intake records:', error);

@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { setWater, setWaterModal } from '@/app/slices/waterSlice';
 import { C } from '@fullcalendar/core/internal-common';
+import toast from 'react-hot-toast';
 
 
 
@@ -33,7 +34,12 @@ export default function Personal() {
   }
 
   const fetchWaterIntake = async () => {
-    await axios.get('/api/getWater').then((res) => dispatch(setWater(res?.data?.addWater)));
+    await axios.get('/api/getWater').then((res: any) => {
+      console.log(res);
+      if(res?.data?.status === 201){
+        return dispatch(setWater(res?.data?.addWater))
+      }
+    }).catch((res) => console.log(res?.response?.data?.error));
   }
 
   useEffect(() => {
@@ -53,7 +59,7 @@ export default function Personal() {
               <h1 className='text-gray-500 text-xl font-light'>Water</h1>
               <IoWater className='text-indigo-600'  size={20}  />
             </div>
-            <span className='text-indigo-600 text-md'><span className='text-xl'>{liters}</span> L</span>
+            <span className='text-indigo-600 text-xl'>{liters}</span>
           </div>
 
           <div className='flex flex-col  justify-center items-center gap-1'>  

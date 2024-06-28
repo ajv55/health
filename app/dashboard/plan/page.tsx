@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { AnimatePresence } from 'framer-motion';
 import RelatedModal from '@/app/components/tabComponents/relatedModal';
 import { useRouter } from 'next/navigation';
+import FatInfo from '@/app/components/tabComponents/fatInfo';
 
 const Page = () => {
 
@@ -61,9 +62,9 @@ const Page = () => {
     ];
 
     return (
-        <div className=" w-full min-h-screen bg-gray-100 p-6">
-            <div className="max-w-6xl h-[39rem] mx-auto bg-white rounded-lg shadow-md p-6">
-                <nav className="flex space-x-4 border-b-2 border-indigo-600 mb-6">
+        <div className=" w-full  min-h-screen overflow-scroll  bg-gray-100 p-6">
+            <div className="max-w-8xl h-content  overflow-scroll mx-auto bg-white rounded-lg shadow-md ">
+                <nav className="flex border-b-2 p-2 bg-white border-indigo-600 mb-6">
                     {tabs.map((tab) => (
                         <button
                             key={tab}
@@ -78,7 +79,7 @@ const Page = () => {
                         </button>
                     ))}
                 </nav>
-                <div>
+                <div className=' w-full'>
                     {activeTab === 'Weight & Calories' && (
                         <div className="w-full h-auto p-6 relative bg-gray-100 mt-5 rounded-lg shadow-lg">
                             <AnimatePresence>{relatedModal && <RelatedModal proteinOnClick={() => {setActiveTab('Carbs, Protein & Fat'), setRelatedModal(false)} } onClose={() => setRelatedModal(false)} />}</AnimatePresence>
@@ -118,7 +119,10 @@ const Page = () => {
                         </div>
                     )}
                     {activeTab === 'Carbs, Protein & Fat' && (
-                        <Percentages />
+                        <div className='w-full flex flex-col justify-center items-center gap-5'>
+                            <Percentages />
+                            <FatInfo />
+                        </div>
                     )}
                     {activeTab === 'Exercise Plan' && (
                         <div>
