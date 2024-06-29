@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation';
 import FatInfo from '@/app/components/tabComponents/fatInfo';
 import ProteinInfo from '@/app/components/tabComponents/proteinInfo';
 import CarbInfo from '@/app/components/tabComponents/carbsInfo';
+import NutrientTargets from '@/app/components/tabComponents/nutrientTarget';
 
 const Page = () => {
 
@@ -104,7 +105,7 @@ const Page = () => {
                         </div>
                         <div className="mt-6 text-center">
                             <button className="bg-indigo-600 text-white py-2 px-4 rounded-full hover:bg-indigo-700 transition-colors">
-                                Get Personalized Plan
+                                Weigh-In
                             </button>
                         </div>
                         <div className='w-full h-10 flex justify-between items-center '>
@@ -135,9 +136,8 @@ const Page = () => {
                         </div>
                     )}
                     {activeTab === 'Nutrient Targets' && (
-                        <div>
-                            <h1 className="text-xl font-semibold mb-4">Nutrient Targets</h1>
-                            <p>Details for Nutrient Targets.</p>
+                        <div className='w-full h-[36rem]'>
+                            <NutrientTargets />
                         </div>
                     )}
                    

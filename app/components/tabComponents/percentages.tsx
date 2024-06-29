@@ -161,12 +161,12 @@ export default function Percentages() {
 
 
     return (
-        <div className="w-[75%] mx-auto p-6 bg-gray-100 rounded-lg shadow-lg">
-            <h2 className="text-2xl font-semibold text-indigo-600 mb-4 text-center">Macronutrient Percentages</h2>
+        <div className="w-[80%] mx-auto border-[1px] border-indigo-200 p-6 bg-gray-100 rounded-lg  shadow-lg">
+            <h2 className="text-4xl font-semibold bg-gradient-to-t from-indigo-700 to-indigo-300 text-transparent bg-clip-text mb-4 text-center">Macronutrient Percentages</h2>
             <p className="text-lg text-gray-700 mb-6 text-center">
                 Your macronutrient targets are providing <span className="font-medium text-indigo-600">{recommend} cals</span> per day.
             </p>
-            <div className="space-y-4">
+            <div className="space-y-6 bg-white ring-2 ring-indigo-300 border border-indigo-200 px-3 py-6 drop-shadow-lg rounded-md ">
                 <div className="flex justify-between items-center">
                     <span className="text-lg font-medium text-gray-700">Carbs</span>
                     <span className="text-lg font-medium text-gray-700">{Math.round(carbPercent)}%</span>
@@ -192,7 +192,7 @@ export default function Percentages() {
                 </div>
             </div>
             <div className="mt-6 text-center">
-                <button onClick={() => setAdjustModal(true)} className="bg-indigo-600 text-white py-2 px-4 rounded-full hover:bg-indigo-700 transition-colors">
+                <button onClick={() => setAdjustModal(true)} className=" bg-gradient-to-bl from-indigo-800 via-indigo-500 to-indigo-800 text-lg text-white py-2 px-4 rounded-full hover:bg-gradient-to-tl hover:from-indigo-800 hover:via-indigo-500 hover:to-indigo-800 transition-colors">
                     Adjust Your Goals
                 </button>
             </div>

@@ -104,7 +104,7 @@ const WeightTracker: React.FC = () => {
     labels: [formatDate(start), formatDate(recommendedEndDate)],
     datasets: [
       {
-        label: 'Current Weight',
+        label: 'Weight',
         data: [userWeight, goal],
         fill: true,
         borderColor: '#6366F1',
