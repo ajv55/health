@@ -1,7 +1,7 @@
 'use client';
 import { RootState } from "@/app/store";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AdjustModal from "./adjustModal";
 import { AnimatePresence } from "framer-motion";
@@ -30,6 +30,18 @@ export default function Percentages() {
     const { carbPercent
         , proteinPercent
         , fatPercent } = macros;
+
+        const fetchPercentage = async () => {
+            await axios.get('/api/getMacros').then((res: any) => {
+                if(res.status === 201){
+                    dispatch(setGrams(res.data))
+                }
+            })
+        }
+
+        useEffect(() => {
+            fetchPercentage();
+        }, [])
 
        
     const handleInputChange = (value: number, type: string) => {
@@ -129,8 +141,6 @@ export default function Percentages() {
             };
         };
 
-
-        const calculatedMacros = calculateMacros(maintenanceCalories, protein, carb, fat);
 
         const handleMacros = async () => {
            

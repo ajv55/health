@@ -11,6 +11,8 @@ import { AnimatePresence } from 'framer-motion';
 import RelatedModal from '@/app/components/tabComponents/relatedModal';
 import { useRouter } from 'next/navigation';
 import FatInfo from '@/app/components/tabComponents/fatInfo';
+import ProteinInfo from '@/app/components/tabComponents/proteinInfo';
+import CarbInfo from '@/app/components/tabComponents/carbsInfo';
 
 const Page = () => {
 
@@ -63,7 +65,7 @@ const Page = () => {
 
     return (
         <div className=" w-full  min-h-screen overflow-scroll  bg-gray-100 p-6">
-            <div className="max-w-8xl h-content  overflow-scroll mx-auto bg-white rounded-lg shadow-md ">
+            <div className="max-w-8xl h-content   mx-auto bg-white rounded-lg shadow-md ">
                 <nav className="flex border-b-2 p-2 bg-white border-indigo-600 mb-6">
                     {tabs.map((tab) => (
                         <button
@@ -122,6 +124,8 @@ const Page = () => {
                         <div className='w-full flex flex-col justify-center items-center gap-5'>
                             <Percentages />
                             <FatInfo />
+                            <ProteinInfo />
+                            <CarbInfo />
                         </div>
                     )}
                     {activeTab === 'Exercise Plan' && (

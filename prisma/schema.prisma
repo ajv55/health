@@ -309,6 +309,16 @@ model CommonCarbs {
   fatFoods String?
  }
 
+ model ProteinHighFoods {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  proteinFoods String?
+ }
+
+ model CarbsHighFoods {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  carbsFood String?
+ }
+
  model Drinks {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
   Drinks  String?

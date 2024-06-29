@@ -1,6 +1,7 @@
 'use client';
 import axios from 'axios';
 import Image from 'next/image';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
 const FatInfo = () => {
@@ -45,7 +46,7 @@ const FatInfo = () => {
 
         ))}
       </div>
-      <div>
+      <div className='flex flex-col gap-4 justify-start items-start'>
         <h3 className="text-xl font-semibold text-indigo-600">About Total Fat</h3>
         <p className="text-gray-700">
           The default goal is 35% Calories. We need fat for basic bodily functions, as well as to absorb the
@@ -55,6 +56,7 @@ const FatInfo = () => {
           hydrogenated oils are the most risky for heart health. To reduce the risk of heart disease, consume more
           Unsaturated Fat relative to Saturated or Trans Fat.
         </p>
+        <Link className=' text-indigo-400 hover:cursor-pointer hover:text-indigo-600 hover:bg-indigo-300 hover:rounded-md p-2 hover:bg-opacity-50' href='/funFact'>READ ARTCILE</Link>
       </div>
     </div>
   );
