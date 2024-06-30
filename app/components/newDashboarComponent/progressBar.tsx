@@ -11,38 +11,42 @@ const ProgressBar = () => {
 
   const userCalories = session?.user.recommend;
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
 
-  const fetchMealLogs = async () => {
-    await axios.get('/api/getMealLogs').then((res: any) => {
-        if(res.status === 201) {
-            dispatch(setUserMealLogs(res.data))
-        }
-    })
-};
+  const currentDate = useSelector((state: RootState) => state.weight.currentDate);
 
-const fetchLunchLogs = async () => {
-  await axios.get('/api/getLunchLogs').then((res: any) => {
-      if(res.status === 201) {
-          dispatch(setLunchLog(res.data))
+  const fetchMealLogs = async (date: any) => {
+    await axios.get(`/api/getBreakfastByDate?date=${date}`).then((res: any) => {
+      if (res.status === 201) {
+        dispatch(setUserMealLogs(res.data));
       }
-  })
-};
+    });
+  };
 
-const fetchDinnerLogs = async () => {
-  await axios.get('/api/getDinnerLogs').then((res: any) => {
-      if(res.status === 201) {
-          dispatch(setDinnerLog(res.data))
+  const fetchLunchLogs = async (date: Date) => {
+    await axios.get(`/api/getLunchByDate?date=${date}`).then((res: any) => {
+      if (res.status === 201) {
+        console.log(res)
+        dispatch(setLunchLog(res.data));
       }
-  })
-};
+    });
+  };
 
-const fetchSnackLogs = async () => {
-  await axios.get('/api/getSnackLogs').then((res: any) => {
-      if(res.status === 201) {
-          dispatch(setSnackLog(res.data))
+  const fetchDinnerLogs = async (date: Date) => {
+    await axios.get(`/api/getDinnerLogs?date=${date}`).then((res: any) => {
+      if (res.status === 201) {
+        dispatch(setDinnerLog(res.data));
       }
-  })
-};
+    });
+  };
+  
+  const fetchSnackLogs = async (date: Date) => {
+    await axios.get(`/api/getSnackLogs?date=${date}`).then((res: any) => {
+      if (res.status === 201) {
+        dispatch(setSnackLog(res.data));
+      }
+    });
+  };
   
 
   const breakfastLogs = useSelector((state: RootState) => state.log.userMealLogs);
@@ -52,12 +56,17 @@ const fetchSnackLogs = async () => {
   const total = useSelector((state: RootState) => state.log.totals);
 
 
- useEffect(() => {
-  fetchMealLogs();
-  fetchLunchLogs();
-  fetchDinnerLogs();
-  fetchSnackLogs();
- } , [])
+  useEffect(() => {
+    setIsLoading(true); // Set loading to true before fetching
+    Promise.all([
+        fetchMealLogs(currentDate!),
+        fetchLunchLogs(currentDate!),
+        fetchDinnerLogs(currentDate!),
+        fetchSnackLogs(currentDate!)
+    ]).then(() => {
+        setIsLoading(false); // Set loading to false after all fetches are complete
+    });
+}, [currentDate]);
 
   useEffect(() => {
    

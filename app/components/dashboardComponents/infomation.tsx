@@ -15,6 +15,7 @@ import { useEffect } from 'react';
 import { RootState } from '@/app/store';
 import { setGrams } from '@/app/slices/logSlice';
 import axios from 'axios';
+import DatePicker from '../tabComponents/datePicker';
 
 export default function Infomation() {
 
@@ -99,7 +100,7 @@ const createMarcos = async () => {
   console.log(grams)
 
   return (
-    <div className='w-[56%] h-[30rem] flex flex-col justify-start items-center rounded-lg bg-white'>
+    <div className='w-[56%] h-[32rem] drop-shadow-lg flex flex-col justify-start items-center rounded-lg bg-white'>
       <Main />
 
      {/* here will go the execise, water, steps tracking */}
@@ -120,7 +121,6 @@ const createMarcos = async () => {
       <ProteinProgress  />
       <FatProgress />
      </div>
-
     </div>
   )
 }
