@@ -29,6 +29,9 @@ const Page = () => {
     } else {
       setActiveTab('Weight & Calories')
     }
+    if(tab === 'Nutrient Targets'){
+        setActiveTab('Nutrient Targets')
+    }
   }, [tab])
 
     const [activeTab, setActiveTab] = useState('Weight & Calories');

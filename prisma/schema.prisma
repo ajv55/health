@@ -319,6 +319,11 @@ model CommonCarbs {
   carbsFood String?
  }
 
+ model SatFatFoods {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  satFatFoods String?
+ }
+
  model Drinks {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
   Drinks  String?

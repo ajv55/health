@@ -56,7 +56,7 @@ const NutrientTargets = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <span className="text-indigo-600">{macros?.transFatGrams ?? 0}g</span>
-                <button className="text-indigo-600 text-sm">Example</button>
+                <Link href='/dashboard/plan/transFat' className="text-indigo-600 hover:bg-indigo-50 p-2.5 rounded-lg text-sm">Examples</Link>
               </div>
             </div>
           </div>
@@ -73,7 +73,7 @@ const NutrientTargets = () => {
                 </p>
               </div>
               <div>
-                <button className="text-indigo-600">no target</button>
+              <Link href='/dashboard/plan/satFat' className="text-indigo-600 hover:bg-indigo-50 p-2.5 rounded-lg text-sm">Examples</Link>
               </div>
             </div>
           </div>
@@ -89,7 +89,7 @@ const NutrientTargets = () => {
             </div>
             <div className="flex items-center space-x-2">
               <span className="text-indigo-600">2,300mg</span>
-              <button className="text-indigo-600">dashboard, log</button>
+              <Link href='/dashboard/plan/satFat' className="text-indigo-600 hover:bg-indigo-50 p-2.5 rounded-lg text-sm">Examples</Link>
             </div>
           </div>
         </div>
@@ -104,7 +104,7 @@ const NutrientTargets = () => {
             </div>
             <div className="flex  items-center space-x-2">
               <span className="text-indigo-600">1,000mg</span>
-              <button className="text-indigo-600">log</button>
+              <Link href='/dashboard/plan/satFat' className="text-indigo-600 hover:bg-indigo-50 p-2.5 rounded-lg text-sm">Examples</Link>
             </div>
           </div>
         </div>
