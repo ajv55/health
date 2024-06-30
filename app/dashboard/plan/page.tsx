@@ -139,7 +139,7 @@ const Page = () => {
                         </div>
                     )}
                     {activeTab === 'Nutrient Targets' && (
-                        <div className='w-full h-[36rem]'>
+                        <div className='w-full h-[40rem]'>
                             <NutrientTargets />
                         </div>
                     )}
