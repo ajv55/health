@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 import { IoChevronBackCircle } from 'react-icons/io5'
+import style from '@/app/style.module.css';
 
 export default function Page() {
 
@@ -36,8 +37,8 @@ export default function Page() {
       console.log(newItems)
 
   return (
-    <div className="p-6 bg-indigo-50 rounded-lg shadow-md">
-    <div onClick={() => router.push('/dashboard/plan?tab=Nutrient Targets')} className='flex hover:cursor-pointer justify-start mb-8 items-center gap-1'>
+    <div className={`${style.background} p-6 bg-indigo-50 rounded-lg shadow-md`}>
+    <div onClick={() => router.push('/dashboard/plan?tab=Nutrient Targets')} className='flex hover:cursor-pointer justify-start mb-5 items-center gap-1'>
       <IoChevronBackCircle size={35} color='#786ee4' />
       <h2 className='text-lg text-gray-500'>Back</h2>
     </div>

@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+import Summary from './summary';
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState('summary');
@@ -25,7 +26,7 @@ const Tabs = () => {
         ))}
       </div>
       <div className="p-4">
-        {activeTab === 'summary' && <div>Summary & Foods Content</div>}
+        {activeTab === 'summary' && <Summary />}
         {activeTab === 'weightLoss' && <div>Weight Loss Content</div>}
         {activeTab === 'mealAnalysis' && <div>Meal Analysis Content</div>}
         {activeTab === 'calsFromNutrients' && <div>Cals from Nutrients Content</div>}
