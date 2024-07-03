@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import { setGrams } from '@/app/slices/logSlice';
+import { setCurrentFatPercentage } from '@/app/slices/weightSlice';
 
 export default function FatProgress() {
 
@@ -20,19 +21,21 @@ export default function FatProgress() {
   })
 }
 
-useEffect(() => {
-  fetchMarcos();
-}, [])
+
 
    // Assuming you have access to the user's daily protein goal in grams
    const fatGoalGrams = Math.round(grams?.fatGrams); // Replace with actual user's daily protein goal
 
-   // Calculate percentage of protein intake relative to the goal
+   // Calculate percentage of fat intake relative to the goal
    const fatPercentage = Math.min(100, Math.round((total?.fat / fatGoalGrams) * 100));
 
-    // Calculate remaining protein based on the goal and total consumed
+    // Calculate remaining fat based on the goal and total consumed
   const fatLeft = Math.max(0, fatGoalGrams - (total?.fat || 0));
 
+  useEffect(() => {
+    fetchMarcos();
+    dispatch(setCurrentFatPercentage(fatPercentage))
+  }, [])
 
   return (
     <div className='w-[32%] h-full flex p-2  flex-col justify-center gap-1 items-center'>

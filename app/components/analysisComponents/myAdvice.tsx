@@ -38,11 +38,11 @@ export default function MyAdvice() {
     console.log(adviceList)
 
   return (
-    <div className="bg-gray-200 ring-1 ring-indigo-300  max-w-5xl mx-auto  p-6 rounded-lg shadow-md">
+    <div className="bg-indigo-50 ring-1 ring-indigo-300  max-w-5xl mx-auto  p-6 rounded-lg shadow-md">
     <h2 className="text-4xl font-bold text-indigo-700 mb-4">Healthy Advice</h2>
     <ul className="list-disc pl-5 flex flex-col justify-start items-start gap-4 space-y-2">
-    {loading ? <AdviceSkeleton /> : adviceList.map((advice: any, index) => {
-            const IconComponent = iconMapping[advice.icon];
+    {loading ? <AdviceSkeleton /> : adviceList?.map((advice: any, index) => {
+            const IconComponent = iconMapping[advice?.icon];
             return (
               <div key={index} className='flex items-center gap-5 space-x-2 my-2'>
                 <IconComponent size={30} className='text-indigo-700' />

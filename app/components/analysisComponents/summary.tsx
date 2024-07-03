@@ -120,7 +120,7 @@ export default function Summary() {
 
    console.log(percentageConsumed)
   return (
-    <div className='max-w-6xl mx-auto bg-gray-100 rounded-lg ring-1 ring-indigo-300 p-4 drop-shadow-xl'>
+    <div className='max-w-6xl mx-auto bg-indigo-50 rounded-lg ring-1 ring-indigo-300 p-4 drop-shadow-xl'>
          <div className="flex border-b-zinc-800 border-b p-2 items-center justify-between">
         <h2 className="text-xl font-bold text-indigo-600">Calories Analysis on {formattedDate}</h2>
         <button className="text-indigo-600 font-medium">Get Premium Analysis</button>
@@ -135,9 +135,9 @@ export default function Summary() {
                     </div>
                 ) : (
                     <>
-                        <div className="text-gray-600 text-2xl">{Math.round(totalProgress.calories)} cals</div>
+                        <div className="text-indigo-600 text-2xl">{Math.round(totalProgress.calories)} cals</div>
                         <div className="text-lg text-gray-500">{Math.round(percentageConsumed)}% of budget {maintenanceCalories} cals</div>
-                        <div className="text-lg font-semibold text-gray-800">{Math.round(caloriesLeft)} left</div>
+                        <div className="text-lg font-semibold text-gray-500">{Math.round(caloriesLeft)} left</div>
                         <div className="h-2 mt-2 bg-gray-200 rounded-full">
                             <div className="h-full bg-indigo-600 rounded-full" style={{ width: `${Math.round(percentageConsumed)}%` }}></div>
                         </div>

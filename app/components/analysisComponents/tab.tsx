@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Summary from './summary';
 import { useSearchParams } from 'next/navigation';
 import MyAdvice from './myAdvice';
+import CaloriesAnalysis from './caloriesAnalysis';
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState('summary');
@@ -43,7 +44,7 @@ const Tabs = () => {
         {activeTab === 'summary' && <Summary />}
         {activeTab === 'weightLoss' && <div>Weight Loss Content</div>}
         {activeTab === 'mealAnalysis' && <div>Meal Analysis Content</div>}
-        {activeTab === 'calsFromNutrients' && <div>Cals from Nutrients Content</div>}
+        {activeTab === 'calsFromNutrients' && <CaloriesAnalysis />}
         <div className=''>
           {activeTab === 'advice' && <MyAdvice />}
         </div>

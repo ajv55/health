@@ -28,7 +28,7 @@ const WeightTracker: React.FC = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const [advice, setAdvice] = useState([]);
-  const [randomAdvice, setRandomAdvice] = useState("");
+  const [randomAdvice, setRandomAdvice] = useState<any>({});
   const [loading, setLoading] = useState(true);
   
 
@@ -191,7 +191,7 @@ const WeightTracker: React.FC = () => {
             <div className="h-4  bg-gray-300 rounded w-3/4"></div>
           </div>
         ) : (
-          <p className='text-indigo-700 text-center text-balance text-[16px] font-semibold'>{randomAdvice}</p>
+          <p className='text-indigo-700 text-center text-balance text-[16px] font-semibold'>{randomAdvice?.text}</p>
         )}
       <Link className='text-indigo-400 self-end hover:cursor-pointer hover:text-indigo-600 hover:bg-indigo-300 hover:rounded-md p-2 hover:bg-opacity-50' href='/dashboard/analysis?tab=advice'>
         My Advice

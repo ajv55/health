@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import { setGrams } from '@/app/slices/logSlice';
+import { setCurrentProteinPercentage } from '@/app/slices/weightSlice';
 
 export default function ProteinProgress() {
 
@@ -20,9 +21,7 @@ export default function ProteinProgress() {
   })
 }
 
-useEffect(() => {
-  fetchMarcos();
-}, [])
+
 
     // Assuming you have access to the user's daily protein goal in grams
     const proteinGoalGrams = Math.round(grams?.proteinGrams); // Replace with actual user's daily protein goal
@@ -32,6 +31,13 @@ useEffect(() => {
 
     // Calculate remaining protein based on the goal and total consumed
   const proteinLeft = Math.max(0, proteinGoalGrams - (total?.protein || 0));
+
+  useEffect(() => {
+    fetchMarcos();
+    dispatch(setCurrentProteinPercentage(proteinPercentage));
+  }, [])
+
+  console.log(proteinPercentage)
 
 
   return (
