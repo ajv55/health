@@ -17,6 +17,7 @@ import { AnimatePresence } from 'framer-motion';
 import WeightTracker from '../components/newDashboarComponent/weightTracker';
 import { setRecommend } from '../slices/weightSlice';
 import { s } from '@fullcalendar/core/internal-common';
+import DatePicker from '../components/tabComponents/datePicker';
 
 export default  function Page() {
 
@@ -136,14 +137,13 @@ useEffect(() => {
   
 
   return (
-    <div className='overflow-scroll w-full relative  h-screen flex lg:flex-row justify-start p-3 items-start'>
+    <div className='overflow-scroll w-full relative  h-screen flex flex-wrap lg:flex-row justify-start p-3 items-start'>
       <Information />
       <WeightTracker />
       <AnimatePresence>
         {stepsModal && <LogDailySteps />}
         {waterModal && <Water />}
         </AnimatePresence>
-      
       {/* <div className='flex lg:flex-row flex-col justify-between items-center'>
         <Welcome />
         <div className='lg:w-[69%] w-full mt-10 lg:mt-0 flex gap-5 lg:h-screen h-content flex-wrap  justify-evenly items-start'>

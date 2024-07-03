@@ -8,6 +8,8 @@ import { useRouter } from 'next/navigation';
 import { format, addDays, isValid, parseISO } from 'date-fns';
 import { setDaysToLoseWeight, setWeeks } from '@/app/slices/weightSlice';
 import { RootState } from '@/app/store';
+import Link from 'next/link';
+import axios from 'axios';
 
 interface User {
   weight: number;
@@ -25,6 +27,10 @@ const WeightTracker: React.FC = () => {
   const { data: session } = useSession() as { data: SessionData | null };
   const router = useRouter();
   const dispatch = useDispatch();
+  const [advice, setAdvice] = useState([]);
+  const [randomAdvice, setRandomAdvice] = useState("");
+  const [loading, setLoading] = useState(true);
+  
 
   const userWeight = session?.user?.weight ?? 0;
   const goal = session?.user?.goal ?? 0;
@@ -34,6 +40,17 @@ const WeightTracker: React.FC = () => {
   console.log('recommend: ',recommendCal)
 
   const start = session?.user?.createdAt ? parseISO(session.user.createdAt) : new Date();
+
+  const fetchAdvice = async () => {
+    await axios.get('/api/getAdvice').then((res: any) => {
+      if(res.status === 201){
+        setAdvice(res.data);
+        const randomIndex = Math.floor(Math.random() * res?.data?.length);
+        setRandomAdvice(res.data[randomIndex]);
+        setLoading(false);
+      }
+    })
+  }
 
   const calculateEstimatedEndDate = (
     currentWeight: number,
@@ -87,6 +104,7 @@ const WeightTracker: React.FC = () => {
     };
   };
 
+
   const recommend = maintenanceCalories - 300;
   const { endDate: recommendedEndDate, totalDays: recommendedTotalDays } =
     calculateEstimatedEndDate(userWeight, goal, recommend);
@@ -94,7 +112,12 @@ const WeightTracker: React.FC = () => {
     useEffect(() => {
       dispatch(setDaysToLoseWeight(recommendedTotalDays));
       dispatch(setWeeks(recommendedEndDate));
-    }, [dispatch, recommendedEndDate, recommendedTotalDays])
+    }, [dispatch, recommendedEndDate, recommendedTotalDays]);
+
+    useEffect(() => {
+      fetchAdvice();
+
+    } ,[])
 
 
   const formatDate = (date: Date | string) =>
@@ -125,20 +148,23 @@ const WeightTracker: React.FC = () => {
     },
   };
 
+  console.log(randomAdvice);
+  console.log(advice)
+
   return (
-    <div className="w-[40%] mx-auto p-4 bg-white shadow-lg rounded-lg">
-      <div className="flex justify-between items-center ">
+    <div className="w-[40%] h-[43rem] mx-auto  bg-white shadow-lg rounded-lg">
+      <div className="flex p-4 justify-between items-center ">
         <div onClick={() => router.push('/dashboard/plan')} className='w-full hover:cursor-pointer'>
-          <h2 className="text-xl font-bold text-gray-800">Weight Plan</h2>
+          <h2 className="text-xl font-bold text-indigo-600">Weight Plan</h2>
           <p className="text-gray-600">
             Lose {userWeight - goal} lb in {recommendedTotalDays} days
           </p>
         </div>
       </div>
-      <div className="w-full h-[20rem] flex justify-center items-center">
+      <div className="w-full p-3 h-[17rem] flex justify-center items-center">
         <Line data={chartData} options={chartOptions} />
       </div>
-      <div className="text-center">
+      <div className="text-center p-3">
         <div className="bg-gray-100 flex flex-col justify-center items-center p-4 rounded-lg shadow-inner">
           <div className='flex justify-between w-full items-center'>
              <p className="text-xl font-medium text-indigo-600"><span className='text-xs text-gray-500'>Current Weight</span> {userWeight} lb</p>
@@ -150,14 +176,27 @@ const WeightTracker: React.FC = () => {
               {formatDate(recommendedEndDate)}
             </p>
           </div>
-        </div>
-        <button
-          className="mt-4 px-4 py-2 bg-indigo-600 text-white rounded shadow"
+          <button
+          className="mt-2 px-4 py-2 bg-indigo-600 text-white rounded shadow"
           onClick={() => router.push('/dashboard/plan?tab=Weight Loss Paths')}
         >
           View Other Weight Loss Paths
         </button>
+        </div>
+        
       </div>
+      <div className='w-full flex flex-col gap-2 justify-center items-center  h-24 p-2 bg-white '>
+      {loading ? (
+          <div className="animate-pulse flex justify-center items-center space-x-4 w-full">
+            <div className="h-4  bg-gray-300 rounded w-3/4"></div>
+          </div>
+        ) : (
+          <p className='text-indigo-700 text-center text-balance text-[16px] font-semibold'>{randomAdvice}</p>
+        )}
+      <Link className='text-indigo-400 self-end hover:cursor-pointer hover:text-indigo-600 hover:bg-indigo-300 hover:rounded-md p-2 hover:bg-opacity-50' href='/dashboard/analysis?tab=advice'>
+        My Advice
+      </Link>
+    </div>
     </div>
   );
 };

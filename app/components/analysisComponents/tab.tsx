@@ -1,20 +1,34 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Summary from './summary';
+import { useSearchParams } from 'next/navigation';
+import MyAdvice from './myAdvice';
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState('summary');
+
+  const searchParams = useSearchParams();
+  const tab = searchParams.get('tab');
+
+  console.log(tab);
+
+  useEffect(() => {
+    if(tab === 'advice'){
+      setActiveTab('advice')
+    }
+  }, [tab])
 
   const tabs = [
     { name: 'Summary & Foods', key: 'summary' },
     { name: 'Weight Loss', key: 'weightLoss' },
     { name: 'Meal Analysis', key: 'mealAnalysis' },
     { name: 'Cals from Nutrients', key: 'calsFromNutrients' },
+    { name: 'My Advice', key: 'advice' },
   ];
 
   return (
-    <div>
-      <div className="flex border-b border-indigo-500">
+    <div className=' '>
+      <div className="flex  w-full border-b border-indigo-500">
         {tabs.map((tab) => (
           <button
             key={tab.key}
@@ -25,11 +39,14 @@ const Tabs = () => {
           </button>
         ))}
       </div>
-      <div className="p-4">
+      <div className="p-4  h-[40rem]  overflow-scroll ">
         {activeTab === 'summary' && <Summary />}
         {activeTab === 'weightLoss' && <div>Weight Loss Content</div>}
         {activeTab === 'mealAnalysis' && <div>Meal Analysis Content</div>}
         {activeTab === 'calsFromNutrients' && <div>Cals from Nutrients Content</div>}
+        <div className=''>
+          {activeTab === 'advice' && <MyAdvice />}
+        </div>
       </div>
     </div>
   );

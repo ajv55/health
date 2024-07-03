@@ -144,18 +144,16 @@ export default function Summary() {
                     </>
                 )}
       </div>
-      <div className="mt-6">
+      <div className="mt-6 ring-2 ring-indigo-400 drop-shadow-lg rounded-lg">
        <DatePicker />
-        {/* Assuming you will insert the date picker here */}
       </div>
       <div className="mt-6">
-        <h3 className="text-lg font-bold text-gray-800">About Calories</h3>
-        <p className="text-gray-600 text-sm mt-2">
+        <h3 className="text-xl font-bold text-indigo-600">About Calories</h3>
+        <p className="text-gray-600 text-lg mt-2">
           Calories measure the amount of energy we consume from foods and beverages and the amount we burn from basal metabolism (at complete rest), thermogenesis (to digest and process food), and physical activity. To lose weight, calories intake must be less than calories burned. To gain weight, calories intake must be more than calories burned. To maintain weight, calories intake needs to match calories burned.
         </p>
         <div className="mt-4">
           <a href="#" className="text-indigo-600 font-medium">Read Article</a>
-          <a href="#" className="ml-4 text-indigo-600 font-medium">Related Nutrients</a>
         </div>
       </div>
         

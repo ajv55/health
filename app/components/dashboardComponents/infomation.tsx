@@ -100,7 +100,7 @@ const createMarcos = async () => {
   console.log(grams)
 
   return (
-    <div className='w-[56%] h-[32rem] drop-shadow-lg flex flex-col justify-start items-center rounded-lg bg-white'>
+    <div className='w-[56%] h-[43rem] drop-shadow-lg flex flex-col justify-evenly items-center rounded-lg bg-white'>
       <Main />
 
      {/* here will go the execise, water, steps tracking */}
@@ -116,10 +116,13 @@ const createMarcos = async () => {
       </div>
      </div>
      {/* here will go the carb fats and protein progress bars */}
-     <div className='w-full flex justify-evenly items-center h-[8rem]'>
+     <div className='w-full flex  justify-evenly items-center h-[8rem]'>
       <CarbProgress />
       <ProteinProgress  />
       <FatProgress />
+     </div>
+     <div className=' self-end'>
+      <DatePicker />
      </div>
     </div>
   )

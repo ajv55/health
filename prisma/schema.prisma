@@ -329,6 +329,11 @@ model CommonCarbs {
   Drinks  String?
  }
 
+ model Advice {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  advice  String?
+}
+
  model Workout {
   id  String @id @default(auto()) @map("_id") @db.ObjectId
   userId  String @db.ObjectId

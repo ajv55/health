@@ -6,10 +6,12 @@ import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentDate } from '@/app/slices/weightSlice';
 import { RootState } from '@/app/store';
+import { FaArrowLeft, FaArrowRight, FaAngleDoubleLeft, FaAngleDoubleRight } from 'react-icons/fa';
 
 const DatePicker = () => {
   const dispatch = useDispatch();
   const currentDate = useSelector((state: RootState) => state.weight.currentDate) ?? new Date();
+  const today = new Date();
 
   const startOfCurrentWeek = startOfWeek(currentDate, { weekStartsOn: 0 });
   const endOfCurrentWeek = endOfWeek(currentDate, { weekStartsOn: 0 });
@@ -51,36 +53,38 @@ const DatePicker = () => {
   };
 
   return (
-    <div className="flex flex-col items-center space-y-4 p-4 bg-white ring-1 ring-indigo-400 shadow-lg rounded-lg">
+    <div className="flex flex-col items-center space-y-4 p-4 bg-white  rounded-lg w-full ">
       <div className="flex items-center space-x-2">
         <motion.button
           onClick={handlePrevMonth}
           className="text-indigo-500 text-2xl"
           whileTap={{ scale: 0.9 }}
         >
-          &lt;&lt;
+          <FaAngleDoubleLeft />
         </motion.button>
         <motion.button
           onClick={handlePrevWeek}
           className="text-indigo-500 text-2xl"
           whileTap={{ scale: 0.9 }}
         >
-          &lt;
+          <FaArrowLeft />
         </motion.button>
         <motion.button
           onClick={handlePrevDay}
           className="text-indigo-500 text-2xl"
           whileTap={{ scale: 0.9 }}
         >
-          &lt;-
+          <FaArrowLeft />
         </motion.button>
-        <div className="flex space-x-2">
+        <div className="flex space-x-2 overflow-x-auto">
           {getWeekDays().map((day) => (
             <motion.div
               key={day.toString()}
               onClick={() => handleDayClick(day)}
-              className={`text-lg font-semibold cursor-pointer px-2 py-1 rounded ${
-                isSameDay(day, currentDate) ? 'bg-indigo-600 text-white' : 'text-gray-700'
+              className={`text-sm font-semibold cursor-pointer px-2 py-1 rounded ${
+                isSameDay(day, currentDate) ? 'bg-indigo-600 text-white' : 
+                isSameDay(day, today) ? 'bg-indigo-300 text-white' : 
+                'text-gray-700'
               }`}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
@@ -94,21 +98,21 @@ const DatePicker = () => {
           className="text-indigo-500 text-2xl"
           whileTap={{ scale: 0.9 }}
         >
-          -&gt;
+          <FaArrowRight />
         </motion.button>
         <motion.button
           onClick={handleNextWeek}
           className="text-indigo-500 text-2xl"
           whileTap={{ scale: 0.9 }}
         >
-          &gt;
+          <FaArrowRight />
         </motion.button>
         <motion.button
           onClick={handleNextMonth}
           className="text-indigo-500 text-2xl"
           whileTap={{ scale: 0.9 }}
         >
-          &gt;&gt;
+          <FaAngleDoubleRight />
         </motion.button>
       </div>
     </div>
@@ -116,4 +120,5 @@ const DatePicker = () => {
 };
 
 export default DatePicker;
+
 
