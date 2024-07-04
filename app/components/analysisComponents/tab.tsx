@@ -4,6 +4,7 @@ import Summary from './summary';
 import { useSearchParams } from 'next/navigation';
 import MyAdvice from './myAdvice';
 import CaloriesAnalysis from './caloriesAnalysis';
+import MealAnalysis from './mealAnalysis';
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState('summary');
@@ -43,7 +44,7 @@ const Tabs = () => {
       <div className="p-4  h-[40rem]  overflow-scroll ">
         {activeTab === 'summary' && <Summary />}
         {activeTab === 'weightLoss' && <div>Weight Loss Content</div>}
-        {activeTab === 'mealAnalysis' && <div>Meal Analysis Content</div>}
+        {activeTab === 'mealAnalysis' && <MealAnalysis />}
         {activeTab === 'calsFromNutrients' && <CaloriesAnalysis />}
         <div className=''>
           {activeTab === 'advice' && <MyAdvice />}

@@ -102,7 +102,7 @@ export default function Summary() {
     
         // Combine all logs into one array
         const allLogs = [...breakfastLogs!, ...lunchLogs!, ...dinnerLogs!, ...snackLogs!];
-    
+        
          // Use a Map to ensure unique logs based on 'id'
          const uniqueLogs = Array.from(new Map(allLogs.map((log: any) => [log?.id!, log])).values());
     
