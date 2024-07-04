@@ -8,61 +8,66 @@ import LogFat from './logFat';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDinnerLog, setLunchLog, setSnackLog, setTotals, setUserMealLogs } from '@/app/slices/logSlice';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import NutritionComponent from './nutrientProgress';
 import { RootState } from '@/app/store';
 
 export default function LogProgress() {
 
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(true); 
 
     const breakfastLogs = useSelector((state: RootState) => state.log.userMealLogs);
   const lunchLogs = useSelector((state: RootState) => state.log.userLunchLogs);
   const dinnerLogs = useSelector((state: RootState) => state.log.userDinnerLogs);
   const snackLogs = useSelector((state: RootState) => state.log.userMealLogs);
+  const currentDate = useSelector((state: RootState) => state.weight.currentDate);
   const total = useSelector((state: RootState) => state.log.totals);
 
-    const fetchMealLogs = async () => {
-        await axios.get('/api/getMealLogs').then((res: any) => {
-            if(res.status === 201) {
-                dispatch(setUserMealLogs(res.data))
-            }
-        })
-    };
+  const fetchMealLogs = async (date: any) => {
+    await axios.get(`/api/getBreakfastByDate?date=${date}`).then((res: any) => {
+      if (res.status === 201) {
+        dispatch(setUserMealLogs(res.data))
+      }
+    });
+  };
+
+  const fetchLunchLogs = async (date: Date) => {
+    await axios.get(`/api/getLunchByDate?date=${date}`).then((res: any) => {
+      if (res.status === 201) {
+        console.log(res)
+        dispatch(setLunchLog(res?.data))
+      }
+    });
+  };
+
+  const fetchDinnerLogs = async (date: Date) => {
+    await axios.get(`/api/getDinnerByDate?date=${date}`).then((res: any) => {
+      if (res.status === 201) {
+        dispatch(setDinnerLog(res.data))
+      }
+    });
+  };
+  
+  const fetchSnackLogs = async (date: Date) => {
+    await axios.get(`/api/getSnackByDate?date=${date}`).then((res: any) => {
+      if (res.status === 201) {
+        dispatch(setSnackLog(res.data))
+      }
+    });
+  };
     
-    const fetchLunchLogs = async () => {
-      await axios.get('/api/getLunchLogs').then((res: any) => {
-          if(res.status === 201) {
-              dispatch(setLunchLog(res.data))
-          }
-      })
-    };
-    
-    const fetchDinnerLogs = async () => {
-      await axios.get('/api/getDinnerLogs').then((res: any) => {
-          if(res.status === 201) {
-              dispatch(setDinnerLog(res.data))
-          }
-      })
-    };
-    
-    const fetchSnackLogs = async () => {
-      await axios.get('/api/getSnackLogs').then((res: any) => {
-          if(res.status === 201) {
-              dispatch(setSnackLog(res.data))
-            
-          }
-      })
-    
-      
-    };
-    
-    useEffect(() => {
-        fetchMealLogs();
-        fetchLunchLogs();
-        fetchDinnerLogs();
-        fetchSnackLogs();
-    }, [])
+  useEffect(() => {
+    setLoading(true); // Set loading to true before fetching
+    Promise.all([
+        fetchMealLogs(currentDate),
+        fetchLunchLogs(currentDate!),
+        fetchDinnerLogs(currentDate!),
+        fetchSnackLogs(currentDate!)
+    ]).then(() => {
+        setLoading(false); // Set loading to false after all fetches are complete
+    });
+}, [currentDate]);
 
     useEffect(() => {
    

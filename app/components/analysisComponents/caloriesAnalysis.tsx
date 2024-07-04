@@ -12,17 +12,17 @@ const CaloriesAnalysis = () => {
   const formattedDate = format(currentDate!, 'MMM d');
   const total = useSelector((state: RootState) => state.log.totals);
   const grams = useSelector((state: RootState) => state?.log?.grams);
-  const proteinPercentage = useSelector((state: RootState) => state.weight.currentProteinPercentage) ?? 0;
-  const carbsPercentage = useSelector((state: RootState) => state.weight.currentCarbsPercentage) ?? 0;
-  const fatPercentage = useSelector((state: RootState) => state.weight.currentFatPercentage) ?? 0;
+  const proteinPercentage = useSelector((state: RootState) => state.weight.currentProteinPercentage) || 0;
+  const carbsPercentage = useSelector((state: RootState) => state.weight.currentCarbsPercentage) || 0;
+  const fatPercentage = useSelector((state: RootState) => state.weight.currentFatPercentage) || 0;
 
   console.log(grams)
   console.log(proteinPercentage)
 
   const data = [
-    { name: 'Carbs', target: Math.round(grams?.carbPercent), actual: proteinPercentage },
+    { name: 'Carbs', target: Math.round(grams?.carbPercent), actual: proteinPercentage  },
     { name: 'Protein', target: Math.round(grams?.proteinPercent), actual: carbsPercentage },
-    { name: 'Fat', target: Math.round(grams?.fatPercent), actual: fatPercentage },
+    { name: 'Fat', target: Math.round(grams?.fatPercent), actual: fatPercentage  },
   ];
 
   return (

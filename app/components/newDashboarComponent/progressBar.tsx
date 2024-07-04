@@ -18,6 +18,7 @@ const ProgressBar = () => {
   const fetchMealLogs = async (date: any) => {
     await axios.get(`/api/getBreakfastByDate?date=${date}`).then((res: any) => {
       if (res.status === 201) {
+        console.log(res)
         dispatch(setUserMealLogs(res.data));
       }
     });
@@ -33,16 +34,18 @@ const ProgressBar = () => {
   };
 
   const fetchDinnerLogs = async (date: Date) => {
-    await axios.get(`/api/getDinnerLogs?date=${date}`).then((res: any) => {
+    await axios.get(`/api/getDinnerByDate?date=${date}`).then((res: any) => {
       if (res.status === 201) {
+        console.log(res)
         dispatch(setDinnerLog(res.data));
       }
     });
   };
   
   const fetchSnackLogs = async (date: Date) => {
-    await axios.get(`/api/getSnackLogs?date=${date}`).then((res: any) => {
+    await axios.get(`/api/getSnackByDate?date=${date}`).then((res: any) => {
       if (res.status === 201) {
+        console.log(res)
         dispatch(setSnackLog(res.data));
       }
     });
@@ -103,7 +106,7 @@ const ProgressBar = () => {
      // Use a Map to ensure unique logs based on 'id'
      const uniqueLogs = Array.from(new Map(allLogs.map((log: any) => [log?.id!, log])).values());
 
-    console.log('all log: ', uniqueLogs)
+    console.log('all log: ', )
     // Calculate total calories from combined logs
     const totalNutrients = calculateTotalNutrients(allLogs);
     dispatch(setTotals(totalNutrients));
