@@ -42,7 +42,7 @@ export default function CarbProgress() {
         <div className='w-full flex justify-between items-center'>
             <span className='text-indigo-400 font-light'>Carbs</span>
             <div className='flex justify-center items-center gap-1'>
-                <span>{carbPercentage}%</span>
+                <span>{carbPercentage || 0}%</span>
                 <span>Cals</span>
             </div>
         </div>

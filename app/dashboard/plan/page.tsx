@@ -14,6 +14,8 @@ import FatInfo from '@/app/components/tabComponents/fatInfo';
 import ProteinInfo from '@/app/components/tabComponents/proteinInfo';
 import CarbInfo from '@/app/components/tabComponents/carbsInfo';
 import NutrientTargets from '@/app/components/tabComponents/nutrientTarget';
+import ImpactPathChart from '@/app/components/tabComponents/impactPath';
+import CalorieImpactPaths from '@/app/components/tabComponents/caloriesImpactPath';
 
 const Page = () => {
 
@@ -122,8 +124,7 @@ const Page = () => {
                     )}
                      {activeTab === 'Weight Loss Paths' && (
                         <div>
-                            <h1 className="text-xl font-semibold mb-4">Cycling</h1>
-                            <p>Details for Cycling.</p>
+                            <CalorieImpactPaths maintenanceCalories={maintenance} />
                         </div>
                     )}
                     {activeTab === 'Carbs, Protein & Fat' && (

@@ -42,7 +42,7 @@ export default function FatProgress() {
         <div className='w-full flex justify-between items-center'>
             <span className='text-indigo-400 font-light'>Fats</span>
             <div className='flex justify-center items-center gap-1'>
-                <span>{fatPercentage}%</span>
+                <span>{fatPercentage || 0}%</span>
                 <span>cals</span>
             </div>
         </div>

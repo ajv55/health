@@ -1,5 +1,5 @@
 import { RootState } from '@/app/store';
-import { format } from 'date-fns';
+import { endOfWeek, format, startOfWeek } from 'date-fns';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import PdfComponent from './pdfComponent';
@@ -16,6 +16,10 @@ const CaloriesAnalysis = () => {
   const carbsPercentage = useSelector((state: RootState) => state.weight.currentCarbsPercentage) || 0;
   const fatPercentage = useSelector((state: RootState) => state.weight.currentFatPercentage) || 0;
 
+  const startOfWeekDate = format(startOfWeek(currentDate!, { weekStartsOn: 1 }), 'MMM d');
+  const endOfWeekDate = format(endOfWeek(currentDate!, { weekStartsOn: 1 }), 'MMM d');
+  const weekRange = `${startOfWeekDate} to ${endOfWeekDate}`;
+
   console.log(grams)
   console.log(proteinPercentage)
 
@@ -31,7 +35,7 @@ const CaloriesAnalysis = () => {
       <div className="mb-6">
         <h3 className="text-xl text-indigo-600">Calories from Macronutrients</h3>
         <div className="flex justify-between items-center text-indigo-600 mb-2">
-          <span>Jun 26 to Jul 2</span>
+          <span>{weekRange}</span>
           <span>7 days</span>
         </div>
       </div>

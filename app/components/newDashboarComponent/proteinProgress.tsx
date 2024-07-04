@@ -45,7 +45,7 @@ export default function ProteinProgress() {
         <div className='w-full flex justify-between items-center'>
             <span className='text-indigo-400 font-light'>Proteins</span>
             <div className='flex justify-center items-center gap-1'>
-                <span>{proteinPercentage}%</span>
+                <span>{proteinPercentage || 0}%</span>
                 <span>cals</span>
             </div>
         </div>
