@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const CaloriesAnalysis = () => {
 
     const [unhealthyFoods, setUnhealthyFoods] = useState<any>([]);
+    const [allFoods, setAllFoods] = useState<any>({});
     const dispatch = useDispatch();
 
     const currentDate = useSelector((state: RootState) => state.weight.currentDate);
@@ -33,13 +34,46 @@ const CaloriesAnalysis = () => {
     })
   };
 
+  const fetchAllLogs = async () => {
+
+    const startDate = startOfWeek(currentDate!, { weekStartsOn: 1 });
+    const endDate = endOfWeek(currentDate!, { weekStartsOn: 1 });
+
+    await axios.get(`/api/getLastSevenTotal?startDate=${startDate}&endDate=${endDate}`).then((res: any) => {
+      if(res.status === 201){
+        console.log(res)
+        setAllFoods(res?.data)
+      }
+    })
+  }
+
   useEffect(() => {
     fetchUnhealthyFoods();
+    
   }, []);
 
-  console.log(unhealthyFoods);
+  useEffect(() => {
+    fetchAllLogs();
+  }, [currentDate])
 
-  const caloriesOver = unhealthyFoods.reduce((acc: number, cur: any) => acc + cur?.calories, 0) || 0;
+  const calculateCalories = (mealType: string) => {
+    return unhealthyFoods
+        .filter((food: any) => food.mealType === mealType)
+        .reduce((acc: number, cur: any) => acc + cur.calories, 0);
+};
+
+const totalCalories = unhealthyFoods.reduce((acc: number, cur: any) => acc + cur?.calories, 0) || 0;
+const breakfastCalories = calculateCalories('breakfast');
+const lunchCalories = calculateCalories('lunch');
+const dinnerCalories = calculateCalories('dinner');
+const snackCalories = calculateCalories('snack');
+
+const dailyAverage = totalCalories / 7;
+const getPercentage = (calories: number) => {
+    return dailyAverage ? (calories / dailyAverage * 100).toFixed(2) : '0.00';
+};
+
+console.log(allFoods)
 
   const goToPreviousWeek = () => {
     dispatch(setCurrentDate(subWeeks(currentDate!, 1)));
@@ -51,7 +85,7 @@ const CaloriesAnalysis = () => {
 
 
   return (
-    <div className="max-w-4xl rounded-lg bg-indigo-50 mt-10 ring-2 ring-indigo-500 mx-auto p-4">
+    <div className="max-w-5xl rounded-lg bg-indigo-50 mt-10 ring-2 ring-indigo-500 mx-auto p-4">
       <h2 className="text-4xl font-semibold text-indigo-700">Calories Analysis on {formattedDate}</h2>
       
       <div className="mt-4 bg-white shadow-md rounded-lg p-4">
@@ -62,7 +96,7 @@ const CaloriesAnalysis = () => {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4m0 4h.01m-6.938 4h13.856c.938 0 1.792-.384 2.438-1.062C21.616 19.208 22 18.354 22 17.416V6.584c0-.938-.384-1.792-1.062-2.438C20.208 3.384 19.354 3 18.416 3H5.584C4.646 3 3.792 3.384 3.146 4.146A3.49 3.49 0 002 6.584v10.832c0 .938.384 1.792 1.062 2.438C3.792 20.616 4.646 21 5.584 21z" />
             </svg>
           </div>
-          <p className="ml-3 text-lg text-gray-600"><span className='text-indigo-500 text-xl'>{unhealthyFoods.length} meals</span> with noticeable calories content provided a total of <span className="font-bold text-indigo-600">{Math.round(caloriesOver)} cals</span> within the last 7 days.</p>
+          <p className="ml-3 text-lg text-gray-600"><span className='text-indigo-500 text-xl'>{unhealthyFoods.length} meals</span> with noticeable calories content provided a total of <span className="font-bold text-indigo-600">{Math.round(totalCalories)}  cals</span> within the last 7 days.</p>
         </div>
       </div>
 
@@ -87,28 +121,28 @@ const CaloriesAnalysis = () => {
               <GiFriedEggs className="h-7 w-7 text-yellow-400" />
               <span className="ml-2 text-2xl">Breakfast</span>
             </span>
-            <span className='text-lg'>0 cals, 0% daily average</span>
+            <span className='text-xl'><span className='text-indigo-600 text-4xl'>{Math.round(allFoods?.totalBreakfastCalories)}</span> cals, <span className=' text-indigo-600 text-4xl'>{Math.round(allFoods?.breakfastPercentage) || 0}%</span> daily average</span>
           </div>
           <div className="flex items-center justify-between">
             <span className="flex items-center">
               <GiKnifeFork className="h-7 w-7 text-orange-500" />
               <span className="ml-2 text-2xl">Lunch</span>
             </span>
-            <span className='text-lg'>0 cals, 0% daily average</span>
+            <span className='text-xl'><span className='text-indigo-600 text-4xl'>{Math.round(allFoods?.totalLunchCalories)}</span> cals, <span className='text-indigo-600 text-4xl'>{Math.round(allFoods?.lunchPercentage) || 0}%</span> daily average</span>
           </div>
           <div className="flex items-center justify-between">
             <span className="flex items-center">
               <MdDinnerDining className="h-7 w-7 text-blue-500" />
               <span className="ml-2 text-2xl">Dinner</span>
             </span>
-            <span className='text-lg'>99 cals, 26% daily average</span>
+            <span className='text-xl'><span className='text-indigo-600 text-4xl'>{Math.round(allFoods?.totalDinnerCalories)}</span> cals, <span className='text-indigo-600 text-4xl'>{Math.round(allFoods?.dinnerPercentage) || 0}% </span> daily average</span>
           </div>
           <div className="flex items-center justify-between">
             <span className="flex items-center">
               <GiPopcorn className="h-7 w-7 text-red-500" />
               <span className="ml-2 text-2xl">Snack</span>
             </span>
-            <span className='text-lg'>0 cals, 0% daily average</span>
+            <span className='text-xl'><span className='text-indigo-600 text-4xl'>{Math.round(allFoods?.totalSnackCalories)}</span> cals, <span className='text-indigo-600 text-4xl'>{Math.round(allFoods?.snackPercentage) || 0}%</span> daily average</span>
           </div>
         </div>
       </div>
