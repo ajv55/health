@@ -56,7 +56,6 @@ const CaloriesAnalysis = () => {
 
   useEffect(() => {
     fetchUnhealthyFoods();
-    
   }, []);
 
   useEffect(() => {

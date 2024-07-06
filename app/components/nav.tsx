@@ -71,7 +71,7 @@ export default function Nav() {
       </AnimatePresence>
 
         <div className='flex justify-center items-center gap-2'>
-           <h1 className='text-4xl '>FitGenius</h1>
+           <h1 className='text-4xl '>MyFitGenius</h1>
            <FiActivity size={30} color='gold' />
         </div>
         

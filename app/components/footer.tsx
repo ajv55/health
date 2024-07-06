@@ -15,18 +15,24 @@ export default function Footer() {
                     <h1 className='font-light lg:text-6xl text-white text-5xl tracking-wider'>FitGenius</h1>
                     <FiActivity className='lg:w-16 lg:h-16' size={40} color='gold'/>
                 </div>
-            <div className='flex mt-4 lg:mt-0 ml-2 justify-between gap-2 items-center'>
-                
-                <MdOutlineMailOutline size={37} color='white' />
-                <h4 className='lg:text-2xl text-3xl text-white text-center'>contact@fitgenius.com</h4>
-            </div>
+                <div className='flex mt-4 lg:mt-0 ml-2 justify-between gap-2 items-center'>
+          <MdOutlineMailOutline size={37} color='white' />
+          <a href="mailto:contact@myfitgenius.com" className='lg:text-2xl text-3xl text-white text-center'>contact@myfitgenius.com</a>
+        </div>
 
-            <form  className=' w-full'>
-                <div className='flex  p-3 flex-col lg:w-[32rem] w-full gap-3 rounded-lg justify-start'>
-                    <label htmlFor="email" className='text-xl text-white font-semibold tracking-widest '>Subscribe To Our Newsletter</label>
-                    <input className='block p-2.5 w-full  text-lg text-grey-700 bg-slate-200 rounded-lg  focus:ring-orange-500 focus:border-teal-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500' placeholder='Email ...' type="email" name='email' id='email' />
-                </div>
-            </form>
+        <form  className='w-full'>
+          <div className='flex p-3 flex-col lg:w-[32rem] w-full gap-3 rounded-lg items-start justify-start'>
+            <label htmlFor="email" className='text-xl text-white font-semibold  tracking-widest '>Subscribe To Our Newsletter</label>
+            <input
+              className='block p-2.5 w-full text-lg text-grey-700 bg-slate-200 rounded-lg focus:ring-orange-500 focus:border-teal-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500'
+              placeholder='Email ...'
+              type="email"
+              name='email'
+              id='email'
+            />
+            <button type="submit" className='p-2.5 bg-indigo-500 hover:bg-indigo-400 w-[55%] text-white text-xl rounded-lg'>Subscribe</button>
+          </div>
+        </form>
         </div>
 
         <div className=' relative   p-2 lg:p-0 flex lg:w-[52%]  w-full lg:h-[19rem] h-content'>
@@ -52,8 +58,9 @@ export default function Footer() {
             </nav>
 
         </div>
-        <div className=' lg:w-full lg:mt-0 mt-8 w-[97%] h-[4rem] flex justify-center items-center'>
-            <p className='text-xl text-center text-white lg:text-right'>Copyright © 2024 FitGenius. All rights reserved.</p>
+        <div className=' lg:w-full lg:mt-0 mt-8 w-[97%] h-[4rem] flex gap-10 justify-center items-center'>
+            <p className='text-xl text-center text-white lg:text-right'>Copyright © 2024 MyFitGenius. All rights reserved.</p>
+            <p className='text-lg text-center text-white lg:text-right'>Designed and built by Abel J. Villareal</p>
         </div>
         
     </div>
