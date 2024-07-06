@@ -4,40 +4,51 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest) {
     const searchParams = await req.nextUrl.searchParams;
     const startDate = searchParams.get('startDate');
+    const days = parseInt(searchParams.get('days') || '7', 10);
     const endDate = searchParams.get('endDate');
+    
     console.log('start',startDate)
 
     try {
+
+         // Convert startDate and endDate to Date objects
+         const start = new Date(startDate!);
+         const end = new Date(endDate!);
+ 
+         // Ensure the date range is within the selected number of days
+         const adjustedStartDate = new Date(end);
+         adjustedStartDate.setDate(end.getDate() - days);
+
         // Fetch logs for each meal type within the specified date range
         const breakfastLogs = await prisma.mealLog.findMany({
             where: {
                 createdAt: {
-                    gte: new Date(startDate!),
-                    lte: new Date(endDate!),
+                    gte: adjustedStartDate,
+                    lte: end,
                 },
             },
         });
         const lunchLogs = await prisma.lunchLog.findMany({
             where: {
                 createdAt: {
-                    gte: new Date(startDate!),
-                    lte: new Date(endDate!),
+                    gte: adjustedStartDate,
+                    lte: end,
                 },
             },
         });
         const dinnerLogs = await prisma.dinnerLog.findMany({
             where: {
                 createdAt: {
-                    gte: new Date(startDate!),
-                    lte: new Date(endDate!),
+                    gte: adjustedStartDate,
+                    lte: end,
                 },
             },
         });
         const snackLogs = await prisma.snackLog.findMany({
             where: {
                 createdAt: {
-                    gte: new Date(startDate!),
-                    lte: new Date(endDate!),
+                    gte: adjustedStartDate,
+                    lte: end,
                 },
             },
         });
