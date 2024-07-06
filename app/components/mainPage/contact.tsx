@@ -1,25 +1,25 @@
 'use client';
-import Tilt from '../tilt';
-import BottomTilt from '../bottomTilt';
-import contactImage from '@/public/contact-svgrepo-com.svg';
-import Image from 'next/image';
-import { sendEmail } from '@/app/action/sendEmail';
+
 import { FiMail, FiUser, FiMessageCircle } from 'react-icons/fi';
 import { useRef, useEffect } from 'react';
 import { motion, useInView, useAnimation } from 'framer-motion';
-import style from '@/app/style.module.css'
+import style from '@/app/style.module.css';
+import toast from 'react-hot-toast';
+import { sendEmail } from '@/app/action/sendEmail';
 
 export default function Contact() {
-  const ref = useRef<HTMLFormElement>(null);
+  const ref = useRef<HTMLFormElement  | null>(null);
   const animationRef = useRef(null);
   const isInView = useInView(animationRef);
   const mainControls = useAnimation();
+
 
   useEffect(() => {
     if (isInView) {
       mainControls.start('visible');
     }
   }, [isInView, mainControls]);
+  
 
   return (
     <div ref={animationRef} className={`${style.background} w-full h-full bg-slate-100 py-16 flex flex-col lg:flex-row justify-center items-center relative space-y-12 lg:space-y-0 lg:space-x-12`}>
@@ -39,30 +39,34 @@ export default function Contact() {
         initial="hidden"
         animate={mainControls}
         transition={{ type: 'spring', stiffness: 70, duration: 1, delay: 0.55 }}
-        action={async (formData) => {
-          sendEmail(formData);
+        action={async (formData) =>  {
+          const res = await sendEmail(formData);
+          console.log(res)
+          if(res.success === true){
+            toast.success('Successfully sent message! 💪🏻')
+          }
           ref.current?.reset();
         }}
         ref={ref}
-        className="lg:w-1/2 w-[95%] bg-white rounded-xl shadow-xl flex flex-col justify-center items-center p-8 lg:p-12"
+        className="lg:w-[45%] w-[95%] ring-1 ring-indigo-400 bg-white rounded-xl shadow-xl flex flex-col justify-center items-center p-8 lg:p-12"
       >
         <h1 className="text-4xl lg:text-5xl w-full text-center font-bold text-indigo-600 mb-8 lg:mb-12">Send A Message!</h1>
         <div className="flex flex-col gap-6 w-full max-w-lg">
           <div className="flex items-center gap-2">
             <FiUser className="text-indigo-600 text-xl" />
-            <input className="block flex-1 p-3 text-lg text-gray-800 rounded-lg focus:outline-none focus:ring-2 ring-indigo-400" placeholder="Firstname ..." type="text" name="firstname" id="firstname" />
+            <input className="block flex-1 p-3 text-lg text-gray-800 rounded-lg ring-1 focus:ring-2 ring-indigo-400" placeholder="Firstname ..." type="text" name="firstname" id="firstname" />
           </div>
           <div className="flex items-center gap-2">
             <FiUser className="text-indigo-600 text-xl" />
-            <input className="block flex-1 p-3 text-lg text-gray-800 rounded-lg focus:outline-none focus:ring-2 ring-indigo-400" placeholder="Lastname ..." type="text" name="lastname" id="lastname" />
+            <input className="block flex-1 p-3 text-lg text-gray-800 rounded-lg ring-1  focus:ring-2 ring-indigo-400" placeholder="Lastname ..." type="text" name="lastname" id="lastname" />
           </div>
           <div className="flex items-center gap-2">
             <FiMail className="text-indigo-600 text-xl" />
-            <input className="block flex-1 p-3 text-lg text-gray-800 rounded-lg focus:outline-none focus:ring-2 ring-indigo-400" placeholder="Email ..." type="email" name="email" id="email" />
+            <input className="block flex-1 p-3 text-lg text-gray-800 rounded-lg ring-1 focus:ring-2 ring-indigo-400" placeholder="Email ..." type="email" name="email" id="email" />
           </div>
           <div className="flex items-start gap-2">
             <FiMessageCircle className="text-indigo-600 text-xl" />
-            <textarea id="message" rows={4} name="message" className="block flex-1 w-full p-3 text-lg text-gray-800 rounded-lg focus:outline-none focus:ring-2 ring-indigo-400 resize-none" placeholder="Leave a message..."></textarea>
+            <textarea id="message" rows={4} name="message" className="block flex-1 w-full p-3 text-lg text-gray-800 rounded-lg ring-1 focus:ring-2 ring-indigo-400 resize-none" placeholder="Leave a message..."></textarea>
           </div>
           <button className="w-full py-3 text-center text-white rounded-xl font-bold text-xl bg-gradient-to-r from-indigo-500 via-indigo-600 to-indigo-700 hover:bg-gradient-to-l focus:ring-2 ring-inset focus:ring-indigo-200 drop-shadow-xl" type="submit">
             Send Message!
