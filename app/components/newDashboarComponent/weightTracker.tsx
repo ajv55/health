@@ -6,7 +6,7 @@ import 'chart.js/auto';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { format, addDays, isValid, parseISO } from 'date-fns';
-import { setDaysToLoseWeight, setWeeks } from '@/app/slices/weightSlice';
+import { setDaysToLoseWeight, setWeeks, setWeightLogs, setWeightModal } from '@/app/slices/weightSlice';
 import { RootState } from '@/app/store';
 import Link from 'next/link';
 import axios from 'axios';
@@ -30,14 +30,13 @@ const WeightTracker: React.FC = () => {
   const [advice, setAdvice] = useState([]);
   const [randomAdvice, setRandomAdvice] = useState<any>({});
   const [loading, setLoading] = useState(true);
+  const weightLogs = useSelector((state: RootState) => state.weight.weightLogs)
   
 
   const userWeight = session?.user?.weight ?? 0;
   const goal = session?.user?.goal ?? 0;
   const maintenanceCalories = session?.user?.calories ?? 0;
-  const recommendCal = useSelector((state: RootState) => state.weight.recommend) ?? 0;
-
-  console.log('recommend: ',recommendCal)
+  const recommend = maintenanceCalories - 300;
 
   const start = session?.user?.createdAt ? parseISO(session.user.createdAt) : new Date();
 
@@ -50,7 +49,9 @@ const WeightTracker: React.FC = () => {
         setLoading(false);
       }
     })
-  }
+  };
+
+  
 
   const calculateEstimatedEndDate = (
     currentWeight: number,
@@ -105,9 +106,26 @@ const WeightTracker: React.FC = () => {
   };
 
 
-  const recommend = maintenanceCalories - 300;
+  
   const { endDate: recommendedEndDate, totalDays: recommendedTotalDays } =
     calculateEstimatedEndDate(userWeight, goal, recommend);
+
+    const fetchWeightLogs = async () => {
+      try {
+        const response = await axios.get('/api/getWeightLog');
+        if (response.status === 201) {
+          const updatedLogs = [...response.data];
+         const { endDate } = calculateEstimatedEndDate(userWeight, goal, recommend);
+      if (endDate && isValid(new Date(endDate))) {
+        updatedLogs.push({ createdAt: new Date(endDate).toISOString(), newWeight: goal });
+      }
+      console.log('Updated Logs: ', updatedLogs);
+      dispatch(setWeightLogs(updatedLogs));
+        }
+      } catch (error) {
+        console.error('Error fetching weight logs:', error);
+      }
+    };
 
     useEffect(() => {
       dispatch(setDaysToLoseWeight(recommendedTotalDays));
@@ -116,19 +134,26 @@ const WeightTracker: React.FC = () => {
 
     useEffect(() => {
       fetchAdvice();
-
+      fetchWeightLogs();
     } ,[])
 
 
   const formatDate = (date: Date | string) =>
     isValid(new Date(date)) ? format(new Date(date), 'MMMM d, yyyy') : 'Invalid date';
 
+  const formatWeightLogsForChart = (logs: any) => {
+    return logs.map((log: any) => ({
+      x: formatDate(log.createdAt),
+      y: log.newWeight,
+    }));
+  };
+
   const chartData = {
-    labels: [formatDate(start), formatDate(recommendedEndDate)],
+    labels: weightLogs?.map((log: any) => formatDate(log?.createdAt)),
     datasets: [
       {
         label: 'Weight',
-        data: [userWeight, goal],
+        data: formatWeightLogsForChart(weightLogs),
         fill: true,
         borderColor: '#6366F1',
         borderWidth: 2,
@@ -148,8 +173,6 @@ const WeightTracker: React.FC = () => {
     },
   };
 
-  console.log(randomAdvice);
-  console.log(advice)
 
   return (
     <div className="w-[40%] h-[43rem] mx-auto  bg-white shadow-lg rounded-lg">
@@ -178,9 +201,9 @@ const WeightTracker: React.FC = () => {
           </div>
           <button
           className="mt-2 px-4 py-2 bg-indigo-600 text-white rounded shadow"
-          onClick={() => router.push('/dashboard/plan?tab=Weight Loss Paths')}
+          onClick={() => dispatch(setWeightModal(true))}
         >
-          View Other Weight Loss Paths
+          Weigh-In
         </button>
         </div>
         

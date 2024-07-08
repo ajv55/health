@@ -35,7 +35,7 @@ export default function Register() {
                 toast.success('User has been registered successfully!');
                 router.push('/login');
             })
-            .catch((error) => console.error('Error occurred when trying to register', error));
+            .catch((error) => console.error('Error occurred when trying to register', error))
     };
 
     return (

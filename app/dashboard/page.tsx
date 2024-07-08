@@ -18,6 +18,8 @@ import WeightTracker from '../components/newDashboarComponent/weightTracker';
 import { setRecommend } from '../slices/weightSlice';
 import { s } from '@fullcalendar/core/internal-common';
 import DatePicker from '../components/tabComponents/datePicker';
+import WeighInModal from '../components/newDashboarComponent/weightModal';
+import axios from 'axios';
 
 export default  function Page() {
 
@@ -26,9 +28,19 @@ export default  function Page() {
   const dispatch = useDispatch();
   const stepsModal = useSelector((state: RootState) => state.log.stepsModal);
   const waterModal = useSelector((state: RootState) => state.water.waterModal);
+  const weightModal = useSelector((state: RootState) => state.weight.weightModal);
 
+  const weight = session?.user?.weight
 
-  
+  const postWeight =  async () => {
+    await axios.post('/api/postToWeightLog', {weight}).then((res) => {
+      console.log(res)
+      if(res.status === 201){
+        console.log(res)
+      }
+    })
+  }
+
 
   useEffect(() => {
 
@@ -46,7 +58,8 @@ export default  function Page() {
       const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
       const MainCal = calories * 1.2
       const calToString = Math.round(MainCal)
-      const rec = calToString - 200
+      const rec = calToString - 200;
+      postWeight();
       update({calories: calToString.toString(), recommend: rec }) 
     }
 
@@ -54,7 +67,8 @@ export default  function Page() {
       const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
       const MainCal = calories * 1.375
       const calToString = Math.round(MainCal);
-      const rec = calToString - 250
+      const rec = calToString - 250;
+      postWeight();
       update({calories: calToString.toString(), recommend: rec }) 
     }
 
@@ -62,7 +76,8 @@ export default  function Page() {
       const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
       const MainCal = calories * 1.55
       const calToString = Math.round(MainCal);
-      const rec = calToString - 350
+      const rec = calToString - 350;
+      postWeight();
       update({calories: calToString.toString(), recommend: rec}) 
     }
 
@@ -70,7 +85,8 @@ export default  function Page() {
       const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
       const MainCal = calories * 1.725
       const calToString = Math.round(MainCal)
-      const rec = calToString - 400
+      const rec = calToString - 400;
+      postWeight();
       update({calories: calToString.toString(), recommend: rec }) 
     }
 
@@ -78,7 +94,8 @@ export default  function Page() {
       const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
       const MainCal = calories * 1.9
       const calToString = Math.round(MainCal)
-      const rec = calToString - 500
+      const rec = calToString - 500;
+      postWeight();
       update({calories: calToString.toString(), recommend: rec }) 
     }
     
@@ -87,7 +104,8 @@ export default  function Page() {
       const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
       const MainCal = calories * 1.2
       const calToString = Math.round(MainCal)
-      const rec = calToString - 200
+      const rec = calToString - 200;
+      postWeight();
       update({calories: calToString.toString(), recommend: rec })
     }
 
@@ -95,7 +113,8 @@ export default  function Page() {
       const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
       const MainCal = calories * 1.375
       const calToString = Math.round(MainCal)
-      const rec = calToString - 300
+      const rec = calToString - 300;
+      postWeight();
       update({calories: calToString.toString(), recommend: rec })
     }
 
@@ -103,7 +122,8 @@ export default  function Page() {
       const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
       const MainCal = calories * 1.55
       const calToString = Math.round(MainCal)
-      const rec = calToString - 350
+      const rec = calToString - 350;
+      postWeight();
       update({calories: calToString.toString(), recommend: rec }) 
     }
 
@@ -111,7 +131,8 @@ export default  function Page() {
       const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
       const MainCal = calories * 1.725
       const calToString = Math.round(MainCal)
-      const rec = calToString - 400
+      const rec = calToString - 400;
+      postWeight();
       update({calories: calToString.toString(), recommend: rec }) 
     }
 
@@ -119,7 +140,8 @@ export default  function Page() {
       const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
       const MainCal = calories * 1.9
       const calToString = Math.round(MainCal)
-      const rec = calToString - 500
+      const rec = calToString - 500;
+      postWeight();
       update({calories: calToString.toString(), recommend: rec }) 
     }
 
@@ -143,6 +165,7 @@ useEffect(() => {
       <AnimatePresence>
         {stepsModal && <LogDailySteps />}
         {waterModal && <Water />}
+        {weightModal && <WeighInModal />}
         </AnimatePresence>
       {/* <div className='flex lg:flex-row flex-col justify-between items-center'>
         <Welcome />

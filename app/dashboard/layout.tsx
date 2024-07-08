@@ -13,9 +13,9 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useSession } from 'next-auth/react';
 import { FaFire } from "react-icons/fa";
 import { FiActivity } from "react-icons/fi";
-import style from '@/app/style.module.css';
 import { GrPlan } from "react-icons/gr";
 import { GiMeal } from "react-icons/gi";
+import { MdSpaceDashboard } from "react-icons/md";
 
 export default function Layout({children}: {children: React.ReactNode}) {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,7 +45,7 @@ export default function Layout({children}: {children: React.ReactNode}) {
                     >
                         <nav className="flex flex-col p-4 space-y-8">
                             <Link onClick={() => setIsOpen(!isOpen)} className="text-2xl font-semibold text-white  hover:text-teal-500" href="/dashboard">
-                            Overview
+                            Dashboard
                             </Link>
                             <Link onClick={() => setIsOpen(false)} className="text-2xl font-semibold text-white  hover:text-teal-500" href="/dashboard/calories">
                             Calories 
@@ -79,13 +79,13 @@ export default function Layout({children}: {children: React.ReactNode}) {
       </div>
       <nav className='lg:flex hidden  flex-col w-[20%] justify-start items-start text-2xl gap-10 bg-gradient-to-tr from-indigo-950 via-indigo-900 to-indigo-950 h-screen'>
       <div className='flex  w-full justify-center items-center p-2 gap-2'>
-           <h1 className='text-4xl text-white'>FitGenius</h1>
+           <h1 className='text-4xl text-white'>MyFitGenius</h1>
            <FiActivity size={30} color='gold' />
         </div>
           <Link 
               className='flex justify-start items-center gap-2 text-white hover:bg-indigo-800 hover:bg-opacity-25 hover:border-r-[5px] hover:border-indigo-200 w-full px-2 py-2.5'
               href='/dashboard'>
-              <IoMdAnalytics size={35} color='white'/>Dashboard
+              <MdSpaceDashboard size={35} color='white'/>Dashboard
           </Link>
           <Link 
               className='flex justify-start items-center gap-2 text-white hover:bg-indigo-800 hover:bg-opacity-25 hover:border-r-[5px] hover:border-indigo-200 w-full px-2 py-2.5'
@@ -106,6 +106,11 @@ export default function Layout({children}: {children: React.ReactNode}) {
               className='flex justify-start items-center gap-2 text-white hover:bg-indigo-800 hover:bg-opacity-25 hover:border-r-[5px] hover:border-indigo-200 w-full px-2 py-2.5'
               href='/dashboard/plan'>
               <GrPlan size={33} color='white' />Plan
+          </Link>
+          <Link 
+              className='flex justify-start items-center gap-2 text-white hover:bg-indigo-800 hover:bg-opacity-25 hover:border-r-[5px] hover:border-indigo-200 w-full px-2 py-2.5'
+              href='/dashboard/analysis'>
+              <IoMdAnalytics size={33} color='white' />Analysis
           </Link>
       </nav>
         {children}

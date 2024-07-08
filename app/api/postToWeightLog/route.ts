@@ -9,14 +9,16 @@ export async function POST(req: NextRequest) {
     const session = await getServerSession(authOptions);
 
     const body = await req.json();
-    console.log(body)
+    const {weight} = body
 
-    const steps = await prisma.stepLog.create({
+    console.log(weight);
+
+    const res = await prisma.weightLog.create({
         data: {
-            steps: body,
-            user: {connect: {id: session?.user?.id}}
+            user: {connect: {id: session?.user.id!}},
+            newWeight: weight
         }
     })
 
-    return NextResponse.json(steps, {status: 201})
+    return NextResponse.json(res, {status: 201})
 }

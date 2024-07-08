@@ -7,7 +7,9 @@ interface WeightState  {
     currentDate?: Date,
     currentProteinPercentage?: number,
     currentCarbsPercentage?: number,
-    currentFatPercentage?: number
+    currentFatPercentage?: number,
+    weightModal?: boolean,
+    weightLogs?: []
 
 }
 
@@ -18,7 +20,9 @@ const initialState: WeightState = {
     currentDate: new Date(),
     currentProteinPercentage: 0,
     currentCarbsPercentage: 0,
-    currentFatPercentage: 0
+    currentFatPercentage: 0,
+    weightModal: false,
+    weightLogs: []
 }
 
 
@@ -47,10 +51,16 @@ export const weightSlice = createSlice({
         setCurrentFatPercentage: (state, action) => {
             state.currentFatPercentage = action.payload
         },
+        setWeightModal: (state, action) => {
+            state.weightModal = action.payload
+        },
+        setWeightLogs: (state, action) => {
+            state.weightLogs = action.payload
+        }
       }
 })
 
 
-export const {setDaysToLoseWeight, setWeeks, setRecommend, setCurrentDate, setCurrentCarbsPercentage, setCurrentFatPercentage, setCurrentProteinPercentage} = weightSlice.actions;
+export const { setDaysToLoseWeight, setWeeks, setRecommend, setCurrentDate, setCurrentCarbsPercentage, setCurrentFatPercentage, setCurrentProteinPercentage, setWeightModal, setWeightLogs } = weightSlice.actions;
 
 export default weightSlice.reducer;
