@@ -1,6 +1,6 @@
 'use client';
 
-import {  useEffect } from 'react';
+import {  useEffect, useRef } from 'react';
 import {useSession} from 'next-auth/react'
 import { useRouter } from 'next/navigation';
 import LineChart from '../components/dashboardComponents/lineChart';
@@ -30,124 +30,57 @@ export default  function Page() {
   const waterModal = useSelector((state: RootState) => state.water.waterModal);
   const weightModal = useSelector((state: RootState) => state.weight.weightModal);
 
-  const weight = session?.user?.weight
+  const weight = session?.user?.weight;
+  const postWeightExecuted = useRef(false); 
 
   const postWeight =  async () => {
     await axios.post('/api/postToWeightLog', {weight}).then((res) => {
-      console.log(res)
       if(res.status === 201){
         console.log(res)
       }
     })
   }
 
+  const calculateAndUpdateCalories = (gender: string, activity: string) => {
+    const bmr = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session?.user?.height)) - (6.8 * Number(session?.user?.age));
+    const activityMultiplier = {
+      'No-Exercise': 1.2,
+      'Light-Exercise': 1.375,
+      'Moderate-Exercise': 1.55,
+      'Heavy-Exercise': 1.725,
+      'Strenuous-Exercise': 1.9
+    } as any;
+    const calorieReduction = {
+      'No-Exercise': 200,
+      'Light-Exercise': 250,
+      'Moderate-Exercise': 350,
+      'Heavy-Exercise': 400,
+      'Strenuous-Exercise': 500
+    } as any;
+    const mainCalories = bmr * activityMultiplier[activity];
+    const calToString = Math.round(mainCalories);
+    const recommend = calToString - calorieReduction[activity];
+    update({ calories: calToString.toString(), recommend: recommend });
+  };
+
 
   useEffect(() => {
-
-    if(status === 'unauthenticated') {
-
-      return router.push('/')
-    } 
+    if (status === 'unauthenticated') {
+      return router.push('/');
+    }
 
     if (session?.user.calories !== null) {
-     
-      return  console.log('theres caloires existing alread')
+      return console.log('There are existing calories already');
     }
 
-    if (session?.user?.gender === 'Male' && session.user.activity === 'No-Exercise') {
-      const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
-      const MainCal = calories * 1.2
-      const calToString = Math.round(MainCal)
-      const rec = calToString - 200;
-      postWeight();
-      update({calories: calToString.toString(), recommend: rec }) 
+    if (!session?.user?.calories) {
+      if (session?.user?.weight && !postWeightExecuted.current) {
+        calculateAndUpdateCalories(session.user.gender, session.user.activity);
+        postWeight();
+        postWeightExecuted.current = true; // Set flag to true after executing postWeight()
+      }
     }
-
-    if (session?.user?.gender === 'Male' && session.user.activity === 'Light-Exercise') {
-      const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
-      const MainCal = calories * 1.375
-      const calToString = Math.round(MainCal);
-      const rec = calToString - 250;
-      postWeight();
-      update({calories: calToString.toString(), recommend: rec }) 
-    }
-
-    if (session?.user?.gender === 'Male' && session.user.activity === 'Moderate-Exercise') {
-      const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
-      const MainCal = calories * 1.55
-      const calToString = Math.round(MainCal);
-      const rec = calToString - 350;
-      postWeight();
-      update({calories: calToString.toString(), recommend: rec}) 
-    }
-
-    if (session?.user?.gender === 'Male' && session.user.activity === 'Heavy-Exercise') {
-      const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
-      const MainCal = calories * 1.725
-      const calToString = Math.round(MainCal)
-      const rec = calToString - 400;
-      postWeight();
-      update({calories: calToString.toString(), recommend: rec }) 
-    }
-
-    if (session?.user?.gender === 'Male' && session.user.activity === 'Strenuous-Exercise') {
-      const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
-      const MainCal = calories * 1.9
-      const calToString = Math.round(MainCal)
-      const rec = calToString - 500;
-      postWeight();
-      update({calories: calToString.toString(), recommend: rec }) 
-    }
-    
-    // if statements checking for female and physical activity level
-    if (session?.user?.gender === 'Female' && session.user.activity === 'No-Exercise') {
-      const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
-      const MainCal = calories * 1.2
-      const calToString = Math.round(MainCal)
-      const rec = calToString - 200;
-      postWeight();
-      update({calories: calToString.toString(), recommend: rec })
-    }
-
-    if (session?.user?.gender === 'Female' && session.user.activity === 'Light-Exercise') {
-      const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
-      const MainCal = calories * 1.375
-      const calToString = Math.round(MainCal)
-      const rec = calToString - 300;
-      postWeight();
-      update({calories: calToString.toString(), recommend: rec })
-    }
-
-    if (session?.user?.gender === 'Female' && session.user.activity === 'Moderate-Exercise') {
-      const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
-      const MainCal = calories * 1.55
-      const calToString = Math.round(MainCal)
-      const rec = calToString - 350;
-      postWeight();
-      update({calories: calToString.toString(), recommend: rec }) 
-    }
-
-    if (session?.user?.gender === 'Female' && session.user.activity === 'Heavy-Exercise') {
-      const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
-      const MainCal = calories * 1.725
-      const calToString = Math.round(MainCal)
-      const rec = calToString - 400;
-      postWeight();
-      update({calories: calToString.toString(), recommend: rec }) 
-    }
-
-    if (session?.user?.gender === 'Female' && session.user.activity === 'Strenuous-Exercise') {
-      const calories = 66 + (6.23 * Number(session?.user?.weight)) + (12.7 * Number(session.user.height)) - (6.8 * Number(session.user.age));
-      const MainCal = calories * 1.9
-      const calToString = Math.round(MainCal)
-      const rec = calToString - 500;
-      postWeight();
-      update({calories: calToString.toString(), recommend: rec }) 
-    }
-
-
-
-}, [session]);
+  }, [session, status, router]);
 
 useEffect(() => {
   dispatch(resetModals());

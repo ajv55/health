@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Line } from 'react-chartjs-2';
 import 'chart.js/auto';
@@ -30,14 +30,12 @@ const WeightTracker: React.FC = () => {
   const [advice, setAdvice] = useState([]);
   const [randomAdvice, setRandomAdvice] = useState<any>({});
   const [loading, setLoading] = useState(true);
-  const weightLogs = useSelector((state: RootState) => state.weight.weightLogs)
+  const weightLogs = useSelector((state: RootState) => state.weight.weightLogs);
   
-
   const userWeight = session?.user?.weight ?? 0;
   const goal = session?.user?.goal ?? 0;
   const maintenanceCalories = session?.user?.calories ?? 0;
   const recommend = maintenanceCalories - 300;
-
   const start = session?.user?.createdAt ? parseISO(session.user.createdAt) : new Date();
 
   const fetchAdvice = async () => {
@@ -51,92 +49,76 @@ const WeightTracker: React.FC = () => {
     })
   };
 
-  
+  const validateInputs = (
+    currentWeight: number,
+    goalWeight: number,
+    deficitPerDay: number
+  ) => {
+    return (
+      !isNaN(currentWeight) &&
+      !isNaN(goalWeight) &&
+      currentWeight > goalWeight &&
+      deficitPerDay > 0
+    );
+  };
 
   const calculateEstimatedEndDate = (
     currentWeight: number,
     goalWeight: number,
     deficitPerDay: number
   ) => {
-    if (
-      isNaN(currentWeight) ||
-      isNaN(goalWeight) ||
-      currentWeight <= goalWeight ||
-      deficitPerDay <= 0
-    ) {
-      console.error('Invalid input values', { currentWeight, goalWeight, deficitPerDay });
-      return {
-        endDate: 'Invalid date',
-        totalDays: 'Invalid days',
-      };
-    }
-
     const calorieDeficitPerWeek = deficitPerDay * 7;
     const poundsLostPerWeek = calorieDeficitPerWeek / 3500;
-    const weeksToLoseWeight = (currentWeight - goalWeight) / poundsLostPerWeek;
-
-    if (isNaN(weeksToLoseWeight) || weeksToLoseWeight < 0) {
-      console.error('Invalid weeksToLoseWeight calculation', {
-        weeksToLoseWeight,
-        currentWeight,
-        goalWeight,
-        calorieDeficitPerWeek,
-      });
-      return {
-        endDate: 'Invalid date',
-        totalDays: 'Invalid days',
-      };
-    }
-
+    const weeksToLoseWeight = (currentWeight - goal) / poundsLostPerWeek;
+  
     const totalDays = Math.ceil(weeksToLoseWeight * 7);
     const estimatedEndDate = addDays(new Date(), totalDays);
-
-    if (!isValid(estimatedEndDate)) {
-      console.error('Invalid estimatedEndDate', { estimatedEndDate });
-      return {
-        endDate: 'Invalid date',
-        totalDays: 'Invalid days',
-      };
-    }
-
+  
     return {
-      endDate: estimatedEndDate,
-      totalDays: totalDays,
+      endDate: isValid(estimatedEndDate) ? estimatedEndDate : null,
+      totalDays: isNaN(totalDays) ? 'Invalid days' : totalDays,
     };
   };
 
+  const memoizedCalculation = useMemo(() => {
+    if (validateInputs(userWeight, goal, recommend)) {
+      return calculateEstimatedEndDate(Number(userWeight), Number(goal), Number(recommend));
+    }
+    return { endDate: null, totalDays: 'Invalid days' };
+  }, [userWeight, goal, recommend]);
 
-  
-  const { endDate: recommendedEndDate, totalDays: recommendedTotalDays } =
-    calculateEstimatedEndDate(userWeight, goal, recommend);
+  const recommendedEndDate = memoizedCalculation.endDate;
+  const recommendedTotalDays = memoizedCalculation.totalDays;
 
-    const fetchWeightLogs = async () => {
-      try {
-        const response = await axios.get('/api/getWeightLog');
-        if (response.status === 201) {
-          const updatedLogs = [...response.data];
-         const { endDate } = calculateEstimatedEndDate(userWeight, goal, recommend);
-      if (endDate && isValid(new Date(endDate))) {
-        updatedLogs.push({ createdAt: new Date(endDate).toISOString(), newWeight: goal });
+  const fetchWeightLogs = async () => {
+    try {
+      const response = await axios.get('/api/getWeightLogs');
+      if (response.status === 201) {
+        const updatedLogs = [...response.data];
+        updatedLogs.push({ createdAt: new Date(recommendedEndDate!).toISOString(), newWeight: goal });
+        // Remove duplicates based on id
+      const uniqueLogs = updatedLogs.filter((log, index, self) => 
+        index === self.findIndex((t) => t.id === log.id)
+      );
+
+      dispatch(setWeightLogs(uniqueLogs));
       }
-      console.log('Updated Logs: ', updatedLogs);
-      dispatch(setWeightLogs(updatedLogs));
-        }
-      } catch (error) {
-        console.error('Error fetching weight logs:', error);
-      }
-    };
+    } catch (error) {
+      console.error('Error fetching weight logs:', error);
+    }
+  };
 
-    useEffect(() => {
+  useEffect(() => {
+    if (recommendedEndDate && recommendedTotalDays !== 'Invalid days') {
       dispatch(setDaysToLoseWeight(recommendedTotalDays));
-      dispatch(setWeeks(recommendedEndDate));
-    }, [dispatch, recommendedEndDate, recommendedTotalDays]);
+      dispatch(setWeeks(recommendedEndDate.toISOString()));
+      fetchWeightLogs(); // Fetch weight logs only when recommendedEndDate is valid
+    }
+  }, [dispatch, recommendedTotalDays, recommendedEndDate]);
 
-    useEffect(() => {
-      fetchAdvice();
-      fetchWeightLogs();
-    } ,[])
-
+  useEffect(() => {
+    fetchAdvice();
+  }, []);
 
   const formatDate = (date: Date | string) =>
     isValid(new Date(date)) ? format(new Date(date), 'MMMM d, yyyy') : 'Invalid date';
@@ -165,14 +147,10 @@ const WeightTracker: React.FC = () => {
 
   const chartOptions = {
     scales: {
-      x: { display: true,
-       },
-      y: {
-      
-      },
+      x: { display: true },
+      y: {},
     },
   };
-
 
   return (
     <div className="w-[40%] h-[43rem] mx-auto  bg-white shadow-lg rounded-lg">
@@ -196,7 +174,7 @@ const WeightTracker: React.FC = () => {
           <div className="my-4">
             <h4 className="text-xl font-semibold text-blue-600">Estimated End Date</h4>
             <p className="text-gray-800">
-              {formatDate(recommendedEndDate)}
+              {formatDate(recommendedEndDate!)}
             </p>
           </div>
           <button
@@ -206,24 +184,21 @@ const WeightTracker: React.FC = () => {
           Weigh-In
         </button>
         </div>
-        
       </div>
       <div className='w-full flex flex-col gap-2 justify-center items-center  h-24 p-2 bg-white '>
-      {loading ? (
+        {loading ? (
           <div className="animate-pulse flex justify-center items-center space-x-4 w-full">
             <div className="h-4  bg-gray-300 rounded w-3/4"></div>
           </div>
         ) : (
           <p className='text-indigo-700 text-center text-balance text-[16px] font-semibold'>{randomAdvice?.text}</p>
         )}
-      <Link className='text-indigo-400 self-end hover:cursor-pointer hover:text-indigo-600 hover:bg-indigo-300 hover:rounded-md p-2 hover:bg-opacity-50' href='/dashboard/analysis?tab=advice'>
-        My Advice
-      </Link>
-    </div>
+        <Link className='text-indigo-400 self-end hover:cursor-pointer hover:text-indigo-600 hover:bg-indigo-300 hover:rounded-md p-2 hover:bg-opacity-50' href='/dashboard/analysis?tab=advice'>
+          My Advice
+        </Link>
+      </div>
     </div>
   );
 };
 
 export default WeightTracker;
-
-

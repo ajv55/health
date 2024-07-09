@@ -37,7 +37,7 @@ const initialState: LogState = {
     stepsModal: false,
     todaysSteps: 0,
     totals: { calories: 0, fat: 0, protein: 0, carbs: 0 },
-    grams: {proteinGrams: 0, carbGrams: 0, fatGrams: 0}
+    grams: {}
 }
 
 export const logSlice = createSlice({

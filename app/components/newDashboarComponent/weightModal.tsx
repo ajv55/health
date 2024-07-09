@@ -77,11 +77,12 @@ const WeighInModal = () => {
 
   const fetchWeightLogs = async () => {
     try {
-      const response = await axios.get('/api/getWeightLog');
+      const response = await axios.get('/api/getWeightLogs');
       if (response.status === 201) {
         const updatedLogs = [...response.data];
         const recommend = maintenanceCalories - 300;
         const { endDate } = calculateEstimatedEndDate(userWeight, goal, recommend);
+        console.log('enddate: ', endDate)
         if (endDate && isValid(new Date(endDate))) {
           updatedLogs.push({ createdAt: new Date(endDate).toISOString(), newWeight: goal });
         }

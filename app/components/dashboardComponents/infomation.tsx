@@ -1,65 +1,49 @@
 'use client';
+import { useState, useEffect, useMemo } from 'react';
+import axios from 'axios';
 import { useSession } from 'next-auth/react';
-import { SlOptionsVertical } from "react-icons/sl";
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/app/store';
+import { setGrams } from '@/app/slices/logSlice';
 import Main from '../newDashboarComponent/main';
-import { GiFootsteps } from "react-icons/gi";
-import { IoWater } from "react-icons/io5";
 import Personal from '../newDashboarComponent/personal';
 import ProgressBar from '../newDashboarComponent/progressBar';
 import MealGroup from '../newDashboarComponent/mealGroup';
 import CarbProgress from '../newDashboarComponent/carbProgress';
 import ProteinProgress from '../newDashboarComponent/proteinProgress';
 import FatProgress from '../newDashboarComponent/fatProgress';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { RootState } from '@/app/store';
-import { setGrams } from '@/app/slices/logSlice';
-import axios from 'axios';
 import DatePicker from '../tabComponents/datePicker';
 
-export default function Infomation() {
-
-  const {data: session} = useSession();
-
+export default function Information() {
+  const { data: session } = useSession();
   const userCalories = Number(session?.user?.calories);
-  console.log(session?.user?.calories)
   const dispatch = useDispatch();
   const grams = useSelector((state: RootState) => state?.log?.grams);
+  const [updatingMacros, setUpdatingMacros] = useState(false);
 
-  const calculateMacros = (maintenanceCalories: number) => {
-    // Calculate macronutrient calories
-    const proteinCalories = maintenanceCalories * 0.3;
-    const carbCalories = maintenanceCalories * 0.4;
-    const fatCalories = maintenanceCalories * 0.3;
+  const calculateMacros = useMemo(() => {
+    return (maintenanceCalories: number) => {
+      const proteinCalories = maintenanceCalories * 0.3;
+      const carbCalories = maintenanceCalories * 0.4;
+      const fatCalories = maintenanceCalories * 0.3;
 
-    // Convert macronutrient calories to grams
-    const proteinGrams = proteinCalories / 4;
-    const carbGrams = carbCalories / 4;
-    const fatGrams = fatCalories / 9;
+      const proteinGrams = proteinCalories / 4;
+      const carbGrams = carbCalories / 4;
+      const fatGrams = fatCalories / 9;
 
-    // Calculate saturated fat calories (10% of total calories) and convert to grams
-    const satFatCalories = maintenanceCalories * 0.1;
-    const satFatGrams = satFatCalories / 9;
+      const satFatCalories = maintenanceCalories * 0.1;
+      const satFatGrams = satFatCalories / 9;
 
-    // Trans fat grams (recommended to be as low as possible, here we set a small value)
-    const transFatGrams = 0;  // Ideally zero
+      const transFatGrams = 0;  // Ideally zero
+      const sodiumMg = 2300;
+      const calciumMg = 1000;
+      const fiberGrams = (25 + 38) / 2;
 
-    // Sodium in mg (standard recommendation)
-    const sodiumMg = 2300;
+      const proteinPercent = (proteinCalories / maintenanceCalories) * 100;
+      const carbPercent = (carbCalories / maintenanceCalories) * 100;
+      const fatPercent = (fatCalories / maintenanceCalories) * 100;
 
-    // Calcium in mg (standard recommendation)
-    const calciumMg = 1000;
-
-    // Fiber in grams (average between recommendations for men and women)
-    const fiberGrams = (25 + 38) / 2;
-
-    // Calculate percentages of macronutrients
-    const proteinPercent = (proteinCalories / maintenanceCalories) * 100;
-    const carbPercent = (carbCalories / maintenanceCalories) * 100;
-    const fatPercent = (fatCalories / maintenanceCalories) * 100;
-
-
-    return {
+      return {
         proteinGrams,
         carbGrams,
         fatGrams,
@@ -70,60 +54,77 @@ export default function Infomation() {
         fiberGrams,
         proteinPercent,
         carbPercent,
-        fatPercent
+        fatPercent,
+      };
     };
-};
+  }, []);
 
+  const createMarcos = async (macros: any) => {
+    try {
+      if (macros.proteinPercent !== 0) {
+        const res = await axios.post('/api/postMacros', macros);
+        console.log(res);
+      } else {
+        console.error('Protein percentage is zero. Skipping posting macros.');
+      }
+    } catch (error) {
+      console.error('Failed to post macros:', error);
+    }
+  };
 
   
-const createMarcos = async () => {
-  const macros = calculateMacros(userCalories)
-  await axios.post('/api/postMacros', macros).then((res: any) => {
-    console.log(res)
-  })
-}
-
   useEffect(() => {
-    
-    if(session?.user?.calories !== undefined || session?.user.recommend === undefined){ 
-      const gram = calculateMacros(userCalories)
-     dispatch(setGrams(gram))
+    // Ensure session and userCalories are defined before proceeding
+    if (!session || !userCalories) {
+      return;
     }
-    
-    createMarcos();
-    
-  }, [session?.user.calories])
 
+    // Ensure grams is defined and proteinGrams is not zero before proceeding
+    if (grams && grams.proteinGrams !== 0) {
+      return; // Exit early if grams are already set correctly
+    }
 
- 
+    // Calculate macros and dispatch them only if necessary
+    const calculateAndDispatch = async () => {
+      const macros = calculateMacros(userCalories);
+      dispatch(setGrams(macros));
+      await createMarcos(macros);
+      setUpdatingMacros(true);
+    };
 
-  console.log(grams)
+    // Check if grams need to be updated
+    if (!grams || grams.proteinGrams === 0) {
+      calculateAndDispatch();
+    }
+  }, [session, userCalories, grams, dispatch, calculateMacros]);
+  
 
   return (
     <div className='w-[56%] h-[43rem] drop-shadow-lg flex flex-col justify-evenly items-center rounded-lg bg-white'>
       <Main />
 
-     {/* here will go the execise, water, steps tracking */}
-     <div className='w-full flex justify-evenly items-center  h-[18rem] '>
-       <Personal />
+      {/* Exercise, water, steps tracking */}
+      <div className='w-full flex justify-evenly items-center h-[18rem]'>
+        <Personal />
 
-       <div className='w-[40%]  h-full'>
-        <ProgressBar />
+        <div className='w-[40%] h-full'>
+          <ProgressBar />
+        </div>
+
+        <div className='w-[25%] h-full'>
+          <MealGroup />
+        </div>
       </div>
 
-      <div className='w-[25%]  h-full'>
-        <MealGroup />
+      {/* Carb, fat, and protein progress bars */}
+      <div className='w-full flex justify-evenly items-center h-[8rem]'>
+        <CarbProgress />
+        <ProteinProgress />
+        <FatProgress />
       </div>
-     </div>
-     {/* here will go the carb fats and protein progress bars */}
-     <div className='w-full flex  justify-evenly items-center h-[8rem]'>
-      <CarbProgress />
-      <ProteinProgress  />
-      <FatProgress />
-     </div>
-     <div className=' self-end'>
-      <DatePicker />
-     </div>
+      <div className='self-end'>
+        <DatePicker />
+      </div>
     </div>
-  )
+  );
 }
