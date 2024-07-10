@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Arapey } from "next/font/google";
 import "./globals.css";
-import Nav from "./components/nav";
 import Provider from "./context/AuthContext";
 import ToasterContext from "./context/ToasterContext";
-import reduxProvider from "./providers/reduxProvider";
 import ReduxProvider from "./providers/reduxProvider";
 import Head from "next/head";
 
@@ -22,6 +20,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+       <Head>
+          <link rel="icon" href='/favicon.ico' />
+            <title>myfitgenius.com</title>
+          <meta name="description" content="Your personalized fitness and health tracking app" />
+      </Head>
       <body className={`${arapey.className} relative antialiased`}>
         <ReduxProvider>
         <Provider>
