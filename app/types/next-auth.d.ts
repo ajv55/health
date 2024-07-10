@@ -22,7 +22,8 @@ declare module "next-auth" {
       subscriptionId?: string,
       goal?: string,
       createdAt?: Date,
-      recommend?: number
+      recommend?: number,
+      dailyStepGoal?: number
     }
   }
 }

@@ -34,6 +34,7 @@ model User {
   calories String?
   gender String?
   goal String?
+  dailyStepGoal Int? @default(0)
   macronutrients   Macronutrient?  
   macronutrientId  String?        @db.ObjectId
 

@@ -162,7 +162,7 @@ const WeightTracker: React.FC = () => {
           </p>
         </div>
       </div>
-      <div className="w-full p-3 h-[17rem] flex justify-center items-center">
+      <div onClick={() => router.push('/dashboard/analysis?tab=weightLoss')} className="w-full hover:cursor-pointer p-3 h-[17rem] flex justify-center items-center">
         <Line data={chartData} options={chartOptions} />
       </div>
       <div className="text-center p-3">

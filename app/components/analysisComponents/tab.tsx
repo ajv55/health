@@ -6,6 +6,7 @@ import MyAdvice from './myAdvice';
 import CaloriesAnalysis from './caloriesAnalysis';
 import MealAnalysis from './mealAnalysis';
 import WeightChart from './weightChart';
+import StepAnalysis from './stepAnalysis';
 
 const Tabs = () => {
   const [activeTab, setActiveTab] = useState('summary');
@@ -19,6 +20,9 @@ const Tabs = () => {
     if(tab === 'advice'){
       setActiveTab('advice')
     }
+    if(tab === 'weightLoss'){
+      setActiveTab('weightLoss')
+    }
   }, [tab])
 
   const tabs = [
@@ -27,6 +31,7 @@ const Tabs = () => {
     { name: 'Meal Analysis', key: 'mealAnalysis' },
     { name: 'Cals from Nutrients', key: 'calsFromNutrients' },
     { name: 'My Advice', key: 'advice' },
+    { name: 'Step Analysis', key: 'stepAnalysis' },
   ];
 
   return (
@@ -50,6 +55,7 @@ const Tabs = () => {
         <div className=''>
           {activeTab === 'advice' && <MyAdvice />}
         </div>
+        {activeTab === 'stepAnalysis' && <StepAnalysis />}
       </div>
     </div>
   );

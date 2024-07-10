@@ -1,0 +1,103 @@
+'use client';
+import { useEffect, useState } from 'react';
+import { format, addDays, startOfWeek } from 'date-fns';
+import DatePicker from '../tabComponents/datePicker';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/app/store';
+import axios from 'axios';
+import {  setTodaysSteps } from '@/app/slices/logSlice';
+import StepAnalysisModal from './stepAnalysisModal';
+import { AnimatePresence } from 'framer-motion';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import DailyGoalModal from './dailyGoalModal';
+
+
+const StepAnalysis = () => {
+  const [steps, setSteps] = useState<any>(0);
+  const [stepAnalysisModal, setStepAnalysisModal] = useState<boolean>(false);
+  const [dailyStepModal, setDailyStepModal] = useState<boolean>(false);
+  const [goal, setGoal] = useState<number>(0)
+  const currentDate = useSelector((state: RootState) => state.weight.currentDate);
+  const formattedDate = format(currentDate!, 'MMM d');
+  const dispatch = useDispatch();
+  const todaysStep = useSelector((state: RootState) => state.log.todaysSteps);
+  const {data: session, update} = useSession();
+  const userIsActive = session?.user.isActive;
+  const userDailyStepGoal = session?.user.dailyStepGoal;
+  const router = useRouter();
+
+  const logSteps = (index: number) => {
+    const userSteps = prompt("Enter your steps:", steps[index].toString());
+    if (userSteps) {
+      const newSteps = [...steps];
+      newSteps[index] = parseInt(userSteps, 10);
+      setSteps(newSteps);
+    }
+  };
+
+  const fetchSteps = async () => {
+    await axios.get('/api/getSteps').then((res: any) => {
+      if(res.status === 201){
+        dispatch(setTodaysSteps(res?.data?.totalSteps))
+      }
+    })
+  };
+
+  useEffect(() => {
+    fetchSteps();
+  }, [])
+
+  const setStepsGoal = () => {
+    if(userIsActive === false) {
+        router.push('/pricing')
+    } else {
+        // allow user to set goal here still need to add this functionality
+        update({dailyStepGoal: goal });
+        setDailyStepModal(false);
+        setGoal(0);
+    }
+  };
+
+  
+
+   // Calculate the progress percentage
+   const progressPercentage = (todaysStep! / (userDailyStepGoal || 1)) * 100;
+
+  return (
+    <div className="max-w-6xl mx-auto p-6 bg-indigo-50 shadow-md rounded-md ring-1 ring-indigo-300">
+        <AnimatePresence>{stepAnalysisModal && <StepAnalysisModal onClose={() => setStepAnalysisModal(false)} />}</AnimatePresence>
+        {dailyStepModal && <DailyGoalModal goal={goal} setGoal={setGoal}  onClose={() => setDailyStepModal(false)} handleDailyGoal={setStepsGoal} />}
+      <h2 className="text-4xl font-semibold text-indigo-700 mb-4">Daily Steps</h2>
+      <div className="flex justify-between items-center mb-4">
+        <div className="text-2xl text-indigo-600 font-semibold">{todaysStep} steps</div>
+        <button className="bg-indigo-600 hover:bg-indigo-800 text-white text-lg px-4 py-2 rounded-md" onClick={() => setStepAnalysisModal(true)}>Log Steps</button>
+      </div>
+      <div className=" mb-4">
+        <p className="text-gray-700">Steps on {formattedDate}</p>
+        <div onClick={() => setStepAnalysisModal(true)}  className="w-full hover:cursor-pointer bg-indigo-200 rounded-full h-2.5 mb-2">
+          <div className="bg-green-500 h-2.5 rounded-full" style={{ width: `${Math.round(progressPercentage)}}%` }}></div>
+        </div>
+        <p className="text-gray-700">{userIsActive === true && userDailyStepGoal ? `Goal: ${userDailyStepGoal} steps` : `Goal is not set ${userIsActive ? '' : '🔒'}`}</p>
+        <div className="w-full bg-indigo-200 rounded-full h-2.5 dark:bg-gray-700">
+          <div
+            className="bg-gray-400 h-2.5 rounded-full"
+            style={{ width: `${userIsActive === true ? progressPercentage : 0}%` }}
+          ></div>
+        </div>
+      </div>
+      <button className="bg-indigo-600 text-white px-4 py-2 rounded-md mb-4" onClick={() => setDailyStepModal(true)}>Set Goal</button>
+      <div className="flex justify-between items-center mb-4">
+        <DatePicker />
+      </div>
+      <div className="mt-4 flex justify-between text-sm text-indigo-700">
+        <button className="focus:outline-none focus:underline">CHART</button>
+      </div>
+    </div>
+  );
+};
+
+export default StepAnalysis;
+
+
+

@@ -80,6 +80,9 @@ export const authOptions: NextAuthOptions = {
            if(trigger === 'update' && session?.recommend){
             token.recommend = session.recommend
            }
+           if(trigger === 'update' && session?.dailyStepGoal){
+            token.dailyStepGoal = session.dailyStepGoal
+           }
            
            
 
@@ -103,7 +106,8 @@ export const authOptions: NextAuthOptions = {
                 subscriptionId: user?.subscriptionId,
                 goal: user?.goal,
                 createdAt: user?.createdAt,
-                recommend: user?.recommend
+                recommend: user?.recommend,
+                dailyStepGoal: user?.dailyStepGoal
 
 
             }
@@ -120,7 +124,8 @@ export const authOptions: NextAuthOptions = {
                 age: token?.age as string,
                 weightInLbs: token?.weight as string,
                 name: token?.name as string,
-                recommend: token?.recommend as number
+                recommend: token?.recommend as number,
+                dailyStepGoal: token?.dailyStepGoal as number,
             }
         });
 
@@ -148,7 +153,8 @@ export const authOptions: NextAuthOptions = {
                    subscriptionId: token?.subscriptionId,
                    goal: token?.goal,
                    createdAt: token?.createdAt,
-                   recommend: token?.recommend
+                   recommend: token?.recommend,
+                   dailyStepGoal: token?.dailyStepGoal
                 }
             };
 

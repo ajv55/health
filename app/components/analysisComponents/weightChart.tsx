@@ -12,7 +12,7 @@ import {
 } from 'chart.js';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { format, addDays, isValid, parseISO } from 'date-fns';
+import { format, addDays, isValid, parseISO, startOfToday, subDays } from 'date-fns';
 import { useSession } from 'next-auth/react';
 
 ChartJS.register(
@@ -30,6 +30,8 @@ const WeightChart = () => {
   const [weightLogs, setWeightLogs] = useState<any[]>([]);
   const [estimatedEndDate, setEstimatedEndDate] = useState<Date | null>(null);
   const [totalDaysToLoseWeight, setTotalDaysToLoseWeight] = useState<string | number>('');
+  const [timeFrame, setTimeFrame] = useState(7);
+  const [dateRange, setDateRange] = useState({ start: '', end: '' });
 
   const userWeight = Number(session?.user?.weight) ?? 0;
   const goal = Number(session?.user?.goal) ?? 0;
@@ -88,6 +90,12 @@ const WeightChart = () => {
     return { endDate: null, totalDays: 'No logs' };
   };
 
+  useEffect(() => {
+    const today = startOfToday();
+    const startDate = subDays(today, timeFrame - 1);
+    setDateRange({ start: format(startDate, 'MMM d'), end: format(today, 'MMM d') });
+  }, [timeFrame]);
+
   const formatDate = (date: string) => {
     const formattedDate = parseISO(date);
     return format(formattedDate, 'MMM d, yyyy');
@@ -120,11 +128,15 @@ const WeightChart = () => {
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-semibold text-indigo-600">Weight Chart</h2>
         <div className="flex items-center">
-          <span className="mr-2">Jun 30 to Jul 6</span>
-          <select className="border rounded-md p-2">
-            <option>7 days</option>
-            <option>14 days</option>
-            <option>30 days</option>
+        <span className="mr-2">{dateRange.start} to {dateRange.end}</span>
+          <select
+            className="border rounded-md p-2"
+            value={timeFrame}
+            onChange={(e) => setTimeFrame(Number(e.target.value))}
+          >
+            <option value={7}>7 days</option>
+            <option value={14}>14 days</option>
+            <option value={30}>30 days</option>
           </select>
         </div>
       </div>
@@ -139,14 +151,6 @@ const WeightChart = () => {
             <h4 className="text-xl font-semibold text-blue-600">Days to Lose Weight</h4>
             <p className="text-gray-800">{totalDaysToLoseWeight}</p>
           </div>
-        </div>
-      </div>
-      <div className="mt-4">
-        <div className="flex justify-between items-center">
-          <label className="inline-flex items-center">
-            <input type="checkbox" className="form-checkbox text-indigo-600" />
-            <span className="ml-2">Show Calories Eaten and Burned</span>
-          </label>
         </div>
       </div>
     </div>

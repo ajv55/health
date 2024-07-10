@@ -8,7 +8,7 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
 
-const LogDailySteps = () => {
+const StepAnalysisModal = ({onClose}: {onClose: () => void}) => {
   const [steps, setSteps] = useState('');
   const stepsModal = useSelector((state: RootState) => state.log.stepsModal);
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const LogDailySteps = () => {
       if(res.status === 201) {
         toast.success('Successfully added steps');
         fetchSteps();
-        dispatch(setStepsModal(false))
+        onClose();
       }
     })
   };
@@ -36,10 +36,10 @@ const LogDailySteps = () => {
   return (
     <div>
       <motion.div
+        className="fixed z-20 w-full inset-0 flex items-center justify-center bg-transparent backdrop-blur-sm bg-opacity-50"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        className="fixed z-20 w-full inset-0 flex items-center justify-center bg-black bg-opacity-50"
+        exit={{ opacity: 0, transition: { duration: 0.2 } }}
       >
         <motion.div
           initial={{ y: 50, opacity: 0 }}
@@ -63,7 +63,7 @@ const LogDailySteps = () => {
           />
           <div className="flex justify-end space-x-2">
             <button
-              onClick={() => dispatch(setStepsModal(false))}
+              onClick={onClose}
               className="px-4 py-2 bg-gray-300 text-gray-800 rounded"
             >
               Cancel
@@ -82,4 +82,4 @@ const LogDailySteps = () => {
   );
 };
 
-export default LogDailySteps;
+export default StepAnalysisModal;
