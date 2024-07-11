@@ -220,7 +220,7 @@ export default function BreakfastList() {
       };
 
       const postMealLog = async () => {
-        await axios.post('/api/mealLog', mealData).then((res) => {
+        await axios.post('/api/postBreakfast', mealData).then((res) => {
             console.log(res)
             if(res.status === 201){
                 toast.success('Successfully added a breakfast item')

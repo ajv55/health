@@ -57,10 +57,10 @@ export default function Page() {
   console.log(meal)
 
   const fetchMealLogs = async () => {
-    await axios.get('/api/getBreakfast').then((res: any) => {
+    await axios.get('/api/getMealLogs').then((res: any) => {
         if(res.status === 201) {
           console.log(res.data)
-            dispatch(setUserMealLogs(res?.data?.breakfast_items))
+            dispatch(setUserMealLogs(res?.data))
         }
     })
 };

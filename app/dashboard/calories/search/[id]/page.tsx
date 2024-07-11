@@ -4,6 +4,8 @@ import { useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { IoArrowBackOutline } from "react-icons/io5";
 import style from '@/app/style.module.css';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
 
 const calculateFoodGrade = (transFat: number, satFat: number, sodium: number, sugar: number, fiber: number, carbs: number, protein: number, fat: number) => {
@@ -59,6 +61,19 @@ const Page = () => {
   const calories = parseFloat(searchParams.get('calories') || '0');
   const servingSize = searchParams.get('servingSize') ?? ''; // Adjust for your specific search param key
 
+  const mealData = {
+    name: name,
+    calories: nutrients?.calories,
+    fat: nutrients?.fat,
+    carbs: nutrients?.carbs,
+    protein: nutrients?.protein,
+    sodium: nutrients?.sodium,
+    transFat: nutrients?.transFat,
+    satFat: nutrients?.satFat,
+    calcium: nutrients?.calcium,
+    fiber: nutrients?.fiber,
+  };
+
 
 
   // Calculate food grade
@@ -81,6 +96,17 @@ const handleUnitChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setUnit(value);
     calculateNutrients(amount, value);
 };
+
+const handlePostMealToLogs = async () => {
+  await axios.post(`/api/post${mealType}`, mealData).then((res) => {
+      console.log(res)
+      if(res.status === 201){
+          toast.success('Successfully added a breakfast item')
+      }
+  })
+}
+
+console.log(`/api/post${mealType}`)
 
 useEffect(() => {
   calculateNutrients(amount, unit)
@@ -232,7 +258,7 @@ console.log(unit)
         
         <div className="mb-6 flex items-center justify-between">
           <span className="text-lg font-bold text-green-600">{Math.round(nutrients?.calories)} cals</span>
-          <button className="bg-indigo-600 text-white px-4 py-2 rounded-md">Log Food to {mealType}</button>
+          <button onClick={handlePostMealToLogs} className="bg-indigo-600 text-white px-4 py-2 rounded-md">Log Food to {mealType}</button>
         </div>
         
         <div className="grid grid-cols-3 gap-4 mb-6">
