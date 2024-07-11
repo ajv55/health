@@ -1,15 +1,10 @@
 'use client';
 import { useEffect, useState } from 'react';
-import Summary from './summary';
 import { useSearchParams } from 'next/navigation';
-import MyAdvice from './myAdvice';
-import CaloriesAnalysis from './caloriesAnalysis';
-import MealAnalysis from './mealAnalysis';
-import WeightChart from './weightChart';
-import StepAnalysis from './stepAnalysis';
-import WaterAnalysis from './waterAnalysis';
+import Search from './search';
 
-const Tabs = () => {
+
+const SearchTab = () => {
   const [activeTab, setActiveTab] = useState('summary');
 
   const searchParams = useSearchParams();
@@ -50,18 +45,18 @@ const Tabs = () => {
         ))}
       </div>
       <div className="p-4  h-[40rem]  overflow-scroll ">
-        {activeTab === 'summary' && <Summary />}
-        {activeTab === 'weightLoss' && <WeightChart />}
-        {activeTab === 'mealAnalysis' && <MealAnalysis />}
-        {activeTab === 'calsFromNutrients' && <CaloriesAnalysis />}
+        {activeTab === 'summary' && <Search />}
+        {activeTab === 'weightLoss' && <div>serach</div>}
+        {activeTab === 'mealAnalysis' && <div>serach</div>}
+        {activeTab === 'calsFromNutrients' && <div>serach</div>}
         <div className=''>
-          {activeTab === 'advice' && <MyAdvice />}
+          {activeTab === 'advice' && <div>serach</div>}
         </div>
-        {activeTab === 'stepAnalysis' && <StepAnalysis />}
-        {activeTab === 'waterAnalysis' && <WaterAnalysis />}
+        {activeTab === 'stepAnalysis' && <div>serach</div>}
+        {activeTab === 'waterAnalysis' && <div>serach</div>}
       </div>
     </div>
   );
 };
 
-export default Tabs;
+export default SearchTab;

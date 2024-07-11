@@ -2,6 +2,7 @@ import prisma from "@/app/libs/prismadb";
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../../libs/option";
+import { format } from "date-fns";
 
 
 export async function GET() {
@@ -31,9 +32,16 @@ export async function GET() {
         return NextResponse.json({error: 'no water intake of this day add yet'}, {status: 401})
     }
 
+    // Map response to include formatted time
+    const waterIntakeData = res.map((record: any) => ({
+        date: format(new Date(record?.date), "hh:mm a"), // Format date to display time
+        amount: record.amount
+    }));
+
+
     const addWater = res.map((r) => r.amount).reduce((acc, currentValue) => acc! + currentValue!) ?? 0;
 
-    return NextResponse.json({addWater, hasRecords: res.length > 0, status: 201})
+    return NextResponse.json({waterIntakeData ,addWater, hasRecords: res.length > 0, status: 201})
         
     } catch (error) {
         console.error('Error fetching water intake records:', error);

@@ -140,6 +140,7 @@ export default function LunchList() {
         const regexMedium = /(\d+(\.\d+)?)\s*medium/; // Matches "number medium"
         const regexSlice = /(\d+(\.\d+)?)\s*slice/; // Matches "number slice"
         const regexTablespoon = /(\d+(\.\d+)?)\s*tbsp/; // Matches "number tbsp"
+        const regexTortilla = /(\d+(\.\d+)?)\s*tortilla/;// Matches "number tortilla"
         const regexCustom = /(\d+(\.\d+)?)\s*([a-zA-Z]+)\s*\((\d+(\.\d+)?)g\)/; // Matches "number custom_unit (number.g)"
     
         // Attempt to match different serving size formats and assign serving size in grams
@@ -160,6 +161,9 @@ export default function LunchList() {
         } else if (regexTablespoon.test(servingSize)) {
             const tbsp = parseFloat(servingSize.match(regexTablespoon)![1]);
             servingSizeInGrams = tbsp * 14.3; // Approximate grams for a tablespoon
+        } else if (regexTortilla.test(servingSize)) {
+            const tortilla = parseFloat(servingSize.match(regexTortilla)![1]);
+            servingSizeInGrams = tortilla * 70; // Approximate grams for a tablespoon
         } else if (regexCustom.test(servingSize)) {
             const match = servingSize.match(regexCustom);
             if (match && match[3] === unit) {
@@ -186,6 +190,8 @@ export default function LunchList() {
             multiplier = amount * 14.3 / servingSizeInGrams!; // Convert amount to grams and calculate
         } else if (unit === "egg" && regexCustom.test(servingSize)) {
             multiplier = amount / servingSizeInGrams!; // Custom unit with specified grams
+        }else if (unit === "tortilla" && regexTortilla.test(servingSize)) {
+            multiplier = amount * 22.51 / servingSizeInGrams!;
         } else {
             console.error("Selected unit is not recognized:", unit);
             return; // Handle the error case here if needed
@@ -311,6 +317,7 @@ export default function LunchList() {
                                 {selectedFood && selectedFood.servingSize.includes('slice') && <option value="slice">slice</option>}
                                 {selectedFood && selectedFood.servingSize.includes('cup') && <option value="cup">cup</option>}
                                 {selectedFood && selectedFood.servingSize.includes('tbsp') && <option value="tbsp">tbsp</option>}
+                                {selectedFood && selectedFood.servingSize.includes('tortilla') && <option value="tortilla">tortilla</option>}
                                 <option value="grams">grams</option>
                                 <option value="oz">oz</option>
                             </select>

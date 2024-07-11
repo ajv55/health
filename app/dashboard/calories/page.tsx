@@ -27,6 +27,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import ProgressBar from '@/app/components/newDashboarComponent/progressBar';
 import LogProgress from '@/app/components/newDashboarComponent/logProgress';
 import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 
 export default function Page() {
@@ -43,6 +44,7 @@ export default function Page() {
   const snackLogs = useSelector((state: RootState) => state.log.userSnackLogs);
   const [snackIsLoading, setSnackIsLoading] = useState(false);
   const dispatch = useDispatch();
+  const router = useRouter();
 
 
   const workoutsRef = useRef<HTMLInputElement>(null);
@@ -55,9 +57,10 @@ export default function Page() {
   console.log(meal)
 
   const fetchMealLogs = async () => {
-    await axios.get('/api/getMealLogs').then((res: any) => {
+    await axios.get('/api/getBreakfast').then((res: any) => {
         if(res.status === 201) {
-            dispatch(setUserMealLogs(res.data))
+          console.log(res.data)
+            dispatch(setUserMealLogs(res?.data?.breakfast_items))
         }
     })
 };
@@ -184,7 +187,7 @@ useEffect(() => {
                 {/* First heading section */}
                 <div className='w-full h-16  bg-slate-50 rounded-t-md p-2 flex justify-between items-center'>
                     <div className='flex justify-center items-center gap-7'>
-                        <IoSearchOutline className='cursor-pointer' size={25} />
+                        <IoSearchOutline onClick={() => router.push('/dashboard/calories/search')} className='cursor-pointer' size={25} />
                         <IoStar className='cursor-pointer' size={25} />
                         <TbChefHat className='cursor-pointer' size={25} />
                         <span className='text-xs hover:text-indigo-600 hover:cursor-pointer text-indigo-400 self-end font-bold'>Consumed food, amount</span>

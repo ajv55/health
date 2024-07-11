@@ -20,6 +20,7 @@ const StepAnalysis = () => {
   const [goal, setGoal] = useState<number>(0)
   const currentDate = useSelector((state: RootState) => state.weight.currentDate);
   const formattedDate = format(currentDate!, 'MMM d');
+  const [loading, setLoading] = useState<boolean>(false); 
   const dispatch = useDispatch();
   const todaysStep = useSelector((state: RootState) => state.log.todaysSteps);
   const {data: session, update} = useSession();
@@ -37,16 +38,19 @@ const StepAnalysis = () => {
   };
 
   const fetchSteps = async () => {
-    await axios.get('/api/getSteps').then((res: any) => {
+    setLoading(true);
+    await axios.get(`/api/getSteps?currentDate=${currentDate}`).then((res: any) => {
       if(res.status === 201){
         dispatch(setTodaysSteps(res?.data?.totalSteps))
       }
+    }).finally(() => {
+      setLoading(false); 
     })
   };
 
   useEffect(() => {
     fetchSteps();
-  }, [])
+  }, [currentDate])
 
   const setStepsGoal = () => {
     if(userIsActive === false) {
@@ -70,7 +74,11 @@ const StepAnalysis = () => {
         {dailyStepModal && <DailyGoalModal goal={goal} setGoal={setGoal}  onClose={() => setDailyStepModal(false)} handleDailyGoal={setStepsGoal} />}
       <h2 className="text-4xl font-semibold text-indigo-700 mb-4">Daily Steps</h2>
       <div className="flex justify-between items-center mb-4">
-        <div className="text-2xl text-indigo-600 font-semibold">{todaysStep} steps</div>
+      {loading ? ( // Conditionally render skeleton or steps based on loading state
+           <div className="w-24 h-4 bg-indigo-300 rounded-2xl animate-pulse"></div>
+        ) : (
+          <div className="text-2xl text-indigo-600 font-semibold">{todaysStep} steps</div>
+        )}
         <button className="bg-indigo-600 hover:bg-indigo-800 text-white text-lg px-4 py-2 rounded-md" onClick={() => setStepAnalysisModal(true)}>Log Steps</button>
       </div>
       <div className=" mb-4">

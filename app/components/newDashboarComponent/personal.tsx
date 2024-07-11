@@ -17,16 +17,17 @@ export default function Personal() {
 
   const dispatch = useDispatch();
   const stepsModal = useSelector((state: RootState) => state.log.stepsModal);
+  const currentDate = useSelector((state: RootState) => state.weight.currentDate);
   const todaysStep = useSelector((state: RootState) => state.log.todaysSteps);
   const waterModal = useSelector((state: RootState) => state.water.waterModal);
   const liters = useSelector((state: RootState) => state.water.value)
   const [stepDetailModal, setStepDetailModal] = useState<boolean>(false);
   const [waterDetailModal, setWaterDetailModal] = useState<boolean>(false);
 
-  console.log(liters);
+  console.log(todaysStep);
 
    const fetchSteps = async () => {
-    await axios.get('/api/getSteps').then((res: any) => {
+    await axios.get(`/api/getSteps?currentDate=${currentDate}`).then((res: any) => {
       if(res.status === 201){
         dispatch(setTodaysSteps(res?.data?.totalSteps))
       }
