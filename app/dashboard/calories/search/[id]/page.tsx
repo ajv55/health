@@ -101,7 +101,7 @@ const handlePostMealToLogs = async () => {
   await axios.post(`/api/post${mealType}`, mealData).then((res) => {
       console.log(res)
       if(res.status === 201){
-          toast.success('Successfully added a breakfast item')
+          toast.success(`Successfully added a ${mealType} item`)
       }
   })
 }

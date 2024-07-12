@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
@@ -8,16 +8,20 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import Link from 'next/link';
 
-const StepAnalysisModal = ({onClose}: {onClose: () => void}) => {
+const StepAnalysisModal = ({onClose, isDone, setIsDone}: {onClose: () => void, setIsDone: (isDone: boolean) => void, isDone: boolean}) => {
   const [steps, setSteps] = useState('');
   const stepsModal = useSelector((state: RootState) => state.log.stepsModal);
   const dispatch = useDispatch();
 
   const fetchSteps = async () => {
+    
     await axios.get('/api/getSteps').then((res: any) => {
       if(res.status === 201){
-        dispatch(setTodaysSteps(res?.data?.totalSteps))
+        dispatch(setTodaysSteps(res?.data?.totalSteps));
+        setIsDone(true)
       }
+    }).finally(() => {
+      setIsDone(false)
     })
   }
 
@@ -33,6 +37,7 @@ const StepAnalysisModal = ({onClose}: {onClose: () => void}) => {
     })
   };
 
+  
   return (
     <div>
       <motion.div

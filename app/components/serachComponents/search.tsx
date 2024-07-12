@@ -77,9 +77,9 @@ const Search = () => {
     <div className="min-h-screen p-4">
       <div className="max-w-6xl mx-auto ring-1 ring-indigo-400 bg-indigo-50 shadow-md rounded-lg p-6 relative">
         <div className="flex justify-between items-center border-b pb-4 mb-4">
-          <button className="text-indigo-600 font-semibold">
+          <Link href='/dashboard/calories' className="text-indigo-600 font-semibold">
             ← BACK TO MEALS
-          </button>
+          </Link>
           <button className="text-gray-500">SETTINGS</button>
         </div>
         <div>

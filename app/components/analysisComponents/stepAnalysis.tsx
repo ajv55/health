@@ -15,6 +15,7 @@ import DailyGoalModal from './dailyGoalModal';
 
 const StepAnalysis = () => {
   const [steps, setSteps] = useState<any>(0);
+  const [isDone, setIsDone] = useState<boolean>(false)
   const [stepAnalysisModal, setStepAnalysisModal] = useState<boolean>(false);
   const [dailyStepModal, setDailyStepModal] = useState<boolean>(false);
   const [goal, setGoal] = useState<number>(0)
@@ -50,7 +51,17 @@ const StepAnalysis = () => {
 
   useEffect(() => {
     fetchSteps();
-  }, [currentDate])
+  }, [currentDate]);
+
+  useEffect(() => {
+    if(isDone) {
+      fetchSteps();
+    } else {
+      return 
+    }
+  }, [isDone])
+
+  console.log(isDone)
 
   const setStepsGoal = () => {
     if(userIsActive === false) {
@@ -70,7 +81,7 @@ const StepAnalysis = () => {
 
   return (
     <div className="max-w-6xl mx-auto p-6 bg-indigo-50 shadow-md rounded-md ring-1 ring-indigo-300">
-        <AnimatePresence>{stepAnalysisModal && <StepAnalysisModal onClose={() => setStepAnalysisModal(false)} />}</AnimatePresence>
+        <AnimatePresence>{stepAnalysisModal && <StepAnalysisModal isDone={isDone} setIsDone={setIsDone} onClose={() => setStepAnalysisModal(false)} />}</AnimatePresence>
         {dailyStepModal && <DailyGoalModal goal={goal} setGoal={setGoal}  onClose={() => setDailyStepModal(false)} handleDailyGoal={setStepsGoal} />}
       <h2 className="text-4xl font-semibold text-indigo-700 mb-4">Daily Steps</h2>
       <div className="flex justify-between items-center mb-4">
@@ -84,7 +95,7 @@ const StepAnalysis = () => {
       <div className=" mb-4">
         <p className="text-gray-700">Steps on {formattedDate}</p>
         <div onClick={() => setStepAnalysisModal(true)}  className="w-full hover:cursor-pointer bg-indigo-200 rounded-full h-2.5 mb-2">
-          <div className="bg-green-500 h-2.5 rounded-full" style={{ width: `${Math.round(progressPercentage)}}%` }}></div>
+          <div className="bg-green-500 h-2.5 rounded-full" style={{ width: `${Math.round(progressPercentage)}%` }}></div>
         </div>
         <p className="text-gray-700">{userIsActive === true && userDailyStepGoal ? `Goal: ${userDailyStepGoal} steps` : `Goal is not set ${userIsActive ? '' : '🔒'}`}</p>
         <div className="w-full bg-indigo-200 rounded-full h-2.5 dark:bg-gray-700">
