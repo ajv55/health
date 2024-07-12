@@ -110,7 +110,6 @@ export default function LogProgress() {
         dispatch(setTotals(totalNutrients));
       }, [breakfastLogs, lunchLogs, dinnerLogs, snackLogs, dispatch]);
 
-      console.log(total)
 
   return (
     <motion.div

@@ -19,12 +19,12 @@ const NutritionComponent = () => {
 
      // Calculate percentage of sat fat, trans fat, fiber, sodium, calicum intake relative to the goal
    const satFatPercentage = Math.min(100, Math.round((total?.satFat / satFatGoalGrams) * 100));
-   const transFatPercentage = Math.min(100, Math.round((total?.transFat / transFatGoalGrams) * 100));
+   const transFatPercentage = Math.min(100, Math.round((total?.transFat / transFatGoalGrams) * 100)) || 0;
    const fiberPercentage = Math.min(100, Math.round((total?.fiber / fiberGoalGrams) * 100));
    const sodiumPercentage = Math.min(100, Math.round((total?.sodium / sodiumGoalGrams) * 100));
    const calciumPercentage = Math.min(100, Math.round((total?.calcium / calciumGoalGrams) * 100));
 
-   console.log(sodiumPercentage)
+   console.log(transFatPercentage)
      // Calculate remaining protein based on the goal and total consumed
   const satFatLeft = Math.max(0, satFatGoalGrams - (total?.satFat || 0));
   const transFatLeft = Math.max(0, transFatGoalGrams - (total?.transFat || 0));
