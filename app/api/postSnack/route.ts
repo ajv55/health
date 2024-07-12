@@ -20,10 +20,11 @@ export async function POST(req: NextRequest) {
         transFat,
         satFat,
         calcium,
+        servingSize,
         fiber,
       } = body;
 
-      const lunchLog = await prisma.snackLog.create({
+      const snackLog = await prisma.snackLog.create({
         data: {
           name,
           calories,
@@ -34,10 +35,33 @@ export async function POST(req: NextRequest) {
           satFat,
           calcium,
           fiber,
+          servingSize,
+          transFat,
           user: {connect: {id: session?.user?.id}},
         },
       });
 
+      // Fetch the current user to get their recent foods and premium status
+      const user = await prisma.user.findUnique({
+        where: { id: session?.user?.id },
+        select: { recentFoods: true, isActive: true },
+      });
 
-    return NextResponse.json(lunchLog, {status: 201})
+      // Calculate the limit based on the user's subscription status
+      const limit = user?.isActive ? 15 : 7;
+
+      // Update the recent foods list
+      let recentFoods: any = user?.recentFoods ? user.recentFoods : [];
+      recentFoods = [snackLog, ...recentFoods].slice(0, limit); // Keep only the last `limit` items
+
+      // Update the user with the new recent foods
+      await prisma.user.update({
+        where: { id: session?.user?.id },
+        data: {
+          recentFoods,
+        },
+      });
+
+
+    return NextResponse.json(snackLog, {status: 201})
 }

@@ -225,6 +225,7 @@ export default function SnackList() {
         satFat: nutrients?.satFat,
         calcium: nutrients?.calcium,
         fiber: nutrients?.fiber,
+        servingSize: selectedFood?.servingSize
       };
 
       const postSnackLog = async () => {

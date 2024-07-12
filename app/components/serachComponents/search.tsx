@@ -11,14 +11,45 @@ const Search = () => {
   const [foods, setFoods] = useState([]);
   const [allLogs, setAllLogs] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [recentFood, setRecentFood] = useState([]);
+  const [popularFood, setPopularFood] = useState([]);
+  const [isRecentFoodLoading, setIsRecentFoodLoading] = useState(false);
+  const [isPopularFoodLoading, setIsPopularFoodLoading] = useState(false);
 
   const dispatch = useDispatch();
 
+  const fetchRecentFoods = async () => {
+    setIsRecentFoodLoading(true)
+    await axios.get('/api/getRecentFood').then((res) => {
+      if(res.status === 201){
+        setRecentFood(res?.data)
+      }
+    }).finally(() => {
+      setIsRecentFoodLoading(false)
+    })
+  };
+
+  const fetchPopularFoods = async () => {
+    setIsPopularFoodLoading(true)
+    await axios.get('/api/getPopularFood').then((res) => {
+      if(res.status === 201){
+        console.log(res)
+        setPopularFood(res?.data)
+      }
+    }).finally(() => {
+      setIsPopularFoodLoading(false)
+    })
+  }
+
   useEffect(() => {
     fetchAllLogs();
-  }, []);
+    fetchRecentFoods();
+    fetchPopularFoods();
+    }, []);
 
   const fetchAllLogs = async () => {
+    setLoading(true);
     try {
       const [breakfastRes, lunchRes, dinnerRes, snackRes] = await Promise.all([
         axios.get('/api/getBreakfast'),
@@ -41,6 +72,7 @@ const Search = () => {
     } catch (error) {
       console.error("Error fetching meal logs:", error);
     }
+    setLoading(false);
   };
 
   const removeDuplicates = (foodsArray: any) => {
@@ -64,7 +96,11 @@ const Search = () => {
 
   const openModal = () => {
     setShowModal(true);
-    setFoods(allLogs);
+    if (allLogs.length === 0) {
+      fetchAllLogs();
+    } else {
+      setFoods(allLogs);
+    }
   };
 
   const closeModal = () => {
@@ -72,6 +108,9 @@ const Search = () => {
     setFoods([]);
     setSearchTerm("");
   };
+
+  const filterList = popularFood.slice(0, 7);
+  const skeletonList = [1,2,3,4,5,6,7]
 
   return (
     <div className="min-h-screen p-4">
@@ -136,12 +175,68 @@ const Search = () => {
           </AnimatePresence>
         </div>
         <div>
-          <h2 className="text-xl font-semibold text-gray-700 mb-4">
-            Recent Dinner foods
+          <h2 className="text-xl font-semibold text-indigo-500 mb-4">
+            Recent Foods
           </h2>
-          <div className="flex justify-between items-center bg-indigo-100 p-4 rounded">
-            <span className="text-indigo-600 font-bold">99 Cals</span>
-          </div>
+          {isRecentFoodLoading && <div className="w-full h-14 rounded-lg bg-indigo-400 animate-pulse"></div>}
+          {!isRecentFoodLoading && recentFood.map((rf: any) => {
+              console.log(rf)
+              return (
+                <Link href={{
+                  pathname: `/dashboard/calories/search/${rf.name}`,
+                  query: {
+                    name: rf.name,
+                    calories: rf.calories,
+                    fat: rf.fat,
+                    carbs: rf.carbs,
+                    protein: rf.protein,
+                    servingSize: rf.servingSize,
+                    sodium: rf.sodium,
+                    transFat: rf.transFat,
+                    satFat: rf.satFat,
+                    calcium: rf.calcium,
+                    fiber: rf.fiber
+                  }
+                }} className="flex mt-3 hover:cursor-pointer hover:bg-white hover:ring-2 hover:ring-indigo-400 justify-between items-center bg-indigo-100 p-4 rounded" key={rf?.name}>
+                  <span className="text-indigo-600  font-bold">{rf?.name}</span>
+                  <span className="text-indigo-600 font-bold">{rf?.calories} Cals</span>
+                </Link>
+              )
+            })}
+        </div>
+        <div className="mt-4">
+          <h2 className="text-xl font-semibold text-indigo-500 mb-4">
+            Popular Foods
+          </h2>
+          {isPopularFoodLoading && <div className="flex flex-col justify-start animate-pulse items-center w-full gap-2">
+            {skeletonList.map((s, i) => (
+              <div key={i} className="w-full h-14 rounded-lg bg-indigo-400 "></div>
+            ))}
+            </div>}
+          {!isPopularFoodLoading && filterList.map((rf: any) => {
+              console.log(rf)
+              return (
+                <Link href={{
+                  pathname: `/dashboard/calories/search/${rf.name}`,
+                  query: {
+                    name: rf.name,
+                    calories: rf.calories,
+                    fat: rf.fat,
+                    carbs: rf.carbs,
+                    protein: rf.protein,
+                    servingSize: rf.servingSize,
+                    sodium: rf.sodium,
+                    transFat: rf.transFat,
+                    satFat: rf.satFat,
+                    calcium: rf.calcium,
+                    fiber: rf.fiber
+                  }
+                }} className="flex mt-2 hover:cursor-pointer hover:bg-white hover:ring-2 hover:ring-indigo-400 justify-between items-center bg-indigo-100 p-4 rounded" key={rf?.name}>
+                  <span className="text-indigo-600 font-bold">{rf?.name}</span>
+                  <span className="text-indigo-600 font-bold">{rf?.calories} Cals</span>
+                </Link>
+              )
+            })}
         </div>
         <div className="mt-4">
           <button className="text-indigo-600 font-semibold">

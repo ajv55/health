@@ -226,6 +226,7 @@ export default function DinnerList() {
         satFat: nutrients?.satFat,
         calcium: nutrients?.calcium,
         fiber: nutrients?.fiber,
+        servingSize: selectedFood?.servingSize
       };
 
       const postDinnerLog = async () => {

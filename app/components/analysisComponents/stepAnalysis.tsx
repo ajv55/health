@@ -92,7 +92,7 @@ const StepAnalysis = () => {
         )}
         <button className="bg-indigo-600 hover:bg-indigo-800 text-white text-lg px-4 py-2 rounded-md" onClick={() => setStepAnalysisModal(true)}>Log Steps</button>
       </div>
-      <div className=" mb-4">
+      <div className=" mb-4 bg-white p-4 rounded-lg ring-1 ring-indigo-300">
         <p className="text-gray-700">Steps on {formattedDate}</p>
         <div onClick={() => setStepAnalysisModal(true)}  className="w-full hover:cursor-pointer bg-indigo-200 rounded-full h-2.5 mb-2">
           <div className="bg-green-500 h-2.5 rounded-full" style={{ width: `${Math.round(progressPercentage)}%` }}></div>
@@ -108,9 +108,6 @@ const StepAnalysis = () => {
       <button className="bg-indigo-600 text-white px-4 py-2 rounded-md mb-4" onClick={() => setDailyStepModal(true)}>Set Goal</button>
       <div className="flex justify-between items-center mb-4">
         <DatePicker />
-      </div>
-      <div className="mt-4 flex justify-between text-sm text-indigo-700">
-        <button className="focus:outline-none focus:underline">CHART</button>
       </div>
     </div>
   );

@@ -132,28 +132,28 @@ const handleDurationChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
               <GiFriedEggs className="h-7 w-7 text-yellow-400" />
               <span className="ml-2 text-2xl">Breakfast</span>
             </span>
-            <span className='text-xl'><span className='text-indigo-600 text-4xl'>{Math.round(allFoods?.totalBreakfastCalories)}</span> cals, <span className=' text-indigo-600 text-4xl'>{Math.round(allFoods?.breakfastPercentage) || 0}%</span> daily average</span>
+            <span className='text-xl'><span className='text-indigo-600 text-4xl'>{Math.round(allFoods?.totalBreakfastCalories) || 0}</span> cals, <span className=' text-indigo-600 text-4xl'>{Math.round(allFoods?.breakfastPercentage) || 0}%</span> daily average</span>
           </div>
           <div className="flex items-center justify-between">
             <span className="flex items-center">
               <GiKnifeFork className="h-7 w-7 text-orange-500" />
               <span className="ml-2 text-2xl">Lunch</span>
             </span>
-            <span className='text-xl'><span className='text-indigo-600 text-4xl'>{Math.round(allFoods?.totalLunchCalories)}</span> cals, <span className='text-indigo-600 text-4xl'>{Math.round(allFoods?.lunchPercentage) || 0}%</span> daily average</span>
+            <span className='text-xl'><span className='text-indigo-600 text-4xl'>{Math.round(allFoods?.totalLunchCalories) || 0}</span> cals, <span className='text-indigo-600 text-4xl'>{Math.round(allFoods?.lunchPercentage) || 0}%</span> daily average</span>
           </div>
           <div className="flex items-center justify-between">
             <span className="flex items-center">
               <MdDinnerDining className="h-7 w-7 text-blue-500" />
               <span className="ml-2 text-2xl">Dinner</span>
             </span>
-            <span className='text-xl'><span className='text-indigo-600 text-4xl'>{Math.round(allFoods?.totalDinnerCalories)}</span> cals, <span className='text-indigo-600 text-4xl'>{Math.round(allFoods?.dinnerPercentage) || 0}% </span> daily average</span>
+            <span className='text-xl'><span className='text-indigo-600 text-4xl'>{Math.round(allFoods?.totalDinnerCalories) || 0}</span> cals, <span className='text-indigo-600 text-4xl'>{Math.round(allFoods?.dinnerPercentage) || 0}% </span> daily average</span>
           </div>
           <div className="flex items-center justify-between">
             <span className="flex items-center">
               <GiPopcorn className="h-7 w-7 text-red-500" />
               <span className="ml-2 text-2xl">Snack</span>
             </span>
-            <span className='text-xl'><span className='text-indigo-600 text-4xl'>{Math.round(allFoods?.totalSnackCalories)}</span> cals, <span className='text-indigo-600 text-4xl'>{Math.round(allFoods?.snackPercentage) || 0}%</span> daily average</span>
+            <span className='text-xl'><span className='text-indigo-600 text-4xl'>{Math.round(allFoods?.totalSnackCalories) || 0}</span> cals, <span className='text-indigo-600 text-4xl'>{Math.round(allFoods?.snackPercentage) || 0}%</span> daily average</span>
           </div>
         </div>
       </div>

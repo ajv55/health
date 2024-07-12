@@ -37,6 +37,7 @@ model User {
   dailyStepGoal Int? @default(0)
   macronutrients   Macronutrient?  
   macronutrientId  String?        @db.ObjectId
+  recentFoods Json? 
 
  // Define the relationship with CalorieIntake entity
   calorieIntake CalorieIntake[]
@@ -119,6 +120,7 @@ model MealLog {
   satFat     Float?
   calcium    Float?
   fiber      Float?
+  servingSize String?
   createdAt  DateTime @default(now())
 }
 
@@ -136,6 +138,7 @@ model LunchLog {
   satFat     Float?
   calcium    Float?
   fiber      Float?
+  servingSize String?
   createdAt  DateTime @default(now())
 }
 
@@ -153,6 +156,7 @@ model DinnerLog {
   satFat     Float?
   calcium    Float?
   fiber      Float?
+  servingSize String?
   createdAt  DateTime @default(now())
 }
 
@@ -170,6 +174,7 @@ model SnackLog {
   satFat     Float?
   calcium    Float?
   fiber      Float?
+  servingSize String?
   createdAt  DateTime @default(now())
 }
 
@@ -313,6 +318,11 @@ model CommonCarbs {
  model SnackFoods {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   snack String?
+ }
+
+  model PopularFoods {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  popularFoods String?
  }
 
  model HighFatFoods {

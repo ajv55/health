@@ -77,7 +77,7 @@ const CaloriesAnalysis = () => {
   ];
 
   return (
-    <div className="p-6 bg-indigo-50 rounded-lg shadow-md">
+    <div className="p-6 bg-indigo-50 ring-2 ring-indigo-400 rounded-lg shadow-md">
       <h2 className="text-4xl font-bold bg-gradient-to-br from-indigo-600 via-indigo-400 to-indigo-600 bg-clip-text text-transparent mb-4">Calories Analysis on {formattedDate}</h2>
       <div className="mb-6">
         <h3 className="text-2xl text-indigo-600">Calories from Macronutrients</h3>
@@ -94,7 +94,7 @@ const CaloriesAnalysis = () => {
           </select>
         </div>
       </div>
-      <div>
+      <div className='bg-white p-3 drop-shadow-xl rounded-lg ring-1 ring-indigo-300'>
         {data.map((item) => (
           <div key={item.name} className="mb-4">
             <div className="flex justify-between items-center mb-2">

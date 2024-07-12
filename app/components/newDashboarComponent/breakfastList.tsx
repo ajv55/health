@@ -217,6 +217,7 @@ export default function BreakfastList() {
         satFat: nutrients?.satFat,
         calcium: nutrients?.calcium,
         fiber: nutrients?.fiber,
+        servingSize: selectedFood?.servingSize
       };
 
       const postMealLog = async () => {
@@ -234,6 +235,8 @@ export default function BreakfastList() {
     const filteredFoods = foods?.filter((food: any) =>
         food.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    console.log(selectedFood)
 
   return (
     <div  className='w-full h-20 flex justify-start gap-5 items-center bg-slate-100'>

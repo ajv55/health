@@ -7,8 +7,6 @@ const NutritionComponent = () => {
 
     const total = useSelector((state: RootState) => state.log.totals);
     const grams = useSelector((state: RootState) => state?.log?.grams);
-    console.log(grams)
-    console.log(total)
 
      // Assuming you have access to the user's daily sat fat goal in grams
      const satFatGoalGrams = Math.round(grams?.satFatGrams);
@@ -34,11 +32,11 @@ const NutritionComponent = () => {
 
 
     const nutritionData = [
-      { name: "Sat. Fat", value: `${total.satFat} g`, target: `left ${satFatLeft} g`, progress: satFatPercentage },
+      { name: "Sat. Fat", value: `${Math.round(total.satFat)} g`, target: `left ${satFatLeft} g`, progress: satFatPercentage },
       { name: "Trans Fat", value: `${total.transFat} g`, target: `left ${transFatLeft} g`, progress: transFatPercentage },
       { name: "Fiber", value: `${total.fiber} g`, target: `left ${fiberLeft} g`, progress: fiberPercentage },
       { name: "Sodium", value: `${Math.round(total.sodium)} mg`, target: `left ${Math.round(sodiumLeft)} g`, progress: sodiumPercentage },
-      { name: "Calcium", value: `${total.calcium} %`, target: `left ${calciumLeft} g`, progress: calciumPercentage },
+      { name: "Calcium", value: `${Math.round(total.calcium)} %`, target: `left ${calciumLeft} g`, progress: calciumPercentage },
     ];
   
     return (
@@ -46,7 +44,7 @@ const NutritionComponent = () => {
         <div className="grid grid-cols-3 justify-center items-center gap-4 text-center">
           {nutritionData.map((item, index) => (
             <div key={index}>
-              <div className="text-indigo-400 font-bold">{item.name}</div>
+              <div className="text-indigo-500 font-bold">{item.name}</div>
               <div className="text-xl">{item.value}</div>
               <div>{item.target.split(' ')[0]}</div>
               <div>{item.target.split(' ')[1]}</div>

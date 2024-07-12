@@ -116,7 +116,6 @@ console.log(servingSize)
 console.log(calories)
 
 const calculateNutrients = (amount: number, unit: string) => {
-
   let servingSizeInGrams: number | undefined;
 
   // Regular expressions to match serving size formats
@@ -130,87 +129,90 @@ const calculateNutrients = (amount: number, unit: string) => {
 
   // Unit to gram conversion map
   const unitToGramMap: { [key: string]: number } = {
-      "cup": 128,
-      "medium": 131,
-      "slice": 25,
-      "tbsp": 14.3,
-      "egg": 50,
-      "patty": 25,
-      "link": 45,
-      "container": 170,
-      "pancake": 35,
-      "bagel": 105,
-      "muffin": 57,
-      "croissant": 67,
-      "avocado": 100,
-      "waffle": 35,
-      "tablespoon": 16,
-      "egg white": 33,
-      "egg yolk": 18,
-      // Add more custom units here as needed
+    "cup": 128,
+    "medium": 131,
+    "slice": 25,
+    "tbsp": 14.3,
+    "egg": 50,
+    "patty": 25,
+    "link": 45,
+    "container": 170,
+    "pancake": 35,
+    "bagel": 105,
+    "muffin": 57,
+    "croissant": 67,
+    "avocado": 100,
+    "waffle": 35,
+    "tablespoon": 16,
+    "egg white": 33,
+    "egg yolk": 18,
+    // Add more custom units here as needed
   };
 
   // Attempt to match different serving size formats and assign serving size in grams
   if (regexGrams.test(servingSize)) {
-      servingSizeInGrams = parseFloat(servingSize.match(regexGrams)![1]);
+    servingSizeInGrams = parseFloat(servingSize.match(regexGrams)![1]);
   } else if (regexOunces.test(servingSize)) {
-      const ounces = parseFloat(servingSize.match(regexOunces)![1]);
-      servingSizeInGrams = ounces * 28.35; // Convert ounces to grams
+    const ounces = parseFloat(servingSize.match(regexOunces)![1]);
+    servingSizeInGrams = ounces * 28.35; // Convert ounces to grams
   } else if (regexCup.test(servingSize)) {
-      const cups = parseFloat(servingSize.match(regexCup)![1]);
-      servingSizeInGrams = cups * unitToGramMap["cup"];
+    const cups = parseFloat(servingSize.match(regexCup)![1]);
+    servingSizeInGrams = cups * unitToGramMap["cup"];
   } else if (regexMedium.test(servingSize)) {
-      const medium = parseFloat(servingSize.match(regexMedium)![1]);
-      servingSizeInGrams = medium * unitToGramMap["medium"];
+    const medium = parseFloat(servingSize.match(regexMedium)![1]);
+    servingSizeInGrams = medium * unitToGramMap["medium"];
   } else if (regexSlice.test(servingSize)) {
-      const slice = parseFloat(servingSize.match(regexSlice)![1]);
-      servingSizeInGrams = slice * unitToGramMap["slice"];
+    const slice = parseFloat(servingSize.match(regexSlice)![1]);
+    servingSizeInGrams = slice * unitToGramMap["slice"];
   } else if (regexTablespoon.test(servingSize)) {
-      const tbsp = parseFloat(servingSize.match(regexTablespoon)![1]);
-      servingSizeInGrams = tbsp * unitToGramMap["tbsp"];
+    const tbsp = parseFloat(servingSize.match(regexTablespoon)![1]);
+    servingSizeInGrams = tbsp * unitToGramMap["tbsp"];
   } else if (regexCustom.test(servingSize)) {
-      const match = servingSize.match(regexCustom);
-      if (match) {
-          servingSizeInGrams = parseFloat(match[4]);
-      }
+    const match = servingSize.match(regexCustom);
+    if (match) {
+      servingSizeInGrams = parseFloat(match[4]);
+    }
+  } else if (/^\d+g$/.test(servingSize)) { // Match for "100g"
+    servingSizeInGrams = parseFloat(servingSize); // directly parse the grams value
   } else {
-      console.error("Serving size format is invalid:", servingSize);
-      return; // Handle the error case here if needed
+    console.error("Serving size format is invalid:", servingSize);
+    return; // Handle the error case here if needed
   }
 
   // Calculate multiplier based on selected unit
   let multiplier: number;
   if (unit === "grams") {
-      multiplier = amount / servingSizeInGrams!;
+    multiplier = amount / servingSizeInGrams!;
   } else if (unit === "oz") {
-      multiplier = amount * 28.35 / servingSizeInGrams!; // Convert amount to grams and calculate
+    multiplier = amount * 28.35 / servingSizeInGrams!; // Convert amount to grams and calculate
   } else if (unitToGramMap[unit]) {
-      multiplier = amount * unitToGramMap[unit] / servingSizeInGrams!; // Use the map to get the gram value
+    multiplier = amount * unitToGramMap[unit] / servingSizeInGrams!; // Use the map to get the gram value
   } else {
-      console.error("Selected unit is not recognized:", unit);
-      return; // Handle the error case here if needed
+    console.error("Selected unit is not recognized:", unit);
+    return; // Handle the error case here if needed
   }
 
   // Calculate nutrients based on the multiplier
   const calculatedNutrients: any = {
-      calories: (calories * multiplier) || 0,
-      fat: (fat * multiplier) || 0,
-      carbs: (carbs * multiplier) || 0,
-      protein: (protein * multiplier) || 0,
-      sodium: (sodium * multiplier) || 0,
-      transFat: (transFat * multiplier) || 0,
-      satFat: (satFat * multiplier) || 0,
-      calcium: (calcium * multiplier) || 0,
-      fiber: (fiber * multiplier) || 0,
+    calories: (calories * multiplier) || 0,
+    fat: (fat * multiplier) || 0,
+    carbs: (carbs * multiplier) || 0,
+    protein: (protein * multiplier) || 0,
+    sodium: (sodium * multiplier) || 0,
+    transFat: (transFat * multiplier) || 0,
+    satFat: (satFat * multiplier) || 0,
+    calcium: (calcium * multiplier) || 0,
+    fiber: (fiber * multiplier) || 0,
   };
 
   // Convert all calculated values to fixed decimals and ensure they are not NaN
   for (const key in calculatedNutrients) {
-      calculatedNutrients[key] = isNaN(calculatedNutrients[key]) ? 0 : parseFloat(calculatedNutrients[key].toFixed(1));
+    calculatedNutrients[key] = isNaN(calculatedNutrients[key]) ? 0 : parseFloat(calculatedNutrients[key].toFixed(1));
   }
 
   setNutrients(calculatedNutrients); // Update state with calculated nutrients
 };
+
 
 console.log(nutrients)
 console.log(unit)

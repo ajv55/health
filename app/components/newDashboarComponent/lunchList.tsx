@@ -242,6 +242,7 @@ export default function LunchList() {
         satFat: nutrients?.satFat,
         calcium: nutrients?.calcium,
         fiber: nutrients?.fiber,
+        servingSize: selectedFood?.servingSize
       };
 
       const postLunchLog = async () => {
