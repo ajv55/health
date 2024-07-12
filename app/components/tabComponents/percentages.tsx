@@ -161,7 +161,7 @@ export default function Percentages() {
 
 
     return (
-        <div className="w-[80%] mx-auto border-[1px] border-indigo-200 p-6 bg-gray-100 rounded-lg  shadow-lg">
+        <div className="w-[80%] mx-auto border-[1px]  p-6 bg-gray-100 ring-2 ring-indigo-400 rounded-lg  shadow-lg">
             <h2 className="text-4xl font-semibold bg-gradient-to-t from-indigo-700 to-indigo-300 text-transparent bg-clip-text mb-4 text-center">Macronutrient Percentages</h2>
             <p className="text-lg text-gray-700 mb-6 text-center">
                 Your macronutrient targets are providing <span className="font-medium text-indigo-600">{recommend} cals</span> per day.

@@ -142,7 +142,7 @@ const Page = () => {
                         </div>
                     )}
                     {activeTab === 'Nutrient Targets' && (
-                        <div className='w-full h-[40rem]'>
+                        <div className='w-full overflow-scroll h-[40rem]'>
                             <NutrientTargets />
                         </div>
                     )}
