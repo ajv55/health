@@ -10,6 +10,7 @@ import { setDaysToLoseWeight, setWeeks, setWeightLogs, setWeightModal } from '@/
 import { RootState } from '@/app/store';
 import Link from 'next/link';
 import axios from 'axios';
+import LineChartSkeleton from '../skeleton/lineChartSkeleton';
 
 interface User {
   weight: number;
@@ -30,6 +31,7 @@ const WeightTracker: React.FC = () => {
   const [advice, setAdvice] = useState([]);
   const [randomAdvice, setRandomAdvice] = useState<any>({});
   const [loading, setLoading] = useState(true);
+  const [weightIsLoading, setWeightIsLoading] = useState(false);
   const weightLogs = useSelector((state: RootState) => state.weight.weightLogs);
   
   const userWeight = session?.user?.weight ?? 0;
@@ -91,6 +93,7 @@ const WeightTracker: React.FC = () => {
   const recommendedTotalDays = memoizedCalculation.totalDays;
 
   const fetchWeightLogs = async () => {
+    setWeightIsLoading(true);
     try {
       const response = await axios.get('/api/getWeightLogs');
       if (response.status === 201) {
@@ -105,6 +108,8 @@ const WeightTracker: React.FC = () => {
       }
     } catch (error) {
       console.error('Error fetching weight logs:', error);
+    } finally{
+      setWeightIsLoading(false)
     }
   };
 
@@ -152,8 +157,11 @@ const WeightTracker: React.FC = () => {
     },
   };
 
+  console.log(weightIsLoading)
+
   return (
-    <div className="w-[40%] h-[43rem] mx-auto  bg-white shadow-lg rounded-lg">
+    <div className="w-[40%] h-[43rem] mx-auto  bg-white relative shadow-lg rounded-lg">
+      {weightIsLoading && <LineChartSkeleton />}
       <div className="flex p-4 justify-between items-center ">
         <div onClick={() => router.push('/dashboard/plan')} className='w-full hover:cursor-pointer'>
           <h2 className="text-xl font-bold text-indigo-600">Weight Plan</h2>
