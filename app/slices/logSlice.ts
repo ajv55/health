@@ -18,6 +18,7 @@ interface LogState  {
     todaysSteps?: number,
     totals?: any, 
     grams?: any,
+    isProgressLoading?: boolean 
 }
 
 const initialState: LogState = {
@@ -37,7 +38,8 @@ const initialState: LogState = {
     stepsModal: false,
     todaysSteps: 0,
     totals: { calories: 0, fat: 0, protein: 0, carbs: 0 },
-    grams: {}
+    grams: {},
+    isProgressLoading: false
 }
 
 export const logSlice = createSlice({
@@ -100,10 +102,13 @@ export const logSlice = createSlice({
         },
         setGrams: (state, action) => {
             state.grams = action.payload
+        },
+        setIsProgressLoading: (state, action) => {
+            state.isProgressLoading = action.payload
         }
     }
 })
 
-export const {setLogModal, setBreakfastModal, setDinnerModal, setLunchModal, setSnackModal, setIsFocused, setIsFocusedOn, setMeal, resetModals, setUserMealLogs, setOptionsModal, setLunchLog, setDinnerLog, setSnackLog, setStepsModal, setTodaysSteps, setTotals, setGrams } = logSlice.actions;
+export const {setLogModal, setBreakfastModal, setDinnerModal, setLunchModal, setSnackModal, setIsFocused, setIsFocusedOn, setMeal, resetModals, setUserMealLogs, setOptionsModal, setLunchLog, setDinnerLog, setSnackLog, setStepsModal, setTodaysSteps, setTotals, setGrams, setIsProgressLoading } = logSlice.actions;
 
 export default logSlice.reducer;

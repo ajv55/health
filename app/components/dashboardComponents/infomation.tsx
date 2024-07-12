@@ -13,6 +13,7 @@ import CarbProgress from '../newDashboarComponent/carbProgress';
 import ProteinProgress from '../newDashboarComponent/proteinProgress';
 import FatProgress from '../newDashboarComponent/fatProgress';
 import DatePicker from '../tabComponents/datePicker';
+import ProgressSkeleton from '../skeleton/progressSkeleton';
 
 export default function Information() {
   const { data: session } = useSession();
@@ -20,6 +21,7 @@ export default function Information() {
   const dispatch = useDispatch();
   const grams = useSelector((state: RootState) => state?.log?.grams);
   const [updatingMacros, setUpdatingMacros] = useState(false);
+  const isProgressLoading = useSelector((state: RootState) => state.log.isProgressLoading);
 
   const calculateMacros = useMemo(() => {
     return (maintenanceCalories: number) => {
@@ -99,12 +101,15 @@ export default function Information() {
   }, [session, userCalories, grams, dispatch, calculateMacros]);
   
 
+  console.log(isProgressLoading)
+
   return (
-    <div className='w-[56%] h-[43rem] drop-shadow-lg flex flex-col justify-evenly items-center rounded-lg bg-white'>
-      <Main />
+    <div className='w-[56%] h-[43rem] relative drop-shadow-lg flex flex-col justify-evenly items-center rounded-lg bg-white'>
+      {isProgressLoading && <ProgressSkeleton />}
+      {!isProgressLoading && <Main />}
 
       {/* Exercise, water, steps tracking */}
-      <div className='w-full flex justify-evenly items-center h-[18rem]'>
+      <div className={`w-full justify-evenly ${isProgressLoading ? 'hidden': 'flex'} items-center h-[18rem]`}>
         <Personal />
 
         <div className='w-[40%] h-full'>
@@ -117,7 +122,7 @@ export default function Information() {
       </div>
 
       {/* Carb, fat, and protein progress bars */}
-      <div className='w-full flex justify-evenly items-center h-[8rem]'>
+      <div className={`w-full ${isProgressLoading ? 'hidden' : 'flex'} justify-evenly items-center h-[8rem]`}>
         <CarbProgress />
         <ProteinProgress />
         <FatProgress />

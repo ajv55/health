@@ -1,5 +1,5 @@
 'use client';
-import { setUserMealLogs, setLunchLog, setDinnerLog, setSnackLog, setTotals } from "@/app/slices/logSlice";
+import { setUserMealLogs, setLunchLog, setDinnerLog, setSnackLog, setTotals, setIsProgressLoading } from "@/app/slices/logSlice";
 import { RootState } from "@/app/store";
 import axios, { all } from "axios";
 import { useSession } from "next-auth/react";
@@ -11,7 +11,7 @@ const ProgressBar = () => {
 
   const userCalories = session?.user.recommend;
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
+  const isProgressLoading = useSelector((state: RootState) => state.log.isProgressLoading);
 
   const currentDate = useSelector((state: RootState) => state.weight.currentDate);
 
@@ -60,14 +60,14 @@ const ProgressBar = () => {
 
 
   useEffect(() => {
-    setIsLoading(true); // Set loading to true before fetching
+    dispatch(setIsProgressLoading(true)); // Set loading to true before fetching
     Promise.all([
         fetchMealLogs(currentDate!),
         fetchLunchLogs(currentDate!),
         fetchDinnerLogs(currentDate!),
         fetchSnackLogs(currentDate!)
     ]).then(() => {
-        setIsLoading(false); // Set loading to false after all fetches are complete
+      dispatch(setIsProgressLoading(false)); // Set loading to false after all fetches are complete
     });
 }, [currentDate]);
 
