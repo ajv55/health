@@ -42,9 +42,9 @@ export default function ProteinProgress() {
 
   return (
     <div className='w-[32%] h-full flex p-2  flex-col justify-center gap-1 items-center'>
-        <div className='w-full flex justify-between items-center'>
-            <span className='text-indigo-400 font-light'>Proteins</span>
-            <div className='flex justify-center items-center gap-1'>
+        <div className='w-full flex  justify-between items-center'>
+            <span className='text-indigo-400 lg:text-lg text-xs font-light'>Proteins</span>
+            <div className='flex justify-center lg:text-lg text-xs items-center gap-1'>
                 <span>{proteinPercentage || 0}%</span>
                 <span>cals</span>
             </div>
@@ -60,7 +60,7 @@ export default function ProteinProgress() {
         />
       </div>
 
-        <div className='flex w-full justify-between items-center'>
+        <div className='flex lg:text-lg text-xs w-full justify-between items-center'>
             <span>{Math.round(grams?.proteinGrams)}g</span>
             <span>left {Math.round(proteinLeft)} g</span>
         </div>

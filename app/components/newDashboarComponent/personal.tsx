@@ -35,7 +35,7 @@ export default function Personal() {
   }
 
   const fetchWaterIntake = async () => {
-    await axios.get('/api/getWater').then((res: any) => {
+    await axios.get(`/api/getWater?currentDate=${currentDate}`).then((res: any) => {
       console.log(res);
       if(res?.data?.status === 201){
         return dispatch(setWater(res?.data?.addWater))
@@ -57,24 +57,24 @@ export default function Personal() {
         <div className='flex flex-col justify-center items-center gap-1'>
             <div onMouseOver={() => setWaterDetailModal(true)} onMouseLeave={() => setWaterDetailModal(false)} onClick={() => dispatch(setWaterModal(!waterModal))}  className='flex hover:cursor-pointer justify-center items-center gap-1 relative'>
             {waterDetailModal && <div className='w-[210%] absolute -bottom-4 -right-9 h-4 p-2 rounded-md bg-black bg-opacity-30 flex justify-center items-center'><p className='text-xs text-white font-thin'>Start logging water intake </p></div>}
-              <h1 className='text-gray-500 text-xl font-light'>Water</h1>
+              <h1 className='text-gray-500 lg:text-xl text-lg font-light'>Water</h1>
               <IoWater className='text-indigo-600'  size={20}  />
             </div>
-            <span className='text-indigo-600 text-xl'>{liters}</span>
+            <span className='text-indigo-600 lg:text-xl text-lg'>{liters}</span>
           </div>
 
           <div className='flex flex-col  justify-center items-center gap-1'>  
             <div onMouseOver={() => setStepDetailModal(true)} onMouseLeave={() => setStepDetailModal(false)} onClick={() => dispatch(setStepsModal(true))}  className='flex hover:cursor-pointer relative  justify-center items-center gap-1'>
             {stepDetailModal && <div className='w-[170%] absolute -bottom-4 -right-5 h-4 p-2 rounded-md bg-black bg-opacity-30 flex justify-center items-center'><p className='text-xs text-white font-thin'>Start logging steps</p></div>}
-              <h1 className='text-gray-500 text-xl font-light'>Steps</h1>
+              <h1 className='text-gray-500 lg:text-xl text-lg font-light'>Steps</h1>
               <GiFootsteps className='text-indigo-600' size={25}  />
             </div>
-            <span className='text-indigo-600 text-xl'>{todaysStep}</span>
+            <span className='text-indigo-600 lg:text-xl text-lg'>{todaysStep}</span>
           </div>
 
           <div className='flex flex-col justify-center items-center gap-1'>
-            <h1 className='text-gray-500 text-xl font-light'>Exercise</h1>
-            <span className='text-indigo-600 text-xl'>0</span>
+            <h1 className='text-gray-500 lg:text-xl text-lg font-light'>Exercise</h1>
+            <span className='text-indigo-600 lg:text-xl text-lg'>0</span>
           </div>
 
         </div>

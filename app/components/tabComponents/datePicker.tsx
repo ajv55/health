@@ -53,69 +53,73 @@ const DatePicker = () => {
   };
 
   return (
-    <div className="flex flex-col items-center space-y-4 p-4 bg-white  rounded-lg w-full ">
-      <div className="flex items-center space-x-2">
-        <motion.button
-          onClick={handlePrevMonth}
-          className="text-indigo-500 text-2xl"
+    <div className="flex flex-col items-center space-y-4 p-4 bg-white rounded-lg w-full">
+  <div className="flex lg:flex-row items-center  justify-center space-x-2 ">
+    <motion.button
+      onClick={handlePrevMonth}
+      className="text-indigo-500 hidden lg:block text-2xl"
+      whileTap={{ scale: 0.9 }}
+    >
+      <FaAngleDoubleLeft />
+    </motion.button>
+    <motion.button
+      onClick={handlePrevWeek}
+      className="text-indigo-500 hidden lg:block text-2xl"
+      whileTap={{ scale: 0.9 }}
+    >
+      <FaArrowLeft />
+    </motion.button>
+    <motion.button
+      onClick={handlePrevDay}
+      className="text-indigo-500  text-2xl"
+      whileTap={{ scale: 0.9 }}
+    >
+      <FaArrowLeft />
+    </motion.button>
+    <div className="flex flex-wrap  items-center justify-center space-x-2 overflow-x-auto w-full">
+      {getWeekDays().map((day) => (
+        <motion.div
+          key={day.toString()}
+          onClick={() => handleDayClick(day)}
+          className={`text-sm lg:text-lg text-indigo-400 font-semibold cursor-pointer px-2 py-1 rounded ${
+            isSameDay(day, currentDate)
+              ? 'bg-indigo-600 text-white'
+              : isSameDay(day, today)
+              ? 'bg-indigo-300 text-white'
+              : 'text-gray-700'
+          } mb-2`}
+          whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >
-          <FaAngleDoubleLeft />
-        </motion.button>
-        <motion.button
-          onClick={handlePrevWeek}
-          className="text-indigo-500 text-2xl"
-          whileTap={{ scale: 0.9 }}
-        >
-          <FaArrowLeft />
-        </motion.button>
-        <motion.button
-          onClick={handlePrevDay}
-          className="text-indigo-500 text-2xl"
-          whileTap={{ scale: 0.9 }}
-        >
-          <FaArrowLeft />
-        </motion.button>
-        <div className="flex space-x-2 overflow-x-auto">
-          {getWeekDays().map((day) => (
-            <motion.div
-              key={day.toString()}
-              onClick={() => handleDayClick(day)}
-              className={`text-sm font-semibold cursor-pointer px-2 py-1 rounded ${
-                isSameDay(day, currentDate) ? 'bg-indigo-600 text-white' : 
-                isSameDay(day, today) ? 'bg-indigo-300 text-white' : 
-                'text-gray-700'
-              }`}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              {format(day, 'E dd MMM')}
-            </motion.div>
-          ))}
-        </div>
-        <motion.button
-          onClick={handleNextDay}
-          className="text-indigo-500 text-2xl"
-          whileTap={{ scale: 0.9 }}
-        >
-          <FaArrowRight />
-        </motion.button>
-        <motion.button
-          onClick={handleNextWeek}
-          className="text-indigo-500 text-2xl"
-          whileTap={{ scale: 0.9 }}
-        >
-          <FaArrowRight />
-        </motion.button>
-        <motion.button
-          onClick={handleNextMonth}
-          className="text-indigo-500 text-2xl"
-          whileTap={{ scale: 0.9 }}
-        >
-          <FaAngleDoubleRight />
-        </motion.button>
-      </div>
+          {format(day, 'E dd MMM')}
+        </motion.div>
+      ))}
     </div>
+    <motion.button
+      onClick={handleNextDay}
+      className="text-indigo-500 text-2xl"
+      whileTap={{ scale: 0.9 }}
+    >
+      <FaArrowRight />
+    </motion.button>
+    <motion.button
+      onClick={handleNextWeek}
+      className="text-indigo-500 hidden lg:block text-2xl"
+      whileTap={{ scale: 0.9 }}
+    >
+      <FaArrowRight />
+    </motion.button>
+    <motion.button
+      onClick={handleNextMonth}
+      className="text-indigo-500 hidden lg:block text-2xl"
+      whileTap={{ scale: 0.9 }}
+    >
+      <FaAngleDoubleRight />
+    </motion.button>
+  </div>
+</div>
+
+
   );
 };
 

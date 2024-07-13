@@ -52,23 +52,23 @@ useEffect(() => {
     <div className=' w-full flex flex-col justify-evenly items-center h-full'>
 
     <div className='flex flex-col justify-center items-center gap-1'>
-        <h1 className='text-gray-500 text-xl font-light'>Breakfast</h1>
-        <span className='text-indigo-600 text-xl'>{Math.round(breakfastCalories)}</span>
+        <h1 className='text-gray-500 lg:text-xl text-lg font-light'>Breakfast</h1>
+        <span className='text-indigo-600 lg:text-xl text-lg'>{Math.round(breakfastCalories)}</span>
     </div>
 
     <div className='flex flex-col justify-center items-center gap-1'>
-        <h1 className='text-gray-500 text-xl font-light'>Lunch</h1>
-        <span className='text-indigo-600 text-xl'>{Math.round(lunchCalories)}</span>
+        <h1 className='text-gray-500 lg:text-xl text-lg font-light'>Lunch</h1>
+        <span className='text-indigo-600 lg:text-xl text-lg'>{Math.round(lunchCalories)}</span>
     </div>
 
     <div className='flex flex-col justify-center items-center gap-1'>
-        <h1 className='text-gray-500 text-xl font-light'>Dinner</h1>
-        <span className='text-indigo-600 text-xl'>{Math.round(dinnerCalories)}</span>
+        <h1 className='text-gray-500 lg:text-xl text-lg font-light'>Dinner</h1>
+        <span className='text-indigo-600 lg:text-xl text-lg'>{Math.round(dinnerCalories)}</span>
     </div>
 
     <div className='flex flex-col justify-center items-center gap-1'>
-        <h1 className='text-gray-500 text-xl font-light'>Snack</h1>
-        <span className='text-indigo-600 text-xl'>{Math.round(snackCalories)}</span>
+        <h1 className='text-gray-500 lg:text-xl text-lg font-light'>Snack</h1>
+        <span className='text-indigo-600 lg:text-xl text-lg'>{Math.round(snackCalories)}</span>
     </div>
 
     </div>

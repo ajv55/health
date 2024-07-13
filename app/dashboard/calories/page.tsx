@@ -43,6 +43,8 @@ export default function Page() {
   const dinnerLogs = useSelector((state: RootState) => state.log.userDinnerLogs);
   const snackLogs = useSelector((state: RootState) => state.log.userSnackLogs);
   const [snackIsLoading, setSnackIsLoading] = useState(false);
+  const [overSearch, setOverSearch] = useState(false);
+  const [overRecent, setOverRecent] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -180,15 +182,19 @@ useEffect(() => {
     
   }, [session?.user.calories])
 
+  console.log(overSearch)
+
 
   return (
     <div className='w-full h-screen flex flex-col justify-start items-center gap-8 overflow-hidden'>
             <div className='w-[90%] h-content rounded-md mt-8 drop-shadow-2xl'>
                 {/* First heading section */}
                 <div className='w-full h-16  bg-slate-50 rounded-t-md p-2 flex justify-between items-center'>
-                    <div className='flex justify-center items-center gap-7'>
-                        <IoSearchOutline onClick={() => router.push('/dashboard/calories/search')} className='cursor-pointer' size={25} />
-                        <IoStar className='cursor-pointer' size={25} />
+                    <div className='flex relative justify-center items-center gap-5'>
+                      {overSearch && <div className='w-[60%] absolute -bottom-7 -left-5 h-4 rounded-sm bg-black bg-opacity-30 flex p-0.5 justify-center items-center'><p className='text-[14px] text-white font-bold'>Click here to search foods</p></div>}
+                      {overRecent && <div className='w-[64%] absolute -bottom-7 -left-3 h-4 rounded-sm bg-black bg-opacity-30 flex p-0.5 justify-center items-center'><p className='text-[14px] text-white font-bold'>Click here for recent foods</p></div>}
+                        <IoSearchOutline onMouseEnter={() => setOverSearch(true)} onMouseLeave={() => setOverSearch(false)} onClick={() => router.push('/dashboard/calories/search')} className='cursor-pointer' size={25} />
+                        <IoStar onClick={() => router.push('/dashboard/calories/search')} onMouseEnter={() => setOverRecent(true)} onMouseLeave={() => setOverRecent(false)}  className='cursor-pointer' size={25} />
                         <TbChefHat className='cursor-pointer' size={25} />
                         <span className='text-xs hover:text-indigo-600 hover:cursor-pointer text-indigo-400 self-end font-bold'>Consumed food, amount</span>
                     </div>

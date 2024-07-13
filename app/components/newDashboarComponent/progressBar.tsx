@@ -5,9 +5,14 @@ import axios, { all } from "axios";
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useMedia } from "use-media";
 
 const ProgressBar = () => {
   const {data: session} = useSession();
+
+  const smallScreen = useMedia({ maxWidth: '640px' });
+  const mediumScreen = useMedia({ minWidth: '641px', maxWidth: '1024px' });
+  const largeScreen = useMedia({ minWidth: '1025px' });
 
   const userCalories = session?.user.recommend;
   const dispatch = useDispatch();
@@ -129,7 +134,7 @@ const ProgressBar = () => {
         <circle
           cx="50%"
           cy="50%"
-          r="120"
+          r={`${smallScreen ? '80' : '120'}`}
           stroke="#edeffb"
           strokeWidth="10"
           fill="transparent"
@@ -137,7 +142,7 @@ const ProgressBar = () => {
         <circle
           cx="50%"
           cy="50%"
-          r="120"
+          r={`${smallScreen ? '80' : '120'}`}
           stroke="#3f22f9"
           strokeWidth="10"
           fill="transparent"

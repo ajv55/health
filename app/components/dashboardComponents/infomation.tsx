@@ -104,15 +104,15 @@ export default function Information() {
   console.log(isProgressLoading)
 
   return (
-    <div className='w-[56%] h-[43rem] relative drop-shadow-lg flex flex-col justify-evenly items-center rounded-lg bg-white'>
+    <div className='lg:w-[56%] w-full h-[43rem] relative drop-shadow-lg flex flex-col justify-evenly items-center rounded-lg bg-white'>
       {isProgressLoading && <ProgressSkeleton />}
       {!isProgressLoading && <Main />}
 
       {/* Exercise, water, steps tracking */}
-      <div className={`w-full justify-evenly ${isProgressLoading ? 'hidden': 'flex'} items-center h-[18rem]`}>
+      <div className={`w-full justify-evenly ${isProgressLoading ? 'hidden': 'flex'} lg:flex-row flex-wrap items-center h-[18rem]`}>
         <Personal />
 
-        <div className='w-[40%] h-full'>
+        <div className='lg:w-[40%] w-[50%] h-full'>
           <ProgressBar />
         </div>
 

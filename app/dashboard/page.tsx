@@ -92,7 +92,7 @@ useEffect(() => {
   
 
   return (
-    <div className='overflow-scroll w-full relative  h-screen flex flex-wrap lg:flex-row justify-start p-3 items-start'>
+    <div className='overflow-scroll w-full relative  h-screen flex flex-col lg:flex-row justify-start p-3 items-start'>
       <Information />
       <WeightTracker />
       <AnimatePresence>
