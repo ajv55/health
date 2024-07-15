@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
 
     const session = await getServerSession(authOptions);
     const searchParams = await req.nextUrl.searchParams;
-    const currentDate = searchParams.get('currentDate') || new Date();;
+    const currentDate = searchParams.get('currentDate') || new Date();
 
     console.log(currentDate)
 

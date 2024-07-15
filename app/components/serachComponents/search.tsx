@@ -5,6 +5,7 @@ import axios from "axios";
 import { RootState } from "@/app/store";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 const Search = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -16,8 +17,9 @@ const Search = () => {
   const [popularFood, setPopularFood] = useState([]);
   const [isRecentFoodLoading, setIsRecentFoodLoading] = useState(false);
   const [isPopularFoodLoading, setIsPopularFoodLoading] = useState(false);
+  const {data: sessoin} = useSession();
+  const userIsActive = sessoin?.user?.isActive || false;
 
-  const dispatch = useDispatch();
 
   const fetchRecentFoods = async () => {
     setIsRecentFoodLoading(true)
@@ -174,7 +176,7 @@ const Search = () => {
             )}
           </AnimatePresence>
         </div>
-        <div>
+        <div className="bg-white p-3 ring-2 shadow-md rounded-lg overflow-scroll ring-indigo-300">
           <h2 className="text-xl font-semibold text-indigo-500 mb-4">
             Recent Foods
           </h2>
@@ -204,7 +206,7 @@ const Search = () => {
               )
             })}
         </div>
-        <div className="mt-4">
+        <div className="bg-white overflow-scroll shadow-md mt-5 rounded-lg p-3 ring-2 ring-indigo-300">
           <h2 className="text-xl font-semibold text-indigo-500 mb-4">
             Popular Foods
           </h2>
@@ -238,10 +240,11 @@ const Search = () => {
               )
             })}
         </div>
-        <div className="mt-4">
+        <div className="mt-4 flex justify-between items-center w-full">
           <button className="text-indigo-600 font-semibold">
             CREATE AND LOG CUSTOM FOOD
           </button>
+          <h2>{userIsActive === false ? <Link className="text-indigo-600 text-sm" href='/pricing'>Become a premium user!</Link> : ''}</h2>
         </div>
       </div>
     </div>

@@ -38,6 +38,7 @@ model User {
   macronutrients   Macronutrient?  
   macronutrientId  String?        @db.ObjectId
   recentFoods Json? 
+  favoriteFoods Json? 
 
  // Define the relationship with CalorieIntake entity
   calorieIntake CalorieIntake[]
@@ -323,6 +324,11 @@ model CommonCarbs {
   model PopularFoods {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   popularFoods String?
+ }
+
+ model StapleFoods {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  stapleFoods String?
  }
 
  model HighFatFoods {

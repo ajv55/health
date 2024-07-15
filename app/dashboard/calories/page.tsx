@@ -47,6 +47,7 @@ export default function Page() {
   const [overRecent, setOverRecent] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
+  const currentDate = useSelector((state: RootState) => state.weight.currentDate);
 
 
   const workoutsRef = useRef<HTMLInputElement>(null);
@@ -59,7 +60,7 @@ export default function Page() {
   console.log(meal)
 
   const fetchMealLogs = async () => {
-    await axios.get('/api/getMealLogs').then((res: any) => {
+    await axios.get(`/api/getMealLogs?currentDate=${currentDate}`).then((res: any) => {
         if(res.status === 201) {
           console.log(res.data)
             dispatch(setUserMealLogs(res?.data))
@@ -68,7 +69,7 @@ export default function Page() {
 };
 
 const fetchLunchLogs = async () => {
-  await axios.get('/api/getLunchLogs').then((res: any) => {
+  await axios.get(`/api/getLunchLogs?currentDate=${currentDate}`).then((res: any) => {
       if(res.status === 201) {
           dispatch(setLunchLog(res.data))
       }
@@ -76,7 +77,7 @@ const fetchLunchLogs = async () => {
 };
 
 const fetchDinnerLogs = async () => {
-  await axios.get('/api/getDinnerLogs').then((res: any) => {
+  await axios.get(`/api/getDinnerLogs?currentDate=${currentDate}`).then((res: any) => {
       if(res.status === 201) {
           dispatch(setDinnerLog(res.data))
       }
@@ -85,7 +86,7 @@ const fetchDinnerLogs = async () => {
 
 const fetchSnackLogs = async () => {
   setSnackIsLoading(true)
-  await axios.get('/api/getSnackLogs').then((res: any) => {
+  await axios.get(`/api/getSnackLogs?currentDate=${currentDate}`).then((res: any) => {
       if(res.status === 201) {
           dispatch(setSnackLog(res.data))
           setSnackIsLoading(false)
@@ -194,7 +195,7 @@ useEffect(() => {
                       {overSearch && <div className='w-[60%] absolute -bottom-7 -left-5 h-4 rounded-sm bg-black bg-opacity-30 flex p-0.5 justify-center items-center'><p className='text-[14px] text-white font-bold'>Click here to search foods</p></div>}
                       {overRecent && <div className='w-[64%] absolute -bottom-7 -left-3 h-4 rounded-sm bg-black bg-opacity-30 flex p-0.5 justify-center items-center'><p className='text-[14px] text-white font-bold'>Click here for recent foods</p></div>}
                         <IoSearchOutline onMouseEnter={() => setOverSearch(true)} onMouseLeave={() => setOverSearch(false)} onClick={() => router.push('/dashboard/calories/search')} className='cursor-pointer' size={25} />
-                        <IoStar onClick={() => router.push('/dashboard/calories/search')} onMouseEnter={() => setOverRecent(true)} onMouseLeave={() => setOverRecent(false)}  className='cursor-pointer' size={25} />
+                        <IoStar onClick={() => router.push('/dashboard/calories/search?tab=recentFoods')} onMouseEnter={() => setOverRecent(true)} onMouseLeave={() => setOverRecent(false)}  className='cursor-pointer' size={25} />
                         <TbChefHat className='cursor-pointer' size={25} />
                         <span className='text-xs hover:text-indigo-600 hover:cursor-pointer text-indigo-400 self-end font-bold'>Consumed food, amount</span>
                     </div>

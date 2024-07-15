@@ -2,6 +2,9 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Search from './search';
+import Recent from './recent';
+import Staple from './staple';
+import Favorite from './favorite';
 
 
 const SearchTab = () => {
@@ -13,19 +16,17 @@ const SearchTab = () => {
   console.log(tab);
 
   useEffect(() => {
-    if(tab === 'advice'){
-      setActiveTab('advice')
+    if(tab === 'recentFoods'){
+      setActiveTab('recentFoods')
     }
-    if(tab === 'weightLoss'){
-      setActiveTab('weightLoss')
-    }
+    
   }, [tab])
 
   const tabs = [
     { name: 'Summary & Foods', key: 'summary' },
-    { name: 'Weight Loss', key: 'weightLoss' },
-    { name: 'Meal Analysis', key: 'mealAnalysis' },
-    { name: 'Cals from Nutrients', key: 'calsFromNutrients' },
+    { name: 'Staple Foods', key: 'stapleFoods' },
+    { name: 'Recent Foods', key: 'recentFoods' },
+    { name: 'Favorite', key: 'favorite' },
     { name: 'My Advice', key: 'advice' },
     { name: 'Step Analysis', key: 'stepAnalysis' },
     { name: 'Water Analysis', key: 'waterAnalysis' },
@@ -46,9 +47,9 @@ const SearchTab = () => {
       </div>
       <div className="p-4  h-[40rem]  overflow-scroll ">
         {activeTab === 'summary' && <Search />}
-        {activeTab === 'weightLoss' && <div>serach</div>}
-        {activeTab === 'mealAnalysis' && <div>serach</div>}
-        {activeTab === 'calsFromNutrients' && <div>serach</div>}
+        {activeTab === 'stapleFoods' && <Staple />}
+        {activeTab === 'recentFoods' && <Recent />}
+        {activeTab === 'favorite' && <Favorite />}
         <div className=''>
           {activeTab === 'advice' && <div>serach</div>}
         </div>
