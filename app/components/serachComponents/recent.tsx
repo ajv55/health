@@ -5,6 +5,7 @@ import axios from 'axios';
 import { RootState } from '@/app/store';
 import { format } from 'date-fns';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 
 const FoodTracker = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,8 @@ const FoodTracker = () => {
   const [lunchLogs, setLunchLog] = useState([]);
   const [dinnerLogs, setDinnerLog] = useState([]);
   const [snackLogs, setSnackLog] = useState([]);
+  const {data: sessoin} = useSession();
+  const userIsActive = sessoin?.user?.isActive || false;
 
   useEffect(() => {
     fetchMealLogs();
@@ -61,7 +64,7 @@ const FoodTracker = () => {
 
   return (
     <div className="p-4 overflow-scroll bg-indigo-50 ring-2 ring-indigo-400 rounded-lg h-[38rem]">
-      <h1 className="text-4xl font-bold bg-gradient-to-tl from-indigo-500 to-indigo-400 bg-clip-text text-transparent mb-4">Food Tracker</h1>
+      <h1 className="text-4xl font-bold bg-gradient-to-tl from-indigo-500 to-indigo-400 bg-clip-text text-transparent mb-4">Recent Meals</h1>
       <div className="bg-white ring-2 ring-indigo-400 p-6 rounded-lg shadow-md">
         <ul className="divide-y divide-gray-200">
           <li className="py-4">
@@ -94,6 +97,12 @@ const FoodTracker = () => {
           </li>
         </ul>
       </div>
+      <div className="mt-4 flex justify-between items-center w-full">
+          <Link href='/dashboard/calories/search/customFood' className="text-indigo-600 font-semibold">
+            CREATE AND LOG CUSTOM FOOD
+          </Link>
+          <h2>{userIsActive === false ? <Link className="text-indigo-600 text-sm" href='/pricing'>Become a premium user!</Link> : ''}</h2>
+        </div>
     </div>
   );
 };

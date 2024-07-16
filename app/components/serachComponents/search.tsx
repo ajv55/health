@@ -241,9 +241,9 @@ const Search = () => {
             })}
         </div>
         <div className="mt-4 flex justify-between items-center w-full">
-          <button className="text-indigo-600 font-semibold">
+          <Link href='/dashboard/calories/search/customFood' className="text-indigo-600 font-semibold">
             CREATE AND LOG CUSTOM FOOD
-          </button>
+          </Link>
           <h2>{userIsActive === false ? <Link className="text-indigo-600 text-sm" href='/pricing'>Become a premium user!</Link> : ''}</h2>
         </div>
       </div>

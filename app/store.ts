@@ -8,7 +8,8 @@ import nutritionReducer from './slices/nutritionSlice';
 import searchWorkoutReducer from './slices/searchWorkoutSlice';
 import generateReducer from './slices/generateSlice';
 import logReducer from './slices/logSlice';
-import weightReducer from './slices/weightSlice'
+import weightReducer from './slices/weightSlice';
+import searchReducer from './slices/searchSlice';
 
 const defaultMiddlewareConfig = {
     serializableCheck: false
@@ -27,6 +28,7 @@ export const store = configureStore({
         generate: generateReducer,
         log: logReducer,
         weight: weightReducer,
+        search: searchReducer
     },
     middleware: (getDefaultMiddleware) => 
         getDefaultMiddleware(defaultMiddlewareConfig),

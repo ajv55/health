@@ -6,6 +6,7 @@ import { RootState } from "@/app/store";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import { setActiveTab } from "@/app/slices/searchSlice";
 
 const Staple = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -98,9 +99,9 @@ const Staple = () => {
             })}
         </div>
         <div className="mt-4 p-1 w-full flex justify-between items-center">
-          <button className="text-indigo-600 font-semibold">
+          <Link href='/dashboard/calories/search/customFood' className="text-indigo-600 font-semibold">
             CREATE AND LOG CUSTOM FOOD
-          </button>
+          </Link>
           <h2>{userIsActive === false ? <Link className="text-indigo-600 text-sm" href='/pricing'>Become a premium user</Link> : ''}</h2>
         </div>
       </div>

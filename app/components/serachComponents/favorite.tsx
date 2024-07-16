@@ -139,7 +139,7 @@ const Favorite = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 10 }}
                 transition={{ duration: 0.2 }}
-                className="absolute left-0 right-0 w-full overflow-scroll h-[20rem] flex flex-col mt-2 bg-white shadow-lg rounded-lg max-w-6xl mx-auto"
+                className="absolute left-0 right-0 w-full overflow-scroll h-[20rem] flex flex-col justify-start items-center mt-2 bg-white shadow-lg rounded-lg max-w-6xl mx-auto"
               >
                 <button
                   className="text-indigo-600 block w-full text-lg text-center py-2 bg-gray-100 rounded-b-lg hover:bg-gray-200"
@@ -147,14 +147,14 @@ const Favorite = () => {
                 >
                   Close
                 </button>
-                <ul className=" w-full flex flex-col divide-y-2 divide-gray-100">
+                <ul className="divide-y w-full flex flex-col divide-gray-200">
                   {foods.map((food: any) => (
                     <button
-                      key={food.name}
                       onClick={() => handleFavoriteFoods(food)}
-                      className="py-2 group text-left w-full hover:bg-gradient-to-r hover:from-white hover:via-gray-100 hover:to-indigo-100 hover:cursor-pointer px-4"
+                      key={food.name}
+                      className="py-2 group flex justify-start items-center w-full hover:bg-gradient-to-r hover:from-white hover:via-gray-100 hover:to-indigo-100 hover:cursor-pointer px-4"
                     >
-                      <span className="text-xl  group-hover:text-indigo-600">{food.name}</span>
+                      <span className="text-xl group-hover:text-indigo-600">{food.name}</span>
                     </button>
                   ))}
                 </ul>
@@ -162,12 +162,12 @@ const Favorite = () => {
             )}
           </AnimatePresence>
         </div>
-        <div>
+        <div className="bg-white overflow-scroll shadow-md mt-5 rounded-lg p-3 ring-2 ring-indigo-300">
           <h2 className="text-xl font-semibold text-indigo-500 mb-4">
-            Recent Foods
+            Favorite Foods
           </h2>
           {loading && <div className="w-full h-14 rounded-lg bg-indigo-400 animate-pulse"></div>}
-          {favoriteFoods?.length === 0 && <h1 className='text-indigo-300'>No favorite foods added.</h1>}
+          {favoriteFoods?.length === 0 && !loading && <h1 className='text-indigo-300'>No favorite foods added.</h1>}
           {!loading && favoriteFoods?.map((rf: any) => {
               console.log(rf)
               return (
@@ -194,9 +194,9 @@ const Favorite = () => {
             })}
         </div>
         <div className="mt-4 flex justify-between items-center w-full">
-          <button className="text-indigo-600 font-semibold">
+          <Link href='/dashboard/calories/search?tab=custom' className="text-indigo-600 font-semibold">
             CREATE AND LOG CUSTOM FOOD
-          </button>
+          </Link>
           <h2>{userIsActive === false ? <Link className="text-indigo-600 text-sm" href='/pricing'>Become a premium user!</Link> : ''}</h2>
         </div>
       </div>

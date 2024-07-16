@@ -56,6 +56,7 @@ model User {
   stepsLog  StepLog[]
 
    mealLogs  MealLog[]
+   customFoods CustomFood[]
    lunchLogs LunchLog[]
    dinnerLogs DinnerLog[]
    snackLogs SnackLog[]
@@ -79,6 +80,30 @@ model Macronutrient {
   userId         String  @db.ObjectId @unique
   user           User    @relation(fields: [userId], references: [id])
   
+}
+
+model CustomFood {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  user User @relation(fields: [userId], references: [id])
+  name String? 
+  servingSize String?
+  servingName String?
+  calories Float?
+  fat Float?
+  satFat Float?
+  transFat Float?
+  carbs Float?
+  fiber Float?
+  sugar Float?
+  addedSugar Float?
+  protein Float?
+  cholesterol Float?
+  sodium Float?
+  calcium Float?
+  potassium Float?
+  iron Float?
+
 }
 
 model WeightLog {

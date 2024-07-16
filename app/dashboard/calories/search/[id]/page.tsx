@@ -126,6 +126,7 @@ const calculateNutrients = (amount: number, unit: string) => {
   const regexSlice = /(\d+(\.\d+)?)\s*slice/; // Matches "number slice"
   const regexTablespoon = /(\d+(\.\d+)?)\s*tbsp/; // Matches "number tbsp"
   const regexCustom = /(\d+(\.\d+)?)\s*([a-zA-Z]+)\s*\((\d+(\.\d+)?)g\)/; // Matches "number custom_unit (number.g)"
+  const regexPlainGrams = /^(\d+(\.\d+)?)\s*g$/; // Matches "number g"
 
   // Unit to gram conversion map
   const unitToGramMap: { [key: string]: number } = {
@@ -172,6 +173,8 @@ const calculateNutrients = (amount: number, unit: string) => {
     if (match) {
       servingSizeInGrams = parseFloat(match[4]);
     }
+  } else if (regexPlainGrams.test(servingSize)) { // Match for "number g"
+    servingSizeInGrams = parseFloat(servingSize.match(regexPlainGrams)![1]);
   } else if (/^\d+g$/.test(servingSize)) { // Match for "100g"
     servingSizeInGrams = parseFloat(servingSize); // directly parse the grams value
   } else {
@@ -214,7 +217,8 @@ const calculateNutrients = (amount: number, unit: string) => {
 };
 
 
-console.log(nutrients)
+
+console.log(servingSize)
 console.log(unit)
 
 
