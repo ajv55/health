@@ -9,6 +9,7 @@ import Custom from './custom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/app/store';
 import { setActiveTab } from '@/app/slices/searchSlice';
+import Recipe from './recipe';
 
 
 const SearchTab = () => {
@@ -27,6 +28,9 @@ const SearchTab = () => {
     if(tab === 'custom'){
       dispatch(setActiveTab('custom'))
     }
+    if(tab === 'recipes'){
+      dispatch(setActiveTab('recipes'))
+    }
     
   }, [tab])
 
@@ -36,7 +40,7 @@ const SearchTab = () => {
     { name: 'Recent Meals', key: 'recentMeals' },
     { name: 'Favorite', key: 'favorite' },
     { name: 'Custom', key: 'custom' },
-    { name: 'Step Analysis', key: 'stepAnalysis' },
+    { name: 'Recipes', key: 'recipes' },
     { name: 'Water Analysis', key: 'waterAnalysis' },
   ];
 
@@ -61,7 +65,7 @@ const SearchTab = () => {
         <div className=''>
           {activeTab === 'custom' && <Custom />}
         </div>
-        {activeTab === 'stepAnalysis' && <div>serach</div>}
+        {activeTab === 'recipes' && <Recipe />}
         {activeTab === 'waterAnalysis' && <div>serach</div>}
       </div>
     </div>

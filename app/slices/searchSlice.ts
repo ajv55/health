@@ -1,11 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface SearchState  {
-    activeTab?: string
+    activeTab?: string,
+    recipeModal?: boolean,
+    recipe?: {}
 }
 
 const initialState: SearchState = {
-    activeTab: 'summary'
+    activeTab: 'summary',
+    recipeModal: false,
+    recipe: {}
 }
 
 export const searchSlice = createSlice({
@@ -14,11 +18,17 @@ export const searchSlice = createSlice({
     reducers: {
         setActiveTab: (state, action) => {
             state.activeTab = action.payload
+        },
+        setRecipeModal: (state, action) => {
+            state.recipeModal = action.payload
+        },
+        setRecipe: (state, action) => {
+            state.recipe = action.payload
         }
     }
 })
 
-export const {setActiveTab} = searchSlice.actions;
+export const {setActiveTab, setRecipeModal, setRecipe} = searchSlice.actions;
 
 export default searchSlice.reducer
 

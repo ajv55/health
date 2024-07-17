@@ -376,6 +376,26 @@ model CommonCarbs {
   satFatFoods String?
  }
 
+ model BreakfastRecipes {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  breakfastRecipes String?
+ }
+
+ model LunchRecipes {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  lunchRecipes String?
+ }
+
+ model DinnerRecipes {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  dinnerRecipes String?
+ }
+
+ model SnackRecipes {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  snackRecipes String?
+ }
+
  model Drinks {
   id   String @id @default(auto()) @map("_id") @db.ObjectId
   Drinks  String?

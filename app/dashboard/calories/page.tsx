@@ -196,7 +196,7 @@ useEffect(() => {
                       {overRecent && <div className='w-[64%] absolute -bottom-7 -left-3 h-4 rounded-sm bg-black bg-opacity-30 flex p-0.5 justify-center items-center'><p className='text-[14px] text-white font-bold'>Click here for recent foods</p></div>}
                         <IoSearchOutline onMouseEnter={() => setOverSearch(true)} onMouseLeave={() => setOverSearch(false)} onClick={() => router.push('/dashboard/calories/search')} className='cursor-pointer' size={25} />
                         <IoStar onClick={() => router.push('/dashboard/calories/search?tab=recentMeals')} onMouseEnter={() => setOverRecent(true)} onMouseLeave={() => setOverRecent(false)}  className='cursor-pointer' size={25} />
-                        <TbChefHat className='cursor-pointer' size={25} />
+                        <TbChefHat onClick={() => router.push('/dashboard/calories/search?tab=recipes')} className='cursor-pointer' size={25} />
                         <span className='text-xs hover:text-indigo-600 hover:cursor-pointer text-indigo-400 self-end font-bold'>Consumed food, amount</span>
                     </div>
                     <div className='w-[67%]  flex justify-evenly items-center'>
