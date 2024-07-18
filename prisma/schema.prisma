@@ -406,6 +406,11 @@ model CommonCarbs {
   advice  String?
 }
 
+model Exercises {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  exercises String?
+}
+
  model Workout {
   id  String @id @default(auto()) @map("_id") @db.ObjectId
   userId  String @db.ObjectId
