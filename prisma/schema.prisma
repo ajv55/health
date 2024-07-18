@@ -61,6 +61,7 @@ model User {
    dinnerLogs DinnerLog[]
    snackLogs SnackLog[]
    weightLogs WeightLog[]
+   exerciseLogs ExerciseLog[]
   account Account []
 }
 
@@ -409,6 +410,19 @@ model CommonCarbs {
 model Exercises {
   id String @id @default(auto()) @map("_id") @db.ObjectId
   exercises String?
+}
+
+model ExerciseLog {
+  id String @id @default(auto()) @map("_id")  @db.ObjectId
+  userId String @db.ObjectId
+  user User @relation(fields: [userId], references: [id])
+  name String?
+  caloriesBurned String?
+  duration String?
+  sets Json?
+  note String?
+  icon String?
+  createdAt DateTime @default(now())
 }
 
  model Workout {

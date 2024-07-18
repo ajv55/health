@@ -1,12 +1,14 @@
 'use client';
 
-import { useSearchParams } from "next/navigation";
-import { FaBaseballBall, FaBasketballBall, FaBiking, FaBowlingBall, FaBullseye, FaDumbbell, FaFish, FaFootballBall, FaFutbol, FaGolfBall, FaHeartbeat, FaHockeyPuck, FaHorse, FaMountain, FaMusic, FaRunning, FaSkating, FaSkiing, FaSkiingNordic, FaSnowboarding, FaSwimmer, FaTableTennis, FaVolleyballBall, FaWalking, FaWater } from "react-icons/fa";
+import { useRouter, useSearchParams } from "next/navigation";
+import { FaBaseballBall, FaBasketballBall, FaBiking, FaBowlingBall, FaBullseye, FaDumbbell, FaFish, FaFootballBall, FaFutbol, FaGolfBall, FaHeartbeat, FaHockeyPuck, FaHorse, FaMountain, FaMusic, FaRegTrashAlt, FaRunning, FaSkating, FaSkiing, FaSkiingNordic, FaSnowboarding, FaSwimmer, FaTableTennis, FaVolleyballBall, FaWalking, FaWater } from "react-icons/fa";
 import { GiJumpingRope, GiMeditation, GiMountainClimbing, GiSpeedBoat, GiBowArrow, GiBroadsword, GiBoxingGlove, GiFootsteps, GiFrisbee, GiWeightLiftingUp } from "react-icons/gi";
-import { IconType } from "react-icons";
 import { useEffect, useState } from "react";
 import { MdOutlineSportsCricket, MdOutlineSportsMartialArts } from "react-icons/md";
 import { FaSailboat } from "react-icons/fa6";
+import axios from "axios";
+import toast from "react-hot-toast";
+
 
 type IconName =
   | 'FaRunning'
@@ -55,7 +57,7 @@ type IconName =
   | 'FaBars'
   ;
 
-const iconMap: { [key in IconName]: IconType } = {
+const iconMap: { [key in IconName]: any } = {
   FaRunning: FaRunning,
   FaSwimmer: FaSwimmer,
   FaBiking: FaBiking,
@@ -101,7 +103,6 @@ const iconMap: { [key in IconName]: IconType } = {
 
 export default function ExerciseInfo() {
   const searchParams = useSearchParams();
-  
 
   const name = searchParams.get('name');
   const caloriesBurned = searchParams.get('caloriesBurned');
@@ -113,6 +114,11 @@ export default function ExerciseInfo() {
   const [time, setTime] = useState(30); // default to 30 minutes
   const [unit, setUnit] = useState('min');
   const [calories, setCalories] = useState(caloriesBurned);
+
+  const [sets, setSets] = useState([{ reps: 0, weight: 0 }]);
+  const [notes, setNotes] = useState("");
+
+  const router = useRouter();
 
   useEffect(() => {
     calculateCalories();
@@ -126,6 +132,41 @@ export default function ExerciseInfo() {
     setUnit(event.target.value);
   };
 
+  const handleRepsChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
+    const newSets = sets.slice();
+    newSets[index].reps = parseInt(event.target.value);
+    setSets(newSets);
+  };
+
+  const handleWeightChange = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
+    const newSets = sets.slice();
+    newSets[index].weight = parseInt(event.target.value);
+    setSets(newSets);
+  };
+
+  const addSet = () => {
+    setSets([...sets, { reps: 0, weight: 0 }]);
+  };
+
+  const removeSet = (index: number) => {
+    const newSets = sets.slice();
+    newSets.splice(index, 1);
+    setSets(newSets);
+  };
+
+
+  const handlePostExercise = async () => {
+    await axios.post('/api/postExercise', {name: name, duration: `${time} ${unit}`, caloriesBurned: calories, note: notes, sets: sets, icon: icon  }).then((res) => {
+      if(res.status === 201){
+        toast.success('Added a exercise entry');
+        router.push('/dashboard/workout');
+      }
+    })
+  }
+
+  console.log(icon)
+
+
   const calculateCalories = () => {
     let totalCalories = 0;
     if (unit === 'min') {
@@ -136,34 +177,35 @@ export default function ExerciseInfo() {
     setCalories(totalCalories.toString());
   };
 
-
   return (
-    <div className="flex flex-col items-center justify-center">
-      <div className="w-full p-8 ring-2 ring-indigo-400 bg-white shadow-lg rounded-lg">
+    <div className="flex  flex-col items-center justify-center">
+      <div className="w-full  p-6 ring-2 ring-indigo-400  shadow-lg rounded-lg">
         <h1 className="text-5xl font-semibold text-center text-indigo-700">Exercise Entry</h1>
-        <div className="mt-4">
-          <label className="block text-xl font-medium text-gray-700">
+        <div className="mt-4 ">
+          <label className="block text-2xl font-medium text-gray-700">
             Exercise Type
           </label>
-          <div className="flex items-center mt-1">
-            {IconComponent && <IconComponent size={40} className="text-indigo-700 text-4xl mb-2" />}
-            <span className="inline-block mr-2"></span>
-            <span className="text-xl text-indigo-500">{name} ({description})</span>
-          </div>
-          <div className="flex items-center justify-start gap-3 mt-2 text-indigo-600">
-            <span className="text-2xl">{Math.round(Number(calories)) || 0}</span>
-            <span className="text-lg">cals</span>
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-4 mt-4 space-x-4">
+              {IconComponent && <IconComponent size={40} className="text-indigo-700 text-4xl mb-2" />}
+              <span className="text-4xl text-indigo-500">{name} ({description})</span>
+            </div>
+            <div className="flex items-center justify-start text-4xl text-center gap-3 mt-2 text-indigo-600">
+              <span >{Math.round(Number(calories)) || 0}</span>
+              <span >cals</span>
+            </div>
           </div>
         </div>
 
+
         <div className="mt-4">
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-lg font-medium text-gray-500">
             Enter amount
           </label>
           <div className="relative mt-1 rounded-md shadow-sm">
             <input
               type="number"
-              className="block w-full pl-7 pr-12 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              className="block w-full pl-7 p-2.5 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 text-lg"
               placeholder="0"
               value={time}
               onChange={handleTimeChange}
@@ -175,48 +217,84 @@ export default function ExerciseInfo() {
               <select
                 id="min"
                 name="min"
-                className="h-full py-0 pl-2 pr-7 text-gray-500 bg-transparent border-transparent rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                className="h-full py-0 pl-2 pr-7 text-gray-500 bg-transparent border-transparent rounded-md focus:ring-indigo-500 focus:border-indigo-500 text-lg"
                 value={unit}
                 onChange={handleUnitChange}
               >
                 <option value='min'>min</option>
                 <option value='hr'>hr</option>
-                {/* Add more options here if needed */}
               </select>
             </div>
           </div>
         </div>
 
-        <div className="mt-4">
-          <label className="block text-sm font-medium text-gray-700">
-            Day
-          </label>
-          <input
-            type="date"
-            className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-          />
+        <div className="mt-6">
+          <h2 className="text-2xl font-semibold text-indigo-600">Log Sets and Reps</h2>
+          {sets.map((set, index) => (
+            <div key={index} className=" flex justify-between items-center mt-3 gap-5">
+              <div className="flex justify-center items-center gap-10">
+              <div className="flex flex-col gap-3">
+                <label htmlFor="reps" className="">
+                  Reps
+                </label>
+                <input
+                  id="reps"
+                  type="number"
+                  className="block w-20 p-2 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 "
+                  placeholder="Reps"
+                  value={set.reps}
+                  onChange={(e) => handleRepsChange(index, e)}
+                />
+              </div>
+              <div className="flex flex-col gap-2">
+                <label htmlFor="weight" className="">
+                    Weight
+                </label>
+                <input
+                  id='weight'
+                  type="number"
+                  className="block w-20 p-2 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 "
+                  placeholder="Weight"
+                  value={set.weight}
+                  onChange={(e) => handleWeightChange(index, e)}
+                />
+              </div>
+              </div>
+              <FaRegTrashAlt onClick={() => removeSet(index)} size={30} className="text-indigo-500 hover:cursor-pointer" />
+            </div>
+          ))}
+          <button
+            type="button"
+            className="mt-4 px-4 py-2 font-semibold text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
+            onClick={addSet}
+          >
+            Add Set
+          </button>
         </div>
 
-        <div className="mt-4">
+        <div className="mt-6">
           <label className="block text-sm font-medium text-gray-700">
             Notes
           </label>
           <textarea
             className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             rows={3}
+            placeholder="Enter your notes here..."
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
           />
         </div>
-
-        <div className="flex justify-center mt-6">
-          <button className="px-4 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+        <div className="w-full flex justify-center items-center">
+        <button
+            type="button"
+            className="mt-4 px-4 py-2 font-semibold text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
+            onClick={handlePostExercise}
+          >
             Log Entry
           </button>
         </div>
-
-        <div className="mt-4 text-center">
-          <button className="text-indigo-600 hover:underline">Back to Search</button>
-        </div>
       </div>
+      
     </div>
   );
 }
