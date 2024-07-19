@@ -111,12 +111,19 @@ const ExerciseTracker = () => {
   const [isOver, setIsOver] = useState(false);
   const [isOverSearch, setIsOverSearch] = useState(false);
   const [exerciseLog, setExerciseLog] = useState<ExerciseLogEntry[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [recentExercises, setRecentExercises] = useState([]);
 
   const fetchExerciseLogs = async () => {
+    setLoading(true)
     const res = await axios.get('/api/getExerciseEntry');
     if (res.status === 201) {
       setExerciseLog(res.data);
+      setRecentExercises(res.data.filter((exercise: any) => 
+        new Date(exercise.createdAt) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) // last 7 days
+      ));
     }
+    setLoading(false)
   };
 
   useEffect(() => {
@@ -146,21 +153,29 @@ const ExerciseTracker = () => {
 
       <div className="mt-4">
         <div className="flex justify-between items-center bg-gray-100 p-2 rounded-lg">
-          <span className="text-gray-500">Calories</span>
-          <span className="text-gray-500">Notes</span>
+          <span className="text-indigo-500 text-2xl  w-[35%]">Name</span>
+          <span className="text-indigo-500 text-2xl  w-[15%] flex justify-start">Calories</span>
+          <span className="text-indigo-500 text-2xl   w-[9%]">Date</span>
+          <span className="text-indigo-500 text-2xl  w-[9%]">Sets</span>
         </div>
         <div>
+          {loading && <div className="w-full h-10 rounded-lg bg-indigo-400 animate-pulse"></div>}
           {exerciseLog.length === 0 && <h1 className="mt-6 text-xl text-indigo-500">No exercise entry</h1>}
           {exerciseLog.map((el, i) => {
             console.log(el)
             const IconComponent = el?.icon ? iconMap[el?.icon] : null;
             return (
-              <div key={i} className="flex justify-between items-center p-2 border-b">
-                {IconComponent && <IconComponent size={24} className='text-indigo-500' />}
-                <span>{el?.name}</span>
-                <span>{format(new Date(el.createdAt), 'MMMM d yyyy')}</span>
-                <span>{Math.round(el?.caloriesBurned)}</span>
-    
+              <div key={i} className="flex bg-indigo-50 justify-between items-center p-2 border-b">
+                <div className="flex  w-[35%] justify-start items-center gap-5">
+                  {IconComponent && <IconComponent size={24} className='text-indigo-500' />}
+                  <div className="flex justify-start items-center gap-2">
+                    <span>{el?.name}</span>
+                    <span className="text-gray-500 text-xs">{el?.duration}</span>
+                  </div>
+                </div>
+                <span className=" w-[15%] flex justify-start">{Math.round(el?.caloriesBurned)}</span>
+                <span className=" w-[9%]">{format(new Date(el.createdAt), 'MMMM d yyyy')}</span>
+                <span className=" w-[9%]">{el.sets.length}</span>
               </div>
             );
           })}

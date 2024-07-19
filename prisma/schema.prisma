@@ -412,6 +412,11 @@ model Exercises {
   exercises String?
 }
 
+model Catalog {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  catalog String?
+}
+
 model ExerciseLog {
   id String @id @default(auto()) @map("_id")  @db.ObjectId
   userId String @db.ObjectId

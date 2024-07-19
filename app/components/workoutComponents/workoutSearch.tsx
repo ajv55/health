@@ -8,6 +8,7 @@ import { GiJumpingRope, GiMeditation, GiMountainClimbing, GiSpeedBoat, GiBowArro
 import { IconType } from "react-icons";
 import { MdOutlineSportsCricket, MdOutlineSportsMartialArts } from "react-icons/md";
 import { FaSailboat } from "react-icons/fa6";
+import { format } from "date-fns";
 
 type IconName =
   | 'FaRunning'
@@ -100,6 +101,17 @@ const iconMap: { [key in IconName]: IconType } = {
   FaBars: FaDumbbell
 };
 
+interface ExerciseLogEntry {
+  icon: IconName;
+  name: string;
+  caloriesBurned: number;
+  notes: string;
+  duration: string;
+  sets: [],
+  createdAt: Date
+
+}
+
 const removeDuplicates = (arr: any[]) => {
   const uniqueArray = arr.reduce((acc, current) => {
     const x = acc.find((item: any) => item.name === current.name);
@@ -116,6 +128,24 @@ export default function WorkoutSearch() {
   const [showModal, setShowModal] = useState(false);
   const [exercises, setExercises] = useState([]);
   const [isExerciseLoading, setIsExerciseLoading] = useState(false);
+  const [recentExercises, setRecentExercises] = useState<ExerciseLogEntry[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchExerciseLogs = async () => {
+    setLoading(true);
+    const res = await axios.get('/api/getExerciseEntry');
+    if (res.status === 201) {
+      setRecentExercises(res.data.filter((exercise: any) => 
+        new Date(exercise.createdAt) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) // last 7 days
+      ));
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchExerciseLogs();
+  }, []);
+
 
   console.log(exercises);
 
@@ -140,6 +170,7 @@ export default function WorkoutSearch() {
       fetchExercises();
     }
   };
+
 
   return (
     <div>
@@ -190,6 +221,29 @@ export default function WorkoutSearch() {
           </motion.div>
         )}
       </AnimatePresence>
+      <div className="mt-4">
+        <h2 className="text-xl font-bold mb-2">Recent Exercises</h2>
+        <div>
+          {recentExercises?.length === 0 && <h1 className="text-indigo-500">No recent exercises</h1>}
+          {recentExercises.map((el, i) => {
+            const IconComponent = el?.icon ? iconMap[el?.icon] : null;
+            return (
+              <div key={i} className="flex justify-between items-center p-2 border-b">
+                <div className="flex justify-center items-center gap-5">
+                  {IconComponent && <IconComponent size={24} className='text-indigo-500' />}
+                  <div className="flex justify-start items-center gap-2">
+                    <span>{el?.name}</span>
+                    <span className="text-gray-500 text-xs">{el?.duration}</span>
+                  </div>
+                </div>
+                <span>{Math.round(el?.caloriesBurned)}</span>
+                <span>{format(new Date(el.createdAt), 'MMMM d yyyy')}</span>
+                <span>{el.sets.length}</span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }
