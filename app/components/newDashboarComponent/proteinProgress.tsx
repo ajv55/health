@@ -61,8 +61,8 @@ export default function ProteinProgress() {
       </div>
 
         <div className='flex lg:text-lg text-xs w-full justify-between items-center'>
-            <span>{Math.round(grams?.proteinGrams)}g</span>
-            <span>left {Math.round(proteinLeft)} g</span>
+            <span>{Math.round(grams?.proteinGrams) || 0}g</span>
+            <span>left {Math.round(proteinLeft) || 0} g</span>
         </div>
 
     </div>

@@ -5,6 +5,8 @@ import { useSearchParams } from 'next/navigation';
 import { IoIosArrowRoundBack } from "react-icons/io";
 import Link from 'next/link';
 import WorkoutSearch from './workoutSearch';
+import ExerciseAnalytics from './exerciseAnalytic';
+import Catalog from './catalog';
 
 
 const WorkoutTab = () => {
@@ -26,6 +28,7 @@ const WorkoutTab = () => {
     { name: 'Exercise Catalog', key: 'exerciseCatalog' },
     { name: 'My Recent Exercises', key: 'recentExercises' },
     { name: 'My Custom Exercises', key: 'customExercises' },
+    { name: 'Exercise Analytic', key: 'exerciseAnalytic' },
   ];
 
   return (
@@ -49,9 +52,10 @@ const WorkoutTab = () => {
      </div>
       <div className="p-4  h-[40rem]  overflow-scroll ">
         {activeTab === 'search' && <WorkoutSearch />}
-        {activeTab === 'exerciseCatalog' && <div>...</div>}
+        {activeTab === 'exerciseCatalog' && <Catalog />}
         {activeTab === 'recentExercises' && <div>...</div>}
-        {activeTab === 'customExercises' && <div>...</div>}
+        {activeTab === 'customExercises' && <div> ... ... </div>}
+        {activeTab === 'exerciseAnalytic' && <ExerciseAnalytics />}
       </div>
     </div>
   );

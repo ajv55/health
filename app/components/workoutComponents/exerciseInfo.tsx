@@ -164,7 +164,7 @@ export default function ExerciseInfo() {
     })
   }
 
-  console.log(icon)
+  console.log(description)
 
 
   const calculateCalories = () => {
@@ -188,7 +188,7 @@ export default function ExerciseInfo() {
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-4 mt-4 space-x-4">
               {IconComponent && <IconComponent size={40} className="text-indigo-700 text-4xl mb-2" />}
-              <span className="text-4xl text-indigo-500">{name} ({description})</span>
+              <span className="text-4xl text-indigo-500">{name} <span className="text-gray-500 text-lg">{description}</span></span>
             </div>
             <div className="flex items-center justify-start text-4xl text-center gap-3 mt-2 text-indigo-600">
               <span >{Math.round(Number(calories)) || 0}</span>

@@ -58,8 +58,8 @@ export default function FatProgress() {
       </div>
 
         <div className='flex lg:text-lg text-xs w-full justify-between items-center'>
-            <span>{Math.round(grams?.fatGrams)}g</span>
-            <span>left {Math.round(fatLeft)} g</span>
+            <span>{Math.round(grams?.fatGrams) || 0}g</span>
+            <span>left {Math.round(fatLeft) || 0} g</span>
         </div>
 
     </div>

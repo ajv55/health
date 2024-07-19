@@ -3,12 +3,14 @@ import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { FaBaseballBall, FaBasketballBall, FaBiking, FaBowlingBall, FaBullseye, FaDumbbell, FaFish, FaFootballBall, FaFutbol, FaGolfBall, FaHeartbeat, FaHockeyPuck, FaHorse, FaMountain, FaMusic, FaRunning, FaSkating, FaSkiing, FaSkiingNordic, FaSnowboarding, FaStepForward, FaSwimmer, FaTableTennis, FaVolleyballBall, FaWalking, FaWater, FaWeight } from "react-icons/fa";
+import { FaBaseballBall, FaBasketballBall, FaBicycle, FaBiking, FaBowlingBall, FaBullseye, FaDumbbell, FaFish, FaFootballBall, FaFutbol, FaGolfBall, FaHeartbeat, FaHockeyPuck, FaHorse, FaMountain, FaMusic, FaRunning, FaSkating, FaSkiing, FaSkiingNordic, FaSnowboarding, FaStepForward, FaSwimmer, FaTableTennis, FaVolleyballBall, FaWalking, FaWater, FaWeight, FaYinYang } from "react-icons/fa";
 import { GiJumpingRope, GiMeditation, GiMountainClimbing, GiSpeedBoat, GiBowArrow, GiBroadsword, GiBoxingGlove, GiFootsteps, GiFrisbee, GiWeightLiftingDown, GiWeightLiftingUp } from "react-icons/gi";
 import { IconType } from "react-icons";
 import { MdOutlineSportsCricket, MdOutlineSportsMartialArts } from "react-icons/md";
 import { FaSailboat } from "react-icons/fa6";
 import { format } from "date-fns";
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/store";
 
 type IconName =
   | 'FaRunning'
@@ -130,10 +132,12 @@ export default function WorkoutSearch() {
   const [isExerciseLoading, setIsExerciseLoading] = useState(false);
   const [recentExercises, setRecentExercises] = useState<ExerciseLogEntry[]>([]);
   const [loading, setLoading] = useState(false);
+  const currentDate = useSelector((state: RootState) => state.weight.currentDate);
+  const formattedDate = format(currentDate!, 'MMM d');
 
   const fetchExerciseLogs = async () => {
     setLoading(true);
-    const res = await axios.get('/api/getExerciseEntry');
+    const res = await axios.get(`/api/getExerciseEntry?currentDate=${currentDate}`);
     if (res.status === 201) {
       setRecentExercises(res.data.filter((exercise: any) => 
         new Date(exercise.createdAt) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) // last 7 days
@@ -146,8 +150,6 @@ export default function WorkoutSearch() {
     fetchExerciseLogs();
   }, []);
 
-
-  console.log(exercises);
 
   const fetchExercises = async () => {
     setIsExerciseLoading(true);
@@ -171,9 +173,55 @@ export default function WorkoutSearch() {
     }
   };
 
+  const popularExercises = [
+    {
+      name: "Running",
+      caloriesBurned: 400,
+      description: "Running at a moderate pace.",
+      icon: <FaRunning size={20}  className="text-indigo-600"/>
+    },
+    {
+      name: "Cycling",
+      caloriesBurned: 300,
+      description: "Cycling at a moderate pace.",
+      icon: <FaBicycle size={20}  className="text-indigo-600"/>
+    },
+    {
+      name: "Swimming",
+      caloriesBurned: 350,
+      description: "Swimming at a moderate pace.",
+      icon: <FaSwimmer  size={20}  className="text-indigo-600"/>
+    },
+    {
+      name: "Weightlifting",
+      caloriesBurned: 200,
+      description: "Lifting weights at the gym.",
+      icon: <FaDumbbell size={20}  className="text-indigo-600"/>
+    },
+    {
+      name: "Yoga",
+      caloriesBurned: 200,
+      description: "Performing yoga exercises.",
+      icon: <FaYinYang size={20}  className="text-indigo-600" />
+    },
+    {
+      name: "Jump Rope",
+      caloriesBurned: 300,
+      description: "Jumping rope at a moderate pace.",
+      icon: <GiJumpingRope size={20}  className="text-indigo-600"/>
+    },
+    {
+      name: "HIIT",
+      caloriesBurned: 400,
+      description: "High-Intensity Interval Training exercises.",
+      icon: <FaDumbbell size={20}  className="text-indigo-600"/>
+    }
+  ];
+  
+
 
   return (
-    <div>
+    <div className=" mb-10">
       <input
         type="text"
         placeholder="Please enter exercise or workout"
@@ -221,25 +269,53 @@ export default function WorkoutSearch() {
           </motion.div>
         )}
       </AnimatePresence>
-      <div className="mt-4">
-        <h2 className="text-xl font-bold mb-2">Recent Exercises</h2>
+      <div className="mt-4 bg-white p-3 ring-2 ring-indigo-400 rounded-lg shadow-md">
+        <h2 className="text-2xl text-indigo-600 font-bold mb-2">Recent Exercises</h2>
         <div>
           {recentExercises?.length === 0 && <h1 className="text-indigo-500">No recent exercises</h1>}
           {recentExercises.map((el, i) => {
             const IconComponent = el?.icon ? iconMap[el?.icon] : null;
             return (
-              <div key={i} className="flex justify-between items-center p-2 border-b">
-                <div className="flex justify-center items-center gap-5">
-                  {IconComponent && <IconComponent size={24} className='text-indigo-500' />}
-                  <div className="flex justify-start items-center gap-2">
-                    <span>{el?.name}</span>
-                    <span className="text-gray-500 text-xs">{el?.duration}</span>
-                  </div>
-                </div>
-                <span>{Math.round(el?.caloriesBurned)}</span>
-                <span>{format(new Date(el.createdAt), 'MMMM d yyyy')}</span>
-                <span>{el.sets.length}</span>
-              </div>
+              <Link
+                    href={{
+                      pathname: `/dashboard/workout/search/${el.name}`,
+                      query: {
+                        name: el.name,
+                        caloriesBurned: el.caloriesBurned,
+                        icon: el.icon,
+                      }
+                    }}
+                    key={el.name}
+                    className="py-2 group w-full hover:bg-indigo-50 hover:cursor-pointer px-4 flex items-center"
+                  >
+                    {IconComponent && <IconComponent size={20} className="text-indigo-500 mr-2" />}
+                    <span className="text-xl group-hover:text-indigo-600">{el.name}</span>
+                  </Link>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="mt-4 bg-white p-3 ring-2 ring-indigo-400 rounded-lg shadow-md">
+        <h2 className="text-2xl text-indigo-600 font-bold mb-2">Popular Exercises</h2>
+        <div>
+          {popularExercises.map((el, i) => {
+            return (
+              <Link
+                    href={{
+                      pathname: `/dashboard/workout/search/${el.name}`,
+                      query: {
+                        name: el.name,
+                        caloriesBurned: el.caloriesBurned,
+                        description: el.description,
+                      }
+                    }}
+                    key={el.name}
+                    className="py-2 gap-5 group w-full hover:bg-indigo-50 hover:cursor-pointer px-4 flex items-center"
+                  >
+                    {el?.icon}
+                    <span className="text-xl group-hover:text-indigo-600">{el.name}</span>
+                  </Link>
             );
           })}
         </div>

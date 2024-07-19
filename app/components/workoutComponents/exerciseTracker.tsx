@@ -8,6 +8,10 @@ import { GiJumpingRope, GiMeditation, GiMountainClimbing, GiSpeedBoat, GiBowArro
 import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineSportsCricket, MdOutlineSportsMartialArts } from "react-icons/md";
 import { format } from 'date-fns';
+import { useSelector } from "react-redux";
+import { RootState } from "@/app/store";
+import DatePicker from "../tabComponents/datePicker";
+import ExercisePdf from "./exercisePdf";
 
 type IconName =
   | 'FaRunning'
@@ -113,10 +117,12 @@ const ExerciseTracker = () => {
   const [exerciseLog, setExerciseLog] = useState<ExerciseLogEntry[]>([]);
   const [loading, setLoading] = useState(false);
   const [recentExercises, setRecentExercises] = useState([]);
+  const currentDate = useSelector((state: RootState) => state.weight.currentDate);
+  const formattedDate = format(currentDate!, 'MMM d');
 
   const fetchExerciseLogs = async () => {
     setLoading(true)
-    const res = await axios.get('/api/getExerciseEntry');
+    const res = await axios.get(`/api/getExerciseEntry?currentDate=${currentDate}`);
     if (res.status === 201) {
       setExerciseLog(res.data);
       setRecentExercises(res.data.filter((exercise: any) => 
@@ -128,12 +134,15 @@ const ExerciseTracker = () => {
 
   useEffect(() => {
     fetchExerciseLogs();
-  }, []);
+  }, [currentDate]);
 
-  console.log(exerciseLog)
+  const totalCalories = exerciseLog?.reduce((acc, curr) => Number(acc) + Number(curr.caloriesBurned), 0);
+
+
 
   return (
     <div className="w-[89%]  relative mx-auto bg-white rounded-lg shadow-md mt-9 p-6">
+       <h2 className="text-4xl bg-gradient-to-br from-indigo-500 mb-5 to-indigo-300 bg-clip-text text-transparent">Exercise Tracker</h2>
       {isOver && <div className='w-[20%] absolute top-8 -left-16 h-4 rounded-md bg-black bg-opacity-30 flex p-0.5 justify-center items-center'><p className='text-[14px] text-white font-extrabold'>Click here to start logging</p></div>}
       {isOverSearch && <div className='w-[10%] absolute top-14 -left-1 h-4 rounded-md bg-black bg-opacity-30 flex p-0.5 justify-center items-center'><p className='text-[14px] text-white font-extrabold'>Find Exercise</p></div>}
       <div className="flex items-center justify-between border-b pb-4">
@@ -160,8 +169,8 @@ const ExerciseTracker = () => {
         </div>
         <div>
           {loading && <div className="w-full h-10 rounded-lg bg-indigo-400 animate-pulse"></div>}
-          {exerciseLog.length === 0 && <h1 className="mt-6 text-xl text-indigo-500">No exercise entry</h1>}
-          {exerciseLog.map((el, i) => {
+          {!loading && exerciseLog.length === 0 && <h1 className="mt-6 text-xl text-indigo-500">No exercise entry on {formattedDate}</h1>}
+          {!loading && exerciseLog.map((el, i) => {
             console.log(el)
             const IconComponent = el?.icon ? iconMap[el?.icon] : null;
             return (
@@ -182,10 +191,15 @@ const ExerciseTracker = () => {
         </div>
       </div>
 
-      <div className="flex justify-between mt-4 text-indigo-600">
-        <button className="hover:underline">Day Report</button>
-        <button className="hover:underline">Daily Analysis</button>
+      <div className="flex justify-between items-center mt-4 text-indigo-600">
+        <span className="text-2xl font-bold">Total Calories: {Math.round(totalCalories)}</span>
       </div>
+
+      <div className="flex justify-between mt-4 text-indigo-600">
+        <ExercisePdf exerciseLog={exerciseLog} />
+        <Link href='/dashboard/analysis' className="hover:underline">Daily Analysis</Link>
+      </div>
+      <DatePicker />
     </div>
   );
 };

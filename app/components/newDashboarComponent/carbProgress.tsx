@@ -58,8 +58,8 @@ export default function CarbProgress() {
       </div>
 
         <div className='flex lg:text-lg text-xs w-full justify-between items-center'>
-            <span>{Math.round(grams?.carbGrams)}g</span>
-            <span>left {Math.round(carbLeft)} g</span>
+            <span>{Math.round(grams?.carbGrams) || 0}g</span>
+            <span>left {Math.round(carbLeft) || 0} g</span>
         </div>
 
     </div>
