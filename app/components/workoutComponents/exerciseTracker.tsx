@@ -8,11 +8,15 @@ import { GiJumpingRope, GiMeditation, GiMountainClimbing, GiSpeedBoat, GiBowArro
 import { IoSearchOutline } from "react-icons/io5";
 import { MdOutlineSportsCricket, MdOutlineSportsMartialArts } from "react-icons/md";
 import { format } from 'date-fns';
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/app/store";
 import DatePicker from "../tabComponents/datePicker";
 import ExercisePdf from "./exercisePdf";
 import { GrCatalog } from "react-icons/gr";
+import QuickLog from "./quickLog";
+import { setExerciseLog } from "@/app/slices/searchSlice";
+import { FaTrash } from "react-icons/fa";
+import toast from "react-hot-toast";
 
 type IconName =
   | 'FaRunning'
@@ -116,23 +120,37 @@ const ExerciseTracker = () => {
   const [isOver, setIsOver] = useState(false);
   const [isOverSearch, setIsOverSearch] = useState(false);
   const [isCatalogSearch, setIsCatalogSearch] = useState(false);
-  const [exerciseLog, setExerciseLog] = useState<ExerciseLogEntry[]>([]);
+  // const [exerciseLog, setExerciseLog] = useState<ExerciseLogEntry[]>([]);
   const [loading, setLoading] = useState(false);
+  const [quickLogIsDone, setQuickLogIsDone] = useState(false)
   const [recentExercises, setRecentExercises] = useState([]);
   const currentDate = useSelector((state: RootState) => state.weight.currentDate);
   const formattedDate = format(currentDate!, 'MMM d');
+  const [quickLog, setQuickLog] = useState(false);
+
+  const exerciseLog = useSelector((state: RootState) => state.search.exerciseLog);
+  const dispatch = useDispatch();
 
   const fetchExerciseLogs = async () => {
     setLoading(true)
     const res = await axios.get(`/api/getExerciseEntry?currentDate=${currentDate}`);
     if (res.status === 201) {
-      setExerciseLog(res.data);
+      dispatch(setExerciseLog(res.data))
       setRecentExercises(res.data.filter((exercise: any) => 
         new Date(exercise.createdAt) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) // last 7 days
       ));
     }
     setLoading(false)
   };
+
+  const handleDelete = async (id: any) => {
+    await axios.delete(`/api/deleteExercise?id=${id}`).then((res) => {
+      if(res.status === 201){
+        toast.success('Deleted exercise log');
+        fetchExerciseLogs();
+      }
+    })
+  }
 
   useEffect(() => {
     fetchExerciseLogs();
@@ -141,9 +159,11 @@ const ExerciseTracker = () => {
   const totalCalories = exerciseLog?.reduce((acc, curr) => Number(acc) + Number(curr.caloriesBurned), 0);
 
 
+  console.log(exerciseLog)
 
   return (
     <div className="w-[89%]  relative mx-auto bg-white rounded-lg shadow-md mt-9 p-6">
+      {quickLog && <QuickLog isDone={quickLogIsDone} setIsDone={setQuickLogIsDone} onClose={() => setQuickLog(false)} />}
        <h2 className="text-4xl bg-gradient-to-br from-indigo-500 mb-5 to-indigo-300 bg-clip-text text-transparent">Exercise Tracker</h2>
       {isOver && <div className='w-[20%] absolute top-8 -left-16 h-4 rounded-md bg-black bg-opacity-30 flex p-0.5 justify-center items-center'><p className='text-[14px] text-white font-extrabold'>Click here to start logging</p></div>}
       {isOverSearch && <div className='w-[10%] absolute top-32 -left-1 h-4 rounded-md bg-black bg-opacity-30 flex p-0.5 justify-center items-center'><p className='text-[14px] text-white font-extrabold'>Find Exercise</p></div>}
@@ -158,7 +178,7 @@ const ExerciseTracker = () => {
         </div>
         <div className="flex space-x-4">
           <Link href='/dashboard/workout/search?tab=search' className="text-indigo-600 hover:underline">Find & Log</Link>
-          <button className="text-indigo-600 hover:underline">Quick Log</button>
+          <button onClick={() => setQuickLog(true)} className="text-indigo-600 hover:underline">Quick Log</button>
           <button className="text-indigo-600 hover:underline">Log Custom</button>
           <button className="text-indigo-600 hover:underline">Create Custom</button>
         </div>
@@ -173,8 +193,8 @@ const ExerciseTracker = () => {
         </div>
         <div>
           {loading && <div className="w-full h-10 rounded-lg bg-indigo-400 animate-pulse"></div>}
-          {!loading && exerciseLog.length === 0 && <h1 className="mt-6 text-xl text-indigo-500">No exercise entry on {formattedDate}</h1>}
-          {!loading && exerciseLog.map((el, i) => {
+          {!loading && exerciseLog?.length === 0 && <h1 className="mt-6 text-xl text-indigo-500">No exercise entry on {formattedDate}</h1>}
+          {!loading && exerciseLog?.map((el, i) => {
             console.log(el)
             const IconComponent = el?.icon ? iconMap[el?.icon] : null;
             return (
@@ -188,7 +208,10 @@ const ExerciseTracker = () => {
                 </div>
                 <span className=" w-[15%] flex justify-start">{Math.round(el?.caloriesBurned)}</span>
                 <span className=" w-[9%]">{format(new Date(el.createdAt), 'MMMM d yyyy')}</span>
-                <span className=" w-[9%]">{el.sets.length}</span>
+                <div className="flex justify-between items-center w-[9%]">
+                  <span >{el.sets.length}</span>
+                  <FaTrash onClick={() => handleDelete(el?.id)} size={20} className="text-indigo-600 cursor-pointer" />
+                </div>
               </div>
             );
           })}
@@ -196,7 +219,7 @@ const ExerciseTracker = () => {
       </div>
 
       <div className="flex justify-between items-center mt-4 text-indigo-600">
-        <span className="text-2xl font-bold">Total Calories: {Math.round(totalCalories)}</span>
+        <span className="text-2xl font-bold">Total Calories: {Math.round(totalCalories!)}</span>
       </div>
 
       <div className="flex justify-between mt-4 text-indigo-600">

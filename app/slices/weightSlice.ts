@@ -9,7 +9,7 @@ interface WeightState  {
     currentCarbsPercentage?: number,
     currentFatPercentage?: number,
     weightModal?: boolean,
-    weightLogs?: []
+    weightLogs?: [],
 
 }
 
