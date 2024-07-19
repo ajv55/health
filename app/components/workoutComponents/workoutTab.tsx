@@ -15,11 +15,16 @@ const WorkoutTab = () => {
   const searchParams = useSearchParams();
   const tab = searchParams.get('tab');
 
-  console.log(tab);
 
   useEffect(() => {
     if(tab === 'search'){
       setActiveTab('search')
+    }
+    if(tab === 'exerciseAnalytic'){
+      setActiveTab('exerciseAnalytic')
+    }
+    if(tab === 'exerciseCatalog'){
+      setActiveTab('exerciseCatalog')
     }
   }, [tab])
 
