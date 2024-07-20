@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { FaBaseballBall, FaBasketballBall, FaBiking, FaBowlingBall, FaBullseye, FaDumbbell, FaFish, FaFootballBall, FaFutbol, FaGolfBall, FaHeartbeat, FaHockeyPuck, FaHorse, FaMountain, FaMusic, FaRegTrashAlt, FaRunning, FaSkating, FaSkiing, FaSkiingNordic, FaSnowboarding, FaSwimmer, FaTableTennis, FaVolleyballBall, FaWalking, FaWater } from "react-icons/fa";
+import { FaBaseballBall, FaBasketballBall, FaBiking, FaBowlingBall, FaBullseye, FaDumbbell, FaFish, FaFootballBall, FaFutbol, FaGolfBall, FaHeartbeat, FaHockeyPuck, FaHorse, FaMountain, FaMusic, FaRegTrashAlt, FaRunning, FaSkating, FaSkiing, FaSkiingNordic, FaSnowboarding, FaSwimmer, FaTableTennis, FaVolleyballBall, FaWalking, FaWater, FaYinYang } from "react-icons/fa";
 import { GiJumpingRope, GiMeditation, GiMountainClimbing, GiSpeedBoat, GiBowArrow, GiBroadsword, GiBoxingGlove, GiFootsteps, GiFrisbee, GiWeightLiftingUp } from "react-icons/gi";
 import { useEffect, useState } from "react";
 import { MdOutlineSportsCricket, MdOutlineSportsMartialArts } from "react-icons/md";
@@ -55,6 +55,9 @@ type IconName =
   | 'FaDumbbell'
   | 'FaWeight'
   | 'FaBars'
+  | 'FaBicycle'
+  | 'FaYingYang'
+  | 'FaJumpRope'
   ;
 
 const iconMap: { [key in IconName]: any } = {
@@ -98,7 +101,10 @@ const iconMap: { [key in IconName]: any } = {
   FaFish: FaFish,
   FaSailboat: FaSailboat,
   FaWeight: GiWeightLiftingUp,
-  FaBars: FaDumbbell
+  FaBars: FaDumbbell,
+  FaBicycle: FaBiking,
+  FaYingYang: FaYinYang,
+  FaJumpRope: GiJumpingRope
 };
 
 export default function ExerciseInfo() {
@@ -107,7 +113,7 @@ export default function ExerciseInfo() {
   const name = searchParams.get('name');
   const caloriesBurned = searchParams.get('caloriesBurned');
   const description = searchParams.get('description');
-  const icon = searchParams.get('icon') as IconName || null;
+  const icon = searchParams.get('icon') as IconName || 'FaWalking';
 
   const IconComponent = icon ? iconMap[icon] : null;
 
@@ -164,7 +170,7 @@ export default function ExerciseInfo() {
     })
   }
 
-  console.log(description)
+  console.log(icon)
 
 
   const calculateCalories = () => {

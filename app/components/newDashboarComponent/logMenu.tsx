@@ -25,7 +25,7 @@ export default function LogMenu() {
     onClick={() => dispatch(setLogModal(false))} 
     transition={{ duration: 0.5, type: 'spring', stiffness: 50 }}
   >
-    <div className="bg-white rounded-lg shadow-lg flex flex-col justify-start items-start  w-[27%]">
+    <div className="bg-white rounded-lg shadow-lg flex flex-col justify-start items-start  lg:w-[27%] w-[45%]">
       <Link href='/dashboard/calories?meal=breakfast' onClick={() => dispatch(setMeal('breakfast'))}   className='w-full text-left p-2 hover:bg-gradient-to-r from-white to-gray-200 hover:bg-opacity-20 text-xl hover:text-indigo-500 font-light hover:border-r-4 hover:border-indigo-600'>Log Breakfast</Link>
       <Link href='/dashboard/calories?meal=lunch' onClick={() => dispatch(setMeal('lunch'))}  className='w-full text-left p-2 hover:bg-gradient-to-r from-white to-gray-200 hover:bg-opacity-20 text-xl font-light hover:text-indigo-500 hover:border-r-4 hover:border-indigo-600'>Log Lunch</Link>
       <Link href='/dashboard/calories?meal=dinner' onClick={() => dispatch(setMeal('dinner'))}  className='w-full text-left p-2 hover:bg-gradient-to-r from-white to-gray-200 hover:bg-opacity-20 text-xl font-light hover:text-indigo-500 hover:border-r-4 hover:border-indigo-600'>Log Dinner</Link>

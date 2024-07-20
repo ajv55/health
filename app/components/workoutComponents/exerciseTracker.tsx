@@ -2,7 +2,7 @@
 import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { FaPlus, FaBaseballBall, FaBasketballBall, FaBiking, FaBowlingBall, FaBullseye, FaDumbbell, FaFish, FaFootballBall, FaFutbol, FaGolfBall, FaHeartbeat, FaHockeyPuck, FaHorse, FaMountain, FaMusic, FaRegTrashAlt, FaRunning, FaSkating, FaSkiing, FaSkiingNordic, FaSnowboarding, FaSwimmer, FaTableTennis, FaVolleyballBall, FaWalking, FaWater } from "react-icons/fa";
+import { FaPlus, FaBaseballBall, FaBasketballBall, FaBiking, FaBowlingBall, FaBullseye, FaDumbbell, FaFish, FaFootballBall, FaFutbol, FaGolfBall, FaHeartbeat, FaHockeyPuck, FaHorse, FaMountain, FaMusic, FaRegTrashAlt, FaRunning, FaSkating, FaSkiing, FaSkiingNordic, FaSnowboarding, FaSwimmer, FaTableTennis, FaVolleyballBall, FaWalking, FaWater, FaYinYang } from "react-icons/fa";
 import { FaSailboat } from "react-icons/fa6";
 import { GiJumpingRope, GiMeditation, GiMountainClimbing, GiSpeedBoat, GiBowArrow, GiBroadsword, GiBoxingGlove, GiFootsteps, GiFrisbee, GiWeightLiftingUp } from "react-icons/gi";
 import { IoSearchOutline } from "react-icons/io5";
@@ -59,7 +59,10 @@ type IconName =
   | 'FaFish'
   | 'FaSailboat'
   | 'FaWeight'
-  | 'FaBars';
+  | 'FaBars'
+  | 'FaBicycle'
+  | 'FaYingYang'
+  | 'FaJumpRope';
 
 const iconMap: { [key in IconName]: any } = {
   FaRunning: FaRunning,
@@ -102,7 +105,10 @@ const iconMap: { [key in IconName]: any } = {
   FaFish: FaFish,
   FaSailboat: FaSailboat,
   FaWeight: GiWeightLiftingUp,
-  FaBars: FaDumbbell
+  FaBars: FaDumbbell,
+  FaBicycle: FaBiking,
+  FaYingYang: FaYinYang,
+  FaJumpRope: GiJumpingRope
 };
 
 interface ExerciseLogEntry {
@@ -128,7 +134,7 @@ const ExerciseTracker = () => {
   const formattedDate = format(currentDate!, 'MMM d');
   const [quickLog, setQuickLog] = useState(false);
 
-  const exerciseLog = useSelector((state: RootState) => state.search.exerciseLog);
+  const exerciseLog = useSelector((state: RootState) => state?.search.exerciseLog);
   const dispatch = useDispatch();
 
   const fetchExerciseLogs = async () => {
@@ -179,8 +185,8 @@ const ExerciseTracker = () => {
         <div className="flex space-x-4">
           <Link href='/dashboard/workout/search?tab=search' className="text-indigo-600 hover:underline">Find & Log</Link>
           <button onClick={() => setQuickLog(true)} className="text-indigo-600 hover:underline">Quick Log</button>
-          <button className="text-indigo-600 hover:underline">Log Custom</button>
-          <button className="text-indigo-600 hover:underline">Create Custom</button>
+          <Link href='/dashboard/workout/search?tab=customExercises' className="text-indigo-600 hover:underline">Log Custom</Link>
+          <Link href='/dashboard/workout/search/customExercise' className="text-indigo-600 hover:underline">Create Custom</Link>
         </div>
       </div>
 

@@ -160,7 +160,7 @@ const WeightTracker: React.FC = () => {
   console.log(weightIsLoading)
 
   return (
-    <div className="w-[40%] h-[43rem] mx-auto  bg-white relative shadow-lg rounded-lg">
+    <div className="lg:w-[40%] mt-8 w-full h-[43rem] mx-auto  bg-white relative shadow-lg rounded-lg">
       {weightIsLoading && <LineChartSkeleton />}
       <div className="flex p-4 justify-between items-center ">
         <div onClick={() => router.push('/dashboard/plan')} className='w-full hover:cursor-pointer'>
@@ -174,7 +174,7 @@ const WeightTracker: React.FC = () => {
         <Line data={chartData} options={chartOptions} />
       </div>
       <div className="text-center p-3">
-        <div className="bg-gray-100 flex flex-col justify-center items-center p-4 rounded-lg shadow-inner">
+        <div className="bg-gray-100  ring-2 ring-indigo-400 flex flex-col justify-center items-center p-4 rounded-lg shadow-inner">
           <div className='flex justify-between w-full items-center'>
              <p className="text-xl font-medium text-indigo-600"><span className='text-xs text-gray-500'>Current Weight</span> {userWeight} lb</p>
              <p className="text-xl font-medium text-indigo-600"><span className='text-xs text-gray-500'>Goal Weight</span> {goal} lb</p>
@@ -193,7 +193,7 @@ const WeightTracker: React.FC = () => {
         </button>
         </div>
       </div>
-      <div className='w-full flex flex-col gap-2 justify-center items-center  h-24 p-2 bg-white '>
+      <div className='w-full flex flex-col gap-2 justify-center items-center  h-24 p-2 bg-white rounded-lg '>
         {loading ? (
           <div className="animate-pulse flex justify-center items-center space-x-4 w-full">
             <div className="h-4  bg-gray-300 rounded w-3/4"></div>

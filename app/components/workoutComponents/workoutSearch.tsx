@@ -58,6 +58,9 @@ type IconName =
   | 'FaDumbbell'
   | 'FaWeight'
   | 'FaBars'
+  | 'FaBicycle'
+  | 'FaYingYang'
+  | 'FaJumpRope'
   ;
 
 const iconMap: { [key in IconName]: IconType } = {
@@ -101,7 +104,10 @@ const iconMap: { [key in IconName]: IconType } = {
   FaFish: FaFish,
   FaSailboat: FaSailboat,
   FaWeight: GiWeightLiftingUp,
-  FaBars: FaDumbbell
+  FaBars: FaDumbbell,
+  FaBicycle: FaBiking,
+  FaYingYang: FaYinYang,
+  FaJumpRope: GiJumpingRope
 };
 
 interface ExerciseLogEntry {
@@ -141,16 +147,26 @@ export default function WorkoutSearch() {
 
   const fetchExerciseLogs = async () => {
     setLoading(true);
-    const res = await axios.get(`/api/getExerciseEntry?currentDate=${currentDate}`);
-    if (res.status === 201) {
-      setRecentExercises(res.data.filter((exercise: any) => 
-        new Date(exercise.createdAt) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) // last 7 days
-      ));
+    try {
+      const res = await axios.get(`/api/getExerciseEntry?currentDate=${currentDate}`);
+      if (res.status === 201) {
+        const recentExercises = res.data
+          .filter((exercise: any) => 
+            new Date(exercise.createdAt) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) // last 7 days
+          )
+          .sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()) // sort by createdAt descending
+          .slice(0, 3); // get the first three most recent
+        setRecentExercises(recentExercises);
+      }
+    } catch (error) {
+      console.error('Failed to fetch exercise logs:', error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
+  
 
-  console.log(tab)
+  console.log(recentExercises)
 
   useEffect(() => {
     fetchExerciseLogs();
@@ -190,43 +206,43 @@ export default function WorkoutSearch() {
       name: "Running",
       caloriesBurned: 400,
       description: "Running at a moderate pace.",
-      icon: <FaRunning size={20}  className="text-indigo-600"/>
+      icon: 'FaRunning'
     },
     {
       name: "Cycling",
       caloriesBurned: 300,
       description: "Cycling at a moderate pace.",
-      icon: <FaBicycle size={20}  className="text-indigo-600"/>
+      icon: 'FaBicycle'
     },
     {
       name: "Swimming",
       caloriesBurned: 350,
       description: "Swimming at a moderate pace.",
-      icon: <FaSwimmer  size={20}  className="text-indigo-600"/>
+      icon: 'FaSwimmer'
     },
     {
       name: "Weightlifting",
       caloriesBurned: 200,
       description: "Lifting weights at the gym.",
-      icon: <FaDumbbell size={20}  className="text-indigo-600"/>
+      icon: 'FaDumbbell'
     },
     {
       name: "Yoga",
       caloriesBurned: 200,
       description: "Performing yoga exercises.",
-      icon: <FaYinYang size={20}  className="text-indigo-600" />
+      icon: 'FaYingYang'
     },
     {
       name: "Jump Rope",
       caloriesBurned: 300,
       description: "Jumping rope at a moderate pace.",
-      icon: <GiJumpingRope size={20}  className="text-indigo-600"/>
+      icon: 'FaJumpRope'
     },
     {
       name: "HIIT",
       caloriesBurned: 400,
       description: "High-Intensity Interval Training exercises.",
-      icon: <FaDumbbell size={20}  className="text-indigo-600"/>
+      icon: 'FaDumbbell'
     }
   ];
   
@@ -327,12 +343,19 @@ export default function WorkoutSearch() {
                         name: el.name,
                         caloriesBurned: el.caloriesBurned,
                         description: el.description,
+                        icon: el.icon
+
                       }
                     }}
                     key={el.name}
                     className="py-2 gap-5 group w-full hover:bg-indigo-50 hover:cursor-pointer px-4 flex items-center"
                   >
-                    {el?.icon}
+                    {el.icon === 'FaRunning' && <FaRunning size={20}  className="text-indigo-600"/>}
+                    {el.icon === 'FaBicycle' && <FaBicycle size={20}  className="text-indigo-600"/>}
+                    {el.icon === 'FaSwimmer' && <FaSwimmer  size={20}  className="text-indigo-600"/>}
+                    {el.icon === 'FaDumbbell' && <FaDumbbell size={20}  className="text-indigo-600"/>}
+                    {el.icon === 'FaYingYang' && <FaYinYang size={20}  className="text-indigo-600" />}
+                    {el.icon === 'FaJumpRope' && <GiJumpingRope size={20}  className="text-indigo-600" />}
                     <span className="text-xl group-hover:text-indigo-600">{el.name}</span>
                   </Link>
             );

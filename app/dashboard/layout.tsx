@@ -41,22 +41,26 @@ export default function Layout({children}: {children: React.ReactNode}) {
                         animate={{ x: 0 }}
                         exit={{ x: '-100vw' }}
                         transition={{ type: 'spring', stiffness: 50 }}
-                        className="fixed top-0 left-0 w-64 h-screen rounded-r-2xl bg-gradient-to-bl from-teal-900 via-teal-600 to-teal-900 flex flex-col justify-between items-start shadow-lg z-50"
+                        className="fixed top-0 left-0 w-64 h-screen rounded-r-2xl bg-gradient-to-bl from-indigo-900 via-indigo-600 to-indigo-900 flex flex-col justify-between items-start shadow-lg z-50"
                     >
                         <nav className="flex flex-col p-4 space-y-8">
-                            <Link onClick={() => setIsOpen(!isOpen)} className="text-2xl font-semibold text-white  hover:text-teal-500" href="/dashboard">
+                            <Link onClick={() => setIsOpen(!isOpen)} className="text-2xl font-semibold text-white  hover:text-indigo-500" href="/dashboard">
                             Dashboard
                             </Link>
-                            <Link onClick={() => setIsOpen(false)} className="text-2xl font-semibold text-white  hover:text-teal-500" href="/dashboard/calories">
-                            Calories 
+                            <Link onClick={() => setIsOpen(false)} className="text-2xl font-semibold text-white  hover:text-indigo-500" href="/dashboard/calories">
+                            Meal Log 
                             </Link>
-                            <Link onClick={() => setIsOpen(false)} className="text-2xl font-semibold text-white  hover:text-teal-500" href="/dashboard/workout">
+                            <Link onClick={() => setIsOpen(false)} className="text-2xl font-semibold text-white  hover:text-indigo-500" href="/dashboard/workout">
                             Workout
                             </Link>
-                            <Link onClick={() => setIsOpen(false)} className="text-2xl font-semibold text-white  hover:text-teal-500" href="/dashboard/nutrition">
+                            <Link onClick={() => setIsOpen(false)} className="text-2xl font-semibold text-white  hover:text-indigo-500" href="/dashboard/nutrition">
                             Nutrition
                             </Link>
-                            <Link onClick={() => setIsOpen(false)} className="text-2xl font-semibold text-white  hover:text-teal-500" href="/dashboard/plan">Plan</Link>
+                            <Link onClick={() => setIsOpen(false)} className="text-2xl font-semibold text-white  hover:text-indigo-500" href="/dashboard/plan">Plan</Link>
+                            <Link 
+                                className="text-2xl font-semibold text-white  hover:text-indigo-500"
+                                href='/dashboard/analysis'>Analysis
+                            </Link>
                         </nav>
 
                         {isLoggedIn && (

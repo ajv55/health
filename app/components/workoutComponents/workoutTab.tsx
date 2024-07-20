@@ -7,6 +7,8 @@ import Link from 'next/link';
 import WorkoutSearch from './workoutSearch';
 import ExerciseAnalytics from './exerciseAnalytic';
 import Catalog from './catalog';
+import Recent from './recent';
+import CustomList from './customList';
 
 
 const WorkoutTab = () => {
@@ -25,6 +27,9 @@ const WorkoutTab = () => {
     }
     if(tab === 'exerciseCatalog'){
       setActiveTab('exerciseCatalog')
+    }
+    if(tab === 'customExercises'){
+      setActiveTab('customExercises')
     }
   }, [tab])
 
@@ -49,17 +54,18 @@ const WorkoutTab = () => {
           </button>
         ))}
       </div>
-     <div className='w-full  '>
+     <div className='w-full flex justify-between items-center '>
      <Link href='/dashboard/workout' className='w-64 flex justify-start p-3 gap-1 items-center'>
         <IoIosArrowRoundBack size={40} className='text-indigo-600' />
         <h2 className='text-xl text-indigo-600'>Back To Log</h2>
       </Link>
+      {activeTab === 'customExercises' && <Link href='/dashboard/workout/search/customExercise' className='p-2 mr-2 text-indigo-500 text-2xl hover:bg-indigo-100 rounded-lg'>Create Custom Log</Link>}
      </div>
       <div className="p-4  h-[40rem]  overflow-scroll ">
         {activeTab === 'search' && <WorkoutSearch />}
         {activeTab === 'exerciseCatalog' && <Catalog />}
-        {activeTab === 'recentExercises' && <div>...</div>}
-        {activeTab === 'customExercises' && <div> ... ... </div>}
+        {activeTab === 'recentExercises' && <Recent />}
+        {activeTab === 'customExercises' && <CustomList />}
         {activeTab === 'exerciseAnalytic' && <ExerciseAnalytics />}
       </div>
     </div>

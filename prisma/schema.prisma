@@ -62,6 +62,7 @@ model User {
    snackLogs SnackLog[]
    weightLogs WeightLog[]
    exerciseLogs ExerciseLog[]
+   customLogs CustomLog[]
   account Account []
 }
 
@@ -427,6 +428,17 @@ model ExerciseLog {
   sets Json?
   note String?
   icon String?
+  createdAt DateTime @default(now())
+}
+
+model CustomLog {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  user User @relation(fields: [userId], references: [id])
+  name String?
+  caloriesBurned String?
+  icon String?
+  unit String?
   createdAt DateTime @default(now())
 }
 

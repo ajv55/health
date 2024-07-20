@@ -53,9 +53,9 @@ export default function QuickLog({isDone, setIsDone, onClose}: {onClose: () => v
 
   return (
     <div  className="fixed -inset-10 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
-      <div className="bg-white p-3 z-40 rounded-lg overflow-hidden ring-4 ring-indigo-600 shadow-xl max-w-3xl w-full">
-        <div className='flex justify-between items-center'>
-           <h1 className='text-5xl text-indigo-600'>Quick Log</h1>
+      <div className="bg-white p-2.5 z-40 rounded-lg overflow-hidden ring-4 ring-indigo-600 shadow-xl max-w-3xl w-full">
+        <div className='flex justify-between mb-4 items-center'>
+           <h1 className='text-5xl  text-indigo-600'>Log Exercise Quickly</h1>
            <IoCloseCircle onClick={onClose} size={40}  className='text-indigo-600 hover:cursor-pointer '/>
         </div>
         <label className="block text-2xl font-medium text-indigo-500">
@@ -63,7 +63,7 @@ export default function QuickLog({isDone, setIsDone, onClose}: {onClose: () => v
           </label>
             <input
               type="number"
-              className="block w-full pl-7 p-2.5 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 text-lg"
+              className="block w-full pl-7 border-b-2 p-2.5 border-indigo-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 text-lg"
               placeholder="0"
               value={calories}
               onChange={handleCaloriesChange}
@@ -76,7 +76,7 @@ export default function QuickLog({isDone, setIsDone, onClose}: {onClose: () => v
           <div className="relative mt-1 rounded-md shadow-sm">
             <input
               type="number"
-              className="block w-full pl-7 p-2.5 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 text-lg"
+              className="block w-full pl-7 border-b-2 p-2.5 border-indigo-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 text-lg"
               placeholder="0"
               value={time}
               onChange={handleTimeChange}

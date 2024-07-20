@@ -105,7 +105,7 @@ export default function Information() {
 
   return (
     <div className='lg:w-[56%] w-full h-[43rem] relative drop-shadow-lg flex flex-col justify-evenly items-center rounded-lg bg-white'>
-      {isProgressLoading && <ProgressSkeleton />}
+      {isProgressLoading &&  <ProgressSkeleton />}
       {!isProgressLoading && <Main />}
 
       {/* Exercise, water, steps tracking */}
