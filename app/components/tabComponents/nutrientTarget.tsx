@@ -66,7 +66,7 @@ const NutrientTargets = () => {
           <div className="mt-2 space-y-4">
             <div className="flex bg-white p-2 rounded-lg ring-2 ring-indigo-400 shadow-md justify-between items-center">
               <div>
-                <h4 className="text-xl font-semibold">Dietary Fiber</h4>
+                <h4 className="text-xl text-indigo-600 font-semibold">Dietary Fiber</h4>
                 <p className="text-lg text-gray-600">
                   Provides multiple health benefits, high in plant foods. 30g recommended.
                 </p>
@@ -81,7 +81,7 @@ const NutrientTargets = () => {
         <div className="border-t border-gray-200 pt-4">
           <div className="flex bg-white p-2 rounded-lg ring-2 ring-indigo-400 shadow-md justify-between items-center">
             <div>
-              <h4 className="text-xl font-semibold">Sodium</h4>
+              <h4 className="text-xl text-indigo-600 font-semibold">Sodium</h4>
               <p className="text-lg text-gray-600">
                 Too much sodium from any source can raise blood pressure.
               </p>
@@ -96,7 +96,7 @@ const NutrientTargets = () => {
         <div className="border-t  border-gray-200 pt-4">
           <div className="flex bg-white p-2 rounded-lg ring-2 ring-indigo-400 shadow-md justify-between items-center">
             <div>
-              <h4 className="text-xl font-semibold">Calcium</h4>
+              <h4 className="text-xl text-indigo-600 font-semibold">Calcium</h4>
               <p className="text-lg text-gray-600">
                 Needed for healthy bones, teeth, muscle contraction, blood clotting, heart rhythm, and blood pressure control. 1,000mg recommended.
               </p>

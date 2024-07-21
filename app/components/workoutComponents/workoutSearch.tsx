@@ -253,7 +253,7 @@ export default function WorkoutSearch() {
       <input
         type="text"
         placeholder="Please enter exercise or workout"
-        className="w-full p-2 border rounded mb-4"
+        className="w-full p-2 border outline-indigo-500 rounded mb-4"
         onFocus={handleFocus}
         ref={ref}
         onBlur={() => setShowModal(false)}

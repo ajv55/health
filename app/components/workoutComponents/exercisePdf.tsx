@@ -59,7 +59,7 @@ export default function ExercisePdf({exerciseLog}: {exerciseLog: any}) {
     <div className="p-2">
       <button 
         onClick={generatePdf}
-        className="mt-4 bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-700"
+        className="lg:mt-4 mt-0 bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-700"
       >
         Day Exercise Report
       </button>

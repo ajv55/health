@@ -43,11 +43,11 @@ const WorkoutTab = () => {
 
   return (
     <div className=''> 
-      <div className="flex bg-gray-50  border-b border-indigo-500">
+      <div className="flex bg-gray-50 overflow-x-scroll border-b border-indigo-500">
         {tabs.map((tab) => (
           <button
             key={tab.key}
-            className={`py-2 text-lg px-4 ${activeTab === tab.key ? 'border-b-2 border-indigo-500 text-indigo-500' : 'text-gray-500'}`}
+            className={`py-2 lg:text-lg text-sm px-4 ${activeTab === tab.key ? 'border-b-2 border-indigo-500 text-indigo-500' : 'text-gray-500'}`}
             onClick={() => setActiveTab(tab.key)}
           >
             {tab.name}
@@ -59,7 +59,7 @@ const WorkoutTab = () => {
         <IoIosArrowRoundBack size={40} className='text-indigo-600' />
         <h2 className='text-xl text-indigo-600'>Back To Log</h2>
       </Link>
-      {activeTab === 'customExercises' && <Link href='/dashboard/workout/search/customExercise' className='p-2 mr-2 text-indigo-500 text-2xl hover:bg-indigo-100 rounded-lg'>Create Custom Log</Link>}
+      {activeTab === 'customExercises' && <Link href='/dashboard/workout/search/customExercise' className='p-2 mr-2 text-indigo-500  text-center lg:text-2xl text-lg hover:bg-indigo-100 rounded-lg'>Create Custom Log</Link>}
      </div>
       <div className="p-4  h-[40rem]  overflow-scroll ">
         {activeTab === 'search' && <WorkoutSearch />}

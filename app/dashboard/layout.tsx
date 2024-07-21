@@ -58,8 +58,9 @@ export default function Layout({children}: {children: React.ReactNode}) {
                             </Link>
                             <Link onClick={() => setIsOpen(false)} className="text-2xl font-semibold text-white  hover:text-indigo-500" href="/dashboard/plan">Plan</Link>
                             <Link 
-                                className="text-2xl font-semibold text-white  hover:text-indigo-500"
-                                href='/dashboard/analysis'>Analysis
+                              onClick={() => setIsOpen(false)}
+                              className="text-2xl font-semibold text-white  hover:text-indigo-500"
+                              href='/dashboard/analysis'>Analysis
                             </Link>
                         </nav>
 

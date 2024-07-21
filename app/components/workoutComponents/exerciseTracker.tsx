@@ -17,6 +17,8 @@ import QuickLog from "./quickLog";
 import { setExerciseLog } from "@/app/slices/searchSlice";
 import { FaTrash } from "react-icons/fa";
 import toast from "react-hot-toast";
+import { BsMenuUp } from "react-icons/bs";
+import { AnimatePresence, motion } from "framer-motion";
 
 type IconName =
   | 'FaRunning'
@@ -133,6 +135,7 @@ const ExerciseTracker = () => {
   const currentDate = useSelector((state: RootState) => state.weight.currentDate);
   const formattedDate = format(currentDate!, 'MMM d');
   const [quickLog, setQuickLog] = useState(false);
+  const [openOption, setOpenOption] = useState(false)
 
   const exerciseLog = useSelector((state: RootState) => state?.search.exerciseLog);
   const dispatch = useDispatch();
@@ -165,10 +168,10 @@ const ExerciseTracker = () => {
   const totalCalories = exerciseLog?.reduce((acc, curr) => Number(acc) + Number(curr.caloriesBurned), 0);
 
 
-  console.log(exerciseLog)
+  console.log(openOption)
 
   return (
-    <div className="w-[89%]  relative mx-auto bg-white rounded-lg shadow-md mt-9 p-6">
+    <div className="w-[89%] mb-8  relative mx-auto bg-white rounded-lg shadow-md mt-9 p-6">
       {quickLog && <QuickLog isDone={quickLogIsDone} setIsDone={setQuickLogIsDone} onClose={() => setQuickLog(false)} />}
        <h2 className="text-4xl bg-gradient-to-br from-indigo-500 mb-5 to-indigo-300 bg-clip-text text-transparent">Exercise Tracker</h2>
       {isOver && <div className='w-[20%] absolute top-8 -left-16 h-4 rounded-md bg-black bg-opacity-30 flex p-0.5 justify-center items-center'><p className='text-[14px] text-white font-extrabold'>Click here to start logging</p></div>}
@@ -176,13 +179,36 @@ const ExerciseTracker = () => {
       {isCatalogSearch && <div className='w-[10%] absolute top-32 left-9 h-4 rounded-md bg-black bg-opacity-30 flex p-0.5 justify-center items-center'><p className='text-[14px] text-white font-extrabold'>Search Catalog</p></div>}
       <div className="flex items-center justify-between border-b pb-4">
         <div className="flex items-center space-x-2">
-          <Link href='/dashboard/workout/search?tab=search' onMouseOver={() => setIsOver(true)} onMouseLeave={() => setIsOver(false)} className="bg-indigo-500 absolute flex justify-center items-center -top-6 -left-7 drop-shadow-xl text-white h-14 w-14 p-2 rounded-full hover:bg-indigo-600 transition duration-300">
+          <Link href='/dashboard/workout/search?tab=search' onMouseOver={() => setIsOver(true)} onMouseLeave={() => setIsOver(false)} className="bg-indigo-500 absolute flex justify-center items-center -top-6 lg:-left-7 -left-4 drop-shadow-xl text-white lg:h-14 lg:w-14 h-12 w-12 p-2 rounded-full hover:bg-indigo-600 transition duration-300">
             <FaPlus size={24} color='white' />
           </Link>
-          <Link onMouseOver={() => setIsOverSearch(true)} onMouseLeave={() => setIsOverSearch(false)} href='/dashboard/workout/search?tab=search'><IoSearchOutline size={26} color="black" /></Link>
-          <Link onMouseOver={() => setIsCatalogSearch(true)} onMouseLeave={() => setIsCatalogSearch(false)} href='/dashboard/workout/search?tab=exerciseCatalog'><GrCatalog size={26} color="black" /></Link>
+          <Link onMouseOver={() => setIsOverSearch(true)} onMouseLeave={() => setIsOverSearch(false)} href='/dashboard/workout/search?tab=search'><IoSearchOutline size={26} className="text-indigo-500" /></Link>
+          <Link onMouseOver={() => setIsCatalogSearch(true)} onMouseLeave={() => setIsCatalogSearch(false)} href='/dashboard/workout/search?tab=exerciseCatalog'><GrCatalog size={26} className="text-indigo-500" /></Link>
         </div>
-        <div className="flex space-x-4">
+        <div className="flex lg:hidden">
+        <AnimatePresence>
+        {openOption && (
+          <motion.div
+            initial={{ y: -20, opacity: 0, scale: 0 }}
+            animate={{ y: 0, opacity: 1, scale: 1 }}
+            exit={{ y: -20, opacity: 0, scale: 0 }}
+            transition={{ duration: 0.3, type: 'spring', stiffness: 80 }}
+            className="absolute top-28 right-0 w-[40%] bg-white ring-2 ring-indigo-400 rounded-md drop-shadow-xl p-4 z-50"
+          >
+            <div className="flex flex-col justify-start items-start space-y-4">
+              <Link href='/dashboard/workout/search?tab=search' className="text-indigo-600 hover:underline">Find & Log</Link>
+              <button onClick={() => setQuickLog(true)} className="text-indigo-600 hover:underline">Quick Log</button>
+              <Link href='/dashboard/workout/search?tab=customExercises' className="text-indigo-600 hover:underline">Log Custom</Link>
+              <Link href='/dashboard/workout/search/customExercise' className="text-indigo-600 hover:underline">Create Custom</Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+          <motion.div onClick={() => setOpenOption(!openOption)} whileTap={{scale: 1.4}}>
+            <BsMenuUp size={25} className="text-indigo-500" />
+          </motion.div>
+        </div>
+        <div className="hidden lg:flex space-x-4">
           <Link href='/dashboard/workout/search?tab=search' className="text-indigo-600 hover:underline">Find & Log</Link>
           <button onClick={() => setQuickLog(true)} className="text-indigo-600 hover:underline">Quick Log</button>
           <Link href='/dashboard/workout/search?tab=customExercises' className="text-indigo-600 hover:underline">Log Custom</Link>
@@ -192,10 +218,10 @@ const ExerciseTracker = () => {
 
       <div className="mt-4">
         <div className="flex justify-between items-center bg-gray-100 p-2 rounded-lg">
-          <span className="text-indigo-500 text-2xl  w-[35%]">Name</span>
-          <span className="text-indigo-500 text-2xl  w-[15%] flex justify-start">Calories</span>
-          <span className="text-indigo-500 text-2xl   w-[9%]">Date</span>
-          <span className="text-indigo-500 text-2xl  w-[9%]">Sets</span>
+          <span className="text-indigo-500 lg:text-2xl text-lg  w-[35%]">Name</span>
+          <span className="text-indigo-500 lg:text-2xl text-lg  w-[15%] flex justify-start">Calories</span>
+          <span className="text-indigo-500 lg:text-2xl text-lg   w-[9%]">Date</span>
+          <span className="text-indigo-500 lg:text-2xl text-lg  w-[9%]">Sets</span>
         </div>
         <div>
           {loading && <div className="w-full h-10 rounded-lg bg-indigo-400 animate-pulse"></div>}
@@ -208,15 +234,15 @@ const ExerciseTracker = () => {
                 <div className="flex  w-[35%] justify-start items-center gap-5">
                   {IconComponent && <IconComponent size={24} className='text-indigo-500' />}
                   <div className="flex justify-start items-center gap-2">
-                    <span>{el?.name}</span>
-                    <span className="text-gray-500 text-xs">{el?.duration}</span>
+                    <span className="text-xs lg:text-xl">{el?.name}</span>
+                    <span className="text-gray-500 lg:text-xs text-[9px]">{el?.duration}</span>
                   </div>
                 </div>
-                <span className=" w-[15%] flex justify-start">{Math.round(el?.caloriesBurned)}</span>
-                <span className=" w-[9%]">{format(new Date(el.createdAt), 'MMMM d yyyy')}</span>
+                <span className=" w-[15%] text-[14px] lg:text-xl flex justify-start">{Math.round(el?.caloriesBurned)}</span>
+                <span className=" w-[9%] text-[9px] lg:text-xl">{format(new Date(el.createdAt), 'MMMM d yyyy')}</span>
                 <div className="flex justify-between items-center w-[9%]">
-                  <span >{el.sets.length}</span>
-                  <FaTrash onClick={() => handleDelete(el?.id)} size={20} className="text-indigo-600 cursor-pointer" />
+                  <span className="text-[14px] lg:text-xl">{el.sets.length}</span>
+                  <FaTrash onClick={() => handleDelete(el?.id)} size={10} className="text-indigo-600 lg:w-5 lg:h-5 cursor-pointer" />
                 </div>
               </div>
             );
@@ -228,7 +254,7 @@ const ExerciseTracker = () => {
         <span className="text-2xl font-bold">Total Calories: {Math.round(totalCalories!)}</span>
       </div>
 
-      <div className="flex justify-between mt-4 text-indigo-600">
+      <div className="flex justify-between items-center mt-4 text-indigo-600">
         <ExercisePdf exerciseLog={exerciseLog} />
         <Link href='/dashboard/workout/search?tab=exerciseAnalytic' className="hover:underline">Daily Analysis</Link>
       </div>

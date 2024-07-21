@@ -44,9 +44,9 @@ export default function MyAdvice() {
     {loading ? <AdviceSkeleton /> : adviceList?.map((advice: any, index) => {
             const IconComponent = iconMapping[advice?.icon];
             return (
-              <div key={index} className='flex items-center gap-5 space-x-2 my-2'>
+              <div key={index} className='flex lg:p-0 p-1 items-center gap-5 space-x-2 my-2'>
                 <IconComponent size={30} className='text-indigo-700' />
-                <p className='text-indigo-700 text-2xl font-semibold'>{advice?.text}</p>
+                <p className='text-indigo-700 lg:text-2xl text-sm font-semibold'>{advice?.text}</p>
               </div>
             );
           })}

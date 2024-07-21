@@ -38,7 +38,7 @@ const Tabs = () => {
 
   return (
     <div className=' '>
-      <div className="flex  w-full border-b border-indigo-500">
+      <div className="flex  w-full overflow-x-scroll border-b border-indigo-500">
         {tabs.map((tab) => (
           <button
             key={tab.key}

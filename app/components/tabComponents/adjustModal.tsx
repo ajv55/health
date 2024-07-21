@@ -18,7 +18,7 @@ export default function AdjustModal({proteinValue, proteinOnChange, carbValue, c
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
     <motion.div 
-        className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full"
+        className="bg-white p-6 rounded-lg shadow-lg max-w-lg lg:w-full w-[95%]"
         initial={{ y: -500, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: -500, opacity: 0 }}

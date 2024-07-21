@@ -81,7 +81,7 @@ const DatePicker = () => {
         <motion.div
           key={day.toString()}
           onClick={() => handleDayClick(day)}
-          className={`text-sm lg:text-lg text-indigo-400 font-semibold cursor-pointer px-2 py-1 rounded ${
+          className={`text-[16px] lg:text-lg text-indigo-400 text-center text-balance font-semibold cursor-pointer px-2 py-1 rounded ${
             isSameDay(day, currentDate)
               ? 'bg-indigo-600 text-white'
               : isSameDay(day, today)

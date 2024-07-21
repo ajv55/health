@@ -124,7 +124,7 @@ const WeightChart = () => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md mt-6">
+    <div className="bg-white ring-2 ring-indigo-400 p-6 rounded-lg shadow-md mt-6">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-2xl font-semibold text-indigo-600">Weight Chart</h2>
         <div className="flex items-center">
@@ -144,11 +144,11 @@ const WeightChart = () => {
       <div className="mt-4">
         <div className="flex justify-between items-center">
           <div>
-            <h4 className="text-xl font-semibold text-blue-600">Estimated End Date</h4>
+            <h4 className="lg:text-xl text-sm font-semibold text-blue-600">Estimated End Date</h4>
             <p className="text-gray-800">{isValid(estimatedEndDate) ? format(estimatedEndDate!, 'MMM d, yyyy') : 'Invalid date'}</p>
           </div>
           <div>
-            <h4 className="text-xl font-semibold text-blue-600">Days to Lose Weight</h4>
+            <h4 className="lg:text-xl text-sm font-semibold text-blue-600">Days to Lose Weight</h4>
             <p className="text-gray-800">{totalDaysToLoseWeight}</p>
           </div>
         </div>

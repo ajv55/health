@@ -191,10 +191,10 @@ export default function ExerciseInfo() {
           <label className="block text-2xl font-medium text-gray-700">
             Exercise Type
           </label>
-          <div className="flex justify-between items-center">
+          <div className="flex lg:flex-row flex-col justify-between items-center">
             <div className="flex items-center gap-4 mt-4 space-x-4">
               {IconComponent && <IconComponent size={40} className="text-indigo-700 text-4xl mb-2" />}
-              <span className="text-4xl text-indigo-500">{name} <span className="text-gray-500 text-lg">{description}</span></span>
+              <span className="lg:text-4xl text-2xl text-indigo-500">{name} <span className="text-gray-500 lg:text-lg text-sm">{description}</span></span>
             </div>
             <div className="flex items-center justify-start text-4xl text-center gap-3 mt-2 text-indigo-600">
               <span >{Math.round(Number(calories)) || 0}</span>
@@ -211,7 +211,7 @@ export default function ExerciseInfo() {
           <div className="relative mt-1 rounded-md shadow-sm">
             <input
               type="number"
-              className="block w-full pl-7 p-2.5 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 text-lg"
+              className="block w-full outline-indigo-500 pl-7 p-2.5 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 text-lg"
               placeholder="0"
               value={time}
               onChange={handleTimeChange}
@@ -223,7 +223,7 @@ export default function ExerciseInfo() {
               <select
                 id="min"
                 name="min"
-                className="h-full py-0 pl-2 pr-7 text-gray-500 bg-transparent border-transparent rounded-md focus:ring-indigo-500 focus:border-indigo-500 text-lg"
+                className="h-full py-0 outline-indigo-500 pl-2 pr-7 text-gray-500 bg-transparent border-transparent rounded-md focus:ring-indigo-500 focus:border-indigo-500 text-lg"
                 value={unit}
                 onChange={handleUnitChange}
               >
@@ -237,29 +237,29 @@ export default function ExerciseInfo() {
         <div className="mt-6">
           <h2 className="text-2xl font-semibold text-indigo-600">Log Sets and Reps</h2>
           {sets.map((set, index) => (
-            <div key={index} className=" flex justify-between items-center mt-3 gap-5">
-              <div className="flex justify-center items-center gap-10">
+            <div key={index} className=" flex  justify-between items-center mt-3 gap-5">
+              <div className="flex  justify-center items-center gap-10">
               <div className="flex flex-col gap-3">
-                <label htmlFor="reps" className="">
+                <label htmlFor="reps" className="text-gray-500">
                   Reps
                 </label>
                 <input
                   id="reps"
                   type="number"
-                  className="block w-20 p-2 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 "
+                  className="block w-20 p-2 outline-indigo-500 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 "
                   placeholder="Reps"
                   value={set.reps}
                   onChange={(e) => handleRepsChange(index, e)}
                 />
               </div>
               <div className="flex flex-col gap-2">
-                <label htmlFor="weight" className="">
+                <label htmlFor="weight" className="text-gray-500">
                     Weight
                 </label>
                 <input
                   id='weight'
                   type="number"
-                  className="block w-20 p-2 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 "
+                  className="block w-20 p-2 outline-indigo-500 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 "
                   placeholder="Weight"
                   value={set.weight}
                   onChange={(e) => handleWeightChange(index, e)}
@@ -271,7 +271,7 @@ export default function ExerciseInfo() {
           ))}
           <button
             type="button"
-            className="mt-4 px-4 py-2 font-semibold text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
+            className="mt-4 px-4 py-2 outline-indigo-500 font-semibold text-white bg-indigo-600 rounded-md hover:bg-indigo-700"
             onClick={addSet}
           >
             Add Set
@@ -283,7 +283,7 @@ export default function ExerciseInfo() {
             Notes
           </label>
           <textarea
-            className="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="block w-full mt-1 outline-indigo-500 border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             rows={3}
             placeholder="Enter your notes here..."
             value={notes}
