@@ -104,7 +104,7 @@ export default function Information() {
   console.log(isProgressLoading)
 
   return (
-    <div className='lg:w-[56%] w-full h-[43rem] relative drop-shadow-lg flex flex-col justify-evenly items-center rounded-lg bg-white'>
+    <div className='lg:w-[53%] w-full h-[43rem]  relative drop-shadow-lg flex flex-col justify-evenly items-center rounded-lg bg-white'>
       {isProgressLoading &&  <ProgressSkeleton />}
       {!isProgressLoading && <Main />}
 

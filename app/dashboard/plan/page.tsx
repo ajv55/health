@@ -65,7 +65,6 @@ const Page = () => {
         'Weight & Calories',
         'Weight Loss Paths',
         'Carbs, Protein & Fat',
-        'Exercise Plan',
         'Nutrient Targets',
     ];
 
@@ -128,12 +127,6 @@ const Page = () => {
                             <FatInfo />
                             <ProteinInfo />
                             <CarbInfo />
-                        </div>
-                    )}
-                    {activeTab === 'Exercise Plan' && (
-                        <div>
-                            <h1 className="text-xl font-semibold mb-4">Exercise Plan</h1>
-                            <p>Details for Exercise Plan.</p>
                         </div>
                     )}
                     {activeTab === 'Nutrient Targets' && (

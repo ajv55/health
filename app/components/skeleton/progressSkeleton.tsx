@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function ProgressSkeleton() {
   return (
-    <div className="flex absolute rounded-lg bg-white flex-col z-20 top-0 left-0 w-full  items-center gap-14 justify-start h-full">
+    <div className="flex absolute rounded-lg bg-white flex-col z-40 top-0 left-0 w-full  items-center gap-14 justify-start h-[42rem]">
         <div className='w-full h-24   flex justify-center items-center'>
             <div className='w-[65%] h-4 rounded-2xl bg-indigo-200'></div>
         </div>

@@ -24,6 +24,9 @@ const Tabs = () => {
     if(tab === 'weightLoss'){
       setActiveTab('weightLoss')
     }
+    if(tab === 'stepAnalysis'){
+      setActiveTab('stepAnalysis')
+    }
   }, [tab])
 
   const tabs = [

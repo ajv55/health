@@ -160,7 +160,7 @@ const WeightTracker: React.FC = () => {
   console.log(weightIsLoading)
 
   return (
-    <div className="lg:w-[40%] mt-8 w-full h-[43rem] mx-auto  bg-white relative shadow-lg rounded-lg">
+    <div className="lg:w-[40%] mt-8 lg:mt-0 w-full h-[43rem] mx-auto  bg-white relative shadow-lg rounded-lg">
       {weightIsLoading && <LineChartSkeleton />}
       <div className="flex p-4 justify-between items-center ">
         <div onClick={() => router.push('/dashboard/plan')} className='w-full hover:cursor-pointer'>
