@@ -84,8 +84,8 @@ export default function Layout({children}: {children: React.ReactNode}) {
                 )}
       </AnimatePresence>
       <div className='self-end md:hidden  flex justify-between items-center w-full'>
-        <h1 className='text-2xl font-medium tracking-wide p-2'>Dashboard</h1>
-        <MdDashboard onClick={() => setIsOpen(!isOpen)} className='' size={50} color='black'/>
+        <h1 className='text-2xl font-medium text-indigo-600 tracking-wide p-2'>Dashboard</h1>
+        <MdDashboard onClick={() => setIsOpen(!isOpen)} className='text-indigo-600' size={50} />
       </div>
       <nav className='lg:flex hidden  flex-col w-[20%] justify-start items-start text-2xl gap-10 bg-gradient-to-tr from-indigo-950 via-indigo-900 to-indigo-950 h-screen'>
       <div className='flex  w-full justify-center items-center p-2 gap-2'>

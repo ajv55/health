@@ -194,7 +194,7 @@ const Favorite = () => {
             })}
         </div>
         <div className="mt-4 flex justify-between items-center w-full">
-          <Link href='/dashboard/calories/search?tab=custom' className="text-indigo-600 font-semibold">
+          <Link href='/dashboard/calories/search?tab=custom' className="text-indigo-600 lg:text-xl text-sm font-semibold">
             CREATE AND LOG CUSTOM FOOD
           </Link>
           <h2>{userIsActive === false ? <Link className="text-indigo-600 text-sm" href='/pricing'>Become a premium user!</Link> : ''}</h2>

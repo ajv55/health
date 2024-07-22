@@ -28,18 +28,18 @@ export default function Custom() {
 
   return (
     <div className="min-h-screen p-4">
-      <div className="max-w-6xl mx-auto ring-1 ring-indigo-400 bg-indigo-50 shadow-md rounded-lg p-6 relative">
+      <div className="max-w-6xl mx-auto ring-1 ring-indigo-400 bg-indigo-50 shadow-md rounded-lg lg:p-6 p-4 relative">
         <div className="flex justify-between items-center border-b pb-4 mb-4">
-          <Link href='/dashboard/calories' className="text-indigo-600 font-semibold">
+          <Link href='/dashboard/calories' className="text-indigo-600 lg:text-xl text-sm font-semibold">
             ← BACK TO MEALS
           </Link>
-          <Link href='/dashboard/calories/search/customFood' className="text-indigo-600 hover:bg-indigo-400 hover:rounded-md drop-shadow-lg hover:text-indigo-100 p-2 font-semibold">
+          <Link href='/dashboard/calories/search/customFood' className="text-indigo-600 hover:bg-indigo-400 hover:rounded-md drop-shadow-lg hover:text-indigo-100 lg:text-xl text-sm p-2 font-semibold">
             CREATE AND LOG CUSTOM FOOD
           </Link>
         </div>
         <div className="bg-white overflow-scroll shadow-md mt-5 rounded-lg p-3 ring-2 ring-indigo-300">
           <h2 className="text-xl font-semibold text-indigo-500 mb-4">
-            Favorite Foods
+            Custom Foods
           </h2>
           {loading && <div className="w-full h-14 rounded-lg bg-indigo-400 animate-pulse"></div>}
           {customFoods?.length === 0 && !loading && <h1 className='text-indigo-300'>No custom foods added.</h1>}

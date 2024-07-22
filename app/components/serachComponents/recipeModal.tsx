@@ -21,8 +21,8 @@ const RecipeModal = () => {
     console.log(recipeSteps)
 
   return (
-    <div className="fixed -inset-10 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
-      <div className="bg-white rounded-lg overflow-hidden shadow-xl max-w-4xl w-full">
+    <div className="fixed lg:-inset-10 -inset-4 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
+      <div className="bg-white rounded-lg overflow-hidden shadow-xl max-w-4xl lg:w-full w-[95%]">
         <div className="relative">
           <Image width={300} height={300} src={recipe?.img} alt="Berry Oat Yogurt Parfait" className="w-full h-48 object-cover" />
           <button
