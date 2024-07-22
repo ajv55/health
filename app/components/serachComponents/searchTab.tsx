@@ -41,12 +41,11 @@ const SearchTab = () => {
     { name: 'Favorite', key: 'favorite' },
     { name: 'Custom', key: 'custom' },
     { name: 'Recipes', key: 'recipes' },
-    { name: 'Water Analysis', key: 'waterAnalysis' },
   ];
 
   return (
     <div className=' '>
-      <div className="flex  w-full border-b border-indigo-500">
+      <div className="flex overflow-x-scroll w-full border-b border-indigo-500">
         {tabs.map((tab) => (
           <button
             key={tab.key}
@@ -66,7 +65,6 @@ const SearchTab = () => {
           {activeTab === 'custom' && <Custom />}
         </div>
         {activeTab === 'recipes' && <Recipe />}
-        {activeTab === 'waterAnalysis' && <div>serach</div>}
       </div>
     </div>
   );

@@ -115,8 +115,8 @@ const Search = () => {
   const skeletonList = [1,2,3,4,5,6,7]
 
   return (
-    <div className="min-h-screen p-4">
-      <div className="max-w-6xl mx-auto ring-1 ring-indigo-400 bg-indigo-50 shadow-md rounded-lg p-6 relative">
+    <div className="min-h-screen w-full p-4">
+      <div className=" w-full  mx-auto ring-1 ring-indigo-400 bg-indigo-50 shadow-md rounded-lg p-6 relative">
         <div className="flex justify-between items-center border-b pb-4 mb-4">
           <Link href='/dashboard/calories' className="text-indigo-600 font-semibold">
             ← BACK TO MEALS
@@ -127,7 +127,7 @@ const Search = () => {
           <input
             type="text"
             placeholder="Please enter food name, brand or restaurant name"
-            className="w-full p-2 border rounded mb-4"
+            className="w-full p-2 border outline-indigo-500 rounded mb-4"
             onChange={handleSearchInputChange}
             onFocus={openModal}
           />
@@ -241,7 +241,7 @@ const Search = () => {
             })}
         </div>
         <div className="mt-4 flex justify-between items-center w-full">
-          <Link href='/dashboard/calories/search/customFood' className="text-indigo-600 font-semibold">
+          <Link href='/dashboard/calories/search/customFood' className="text-indigo-600 lg:text-xl text-sm font-semibold">
             CREATE AND LOG CUSTOM FOOD
           </Link>
           <h2>{userIsActive === false ? <Link className="text-indigo-600 text-sm" href='/pricing'>Become a premium user!</Link> : ''}</h2>

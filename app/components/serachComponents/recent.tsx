@@ -15,6 +15,8 @@ const FoodTracker = () => {
   const [snackLogs, setSnackLog] = useState([]);
   const {data: sessoin} = useSession();
   const userIsActive = sessoin?.user?.isActive || false;
+  const currentDate = useSelector((state: RootState) => state.weight.currentDate);
+  const formattedDate = format(currentDate!, 'MMM d');
 
   useEffect(() => {
     fetchMealLogs();
@@ -71,28 +73,28 @@ const FoodTracker = () => {
             <h2 className="text-lg font-semibold text-indigo-600">Breakfast Logs</h2>
             <ul className="mt-1 space-y-1">
               {renderMealItems(breakfastLogs)}
-              {breakfastLogs?.length === 0 && <h1 className='text-indigo-300'>No breakfast logs on.</h1>}
+              {breakfastLogs?.length === 0 && <h1 className='text-indigo-300'>No breakfast logs on {formattedDate}.</h1>}
             </ul>
           </li>
           <li className="py-4">
             <h2 className="text-lg font-semibold text-indigo-600">Lunch Logs</h2>
             <ul className="mt-1 space-y-1">
               {renderMealItems(lunchLogs)}
-              {lunchLogs?.length === 0 && <h1 className='text-indigo-300'>No lunch logs on.</h1>}
+              {lunchLogs?.length === 0 && <h1 className='text-indigo-300'>No lunch logs on {formattedDate}.</h1>}
             </ul>
           </li>
           <li className="py-4">
             <h2 className="text-lg font-semibold text-indigo-600">Dinner Logs</h2>
             <ul className="mt-1 space-y-1">
               {renderMealItems(dinnerLogs)}
-              {dinnerLogs?.length === 0 && <h1 className='text-indigo-300'>No dinner logs on.</h1>}
+              {dinnerLogs?.length === 0 && <h1 className='text-indigo-300'>No dinner logs on {formattedDate}.</h1>}
             </ul>
           </li>
           <li className="py-4">
             <h2 className="text-lg font-semibold text-indigo-600">Snack Logs</h2>
             <ul className="mt-1 space-y-1">
               {renderMealItems(snackLogs)}
-              {snackLogs?.length === 0 && <h1 className='text-indigo-300'>No snack logs on.</h1>}
+              {snackLogs?.length === 0 && <h1 className='text-indigo-300'>No snack logs on {formattedDate}.</h1>}
             </ul>
           </li>
         </ul>
