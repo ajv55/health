@@ -74,11 +74,11 @@ export default function Lunch() {
     <div className='w-full lg:h-16 h-20 lg:p-2 p-1 bg-indigo-200 flex lg:flex-row flex-col-reverse justify-between items-center'>
                     <div className=' flex  lg:w-[30%] w-full sm:w-[32%] justify-start gap-2 lg:justify-start lg:gap-24 items-center'>
                         {lunchModal ? <IoIosArrowUp onClick={() => dispatch(setLunchModal(!lunchModal))} size={25} className='text-gray-500 hover:bg-gray-500 hover:bg-opacity-20 p-1 w-8 h-8 hover:rounded-full cursor-pointer' /> : <IoIosArrowDown onClick={() => dispatch(setLunchModal(!lunchModal))} size={25} className='text-gray-500 hover:bg-gray-500 hover:bg-opacity-20 p-1 w-8 h-8 hover:rounded-full cursor-pointer' />}
-                        <h1 className='text-lg sm:text-xl font-medium tracking-wider leading-5'>Lunch</h1>
+                        <h1 className='text-2xl sm:text-xl font-medium tracking-wider leading-5'>Lunch</h1>
                     </div>
                     <div className='w-full lg:w-[67%]  flex justify-evenly items-center'>
                         {amounts.map((value, index) => (
-                            <span key={index} className='text-xs sm:text-lg w-[50px] sm:w-32 flex justify-center items-center hover:text-indigo-600 hover:cursor-pointer text-indigo-400 font-bold'>{value}</span>
+                            <span key={index} className='text-sm sm:text-lg w-[50px] sm:w-32 flex justify-center items-center hover:text-indigo-600 hover:cursor-pointer text-indigo-400 font-bold'>{value}</span>
                         ))}
                     </div>
                 </div>

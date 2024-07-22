@@ -134,7 +134,7 @@ const ProgressBar = () => {
         <circle
           cx="50%"
           cy="50%"
-          r={`${smallScreen ? '80' : '120'}`}
+          r={`${smallScreen ? '70' : '120'}`}
           stroke="#edeffb"
           strokeWidth="10"
           fill="transparent"
@@ -142,7 +142,7 @@ const ProgressBar = () => {
         <circle
           cx="50%"
           cy="50%"
-          r={`${smallScreen ? '80' : '120'}`}
+          r={`${smallScreen ? '70' : '120'}`}
           stroke="#3f22f9"
           strokeWidth="10"
           fill="transparent"
@@ -152,7 +152,7 @@ const ProgressBar = () => {
         />
       </svg>
       <div className="absolute flex flex-col justify-center items-center gap-2 text-xl font-bold">
-        <span className="text-3xl text-indigo-600 font-light">{Math.round(total.calories)}</span>
+        <span className="lg:text-3xl text-xl text-indigo-600 font-light">{Math.round(total.calories)}</span>
         <span className="text-xl text-gray-400 font-extralight">Calories Left</span>
         <span className="text-xl text-gray-500 font-light">{Math.round(caloriesLeft)}</span>
       </div>

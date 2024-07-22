@@ -23,11 +23,11 @@ export default function LogProtein() {
    console.log(proteinPercentage)
 
   return (
-    <div className='w-full h-full flex p-2  flex-col justify-center gap-1 items-center'>
+    <div className='w-full h-full flex p-2   flex-col justify-center gap-1 items-center'>
         <div className='w-full flex justify-between items-center'>
-            <span className='text-indigo-400 font-light'>Proteins</span>
-            <div className='flex justify-center items-center gap-1'>
-                <span>{proteinPercentage}%</span>
+            <span className='text-indigo-400 lg:text-lg text-xs font-light'>Proteins</span>
+            <div className='flex lg:text-lg text-xs justify-center items-center gap-1'>
+                <span>{proteinPercentage || 0}%</span>
                 <span>cals</span>
             </div>
         </div>
@@ -35,16 +35,16 @@ export default function LogProtein() {
         <div className='w-full h-4 bg-indigo-50 rounded-lg overflow-hidden'>
         <motion.div
           initial={false}
-          animate={{ width: `${proteinPercentage}%` }}
+          animate={{ width: `${proteinPercentage || 0}%` }}
           transition={{ duration: 0.5, ease: 'easeInOut' }}
           className='h-full bg-indigo-400 rounded-lg'
-          style={{ width: `${proteinPercentage}%`}}
+          style={{ width: `${proteinPercentage || 0}%`}}
         />
       </div>
 
-        <div className='flex w-full justify-between items-center'>
-            <span>{Math.round(grams?.proteinGrams)}g</span>
-            <span className='text-indigo-600'>left {Math.round(proteinLeft)} g</span>
+        <div className='flex w-full justify-between lg:text-lg text-xs items-center'>
+            <span>{Math.round(grams?.proteinGrams) || 0}g</span>
+            <span className='text-indigo-600 '>left {Math.round(proteinLeft) || 0} g</span>
         </div>
 
     </div>

@@ -32,18 +32,18 @@ const NutritionComponent = () => {
 
 
     const nutritionData = [
-      { name: "Sat. Fat", value: `${Math.round(total.satFat)} g`, target: `left ${satFatLeft} g`, progress: satFatPercentage },
-      { name: "Trans Fat", value: `${total.transFat} g`, target: `left ${transFatLeft} g`, progress: transFatPercentage },
-      { name: "Fiber", value: `${total.fiber} g`, target: `left ${fiberLeft} g`, progress: fiberPercentage },
-      { name: "Sodium", value: `${Math.round(total.sodium)} mg`, target: `left ${Math.round(sodiumLeft)} g`, progress: sodiumPercentage },
-      { name: "Calcium", value: `${Math.round(total.calcium)} %`, target: `left ${calciumLeft} g`, progress: calciumPercentage },
+      { name: "Sat. Fat", value: `${Math.round(total.satFat) || 0} g`, target: `left ${satFatLeft || 0} g`, progress: satFatPercentage || 0 },
+      { name: "Trans Fat", value: `${total.transFat || 0} g`, target: `left ${transFatLeft || 0} g`, progress: transFatPercentage || 0 },
+      { name: "Fiber", value: `${total.fiber || 0} g`, target: `left ${fiberLeft || 0} g`, progress: fiberPercentage || 0 },
+      { name: "Sodium", value: `${Math.round(total.sodium) || 0} mg`, target: `left ${Math.round(sodiumLeft) || 0} g`, progress: sodiumPercentage || 0 },
+      { name: "Calcium", value: `${Math.round(total.calcium) || 0} %`, target: `left ${calciumLeft || 0} g`, progress: calciumPercentage || 0 },
     ];
   
     return (
-      <div className="p-4 w-full h-full  rounded-md">
-        <div className="grid grid-cols-3 justify-center items-center gap-4 text-center">
+      <div className="p-4 w-full h-full rounded-md">
+        <div className="grid grid-cols-3  justify-center items-center gap-4 text-center">
           {nutritionData.map((item, index) => (
-            <div key={index}>
+            <div key={index} className="bg-white p-3 drop-shadow-xl rounded-md ring-1 w-24 lg:w-36 ring-indigo-400">
               <div className="text-indigo-500 font-bold">{item.name}</div>
               <div className="text-xl">{item.value}</div>
               <div>{item.target.split(' ')[0]}</div>

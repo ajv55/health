@@ -25,9 +25,9 @@ export default function LogCarb() {
   return (
     <div className='w-full h-full flex p-2  flex-col justify-center gap-1 items-center'>
         <div className='w-full flex justify-between items-center'>
-            <span className='text-indigo-400 font-light'>Carbs</span>
-            <div className='flex justify-center items-center gap-1'>
-                <span>{carbPercentage}%</span>
+            <span className='text-indigo-400 lg:text-lg text-xs font-light'>Carbs</span>
+            <div className='flex lg:text-lg text-xs justify-center items-center gap-1'>
+                <span>{carbPercentage || 0}%</span>
                 <span>Cals</span>
             </div>
         </div>
@@ -35,16 +35,16 @@ export default function LogCarb() {
         <div className='w-full h-4 bg-indigo-50 rounded-lg overflow-hidden'>
         <motion.div
           initial={false}
-          animate={{ width: `${carbPercentage}%` }}
+          animate={{ width: `${carbPercentage || 0}%` }}
           transition={{ duration: 0.5, ease: 'easeInOut' }}
           className='h-full bg-indigo-400 rounded-lg'
-          style={{ width: `${carbPercentage}%`}}
+          style={{ width: `${carbPercentage || 0}%`}}
         />
       </div>
 
-        <div className='flex w-full justify-between items-center'>
-            <span>{Math.round(grams?.carbGrams)}g</span>
-            <span>left {Math.round(carbLeft)} g</span>
+        <div className='flex w-full lg:text-lg text-xs justify-between items-center'>
+            <span>{Math.round(grams?.carbGrams) || 0}g</span>
+            <span>left {Math.round(carbLeft) || 0} g</span>
         </div>
 
     </div>

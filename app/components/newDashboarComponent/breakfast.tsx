@@ -92,11 +92,11 @@ export default function Breakfast() {
                   className={`text-gray-500 hover:bg-gray-500 hover:bg-opacity-15 p-1 w-8 h-8 rounded-full cursor-pointer ${pressed ? 'pressed' : ''}`}
               />
           )}
-          <h1 className='text-lg sm:text-xl font-medium tracking-wider leading-5'>Breakfast</h1>
+          <h1 className='text-2xl sm:text-xl font-medium tracking-wider leading-5'>Breakfast</h1>
       </div>
       <div className='w-full lg:w-[67%] flex justify-evenly items-center'>
           {amounts.map((value, index) => (
-              <span key={index} className='text-xs sm:text-lg w-[50px] sm:w-32 flex justify-center items-center hover:text-indigo-600 hover:cursor-pointer text-indigo-400 font-bold'>{value}</span>
+              <span key={index} className='text-sm sm:text-lg w-[50px] sm:w-32 flex justify-center items-center hover:text-indigo-600 hover:cursor-pointer text-indigo-400 font-bold'>{value}</span>
           ))}
       </div>
   </div>
