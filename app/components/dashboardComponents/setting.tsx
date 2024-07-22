@@ -205,7 +205,7 @@ export default function Setting({closeOnClick, arrowOnClick}: SettingProps) {
         </div>
       </div>
 
-      <div className="flex lg:flex-row flex-col justify-between mt-6 items-center">
+      <div className="flex lg:flex-row flex-col justify-between lg:gap-0 gap-5 mt-6 items-center">
       <div className="lg:w-[40%] w-full  flex justify-center items-center ">
         <button onClick={handleCancelModal} className="rounded-lg text-xl font-medium tracking-wide text-white bg-gradient-to-bl from-indigo-900 via-indigo-700 to-indigo-900 w-full py-3 hover:bg-gradient-to-bl hover:from-indigo-800 hover:via-indigo-600 hover:to-indigo-800 transition duration-200">
           Cancel Subscription

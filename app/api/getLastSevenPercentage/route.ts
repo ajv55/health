@@ -1,8 +1,12 @@
 import prisma from "@/app/libs/prismadb";
 import { NextRequest, NextResponse } from "next/server";
 import { addDays, startOfDay } from "date-fns";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/libs/option";
 
 export async function GET(req: NextRequest) {
+
+  const session = await getServerSession(authOptions)
 
   const searchParams = await req.nextUrl.searchParams;
   const days = parseInt(searchParams.get('days') || '7', 10);
@@ -12,6 +16,7 @@ export async function GET(req: NextRequest) {
 
   const breakfastLogs = await prisma.mealLog.findMany({
     where: {
+      userId: session?.user.id,
       createdAt: {
         gte: daysAgo,
       },

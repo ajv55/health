@@ -187,60 +187,65 @@ useEffect(() => {
 
 
   return (
-    <div className='w-full h-screen flex flex-col justify-start items-center gap-8 overflow-hidden'>
-            <div className='w-[90%] h-content rounded-md mt-8 drop-shadow-2xl'>
-                {/* First heading section */}
-                <div className='w-full h-16  bg-slate-50 rounded-t-md p-2 flex justify-between items-center'>
-                    <div className='flex relative justify-center items-center gap-5'>
-                      {overSearch && <div className='w-[60%] absolute -bottom-7 -left-5 h-4 rounded-sm bg-black bg-opacity-30 flex p-0.5 justify-center items-center'><p className='text-[14px] text-white font-bold'>Click here to search foods</p></div>}
-                      {overRecent && <div className='w-[64%] absolute -bottom-7 -left-3 h-4 rounded-sm bg-black bg-opacity-30 flex p-0.5 justify-center items-center'><p className='text-[14px] text-white font-bold'>Click here for recent foods</p></div>}
-                        <IoSearchOutline onMouseEnter={() => setOverSearch(true)} onMouseLeave={() => setOverSearch(false)} onClick={() => router.push('/dashboard/calories/search')} className='cursor-pointer' size={25} />
-                        <IoStar onClick={() => router.push('/dashboard/calories/search?tab=recentMeals')} onMouseEnter={() => setOverRecent(true)} onMouseLeave={() => setOverRecent(false)}  className='cursor-pointer' size={25} />
-                        <TbChefHat onClick={() => router.push('/dashboard/calories/search?tab=recipes')} className='cursor-pointer' size={25} />
-                        <span className='text-xs hover:text-indigo-600 hover:cursor-pointer text-indigo-400 self-end font-bold'>Consumed food, amount</span>
-                    </div>
-                    <div className='w-[67%]  flex justify-evenly items-center'>
-                        {["Calories", "Protein g", "Carbs g", "Fat g", "Sat. Fat g", "Trans. Fat g", "Fiber g", "Sodium mg", "Calcium %"].map((item, index) => (
-                            <span key={index} className='text-md  w-32 flex justify-center items-center  hover:text-indigo-600 hover:cursor-pointer text-indigo-400 font-bold'>{item}</span>
-                        ))}
-                    </div>
-                </div>
-                {/* Second section where the breakfast, lunch, and dinner go */}
-                <Breakfast />
-                {mealLogs?.length !== 0 && breakfastModal && mealLogs?.map((meals: any, idx: number) => {
-                  console.log(meals)
-                  return <BreakfastLogs key={idx} id={meals?.id} name={meals?.name} fiber={meals?.fiber} carbs={meals?.carbs} calories={meals?.calories} fat={meals?.fat} protein={meals?.protein} transFat={meals?.transFat} satFat={meals?.satFat} calcium={meals?.calcium} sodium={meals?.sodium} />
-                })}
-                {breakfastModal && <BreakfastList  />}
-                {/* Second section where the breakfast, lunch, and dinner go */}
-                <Lunch />
-                {lunchLogs?.length !== 0 && lunchModal && lunchLogs?.map((meals: any, idx: number) => {
-                  console.log(meals)
-                  return <LunchLog key={idx} id={meals?.id} name={meals?.name} fiber={meals?.fiber} carbs={meals?.carbs} calories={meals?.calories} fat={meals?.fat} protein={meals?.protein} transFat={meals?.transFat} satFat={meals?.satFat} calcium={meals?.calcium} sodium={meals?.sodium} />
-                })}
-                {lunchModal && <LunchList  />}
-                {/* Second section where the breakfast, lunch, and dinner go */}
-                <Dinner />
-                {dinnerLogs?.length !== 0 && dinnerModal && dinnerLogs?.map((meals: any, idx: number) => {
-                  console.log(meals)
-                  return <DinnerLog key={idx} id={meals?.id} name={meals?.name} fiber={meals?.fiber} carbs={meals?.carbs} calories={meals?.calories} fat={meals?.fat} protein={meals?.protein} transFat={meals?.transFat} satFat={meals?.satFat} calcium={meals?.calcium} sodium={meals?.sodium} />
-                })}
-                {dinnerModal && <DinnerList  />}
-                <Snack />
-                {snackLogs?.length !== 0 && snackModal && snackLogs?.map((meals: any, idx: number) => {
-                  console.log(meals)
-                  return <SnackLog key={idx} id={meals?.id} name={meals?.name} fiber={meals?.fiber} carbs={meals?.carbs} calories={meals?.calories} fat={meals?.fat} protein={meals?.protein} transFat={meals?.transFat} satFat={meals?.satFat} calcium={meals?.calcium} sodium={meals?.sodium} />
-                })}
-                {snackModal && <SnackList  />}  
-                
+    <div className='w-full h-screen  flex flex-col justify-start items-center gap-8 lg:overflow-hidden '>
+    <div className='w-[90%] h-content rounded-md mt-8 drop-shadow-2xl'>
+        {/* First heading section */}
+        <div className='w-full h-16  bg-slate-50  rounded-t-md p-2 flex  justify-between items-center'>
+            <div className='flex relative justify-center items-center gap-5'>
+              {overSearch && <div className='w-[60%] absolute -bottom-7 -left-5 h-4 rounded-sm bg-black bg-opacity-30 flex p-0.5 justify-center items-center'><p className='text-[14px] text-white font-bold'>Click here to search foods</p></div>}
+              {overRecent && <div className='w-[64%] absolute -bottom-7 -left-3 h-4 rounded-sm bg-black bg-opacity-30 flex p-0.5 justify-center items-center'><p className='text-[14px] text-white font-bold'>Click here for recent foods</p></div>}
+                <IoSearchOutline onMouseEnter={() => setOverSearch(true)} onMouseLeave={() => setOverSearch(false)} onClick={() => router.push('/dashboard/calories/search')} className='cursor-pointer' size={25} />
+                <IoStar onClick={() => router.push('/dashboard/calories/search?tab=recentMeals')} onMouseEnter={() => setOverRecent(true)} onMouseLeave={() => setOverRecent(false)}  className='cursor-pointer' size={25} />
+                <TbChefHat onClick={() => router.push('/dashboard/calories/search?tab=recipes')} className='cursor-pointer' size={25} />
+                <span className='text-xs hover:text-indigo-600 hover:cursor-pointer text-indigo-400 self-end font-bold'>Consumed food, amount</span>
             </div>
-            <AnimatePresence>
-            {!snackModal && !breakfastModal && !lunchModal && !dinnerModal && <LogProgress />}
-            </AnimatePresence>
-            
-
-            
+            <div className='w-[67%] lg:flex hidden overflow-x-scroll justify-evenly lg:gap-0 gap-5 items-center'>
+                {["Calories", "Protein g", "Carbs g", "Fat g", "Sat. Fat g", "Trans. Fat g", "Fiber g", "Sodium mg", "Calcium %"].map((item, index) => (
+                    <span key={index} className='text-xs lg:text-[15px]  lg:w-32 w-56 flex justify-center items-center  hover:text-indigo-600 hover:cursor-pointer text-indigo-400 font-bold'>{item}</span>
+                ))}
+            </div>
         </div>
+        <div className='w-full h-content bg-gray-50 lg:hidden flex  justify-center  gap-2 items-center'>
+        {["Calories", "Protein g", "Carbs g", "Fat g", "Sat. Fat g", "Trans. Fat g", "Fiber g", "Sodium mg", "Calcium %"].map((item, index) => (
+                    <span key={index} className='text-[10px] text-balance text-center w-12 lg:text-[15px] flex justify-center items-center  hover:text-indigo-600 hover:cursor-pointer text-indigo-400 font-bold'>{item}</span>
+                ))}
+        </div>
+        {/* Second section where the breakfast, lunch, and dinner go */}
+        <Breakfast />
+        {mealLogs?.length !== 0 && breakfastModal && mealLogs?.map((meals: any, idx: number) => {
+          console.log(meals)
+          return <BreakfastLogs key={idx} id={meals?.id} name={meals?.name} fiber={meals?.fiber} carbs={meals?.carbs} calories={meals?.calories} fat={meals?.fat} protein={meals?.protein} transFat={meals?.transFat} satFat={meals?.satFat} calcium={meals?.calcium} sodium={meals?.sodium} />
+        })}
+        {breakfastModal && <BreakfastList  />}
+        {/* Second section where the breakfast, lunch, and dinner go */}
+        <Lunch />
+        {lunchLogs?.length !== 0 && lunchModal && lunchLogs?.map((meals: any, idx: number) => {
+          console.log(meals)
+          return <LunchLog key={idx} id={meals?.id} name={meals?.name} fiber={meals?.fiber} carbs={meals?.carbs} calories={meals?.calories} fat={meals?.fat} protein={meals?.protein} transFat={meals?.transFat} satFat={meals?.satFat} calcium={meals?.calcium} sodium={meals?.sodium} />
+        })}
+        {lunchModal && <LunchList  />}
+        {/* Second section where the breakfast, lunch, and dinner go */}
+        <Dinner />
+        {dinnerLogs?.length !== 0 && dinnerModal && dinnerLogs?.map((meals: any, idx: number) => {
+          console.log(meals)
+          return <DinnerLog key={idx} id={meals?.id} name={meals?.name} fiber={meals?.fiber} carbs={meals?.carbs} calories={meals?.calories} fat={meals?.fat} protein={meals?.protein} transFat={meals?.transFat} satFat={meals?.satFat} calcium={meals?.calcium} sodium={meals?.sodium} />
+        })}
+        {dinnerModal && <DinnerList  />}
+        <Snack />
+        {snackLogs?.length !== 0 && snackModal && snackLogs?.map((meals: any, idx: number) => {
+          console.log(meals)
+          return <SnackLog key={idx} id={meals?.id} name={meals?.name} fiber={meals?.fiber} carbs={meals?.carbs} calories={meals?.calories} fat={meals?.fat} protein={meals?.protein} transFat={meals?.transFat} satFat={meals?.satFat} calcium={meals?.calcium} sodium={meals?.sodium} />
+        })}
+        {snackModal && <SnackList  />}  
+        
+    </div>
+    <AnimatePresence>
+    {!snackModal && !breakfastModal && !lunchModal && !dinnerModal && <LogProgress />}
+    </AnimatePresence>
+    
+
+    
+</div> 
   )
 }
 

@@ -240,7 +240,7 @@ export default function BreakfastList() {
 
   return (
     <div  className='w-full h-20 flex justify-start gap-5 items-center bg-slate-100'>
-        <div className='flex relative w-[30%] justify-center gap-3 p-1 items-center'>
+        <div className='flex relative lg:w-[30%] w-[62%] justify-center gap-3 p-1 items-center'>
            <FaPencilAlt className='text-indigo-500 mt-3' size={20} />
            <div className="relative z-0  w-full group">
                 <input onBlur={handleBlur} value={searchTerm} onChange={handleInputChange} onFocus={handleFocus} ref={ref} type="text" name="breakfast" id="breakfast" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer" placeholder=" " required />
@@ -258,7 +258,7 @@ export default function BreakfastList() {
                         {/* Render fetched foods */}
                         {filteredFoods.map((food: any, index: number) => (
                             <div onClick={() => handleFoodSelect(food)} key={index} className="p-2 w-full hover:bg-indigo-100 hover:text-indigo-600 hover:border-r-4 border-indigo-700 flex justify-between items-center cursor-pointer">
-                                <h1 className="text-md font-medium tracking-wide">{food?.name}</h1>
+                                <h1 className="text-lg font-medium tracking-wide">{food?.name}</h1>
                                 <span>{food?.calories} cal</span>
                             </div>
                         ))}
@@ -275,7 +275,7 @@ export default function BreakfastList() {
                         transition={{ duration: 0.3 }}
                         className="flex w-full justify-start items-center gap-3 mt-5"
                     >
-                        <div className="flex w-[45%]  justify-start items-center gap-3">
+                        <div className="flex lg:w-[45%] w-[52%]  justify-start items-center gap-3">
                             <input
                                 type="number"
                                 className="block py-2 px-4 w-[36%] text-sm text-gray-900 bg-transparent border-2 border-gray-300 rounded-md appearance-none dark:text-white dark:border-gray-600 dark:focus:border-indigo-500 focus:outline-none focus:ring-0 focus:border-indigo-600 peer"
@@ -325,7 +325,7 @@ export default function BreakfastList() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
                         transition={{ duration: 0.3 }}
-                        className="p-1 flex justify-evenly items-center gap-6  mt-1 w-full"
+                        className="p-1 flex justify-evenly lg:text-xl text-sm items-center gap-6  mt-1 overflow-x-scroll w-full"
                     >
                         {/* search button will take user to another page within the calories route to show the user a page for them to search up different foods from the database */}
                         <button className="hover:bg-indigo-200 hover:text-indigo-800 text-indigo-500 px-3 py-2 rounded-md">Search</button>

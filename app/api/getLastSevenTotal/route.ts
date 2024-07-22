@@ -1,7 +1,12 @@
+import { authOptions } from "@/app/libs/option";
 import prisma from "@/app/libs/prismadb";
+import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
+
+    const session = await getServerSession(authOptions)
+
     const searchParams = await req.nextUrl.searchParams;
     const startDate = searchParams.get('startDate');
     const days = parseInt(searchParams.get('days') || '7', 10);
@@ -22,6 +27,7 @@ export async function GET(req: NextRequest) {
         // Fetch logs for each meal type within the specified date range
         const breakfastLogs = await prisma.mealLog.findMany({
             where: {
+                userId: session?.user.id,
                 createdAt: {
                     gte: adjustedStartDate,
                     lte: end,

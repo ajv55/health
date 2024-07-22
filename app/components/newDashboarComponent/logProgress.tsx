@@ -113,7 +113,7 @@ export default function LogProgress() {
 
   return (
     <motion.div
-    className='w-[90%] h-[45rem] flex justify-start  items-center bg-white rounded-xl mb-8'
+    className='w-[90%] h-[45rem] flex justify-start  items-center bg-white ring-2 ring-indigo-500 rounded-xl mb-8'
     initial={{ y: '100vh', opacity: 0 }}
     animate={{ y: 0, opacity: 1 }}
     exit={{ y: '100vh', opacity: 0 }}
