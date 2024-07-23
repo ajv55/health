@@ -11,18 +11,18 @@ export default function Footer() {
     <div className='relative flex  flex-col lg:flex-wrap lg:flex-row  justify-center items-start  bg-gradient-to-bl from-indigo-950 via-indigo-950 to-indigo-950 w-full lg:h-[26rem] h-content'>
         <div className='w-full border-[6px] border-indigo-300'></div>
         <div className='  w-full  lg:w-[45%] lg:h-content  h-[20rem]  flex flex-col justify-evenly items-start'>
-               <div className='flex  justify-center items-center gap-3'>
+               <div className='flex lg:p-0 p-2  justify-center items-center gap-3'>
                     <h1 className='font-light lg:text-6xl text-white text-5xl tracking-wider'>FitGenius</h1>
                     <FiActivity className='lg:w-16 lg:h-16' size={40} color='gold'/>
                 </div>
                 <div className='flex mt-4 lg:mt-0 ml-2 justify-between gap-2 items-center'>
           <MdOutlineMailOutline size={37} color='white' />
-          <a href="mailto:contact@myfitgenius.com" className='lg:text-2xl text-3xl text-white text-center'>contact@myfitgenius.com</a>
+          <a href="mailto:contact@myfitgenius.com" className='lg:text-2xl text-xl text-white text-center'>contact@myfitgenius.com</a>
         </div>
 
         <form  className='w-full'>
           <div className='flex p-3 flex-col lg:w-[32rem] w-full gap-3 rounded-lg items-start justify-start'>
-            <label htmlFor="email" className='text-xl text-white font-semibold  tracking-widest '>Subscribe To Our Newsletter</label>
+            <label htmlFor="email" className='lg:text-xl text-lg text-white font-semibold  tracking-widest '>Subscribe To Our Newsletter</label>
             <input
               className='block p-2.5 w-full text-lg text-grey-700 bg-slate-200 rounded-lg focus:ring-orange-500 focus:border-teal-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-orange-500 dark:focus:border-orange-500'
               placeholder='Email ...'
@@ -58,7 +58,7 @@ export default function Footer() {
             </nav>
 
         </div>
-        <div className=' lg:w-full lg:mt-0 mt-8 w-[97%] h-[4rem] flex gap-10 justify-center items-center'>
+        <div className=' lg:w-full lg:mt-0 mt-8 w-[97%] lg:h-[4rem] h-[10rem] flex lg:flex-row flex-col gap-10 justify-center items-center'>
             <p className='text-xl text-center text-white lg:text-right'>Copyright © 2024 MyFitGenius. All rights reserved.</p>
             <p className='text-lg text-center text-white lg:text-right'>Designed and built by Abel J. Villareal</p>
         </div>

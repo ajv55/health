@@ -56,14 +56,12 @@ const SearchTab = () => {
           </button>
         ))}
       </div>
-      <div className="p-4  h-[40rem]  overflow-scroll ">
+      <div className="lg:p-4 p-0 w-full    h-[40rem] flex justify-center items-start  overflow-scroll ">
         {activeTab === 'summary' && <Search />}
         {activeTab === 'stapleFoods' && <Staple />}
         {activeTab === 'recentMeals' && <Recent />}
         {activeTab === 'favorite' && <Favorite />}
-        <div className=''>
-          {activeTab === 'custom' && <Custom />}
-        </div>
+        {activeTab === 'custom' && <Custom />}
         {activeTab === 'recipes' && <Recipe />}
       </div>
     </div>

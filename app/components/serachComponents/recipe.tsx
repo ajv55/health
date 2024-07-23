@@ -79,7 +79,7 @@ const Recipe = () => {
   const filterSnackRecipe = snackRecipe.slice(0, 4);
 
   return (
-    <div className="min-h-screen relative bg-indgio-50 py-8">
+    <div className="min-h-screen lg:w-full relative bg-indgio-50 py-8">
       {recipeModal && <RecipeModal />}
       <div className="container mx-auto">
         <h1 className="text-6xl font-bold text-center text-indigo-700 mb-8">

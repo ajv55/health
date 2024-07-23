@@ -27,8 +27,8 @@ export default function Custom() {
   }, []);
 
   return (
-    <div className="min-h-screen p-4">
-      <div className="max-w-6xl mx-auto ring-1 ring-indigo-400 bg-indigo-50 shadow-md rounded-lg lg:p-6 p-4 relative">
+    <div className="min-h-screen w-full p-4">
+      <div className="  ring-1 ring-indigo-400 bg-indigo-50 shadow-md rounded-lg lg:p-6 p-4 relative">
         <div className="flex justify-between items-center border-b pb-4 mb-4">
           <Link href='/dashboard/calories' className="text-indigo-600 lg:text-xl text-sm font-semibold">
             ← BACK TO MEALS
@@ -69,7 +69,7 @@ export default function Custom() {
             })}
         </div>
         <div className="mt-4 flex justify-end items-center w-full">
-          <h2>{userIsActive === false ? <Link className="text-indigo-600 text-sm" href='/pricing'>Become a premium user!</Link> : ''}</h2>
+          <h2>{userIsActive === false ? <Link className="text-indigo-600 lg:text-sm text-[10px]" href='/pricing'>Become a premium user!</Link> : ''}</h2>
         </div>
       </div>
     </div>

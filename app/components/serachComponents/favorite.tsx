@@ -116,7 +116,7 @@ const Favorite = () => {
   const skeletonList = [1,2,3,4,5,6,7]
 
   return (
-    <div className="min-h-screen p-4">
+    <div className="min-h-screen lg:w-full p-4">
       <div className="max-w-6xl mx-auto ring-1 ring-indigo-400 bg-indigo-50 shadow-md rounded-lg p-6 relative">
         <div className="flex justify-between items-center border-b pb-4 mb-4">
           <Link href='/dashboard/calories' className="text-indigo-600 font-semibold">
@@ -193,11 +193,11 @@ const Favorite = () => {
               )
             })}
         </div>
-        <div className="mt-4 flex justify-between items-center w-full">
-          <Link href='/dashboard/calories/search?tab=custom' className="text-indigo-600 lg:text-xl text-sm font-semibold">
+        <div className="mt-4 flex justify-between items-center gap-2 w-full">
+          <Link href='/dashboard/calories/search?tab=custom' className="text-indigo-600 lg:text-xl text-xs font-semibold">
             CREATE AND LOG CUSTOM FOOD
           </Link>
-          <h2>{userIsActive === false ? <Link className="text-indigo-600 text-sm" href='/pricing'>Become a premium user!</Link> : ''}</h2>
+          <h2>{userIsActive === false ? <Link className="text-indigo-600 lg:text-sm text-[10px]" href='/pricing'>Become a premium user!</Link> : ''}</h2>
         </div>
       </div>
     </div>

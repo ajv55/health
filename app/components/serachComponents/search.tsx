@@ -115,8 +115,8 @@ const Search = () => {
   const skeletonList = [1,2,3,4,5,6,7]
 
   return (
-    <div className="min-h-screen w-full p-4">
-      <div className=" w-full  mx-auto ring-1 ring-indigo-400 bg-indigo-50 shadow-md rounded-lg p-6 relative">
+    <div className="w-full p-4">
+      <div className=" w-full ring-1 ring-indigo-400 bg-indigo-50 shadow-md rounded-lg p-6 relative">
         <div className="flex justify-between items-center border-b pb-4 mb-4">
           <Link href='/dashboard/calories' className="text-indigo-600 font-semibold">
             ← BACK TO MEALS
@@ -176,7 +176,7 @@ const Search = () => {
             )}
           </AnimatePresence>
         </div>
-        <div className="bg-white p-3 ring-2 shadow-md rounded-lg overflow-scroll ring-indigo-300">
+        <div className="bg-white  p-3 ring-2 shadow-md rounded-lg overflow-scroll ring-indigo-300">
           <h2 className="text-xl font-semibold text-indigo-500 mb-4">
             Recent Foods
           </h2>
@@ -241,10 +241,10 @@ const Search = () => {
             })}
         </div>
         <div className="mt-4 flex justify-between items-center w-full">
-          <Link href='/dashboard/calories/search/customFood' className="text-indigo-600 lg:text-xl text-sm font-semibold">
+          <Link href='/dashboard/calories/search/customFood' className="text-indigo-600 lg:text-xl text-xs font-semibold">
             CREATE AND LOG CUSTOM FOOD
           </Link>
-          <h2>{userIsActive === false ? <Link className="text-indigo-600 text-sm" href='/pricing'>Become a premium user!</Link> : ''}</h2>
+          <h2>{userIsActive === false ? <Link className="text-indigo-600 lg:text-sm text-[10px]" href='/pricing'>Become a premium user!</Link> : ''}</h2>
         </div>
       </div>
     </div>
