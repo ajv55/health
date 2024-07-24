@@ -1,4 +1,4 @@
-
+'use client';
 import Image from "next/image";
 import Header from "./components/mainPage/header";
 import Features from "./components/mainPage/features";
@@ -17,8 +17,12 @@ import WeightLossSuccess from "./components/mainPage/weightLoss";
 import MissionSection from "./components/mainPage/missionSection";
 import HowItWorksComponent from "./components/mainPage/howItWorks";
 import Thanks from "./components/mainPage/thanks";
+import Chatbot from "./components/chatbot";
+import { useState } from "react";
 
 export default  function Home() {
+
+  const [visible, setVisible] = useState(false);
 
 
 
@@ -37,7 +41,14 @@ export default  function Home() {
       <Resource />
       <Contact />
       <Thanks />
-      <Footer /> 
+      <Footer />
+      <button
+        onClick={() => setVisible(!visible)}
+        className="fixed bottom-4 right-4 bg-indigo-600 text-white p-3 rounded-full shadow-lg"
+      >
+        Chat
+      </button>
+      <Chatbot visible={visible} closeChat={() => setVisible(false)} />
     </div>
   );
 }

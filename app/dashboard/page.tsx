@@ -1,6 +1,6 @@
 'use client';
 
-import {  useEffect, useRef } from 'react';
+import {  useEffect, useRef, useState } from 'react';
 import {useSession} from 'next-auth/react'
 import { useRouter } from 'next/navigation';
 import LineChart from '../components/dashboardComponents/lineChart';
@@ -20,6 +20,7 @@ import { s } from '@fullcalendar/core/internal-common';
 import DatePicker from '../components/tabComponents/datePicker';
 import WeighInModal from '../components/newDashboarComponent/weightModal';
 import axios from 'axios';
+import Chatbot from '../components/chatbot';
 
 export default  function Page() {
 

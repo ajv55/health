@@ -17,10 +17,12 @@ import { GrPlan } from "react-icons/gr";
 import { GiMeal } from "react-icons/gi";
 import { MdSpaceDashboard } from "react-icons/md";
 import { IoSettingsOutline } from "react-icons/io5";
+import Chatbot from '../components/chatbot';
 
 export default function Layout({children}: {children: React.ReactNode}) {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [visible, setVisible] = useState(false);
 
   const {data: session} = useSession();
 
@@ -124,6 +126,13 @@ export default function Layout({children}: {children: React.ReactNode}) {
           </Link>
       </nav>
         {children}
+        <button
+        onClick={() => setVisible(!visible)}
+        className="fixed bottom-4 right-4 bg-indigo-600 text-white p-3 rounded-full shadow-lg"
+      >
+        Chat
+      </button>
+      <Chatbot visible={visible} closeChat={() => setVisible(false)} />
     </div>
   )
 }

@@ -92,7 +92,7 @@ export default function Breakfast() {
                   className={`text-gray-500 hover:bg-gray-500 hover:bg-opacity-15 p-1 w-8 h-8 rounded-full cursor-pointer ${pressed ? 'pressed' : ''}`}
               />
           )}
-          <h1 className='text-2xl sm:text-xl font-medium tracking-wider leading-5'>Breakfast</h1>
+          <h1 className='text-xl lg:text-2xl font-medium tracking-wider leading-5'>Breakfast</h1>
       </div>
       <div className='w-full lg:w-[67%] flex justify-evenly items-center'>
           {amounts.map((value, index) => (

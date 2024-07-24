@@ -31,7 +31,7 @@ export default function LunchLog({name, carbs, calories, fat, protein, transFat,
     const dispatch = useDispatch();
     console.log(lunchLogs)
 
-    const amounts = [Math.round(calories!), `${protein}`, `${carbs}`, `${fat}`, `${satFat}`, `${transFat === null ?  0 : transFat}`, `${fiber}`, `${sodium}`, `${calcium}`];
+    const amounts = [Math.round(calories!), `${protein}`, `${carbs}`, `${fat}`, `${satFat}`, `${transFat === null ?  0 : transFat}`, `${fiber}`, `${sodium}`, `${calcium || 0}`];
 
   return (
     <div className='w-full group hover:bg-indigo-300 hover:bg-opacity-45 hover:text-indigo-600 hover:cursor-pointer lg:h-14 h-16 flex lg:flex-row flex-col-reverse justify-start gap-5 items-center bg-slate-100'>
