@@ -44,7 +44,7 @@ export default  function Home() {
       <Footer />
       <button
         onClick={() => setVisible(!visible)}
-        className="fixed bottom-4 right-4 bg-indigo-600 text-white p-3 rounded-full shadow-lg"
+        className="fixed bottom-4 lg:right-4 right-12 bg-indigo-600 text-white p-3 rounded-full shadow-lg"
       >
         Chat
       </button>

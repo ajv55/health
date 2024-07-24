@@ -52,7 +52,7 @@ const Chatbot: React.FC<ChatbotProps> = ({ visible, closeChat }) => {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-16 right-4 bg-white rounded-lg shadow-lg lg:w-[25%] ring-2 ring-indigo-400 max-h-96 overflow-y-auto">
+    <div className="fixed bottom-16 lg:right-4 right-12 bg-white rounded-lg shadow-lg lg:w-[25%] ring-2 ring-indigo-400 max-h-96 overflow-y-auto">
       <div className='w-full h-12 p-2 bg-gradient-to-br from-indigo-800 to-indigo-400 flex justify-between items-center'>
         <div className='flex justify-center items-center gap-2'>
           <h1 className='text-2xl text-indigo-50'>MyFitGenius</h1>
