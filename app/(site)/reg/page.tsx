@@ -39,16 +39,16 @@ export default function Register() {
     };
 
     return (
-        <div className={`${style.background} min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8`}>
+        <div className={`${style.background} min-h-screen flex items-center justify-center bg-gray-100 py-12 px-2 sm:px-6 lg:px-8`}>
             <div className="max-w-3xl w-full space-y-8">
                 <div>
-                    <h2 className="mt-6 text-center text-3xl lg:text-5xl font-extrabold text-indigo-600">
-                        Create your account
+                    <h2 className="mt-6 text-center text-4xl lg:text-5xl font-extrabold text-indigo-600">
+                        Create Your Account
                     </h2>
                 </div>
                 <form ref={ref} onSubmit={handleSubmit} className="mt-8 space-y-6">
                     <input type="hidden" name="remember" value="true" />
-                    <div className="rounded-md flex flex-col p-2 lg:flex-row lg:flex-wrap gap-4 justify-center items-center  ">
+                    <div className="rounded-md  w-full flex  flex-wrap p-2 lg:flex-row lg:flex-wrap gap-4 justify-center items-center  ">
                         <div>
                             <label htmlFor="name" className="sr-only">Username</label>
                             <input
@@ -59,7 +59,7 @@ export default function Register() {
                                 onChange={(e) => setData({ ...data, name: e.target.value })}
                                 autoComplete="name"
                                 required
-                                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:shadow-md  focus:outline-none focus:ring-indigo-500 focus:shadow-indigo-400 focus:border-indigo-500 focus:z-10 lg:text-xl text-md"
+                                className="appearance-none rounded-none relative block w-32 lg:w-full  px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:shadow-md  focus:outline-none focus:ring-indigo-500 focus:shadow-indigo-400 focus:border-indigo-500 focus:z-10 lg:text-xl text-md"
                                 placeholder="Username"
                             />
                         </div>
@@ -73,7 +73,7 @@ export default function Register() {
                                 onChange={(e) => setData({ ...data, email: e.target.value })}
                                 autoComplete="email"
                                 required
-                                className="appearance-none focus:shadow-md focus:shadow-indigo-400 rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 lg:text-xl text-md"
+                                className="appearance-none focus:shadow-md focus:shadow-indigo-400 rounded-none relative block w-32 lg:w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 lg:text-xl text-md"
                                 placeholder="Email address"
                             />
                         </div>
@@ -87,7 +87,7 @@ export default function Register() {
                                 onChange={(e) => setData({ ...data, password: e.target.value })}
                                 autoComplete="current-password"
                                 required
-                                className="appearance-none focus:shadow-md focus:shadow-indigo-400 rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 lg:text-xl text-md"
+                                className="appearance-none focus:shadow-md focus:shadow-indigo-400 rounded-none relative block w-32 lg:w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 lg:text-xl text-md"
                                 placeholder="Password"
                             />
                         </div>
@@ -100,7 +100,7 @@ export default function Register() {
                                 value={data.age}
                                 onChange={(e) => setData({ ...data, age: e.target.value })}
                                 required
-                                className="appearance-none focus:shadow-md focus:shadow-indigo-400 rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 lg:text-xl text-md"
+                                className="appearance-none focus:shadow-md focus:shadow-indigo-400 rounded-none relative block w-32 lg:w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 lg:text-xl text-md"
                                 placeholder="Age"
                             />
                         </div>
@@ -113,7 +113,7 @@ export default function Register() {
                                 value={data.weightInLbs}
                                 onChange={(e) => setData({ ...data, weightInLbs: e.target.value })}
                                 required
-                                className="appearance-none focus:shadow-md focus:shadow-indigo-400 rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 lg:text-xl text-md"
+                                className="appearance-none focus:shadow-md focus:shadow-indigo-400 rounded-none relative block w-32 lg:w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 lg:text-xl text-md"
                                 placeholder="Weight (lbs)"
                             />
                         </div>
@@ -125,7 +125,7 @@ export default function Register() {
                                 value={data.heightInInches}
                                 onChange={(e) => setData({ ...data, heightInInches: e.target.value })}
                                 required
-                                className="appearance-none focus:shadow-md focus:shadow-indigo-400 rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 lg:text-xl text-md"
+                                className="appearance-none focus:shadow-md focus:shadow-indigo-400 rounded-none relative block w-32 lg:w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 lg:text-xl text-md"
                             >
                                 <option value="" disabled>Choose height</option>
                                 {Array.from({ length: 4 }, (_, i) => i + 4).flatMap(feet =>
@@ -147,7 +147,7 @@ export default function Register() {
                                 value={data.gender}
                                 onChange={(e) => setData({ ...data, gender: e.target.value })}
                                 required
-                                className="appearance-none focus:shadow-md focus:shadow-indigo-400 rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 lg:text-xl text-md"
+                                className="appearance-none focus:shadow-md focus:shadow-indigo-400 rounded-none relative block w-32 lg:w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 lg:text-xl text-md"
                             >
                                 <option value="" disabled>Choose a gender</option>
                                 <option value="Male">Male</option>
@@ -162,7 +162,7 @@ export default function Register() {
                                 value={data.TDEE}
                                 onChange={(e) => setData({ ...data, TDEE: e.target.value })}
                                 required
-                                className="appearance-none focus:shadow-md focus:shadow-indigo-400 rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 lg:text-xl text-md"
+                                className="appearance-none focus:shadow-md focus:shadow-indigo-400 rounded-none relative block w-32 lg:w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 lg:text-xl text-md"
                             >
                                 <option value="" disabled>Activity</option>
                                 <option value="No-Exercise">Little to no exercise and work a desk job</option>
