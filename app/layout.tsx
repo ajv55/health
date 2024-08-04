@@ -9,6 +9,7 @@ import Head from "next/head";
 const arapey = Arapey({ subsets: ["latin"], weight: ['400'] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.BASED_URL!),
   title: {
     default: "MyFitGenius - Your Ultimate Fitness and Health Companion",
     template: '%s MyFitGenius - Your Ultimate Fitness and Health Companion'
