@@ -83,7 +83,7 @@ export default function Nav() {
             <Link className='  hover:text-2xl hover:before:scale-x-100 hover:before:origin-right relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-indigo-600 before:absolute before:left-0 before:bottom-0' href='/About'>About</Link>
             {session &&  <Link className='  hover:text-2xl hover:before:scale-x-100 hover:before:origin-right relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-indigo-600 before:absolute before:left-0 before:bottom-0' href='/dashboard'>Dashboard</Link> }
         </nav>
-        <RiMenu3Line onClick={() => setIsOpen(!isOpen)} className='lg:hidden' size={30} color='black' />
+        <RiMenu3Line onClick={() => setIsOpen(!isOpen)} className='lg:hidden text-indigo-500' size={30}  />
         <Signing />
         </div>
     </div>
