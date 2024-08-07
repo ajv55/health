@@ -19,6 +19,7 @@ import { FaTrash } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { BsMenuUp } from "react-icons/bs";
 import { AnimatePresence, motion } from "framer-motion";
+import { setTotalCalories } from "@/app/slices/workoutSlice";
 
 type IconName =
   | 'FaRunning'
@@ -168,7 +169,7 @@ const ExerciseTracker = () => {
   const totalCalories = exerciseLog?.reduce((acc, curr) => Number(acc) + Number(curr.caloriesBurned), 0);
 
 
-  console.log(openOption)
+  console.log(totalCalories)
 
   return (
     <div className="w-[89%] mb-8  relative mx-auto bg-white rounded-lg shadow-md mt-9 p-6">
@@ -197,7 +198,7 @@ const ExerciseTracker = () => {
           >
             <div className="flex flex-col justify-start items-start space-y-4">
               <Link href='/dashboard/workout/search?tab=search' className="text-indigo-600 hover:underline">Find & Log</Link>
-              <button onClick={() => setQuickLog(true)} className="text-indigo-600 hover:underline">Quick Log</button>
+              <button onClick={() => {setQuickLog(true); setOpenOption(!openOption)}} className="text-indigo-600 hover:underline">Quick Log</button>
               <Link href='/dashboard/workout/search?tab=customExercises' className="text-indigo-600 hover:underline">Log Custom</Link>
               <Link href='/dashboard/workout/search/customExercise' className="text-indigo-600 hover:underline">Create Custom</Link>
             </div>

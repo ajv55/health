@@ -45,7 +45,7 @@ const LogDailySteps = () => {
           initial={{ y: 50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 50, opacity: 0 }}
-          className="bg-slate-100 p-6 rounded-lg shadow-lg lg:w-[35%] w-[95%]"
+          className="bg-slate-100 ring-4 ring-indigo-500 p-6 rounded-lg shadow-lg lg:w-[35%] w-[95%]"
         >
           <div className=" flex justify-between mt-4 mb-4 items-center text-center">
             <h2 className="text-lg font-semibold  text-indigo-600">Log: Daily Steps</h2>

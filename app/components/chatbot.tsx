@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { FiActivity } from 'react-icons/fi';
 import { IoMdCloseCircleOutline } from "react-icons/io";
+import { AnimatePresence, motion } from 'framer-motion';
 
 interface ChatbotProps {
   visible: boolean;
@@ -52,39 +53,43 @@ const Chatbot: React.FC<ChatbotProps> = ({ visible, closeChat }) => {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-16 lg:right-4 right-12 bg-white rounded-lg shadow-lg lg:w-[25%] ring-2 ring-indigo-400 max-h-96 overflow-y-auto">
-      <div className='w-full h-12 p-2 bg-gradient-to-br from-indigo-800 to-indigo-400 flex justify-between items-center'>
-        <div className='flex justify-center items-center gap-2'>
-          <h1 className='text-2xl text-indigo-50'>MyFitGenius</h1>
-          <FiActivity  size={20} color='gold' />
-        </div>
-        <IoMdCloseCircleOutline onClick={closeChat} size={25} className='text-indigo-50' />
-      </div>
-      <div className="flex flex-col p-2 space-y-2 mb-4">
-        {messages.map((msg, index) => (
-          <div
-            key={index}
-            className={`p-2 my-2 rounded ${
-              msg.type === 'user' ? 'bg-indigo-100 self-end text-right' : 'bg-indigo-50 self-start'
-            }`}
-          >
-            {msg.text}
+   <>
+   <AnimatePresence>
+    <motion.div initial={{scale: 0, opacity: 0}} exit={{scale: 0, opacity: 0}} animate={{scale: 1, opacity: 1}} transition={{duration: 1, type: 'spring', stiffness: 100}} className="fixed bottom-16 md:right-[5rem] lg:right-14 right-12 bg-white rounded-lg shadow-lg lg:w-[25%] ring-2 ring-indigo-400 max-h-96 overflow-y-auto">
+        <div className='w-full h-12 p-2 bg-gradient-to-br from-indigo-800 to-indigo-400 flex justify-between items-center'>
+          <div className='flex justify-center items-center gap-2'>
+            <h1 className='text-2xl text-indigo-50'>MyFitGenius</h1>
+            <FiActivity  size={20} color='gold' />
           </div>
-        ))}
-      </div>
-      <form onSubmit={handleSubmit} className="flex">
-        <input
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Ask me anything about health or exercise..."
-          className="flex-grow p-2 border border-indigo-300 rounded-l"
-        />
-        <button type="submit" className="bg-indigo-600 text-white p-2 rounded-r" disabled={loading}>
-          {loading ? 'Loading...' : 'Send'}
-        </button>
-      </form>
-    </div>
+          <IoMdCloseCircleOutline onClick={closeChat} size={25} className='text-indigo-50' />
+        </div>
+        <div className="flex flex-col p-2 space-y-2 mb-4">
+          {messages.map((msg, index) => (
+            <div
+              key={index}
+              className={`p-2 my-2 rounded ${
+                msg.type === 'user' ? 'bg-indigo-100 self-end text-right' : 'bg-indigo-50 self-start'
+              }`}
+            >
+              {msg.text}
+            </div>
+          ))}
+        </div>
+        <form onSubmit={handleSubmit} className="flex">
+          <input
+            type="text"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Ask me anything about health or exercise..."
+            className="flex-grow p-2 border border-indigo-300 rounded-l"
+          />
+          <button type="submit" className="bg-indigo-600 text-white p-2 rounded-r" disabled={loading}>
+            {loading ? 'Loading...' : 'Send'}
+          </button>
+        </form>
+      </motion.div>
+   </AnimatePresence>
+   </>
   );
 };
 

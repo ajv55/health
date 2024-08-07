@@ -52,10 +52,10 @@ export default function QuickLog({isDone, setIsDone, onClose}: {onClose: () => v
 
 
   return (
-    <div  className="fixed -inset-10 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
+    <div  className="fixed lg:-inset-10 inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
       <div className="bg-white p-2.5 z-40 rounded-lg overflow-hidden ring-4 ring-indigo-600 shadow-xl max-w-3xl w-full">
         <div className='flex justify-between mb-4 items-center'>
-           <h1 className='text-5xl  text-indigo-600'>Log Exercise Quickly</h1>
+           <h1 className='lg:text-5xl text-3xl  text-indigo-600'>Log Exercise Quickly</h1>
            <IoCloseCircle onClick={onClose} size={40}  className='text-indigo-600 hover:cursor-pointer '/>
         </div>
         <label className="block text-2xl font-medium text-indigo-500">

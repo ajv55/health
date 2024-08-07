@@ -12,8 +12,8 @@ export default function Footer() {
         <div className='w-full border-[6px] border-indigo-300'></div>
         <div className='  w-full  lg:w-[45%] lg:h-content  h-[20rem]  flex flex-col justify-evenly items-start'>
                <div className='flex lg:p-0 p-2  justify-center items-center gap-3'>
-                    <h1 className='font-light lg:text-6xl text-white text-5xl tracking-wider'>FitGenius</h1>
-                    <FiActivity className='lg:w-16 lg:h-16' size={40} color='gold'/>
+                    <h1 className='font-light lg:text-6xl text-white text-5xl tracking-wider'>MyFitGenius</h1>
+                    <FiActivity className='lg:w-16 lg:h-16 text-indigo-300' size={40} />
                 </div>
                 <div className='flex mt-4 lg:mt-0 ml-2 justify-between gap-2 items-center'>
           <MdOutlineMailOutline size={37} color='white' />

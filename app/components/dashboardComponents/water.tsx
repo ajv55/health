@@ -52,7 +52,7 @@ export default function Water() {
 
   return (
       <motion.div initial={{opacity: 0, y: -100}} animate={{opacity: 1, y: 0}} transition={{type: 'spring', damping: 20, stiffness: 120}} exit={{opacity: 0, y: -100}}  className='w-full  h-full  flex flex-col justify-center items-center absolute top-0 left-0 rounded-xl bg-transparent backdrop-blur-sm'>
-        <form onSubmit={handleSubmit} className='w-[50%] bg-gray-50 rounded-lg drop-shadow-lg mx-auto h-[18rem] flex flex-col justify-center items-center'>
+        <form onSubmit={handleSubmit} className='lg:w-[50%] w-[97%] ring-2 ring-indigo-600 bg-gray-50 rounded-lg drop-shadow-lg mx-auto h-[18rem] flex flex-col justify-center items-center'>
           <label className=' text-2xl mt-5 font-bold mb-2 text-indigo-400 tracking-wide' htmlFor="options">Add Water Intake</label>
         <select value={amount} onChange={(e: any) => setAmount(Number(e.target.value))} id='options' className='w-[80%] drop-shadow-md h-10 p-2 rounded-xl '>
           <option disabled>How much liter&#39;s did you drink ?</option>

@@ -72,7 +72,7 @@ export default function Nav() {
 
         <div className='flex justify-center items-center gap-2'>
            <h1 className='text-4xl '>MyFitGenius</h1>
-           <FiActivity size={30} color='gold' />
+           <FiActivity size={30} className='text-indigo-600' />
         </div>
         
 

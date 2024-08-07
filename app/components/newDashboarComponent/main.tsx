@@ -27,7 +27,7 @@ export default function Main() {
    
   return (
     <div className='flex w-full p-2 relative justify-between items-center'>
-        {modalTrue && <div className='w-[20%] absolute -bottom-2 -left-3 h-4 rounded-md bg-black bg-opacity-30 flex justify-center items-center'><p className='text-xs text-white font-thin'>Click here to start logging.</p></div>}
+        {modalTrue && <div className='w-[20%] absolute -bottom-2 -left-3 h-4 rounded-md bg-black bg-opacity-30 lg:flex hidden justify-center items-center'><p className='text-xs text-white font-thin'>Click here to start logging.</p></div>}
         {moreDetailModal && <div className='w-[20%] absolute -bottom-2 -right-3 h-4 rounded-md bg-black bg-opacity-30 flex justify-center items-center'><p className='text-xs text-white font-thin'>Click for more Diet Info.</p></div>}
         <AnimatePresence>{logModal && <LogMenu />}</AnimatePresence>
         <div onClick={() => dispatch(setLogModal(true)) } onMouseLeave={() => setModalTrue(false)} onMouseOver={() => setModalTrue(true)}  className='bg-indigo-600 hover:bg-indigo-800 cursor-pointer drop-shadow-xl bg-opacity-86 lg:w-[68px] xl:w-[67px] w-[80px] h-14 flex justify-center items-center rounded-full'>

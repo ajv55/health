@@ -8,8 +8,7 @@ import LogDailySteps from './loggingSteps';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { setWater, setWaterModal } from '@/app/slices/waterSlice';
-import { C } from '@fullcalendar/core/internal-common';
-import toast from 'react-hot-toast';
+import { setExerciseLog } from '@/app/slices/searchSlice';
 
 
 
@@ -23,8 +22,11 @@ export default function Personal() {
   const liters = useSelector((state: RootState) => state.water.value)
   const [stepDetailModal, setStepDetailModal] = useState<boolean>(false);
   const [waterDetailModal, setWaterDetailModal] = useState<boolean>(false);
+  const exerciseLog = useSelector((state: RootState) => state?.search.exerciseLog);
 
-  console.log(todaysStep);
+  const totalCalories = exerciseLog?.reduce((acc, curr) => Number(acc) + Number(curr.caloriesBurned), 0);
+
+  console.log(totalCalories);
 
    const fetchSteps = async () => {
     await axios.get(`/api/getSteps?currentDate=${currentDate}`).then((res: any) => {
@@ -33,6 +35,13 @@ export default function Personal() {
       }
     })
   }
+
+  const fetchExerciseLogs = async () => {
+    const res = await axios.get(`/api/getExerciseEntry?currentDate=${currentDate}`);
+    if (res.status === 201) {
+      dispatch(setExerciseLog(res.data))
+    }
+  };
 
   const fetchWaterIntake = async () => {
     await axios.get(`/api/getWater?currentDate=${currentDate}`).then((res: any) => {
@@ -49,6 +58,10 @@ export default function Personal() {
 
   }, [])
 
+  useEffect(() => {
+    fetchExerciseLogs();
+  }, [currentDate]);
+
 
 
   return (
@@ -56,7 +69,7 @@ export default function Personal() {
           
         <div className='flex flex-col justify-center items-center gap-1'>
             <div onMouseOver={() => setWaterDetailModal(true)} onMouseLeave={() => setWaterDetailModal(false)} onClick={() => dispatch(setWaterModal(!waterModal))}  className='flex hover:cursor-pointer justify-center items-center gap-1 relative'>
-            {waterDetailModal && <div className='w-[210%] absolute -bottom-4 -right-9 h-4 p-2 rounded-md bg-black bg-opacity-30 flex justify-center items-center'><p className='text-xs text-white font-thin'>Start logging water intake </p></div>}
+            {waterDetailModal && <div className='w-[210%] lg:flex hidden absolute -bottom-4 -right-9 h-4 p-2 rounded-md bg-black bg-opacity-30  justify-center items-center'><p className='text-xs text-white font-thin'>Start logging water intake </p></div>}
               <h1 className='text-gray-500 lg:text-xl text-lg font-light'>Water</h1>
               <IoWater className='text-indigo-600'  size={20}  />
             </div>
@@ -74,7 +87,7 @@ export default function Personal() {
 
           <div className='flex flex-col justify-center items-center gap-1'>
             <h1 className='text-gray-500 lg:text-xl text-lg font-light'>Exercise</h1>
-            <span className='text-indigo-600 lg:text-xl text-lg'>0</span>
+            <span className='text-indigo-600 lg:text-xl text-lg'>{totalCalories! > 0 ?  totalCalories + ' 🔥' : totalCalories}</span>
           </div>
 
         </div>
