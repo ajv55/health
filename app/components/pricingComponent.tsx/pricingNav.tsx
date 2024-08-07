@@ -24,19 +24,19 @@ export default function PricingNav() {
                         animate={{ x: 0 }}
                         exit={{ x: '-100vw' }}
                         transition={{ type: 'spring', stiffness: 50 }}
-                        className="fixed top-0 left-0 w-64 h-screen rounded-r-2xl bg-gradient-to-bl from-teal-900 via-teal-600 to-teal-900 flex flex-col justify-between items-start shadow-lg z-50"
+                        className="fixed top-0 left-0 w-64 h-screen rounded-r-2xl bg-gradient-to-bl from-indigo-900 via-indigo-600 to-indigo-900 flex flex-col justify-between items-start shadow-lg z-50"
                     >
                         <nav className="flex flex-col p-4 space-y-8">
-                            <Link onClick={() => setIsOpen(!isOpen)} className="text-xl font-semibold text-white  hover:text-teal-500" href="/">
+                            <Link onClick={() => setIsOpen(!isOpen)} className="text-xl font-semibold text-white  hover:text-indigo-500" href="/">
                             Home
                             </Link>
-                            <Link onClick={() => setIsOpen(false)} className="text-xl font-semibold text-white  hover:text-teal-500" href="/About">
+                            <Link onClick={() => setIsOpen(false)} className="text-xl font-semibold text-white  hover:text-indigo-500" href="/About">
                             About
                             </Link>
-                            <Link onClick={() => setIsOpen(false)} className="text-xl font-semibold text-white  hover:text-teal-500" href="/pricing">
+                            <Link onClick={() => setIsOpen(false)} className="text-xl font-semibold text-white  hover:text-indigo-500" href="/pricing">
                             Pricing
                             </Link>
-                            <Link onClick={() => setIsOpen(false)} className="text-xl font-semibold text-white  hover:text-teal-500" href="/Contact">
+                            <Link onClick={() => setIsOpen(false)} className="text-xl font-semibold text-white  hover:text-indigo-500" href="/Contact">
                             Contact
                             </Link>
                         </nav>
@@ -47,8 +47,8 @@ export default function PricingNav() {
                           </div>
                         ) : (
                           <div className="flex p-4 w-full flex-col items-start space-y-4">
-                            <Link href='/login' className="text-2xl font-semibold text-sky-300 hover:text-teal-500">Login</Link>
-                            <Link href='/reg' className="text-2xl font-semibold text-sky-300 hover:text-teal-500">Sign Up</Link>
+                            <Link href='/login' className="text-2xl font-semibold text-indigo-200 hover:text-indigo-500">Login</Link>
+                            <Link href='/reg' className="text-2xl font-semibold text-indigo-200 hover:text-indigo-500">Sign Up</Link>
                           </div>
                         )}
 
@@ -59,8 +59,8 @@ export default function PricingNav() {
                 )}
       </AnimatePresence>
         <div className='flex justify-center items-center gap-2'>
-           <h1 className='text-4xl '>FitGenius</h1>
-           <FiActivity size={30} color='gold'/>
+           <h1 className='text-4xl '>MyFitGenius</h1>
+           <FiActivity size={30} className="text-indigo-300"/>
         </div>
 
         
@@ -70,7 +70,7 @@ export default function PricingNav() {
             <Link className='   hover:before:scale-x-100 hover:before:origin-right relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-indigo-600 before:absolute before:left-0 before:bottom-0' href='/About'>About</Link>
             {session && <Link className='   hover:before:scale-x-100 hover:before:origin-right relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-indigo-600 before:absolute before:left-0 before:bottom-0' href='/dashboard'>Dashboard</Link>}
         </nav>
-        <RiMenu3Line onClick={() => setIsOpen(!isOpen)} className='lg:hidden' size={30} color='teal' />
+        <RiMenu3Line onClick={() => setIsOpen(!isOpen)} className='lg:hidden text-indigo-500' size={30} />
         <Signing />
     </div>
   )
