@@ -6,7 +6,20 @@ import Fitness from '@/public/fitness.jpg';
 import Health from '@/public/healthy.jpg';
 import { motion, useInView, useAnimation } from 'framer-motion';
 import { useEffect, useRef } from 'react';
-import style from '@/app/style.module.css'
+import style from '@/app/style.module.css';
+
+beforeAll(() => {
+    class IntersectionObserverMock { 
+        observe = jest.fn();
+        unobserve = jest.fn();
+        disconnect = jest.fn();
+        takeRecords = jest.fn();
+        constructor() {}
+    }
+
+    global.IntersectionObserver = IntersectionObserverMock as any
+})
+
 
 const Resource= () => {
 
@@ -26,13 +39,13 @@ const Resource= () => {
                 <h2 className="text-7xl font-bold text-center text-indigo-600 mb-12">Explore Our Resources</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Resource Card 1 */}
-                    <motion.div  whileHover={{ scale: 1.05 }} className="bg-white rounded-lg shadow-md hover:shadow-indigo-600 overflow-hidden">
+                    <motion.div data-testid='article'  whileHover={{ scale: 1.05 }} className="bg-white rounded-lg shadow-md hover:shadow-indigo-600 overflow-hidden">
                         <div className="relative h-64">
                             <Image
                                 src={Essential}
                                 alt="Fitness Article"
-                                layout="fill"
-                                objectFit="cover"
+                                fill
+                                style={{ objectFit: 'cover' }}
                                 className="object-cover"
                             />
                         </div>
@@ -45,13 +58,13 @@ const Resource= () => {
                         </div>
                     </motion.div>
                     {/* Resource Card 2 */}
-                    <motion.div  whileHover={{ scale: 1.05 }} className="bg-white rounded-lg hover:shadow-indigo-600 shadow-md overflow-hidden">
+                    <motion.div data-testid='article'   whileHover={{ scale: 1.05 }} className="bg-white rounded-lg hover:shadow-indigo-600 shadow-md overflow-hidden">
                         <div className="relative h-64">
                             <Image
                                 src={Fitness}
                                 alt="Nutrition Guide"
-                                layout="fill"
-                                objectFit="cover"
+                                fill
+                                style={{ objectFit: 'cover' }}
                                 className="object-cover"
                             />
                         </div>
@@ -64,14 +77,14 @@ const Resource= () => {
                         </div>
                     </motion.div>
                     {/* Resource Card 3 */}
-                    <motion.div  whileHover={{ scale: 1.05 }} className="bg-white hover:shadow-indigo-600  rounded-lg shadow-md overflow-hidden">
+                    <motion.div data-testid='article'   whileHover={{ scale: 1.05 }} className="bg-white hover:shadow-indigo-600  rounded-lg shadow-md overflow-hidden">
                         <div className="relative h-64">
                             <Image
                                 src={Health}
                                 alt="Wellness Tips"
-                                layout="fill"
-                                objectFit="cover"
+                                style={{ objectFit: 'cover' }}
                                 className="object-cover"
+                                fill
                             />
                         </div>
                         <div className="p-6">
