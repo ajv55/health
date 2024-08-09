@@ -11,7 +11,7 @@ import style from '@/app/style.module.css'
 import { FcGoogle } from "react-icons/fc";
 
 export default function Page() {
-    const session = useSession();
+    const {data: session } = useSession();
     const router = useRouter();
 
     const ref = useRef<HTMLFormElement>(null);
@@ -20,6 +20,12 @@ export default function Page() {
         email: '',
         password: ''
 })
+
+useEffect(() => {
+  if(session?.user) {
+    router.push('/dashboard')
+  }
+ }, [session])
 
     const handleSubmit = async (e: any) => {
         e.preventDefault();

@@ -2,10 +2,10 @@
   "compilerOptions": {
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
-    "target": "ES2015",
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
+    "target": "ES6",  // Jest generally works better with ES6
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "node",

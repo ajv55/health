@@ -44,7 +44,7 @@ export default function SnackLog({name, carbs, calories, fat, protein, transFat,
             </div>
             
         </div>
-            <div className='lg:w-[66%] w-full  mr-2  flex justify-evenly items-center'>
+            <div className='lg:w-[66%] w-full  mr-2 lg:flex hidden justify-evenly items-center'>
                 {amounts.map((value, index) => (
                     <span key={index} className={`text-sm lg:text-lg w-16 sm:w-32 flex justify-center items-center  text-indigo-400 hover:text-indigo-600 hover:cursor-pointer font-bold`}>{value}</span>
                 ))}

@@ -46,10 +46,10 @@ export default function Layout({children}: {children: React.ReactNode}) {
                         transition={{ type: 'spring', stiffness: 50 }}
                         className="fixed top-0 left-0 w-64 h-screen rounded-r-2xl bg-gradient-to-bl from-indigo-900 via-indigo-600 to-indigo-900 flex flex-col justify-between items-start shadow-lg z-50"
                     >
-                        <nav className="flex flex-col p-2 space-y-8">
+                        <nav className="flex flex-col p-2 space-y-4">
                         <div className='flex  w-full justify-start items-center gap-2'>
                             <h1 className='text-3xl text-white'>MyFitGenius</h1>
-                            <FiActivity size={30} color='gold' />
+                            <FiActivity size={30} className='text-indigo-200' />
                           </div>
                             <Link onClick={() => setIsOpen(!isOpen)} className="text-2xl font-semibold text-white  hover:text-indigo-500" href="/dashboard">
                             Dashboard
@@ -92,7 +92,7 @@ export default function Layout({children}: {children: React.ReactNode}) {
       <nav className='lg:flex hidden  flex-col w-[20%] justify-start items-start text-2xl gap-10 bg-gradient-to-tr from-indigo-950 via-indigo-900 to-indigo-950 h-screen'>
       <div className='flex  w-full justify-center items-center p-2 gap-2'>
            <h1 className='text-4xl text-white'>MyFitGenius</h1>
-           <FiActivity size={30} color='gold' />
+           <FiActivity size={30} className='text-indigo-200' />
         </div>
           <Link 
               className='flex justify-start items-center gap-2 text-white hover:bg-indigo-800 hover:bg-opacity-25 hover:border-r-[5px] hover:border-indigo-200 w-full px-2 py-2.5'

@@ -29,14 +29,14 @@ export default function Nav() {
     <div className='lg:w-full bg-slate-50 border-b border-zinc-200 w-full absolute  top-0 left-0 lg:h-content py-3 flex justify-between items-center p-3'>
       <AnimatePresence>
           {isOpen && (
-                    <motion.div
+                    <motion.div data-testid='mobile'
                         initial={{ x: '-100vw' }}
                         animate={{ x: 0 }}
                         exit={{ x: '-100vw' }}
                         transition={{ type: 'spring', stiffness: 50 }}
-                        className="fixed top-0 left-0 w-64 h-screen rounded-r-2xl bg-gradient-to-bl from-indigo-900 via-indigo-600 to-indigo-900 flex flex-col justify-between items-start shadow-lg z-50"
+                        className="fixed top-0 lg:hidden  left-0 w-64 h-screen rounded-r-2xl bg-gradient-to-bl from-indigo-900 via-indigo-600 to-indigo-900 flex flex-col justify-between items-start shadow-lg z-50"
                     >
-                        <nav className="flex flex-col p-4 space-y-8">
+                        <nav  className="flex flex-col p-4 space-y-8">
                             <Link onClick={() => setIsOpen(!isOpen)} className="text-2xl font-semibold text-white  hover:text-teal-500" href="/">
                             Home
                             </Link>
@@ -51,7 +51,7 @@ export default function Nav() {
                             </Link>
                         </nav>
                         {isLoggedIn ? (
-                          <div className="flex flex-col items-start p-2 space-y-4">
+                          <div  className="flex flex-col items-start p-2 space-y-4">
                             <span className="text-2xl text-white ">Welcome, {userName?.toUpperCase()}</span>
                             <Link href='/dashboard' className="text-2xl text-white hover:text-teal-500">Dashboard</Link>
                             <Link href='/signOut' className="text-2xl text-white hover:text-teal-500">Logout</Link>
@@ -70,8 +70,8 @@ export default function Nav() {
                 )}
       </AnimatePresence>
 
-        <div className='flex justify-center items-center gap-2'>
-           <h1 className='text-4xl '>MyFitGenius</h1>
+        <div className='flex lg:ml-5 justify-center items-center gap-2'>
+           <h1 className='text-4xl'>MyFitGenius</h1>
            <FiActivity size={30} className='text-indigo-600' />
         </div>
         
@@ -83,7 +83,9 @@ export default function Nav() {
             <Link className='  hover:text-2xl hover:before:scale-x-100 hover:before:origin-right relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-indigo-600 before:absolute before:left-0 before:bottom-0' href='/About'>About</Link>
             {session &&  <Link className='  hover:text-2xl hover:before:scale-x-100 hover:before:origin-right relative before:w-full before:h-0.5 before:origin-right before:transition-transform before:duration-300 before:scale-x-0 before:bg-indigo-600 before:absolute before:left-0 before:bottom-0' href='/dashboard'>Dashboard</Link> }
         </nav>
-        <RiMenu3Line onClick={() => setIsOpen(!isOpen)} className='lg:hidden text-indigo-500' size={30}  />
+        <button onClick={() => setIsOpen(!isOpen)} className='lg:hidden text-indigo-500'>
+          <RiMenu3Line size={30} />
+        </button>
         <Signing />
         </div>
     </div>

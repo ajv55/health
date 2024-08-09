@@ -78,7 +78,7 @@ export default function Snack() {
                         )}
                         <h1 className='text-xl lg:text-2xl font-medium tracking-wider leading-5'>Snack</h1>
                     </div>
-                    <div className='-full lg:w-[67%]  flex justify-evenly items-center'>
+                    <div className='w-full lg:w-[67%]  flex justify-evenly items-center'>
                         {amounts.map((value, index) => (
                             <span key={index} className='text-sm lg:text-lg w-[50px] sm:w-32 flex justify-center items-center hover:text-indigo-600 hover:cursor-pointer text-indigo-400 font-bold'>{value}</span>
                         ))}

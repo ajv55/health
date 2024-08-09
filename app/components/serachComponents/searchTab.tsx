@@ -31,6 +31,9 @@ const SearchTab = () => {
     if(tab === 'recipes'){
       dispatch(setActiveTab('recipes'))
     }
+    if(tab === 'stapleFoods'){
+      dispatch(setActiveTab('stapleFoods'))
+    }
     
   }, [tab])
 
