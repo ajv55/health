@@ -8,18 +8,6 @@ import { motion, useInView, useAnimation } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import style from '@/app/style.module.css';
 
-beforeAll(() => {
-    class IntersectionObserverMock { 
-        observe = jest.fn();
-        unobserve = jest.fn();
-        disconnect = jest.fn();
-        takeRecords = jest.fn();
-        constructor() {}
-    }
-
-    global.IntersectionObserver = IntersectionObserverMock as any
-})
-
 
 const Resource= () => {
 

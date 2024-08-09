@@ -2,6 +2,18 @@ import {render, screen} from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Resource from '@/app/components/mainPage/resource';
 
+beforeAll(() => {
+  class IntersectionObserverMock { 
+      observe = jest.fn();
+      unobserve = jest.fn();
+      disconnect = jest.fn();
+      takeRecords = jest.fn();
+      constructor() {}
+  }
+
+  global.IntersectionObserver = IntersectionObserverMock as any
+})
+
 
 describe('Resource Component', () => {
 

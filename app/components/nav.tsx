@@ -26,7 +26,7 @@ export default function Nav() {
   console.log(isOpen)
 
   return (
-    <div className='lg:w-full bg-slate-50 border-b border-zinc-200 w-full absolute  top-0 left-0 lg:h-content py-3 flex justify-between items-center p-3'>
+    <div className='lg:w-full bg-slate-50 border-b border-indigo-600 w-full absolute  top-0 left-0 lg:h-content py-3 flex justify-between items-center p-3'>
       <AnimatePresence>
           {isOpen && (
                     <motion.div data-testid='mobile'
