@@ -7,6 +7,8 @@ import style from '@/app/style.module.css';
 import toast from 'react-hot-toast';
 import { sendEmail } from '@/app/action/sendEmail';
 
+
+
 export default function Contact() {
   const ref = useRef<HTMLFormElement  | null>(null);
   const animationRef = useRef(null);
@@ -39,13 +41,18 @@ export default function Contact() {
         initial="hidden"
         animate={mainControls}
         transition={{ type: 'spring', stiffness: 70, duration: 1, delay: 0.55 }}
-        action={async (formData) =>  {
-          const res = await sendEmail(formData);
-          console.log(res)
-          if(res.success === true){
-            toast.success('Successfully sent message! 💪🏻')
+        onSubmit={async (event) =>  {
+          event.preventDefault(); // Prevent default form submission
+      
+          if (ref.current) {  // Type guard to ensure ref.current is not null
+            const formData = new FormData(ref.current); // Collect form data
+            const res = await sendEmail(formData); // Send the email using the action
+            console.log(res);
+            if(res.success === true){
+              toast.success('Successfully sent message! 💪🏻');
+            }
+            ref.current.reset(); // Reset the form fields
           }
-          ref.current?.reset();
         }}
         ref={ref}
         className="lg:w-[45%] w-[95%] ring-1 ring-indigo-400 bg-white rounded-xl shadow-xl flex flex-col justify-center items-center p-8 lg:p-12"
