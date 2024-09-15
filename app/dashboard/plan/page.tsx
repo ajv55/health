@@ -89,7 +89,7 @@ const Page = () => {
                 <div className=' w-full overflow-scroll flex justify-center items-center'>
                     {activeTab === 'Weight & Calories' && (
                         <div className='w-full lg:h-[36rem] h-full flex justify-center items-center'>
-                                <div className="lg:w-[85%] w-[95%] h-auto p-6 relative ring-1 ring-indigo-300 bg-gray-100 mt-5 mb-10 lg:mb-0  rounded-lg shadow-lg">
+                                <div className="lg:w-[85%] w-[95%] h-auto p-6 relative  ring-1 ring-indigo-300 bg-gray-100 mt-5 mb-10 lg:mb-0  rounded-lg shadow-lg">
                                 <AnimatePresence>{relatedModal && <RelatedModal proteinOnClick={() => {setActiveTab('Carbs, Protein & Fat'), setRelatedModal(false)} } onClose={() => setRelatedModal(false)} />}</AnimatePresence>
                             <div className="w-full flex lg:flex-row flex-col justify-between items-center mb-6">
                                 <h1 className="lg:text-2xl text-xl  font-light tracking-wide">I plan to lose <span className="text-2xl font-medium text-indigo-600">22 lb </span>in <span className="text-indigo-600 text-2xl font-medium">{days} days </span>by eating less than <span className="text-indigo-600 font-medium text-2xl">{rec} cals </span>daily.</h1>
