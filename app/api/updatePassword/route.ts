@@ -7,7 +7,6 @@ import prisma from "@/app/libs/prismadb";
 export async function POST(req: NextRequest) {
 
     const session = await getServerSession(authOptions);
-    console.log(session)
 
     const body = await req.json();
     const {currentPassword, newPassword} = body
@@ -25,8 +24,6 @@ export async function POST(req: NextRequest) {
         const user = await prisma.user.findUnique({
             where: { email: session?.user?.email },
             });
-            console.log(user)
-
 
             const hashedPassword = await bcrypt.hash(newPassword, 10);
 
@@ -37,7 +34,7 @@ export async function POST(req: NextRequest) {
 
             console.log(u)
 
-            return NextResponse.json({message:'successfully updated user password', status: 200})
+            return NextResponse.json({message:'Successfully updated user password', status: 200})
     } catch (error) {
     return NextResponse.json({ error: "Error updating password" , status: 500});
     }

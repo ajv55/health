@@ -9,10 +9,12 @@ import { FaGithub } from "react-icons/fa";
 import { motion } from "framer-motion";
 import style from '@/app/style.module.css'
 import { FcGoogle } from "react-icons/fc";
+import ForgotPasswordModal from "@/app/components/forgotModal";
 
 export default function Page() {
     const {data: session } = useSession();
     const router = useRouter();
+    const [isOpen, setIsOpen] = useState<boolean>(false)
 
     const ref = useRef<HTMLFormElement>(null);
 
@@ -42,8 +44,10 @@ useEffect(() => {
             }
         })
     }
+
   return (
-    <div className={`${style.background} min-h-screen flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8`}>
+    <div className={`${style.background} min-h-screen relative flex items-center justify-center bg-gray-100 py-12 px-4 sm:px-6 lg:px-8`}>
+      {isOpen && <ForgotPasswordModal onClose={() => setIsOpen(!isOpen)} />}
     <div className="max-w-lg w-full space-y-8">
       <div>
         <h2 className="mt-6 text-center lg:text-5xl text-3xl leading-12 font-extrabold text-indigo-600">
@@ -97,9 +101,9 @@ useEffect(() => {
           </div>
 
           <div className="text-sm leading-5">
-            <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
+            <button onClick={() => setIsOpen(true)} className="font-medium text-indigo-600 hover:text-indigo-500">
               Forgot your password?
-            </a>
+            </button>
           </div>
         </div>
 

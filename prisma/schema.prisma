@@ -27,6 +27,8 @@ model User {
   updatedAt DateTime @updatedAt
   TDEE String?
   agreed String?
+  resetToken        String?  // Optional field for storing the reset token
+  resetTokenExpires DateTime? // Optional field for storing the token expiration time
   age String?
   recommend Int?
   weightInLbs String?
