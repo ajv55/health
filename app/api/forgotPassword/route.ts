@@ -16,7 +16,7 @@ const generateResetToken = () => {
 // Send email function
 async function sendResetEmail(email: string, token: string) {
   // Construct the reset URL based on your Next.js dynamic route
-  const resetUrl = `${process.env.URL}/reset/${token}`;
+  const resetUrl = `${process.env.BASED_URL}/reset/${token}`;
   
   await resend.emails.send({
     from: 'Abel <abel@myfitgenius.com>',

@@ -15,6 +15,7 @@ import { FaSailboat } from "react-icons/fa6";
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
+import { IoCloseSharp } from "react-icons/io5";
 
 type IconName =
   | 'FaRunning'
@@ -181,13 +182,10 @@ const CustomExercise = () => {
           </button>
           {isModalOpen && (
             <div className="fixed -inset-32 bg-black bg-opacity-50 flex justify-center items-center">
-              <div className="bg-white w-[40%] mx-auto p-4 rounded shadow-lg">
-                <button
-                  onClick={() => setIsModalOpen(false)}
-                  className="bg-red-500 text-white px-2 py-1 rounded absolute top-2 right-2"
-                >
-                  X
-                </button>
+              <div className="bg-white w-[40%] mx-auto p-2 rounded shadow-lg">
+                <div className='flex justify-end mb-4 items-end'>
+                  <span><IoCloseSharp onClick={() => setIsModalOpen(!isModalOpen)} size={30} className='text-indigo-600 cursor-pointer'/></span>
+                </div>
                 <div className="grid grid-cols-4 gap-4">
                   {Object.keys(iconMap).map((iconName) => {
                     const IconComponent = iconMap[iconName as IconName];
@@ -195,7 +193,7 @@ const CustomExercise = () => {
                       <div
                         key={iconName}
                         onClick={() => handleIconClick(iconName as IconName)}
-                        className="p-2 border flex justify-center items-center rounded-md cursor-pointer hover:bg-indigo-100"
+                        className="p-2 border flex justify-center items-center rounded-md cursor-pointer hover:shadow-md hover:shadow-indigo-400  hover:bg-indigo-100"
                       >
                         <IconComponent className="text-2xl text-indigo-600 " />
                       </div>

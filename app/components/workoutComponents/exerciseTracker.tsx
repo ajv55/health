@@ -174,7 +174,10 @@ const ExerciseTracker = () => {
   return (
     <div className="w-[89%] mb-8  relative mx-auto bg-white rounded-lg shadow-md mt-9 p-6">
       {quickLog && <QuickLog isDone={quickLogIsDone} setIsDone={setQuickLogIsDone} onClose={() => setQuickLog(false)} />}
-       <h2 className="text-4xl bg-gradient-to-br from-indigo-500 mb-5 to-indigo-300 bg-clip-text text-transparent">Exercise Tracker</h2>
+       <div className="w-full flex justify-between items-center">
+         <h2 className="text-4xl bg-gradient-to-br from-indigo-500 mb-5 to-indigo-300 bg-clip-text text-transparent">Exercise Tracker</h2>
+         <Link className="text-xl bg-gradient-to-br from-indigo-500 mb-5 to-indigo-300 bg-clip-text text-transparent" href='/dashboard/workout/exercisePlan'>Exercise Plan</Link>
+       </div>
       {isOver && <div className='w-[20%] absolute top-8 -left-16 h-4 rounded-md bg-black bg-opacity-30 flex p-0.5 justify-center items-center'><p className='text-[14px] text-white font-extrabold'>Click here to start logging</p></div>}
       {isOverSearch && <div className='w-[10%] absolute top-32 -left-1 h-4 rounded-md bg-black bg-opacity-30 flex p-0.5 justify-center items-center'><p className='text-[14px] text-white font-extrabold'>Find Exercise</p></div>}
       {isCatalogSearch && <div className='w-[10%] absolute top-32 left-9 h-4 rounded-md bg-black bg-opacity-30 flex p-0.5 justify-center items-center'><p className='text-[14px] text-white font-extrabold'>Search Catalog</p></div>}
