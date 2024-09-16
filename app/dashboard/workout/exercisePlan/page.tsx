@@ -7,6 +7,8 @@ import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 import GeneratedPlan from '../../../components/workoutComponents/workoutPlan';
 import style from '../../../style.module.css';
+import Link from 'next/link';
+import { IoArrowBackOutline } from 'react-icons/io5';
 
 interface UserProps  {
     age?: string,
@@ -70,12 +72,15 @@ const WorkoutPlan = () => {
 
   return (
     <div className={`${style.background} w-full flex flex-col justify-start items-center gap-3 overflow-scroll`}>
+      <div className='flex justify-start bg-transparent p-1 items-start w-full'>
+        <Link href='/dashboard/workout' className='flex uppercase justify-start items-center text-indigo-500 gap-4'><IoArrowBackOutline  size={30} className='text-indigo-500' /> Back to exercise tracker</Link>
+      </div>
       <div className="w-[75%] mx-auto p-6 ring-2 ring-indigo-400 bg-gray-100 rounded-lg shadow-lg mt-10">
         <h2 className="text-3xl font-bold mb-6 text-indigo-800">Generate Your Workout Plan</h2>
 
        <div className='flex justify-between items-start'>
           {/* User Information Section */}
-          <div className="bg-white h-[25rem] w-[30%] ring-2 ring-indigo-600 drop-shadow-lg p-4 mb-6 rounded-lg shadow-md">
+          <div className="bg-white h-[25rem] w-[35%] ring-2 ring-indigo-600 drop-shadow-lg p-4 mb-6 rounded-lg shadow-md">
             <h3 className="text-3xl font-semibold mb-2 text-center text-indigo-700">Your Information</h3>
             <ul className="text-indigo-600 flex flex-col justify-center gap-3">
               <li className='bg-gray-100 ring-1 ring-indigo-600 rounded-lg flex justify-center items-center w-full flex-col h-[4rem] text-xl p-2'><strong>Age</strong> {user.age}</li>
