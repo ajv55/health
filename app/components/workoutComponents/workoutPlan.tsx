@@ -42,26 +42,26 @@ const GeneratedPlan: React.FC<WorkoutPlanProps> = ({ workoutPlan }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-8"
+      className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg drop-shadow-lg"
     >
       {/* Workout Plan Overview */}
       <div className="text-center">
         <h2 className="text-3xl font-bold text-indigo-600 mb-2">Workout Plan</h2>
         <p className="text-gray-700 text-lg">
-          This workout plan is created for a <span className="font-bold">{age}-year-old</span> individual, weighing{' '}
-          <span className="font-bold">{weight} lbs</span> and measuring{' '}
-          <span className="font-bold">{height} cm</span>. Their current activity level is{' '}
-          <span className="font-bold">{activity_level}</span> with the goal of{' '}
-          <span className="font-bold">{goal}</span>.
+          This workout plan is created for a <span className="font-bold text-indigo-600">{age}-year-old</span> individual, weighing{' '}
+          <span className="font-bold text-indigo-600">{weight} lbs</span> and measuring{' '}
+          <span className="font-bold text-indigo-600">{height} cm</span>. Their current activity level is{' '}
+          <span className="font-bold text-indigo-600">{activity_level}</span> with the goal of{' '}
+          <span className="font-bold text-indigo-600">{goal}</span>.
         </p>
         <p className="text-gray-700 text-lg">
-          Workout Type: <span className="font-bold">{workout_type}</span>
+          Workout Type: <span className="font-bold text-indigo-600">{workout_type}</span>
         </p>
         <p className="text-gray-700 text-lg">
-          Workout Frequency: <span className="font-bold">{days_per_week} days per week</span>
+          Workout Frequency: <span className="font-bold text-indigo-600">{days_per_week} days per week</span>
         </p>
         <p className="text-gray-700 text-lg">
-          Session Duration: <span className="font-bold">{duration_per_session}</span> per session
+          Session Duration: <span className="font-bold text-indigo-600">{duration_per_session}</span> per session
         </p>
       </div>
 
@@ -73,7 +73,7 @@ const GeneratedPlan: React.FC<WorkoutPlanProps> = ({ workoutPlan }) => {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: index * 0.1, duration: 0.4 }}
-            className="bg-indigo-100 p-4 rounded-lg shadow-lg"
+            className="bg-indigo-100 p-4 drop-shadow-xl rounded-lg shadow-lg"
           >
             <h3 className="text-xl font-semibold text-indigo-600 mb-2">{exercise?.name}</h3>
             <p className="text-gray-700 mb-2">{exercise?.description}</p>
