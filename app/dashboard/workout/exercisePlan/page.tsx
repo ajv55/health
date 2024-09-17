@@ -10,6 +10,9 @@ import style from '../../../style.module.css';
 import Link from 'next/link';
 import { IoArrowBackOutline } from 'react-icons/io5';
 import WorkoutPlanSkeleton from '@/app/components/skeleton/workoutPlanSkeleton';
+import { useDispatch, useSelector } from 'react-redux';
+import { setExercisePlan } from '@/app/slices/workoutSlice';
+import { RootState } from '@/app/store';
 
 interface UserProps  {
     age?: string,
@@ -33,6 +36,7 @@ const WorkoutPlan = () => {
     const userWeight = session?.user.weight;
     const userHeight = session?.user.height;
     const userActivityLevel = session?.user.activity
+    const dispatch = useDispatch();
 
   const user: UserProps = {
     age: userAge,
@@ -48,7 +52,7 @@ const WorkoutPlan = () => {
     duration: 30,
   });
   
-  const [plan, setPlan] = useState(null);
+  const plan = useSelector((state: RootState) => state.workout.exercisePlan);
   const [loading, setLoading] = useState(false);
 
   const handleGeneratePlan = async () => {
@@ -63,12 +67,14 @@ const WorkoutPlan = () => {
         console.log(res)
         if(res.status === 201) {
             toast.success('Generated exercise plan')
-            setPlan(res?.data)
+            dispatch(setExercisePlan(res.data))
         }
     });
-
-
   };
+
+  
+
+  console.log(plan)
   
 
   return (
@@ -162,7 +168,6 @@ const WorkoutPlan = () => {
 
         {/* Display Workout Plan */}
         {plan && <GeneratedPlan workoutPlan={plan}  />}
-        {plan === null && !loading && <div><h1>No Exercise Plan</h1></div>}
         {loading && <WorkoutPlanSkeleton />}
       </div>
     </div>

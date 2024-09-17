@@ -35,6 +35,7 @@ export async function POST(req: NextRequest) {
       "goal": string,
       "days_per_week": number,
       "duration_per_session": string,
+      "entireExercisesCompleted": boolean,
       "exercises": [
         {
           "name": string,
@@ -42,6 +43,7 @@ export async function POST(req: NextRequest) {
           "sets": number,
           "reps": number,
           "target_muscle_groups": [string]
+          "completed" : boolean
         },
         ...
       ]

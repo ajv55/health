@@ -65,6 +65,7 @@ model User {
    weightLogs WeightLog[]
    exerciseLogs ExerciseLog[]
    customLogs CustomLog[]
+   exercisePlans exercisePlan[]
   account Account []
 }
 
@@ -84,6 +85,14 @@ model Macronutrient {
   userId         String  @db.ObjectId @unique
   user           User    @relation(fields: [userId], references: [id])
   
+}
+
+model exercisePlan {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String @db.ObjectId
+  user User @relation(fields: [userId], references: [id])
+  createdAt  DateTime? @default(now())
+  exercisePlan Json? 
 }
 
 model CustomFood {

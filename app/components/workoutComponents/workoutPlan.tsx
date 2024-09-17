@@ -1,5 +1,9 @@
 'use client';
+import { setExercisePlan } from '@/app/slices/workoutSlice';
+import { RootState } from '@/app/store';
 import { motion } from 'framer-motion';
+import { IoCheckmarkDoneCircle } from "react-icons/io5";
+import { useDispatch, useSelector } from 'react-redux';
 
 // Define types for the workout plan and exercises
 type Exercise = {
@@ -8,6 +12,7 @@ type Exercise = {
   sets: number;
   reps: number;
   target_muscle_groups: string[];
+  completed: boolean
 };
 
 type WorkoutPlanProps = {
@@ -20,6 +25,7 @@ type WorkoutPlanProps = {
     goal: string;
     days_per_week: number;
     duration_per_session: string;
+    entireExercisesCompleted: boolean;
     exercises: Exercise[];
   };
 };
@@ -36,6 +42,33 @@ const GeneratedPlan: React.FC<WorkoutPlanProps> = ({ workoutPlan }) => {
     duration_per_session,
     exercises,
   } = workoutPlan;
+
+  const dispatch = useDispatch();
+  const plan = useSelector((state: RootState) => state.workout.exercisePlan)
+
+  function markExerciseAsCompleted(plan: any, exerciseName: string) {
+    const updatedExercises = plan?.exercises?.map((exercise: any) =>
+      exercise?.name === exerciseName
+        ? { ...exercise, completed: true }
+        : exercise
+    );
+  
+    // Check if all exercises are completed
+    const allCompleted = updatedExercises.every((exercise: any) => exercise?.completed);
+  
+    return {
+      ...plan,
+      exercises: updatedExercises,
+      entireExercisesCompleted: allCompleted, // Set to true if all exercises are completed
+    };
+  };
+
+  const handleCompleteExercise = (exerciseName: string) => {
+    const updatedPlan = markExerciseAsCompleted(workoutPlan, exerciseName);
+    dispatch(setExercisePlan(updatedPlan))
+  };
+
+  console.log(plan)
 
   return (
     <motion.div
@@ -67,15 +100,18 @@ const GeneratedPlan: React.FC<WorkoutPlanProps> = ({ workoutPlan }) => {
 
       {/* Exercises List */}
       <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6">
-        {exercises.map((exercise, index) => (
+        {exercises?.map((exercise, index) => (
           <motion.div
             key={index}
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: index * 0.1, duration: 0.4 }}
-            className="bg-indigo-100 p-4 drop-shadow-xl rounded-lg shadow-lg"
+            transition={{ delay: index * 0.2, duration: 0.4 }}
+            className="bg-indigo-100 relative p-4 drop-shadow-xl rounded-lg shadow-lg"
           >
-            <h3 className="text-xl font-semibold text-indigo-600 mb-2">{exercise?.name}</h3>
+            <div className='flex justify-between items-center '>
+            <h3 className="text-2xl font-semibold text-indigo-600 mb-2">{exercise?.name}</h3>
+            {!exercise.completed ? <button onClick={() => handleCompleteExercise(exercise.name)}>Completed</button> : <span className='absolute -top-5 -right-4'> <IoCheckmarkDoneCircle size={40} className='text-indigo-500' /></span>}
+            </div>
             <p className="text-gray-700 mb-2">{exercise?.description}</p>
             <div className="mt-4">
               <p className="text-gray-700">

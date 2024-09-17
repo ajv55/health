@@ -8,7 +8,8 @@ interface WorkoutState {
     workoutData?: WorkoutData,
     selectWorkout?: SelectWorkout,
     workoutList?: object,
-    totalCalories?: number
+    totalCalories?: number,
+    exercisePlan?: null
 }
 
 interface SelectWorkout {
@@ -43,7 +44,8 @@ const initialState: WorkoutState = {
         reps: '',
         sets: ''
         },
-    totalCalories: 0
+    totalCalories: 0,
+    exercisePlan: null
 } 
 
 export const workoutSlice = createSlice({
@@ -70,11 +72,14 @@ export const workoutSlice = createSlice({
         },
         setTotalCalories: (state, action) => {
             state.totalCalories = action.payload
+        },
+        setExercisePlan: (state, action) => {
+            state.exercisePlan = action.payload
         }
     },
 })
 
-export const {setModalOpen, setList ,setWorkoutData, setSelectWorkout, setDeleteModal, setWorkoutList, setTotalCalories} = workoutSlice.actions;
+export const {setModalOpen, setExercisePlan, setList ,setWorkoutData, setSelectWorkout, setDeleteModal, setWorkoutList, setTotalCalories} = workoutSlice.actions;
 
 export default workoutSlice.reducer;
 
