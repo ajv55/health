@@ -44,7 +44,7 @@ const GeneratedPlan: React.FC<WorkoutPlanProps> = ({ workoutPlan }) => {
   } = workoutPlan;
 
   const dispatch = useDispatch();
-  const plan = useSelector((state: RootState) => state.workout.exercisePlan)
+  const plan = useSelector((state: RootState) => state.workout.exercisePlan) as any
 
   function markExerciseAsCompleted(plan: any, exerciseName: string) {
     const updatedExercises = plan?.exercises?.map((exercise: any) =>
@@ -75,8 +75,9 @@ const GeneratedPlan: React.FC<WorkoutPlanProps> = ({ workoutPlan }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg drop-shadow-lg"
+      className="max-w-4xl mx-auto p-6 bg-white relative shadow-lg rounded-lg drop-shadow-lg"
     >
+      {plan?.entireExercisesCompleted && <motion.span initial={{scale: 0, opacity: 0}} animate={{scale: 1, opacity: 1}} transition={{duration: 0.4, stiffness: 80, type: 'spring', delay: 1}} className='absolute -top-6 -right-5'> <IoCheckmarkDoneCircle size={50} className='text-indigo-500' /></motion.span>}
       {/* Workout Plan Overview */}
       <div className="text-center">
         <h2 className="text-3xl font-bold text-indigo-600 mb-2">Workout Plan</h2>
@@ -110,7 +111,7 @@ const GeneratedPlan: React.FC<WorkoutPlanProps> = ({ workoutPlan }) => {
           >
             <div className='flex justify-between items-center '>
             <h3 className="text-2xl font-semibold text-indigo-600 mb-2">{exercise?.name}</h3>
-            {!exercise.completed ? <button onClick={() => handleCompleteExercise(exercise.name)}>Completed</button> : <span className='absolute -top-5 -right-4'> <IoCheckmarkDoneCircle size={40} className='text-indigo-500' /></span>}
+            {!exercise.completed ? <button onClick={() => handleCompleteExercise(exercise.name)}>Completed</button> : <motion.span initial={{scale: 0, opacity: 0}} animate={{scale: 1, opacity: 1}} transition={{duration: 0.4, stiffness: 80, type: 'spring'}} className='absolute -top-5 -right-4'> <IoCheckmarkDoneCircle size={40} className='text-indigo-500' /></motion.span>}
             </div>
             <p className="text-gray-700 mb-2">{exercise?.description}</p>
             <div className="mt-4">

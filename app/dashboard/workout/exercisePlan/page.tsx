@@ -3,7 +3,7 @@
 import axios from 'axios';
 import { parseJSON } from 'date-fns';
 import { useSession } from 'next-auth/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import GeneratedPlan from '../../../components/workoutComponents/workoutPlan';
 import style from '../../../style.module.css';
@@ -54,6 +54,24 @@ const WorkoutPlan = () => {
   
   const plan = useSelector((state: RootState) => state.workout.exercisePlan);
   const [loading, setLoading] = useState(false);
+
+  const fetchExercisePlan = async () => {
+    await axios.get('/api/getExercisePlan').then((res) => {
+      console.log(res)
+      if(res.status === 201) {
+        dispatch(setExercisePlan(res?.data?.exercisePlan))
+      }
+    }).catch((res) => {
+      console.log(res)
+     if(res.status === 404) {
+      return
+     }
+    } )
+  }
+
+  useEffect(() => {
+    fetchExercisePlan();
+  }, [])
 
   const handleGeneratePlan = async () => {
     setLoading(true);
