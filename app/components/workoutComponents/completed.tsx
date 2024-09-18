@@ -1,5 +1,6 @@
 'use client';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 import { IoCheckmarkDoneCircle, IoCalendarOutline } from "react-icons/io5";
 
 const WorkoutCompleted: React.FC = () => {
@@ -42,12 +43,14 @@ const WorkoutCompleted: React.FC = () => {
 
       {/* Calendar Icon */}
       <motion.div
-        className="flex justify-center mt-8"
+        className="flex flex-col items-center justify-center mt-8"
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
+    
         transition={{ type: 'spring', stiffness: 100, delay: 1 }}
       >
         <IoCalendarOutline size={50} className="text-indigo-500" />
+        <Link className='text-indigo-400 text-lg hover:underline hover:underline-offset-4' href='/dashboard/workout'>Back to Exercise Tracker</Link>
       </motion.div>
 
       <motion.p
@@ -58,6 +61,7 @@ const WorkoutCompleted: React.FC = () => {
       >
         You can generate your next workout plan tomorrow!
       </motion.p>
+
     </motion.div>
   );
 };
