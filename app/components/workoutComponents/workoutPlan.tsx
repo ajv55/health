@@ -1,7 +1,10 @@
 'use client';
 import { setExercisePlan } from '@/app/slices/workoutSlice';
 import { RootState } from '@/app/store';
+import axios from 'axios';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { IoCheckmarkDoneCircle } from "react-icons/io5";
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -44,7 +47,8 @@ const GeneratedPlan: React.FC<WorkoutPlanProps> = ({ workoutPlan }) => {
   } = workoutPlan;
 
   const dispatch = useDispatch();
-  const plan = useSelector((state: RootState) => state.workout.exercisePlan) as any
+  const plan = useSelector((state: RootState) => state.workout.exercisePlan) as any;
+  const planId = useSelector((state: RootState) => state.workout.exercisePlanId) as string;
 
   function markExerciseAsCompleted(plan: any, exerciseName: string) {
     const updatedExercises = plan?.exercises?.map((exercise: any) =>
@@ -63,12 +67,18 @@ const GeneratedPlan: React.FC<WorkoutPlanProps> = ({ workoutPlan }) => {
     };
   };
 
-  const handleCompleteExercise = (exerciseName: string) => {
+  const handleCompleteExercise = async (exerciseName: string) => {
     const updatedPlan = markExerciseAsCompleted(workoutPlan, exerciseName);
     dispatch(setExercisePlan(updatedPlan))
+    await axios.post('/api/updateExercisePlan', {planId, updatedPlan}).then((res) => {
+      console.log(res)
+      if(res.status === 201){
+        toast.success('Workout plan updated!')
+      }    
+    })
   };
 
-  console.log(plan)
+  console.log(planId)
 
   return (
     <motion.div
@@ -80,7 +90,7 @@ const GeneratedPlan: React.FC<WorkoutPlanProps> = ({ workoutPlan }) => {
       {plan?.entireExercisesCompleted && <motion.span initial={{scale: 0, opacity: 0}} animate={{scale: 1, opacity: 1}} transition={{duration: 0.4, stiffness: 80, type: 'spring', delay: 1}} className='absolute -top-6 -right-5'> <IoCheckmarkDoneCircle size={50} className='text-indigo-500' /></motion.span>}
       {/* Workout Plan Overview */}
       <div className="text-center">
-        <h2 className="text-3xl font-bold text-indigo-600 mb-2">Workout Plan</h2>
+        <h2 className="text-5xl font-bold text-indigo-600 mb-2">Workout Plan</h2>
         <p className="text-gray-700 text-lg">
           This workout plan is created for a <span className="font-bold text-indigo-600">{age}-year-old</span> individual, weighing{' '}
           <span className="font-bold text-indigo-600">{weight} lbs</span> and measuring{' '}

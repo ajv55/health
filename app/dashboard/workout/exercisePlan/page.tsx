@@ -11,7 +11,7 @@ import Link from 'next/link';
 import { IoArrowBackOutline } from 'react-icons/io5';
 import WorkoutPlanSkeleton from '@/app/components/skeleton/workoutPlanSkeleton';
 import { useDispatch, useSelector } from 'react-redux';
-import { setExercisePlan } from '@/app/slices/workoutSlice';
+import { setExercisePlan, setExercisePlanId } from '@/app/slices/workoutSlice';
 import { RootState } from '@/app/store';
 
 interface UserProps  {
@@ -52,13 +52,14 @@ const WorkoutPlan = () => {
     duration: 30,
   });
   
-  const plan = useSelector((state: RootState) => state.workout.exercisePlan);
+  const plan = useSelector((state: RootState) => state.workout.exercisePlan) as any;
   const [loading, setLoading] = useState(false);
 
   const fetchExercisePlan = async () => {
     await axios.get('/api/getExercisePlan').then((res) => {
       console.log(res)
       if(res.status === 201) {
+        dispatch(setExercisePlanId(res?.data?.id))
         dispatch(setExercisePlan(res?.data?.exercisePlan))
       }
     }).catch((res) => {
@@ -101,6 +102,7 @@ const WorkoutPlan = () => {
         <Link href='/dashboard/workout' className='flex uppercase justify-start items-center text-indigo-500 gap-4'><IoArrowBackOutline  size={30} className='text-indigo-500' /> Back to exercise tracker</Link>
       </div>
       <div className="w-[75%] mx-auto p-6 ring-2 ring-indigo-400 bg-gray-100 rounded-lg shadow-lg mt-10">
+        {plan?.entireExercisesCompleted && <h1>WELL DONE!! WORKOUT PLAN COMPLETED!!</h1>}
         {plan === null && !loading &&  <h2 className="text-3xl font-bold mb-6 text-indigo-800">Generate Your Workout Plan</h2>}
        {plan === null && !loading && <div className='flex justify-between items-start'>
           {/* User Information Section */}
