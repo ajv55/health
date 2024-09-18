@@ -6,7 +6,7 @@ import { IoCheckmarkDoneCircle, IoCalendarOutline } from "react-icons/io5";
 const WorkoutCompleted: React.FC = () => {
   return (
     <motion.div
-      className="bg-white p-8 rounded-lg shadow-lg max-w-md mx-auto mt-16 relative"
+      className="bg-white p-8 rounded-lg shadow-lg drop-shadow-lg max-w-lg mx-auto  relative"
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0, opacity: 0 }}
