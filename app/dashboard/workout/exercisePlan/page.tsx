@@ -13,6 +13,7 @@ import WorkoutPlanSkeleton from '@/app/components/skeleton/workoutPlanSkeleton';
 import { useDispatch, useSelector } from 'react-redux';
 import { setExercisePlan, setExercisePlanId } from '@/app/slices/workoutSlice';
 import { RootState } from '@/app/store';
+import WorkoutCompleted from '@/app/components/workoutComponents/completed';
 
 interface UserProps  {
     age?: string,
@@ -102,9 +103,9 @@ const WorkoutPlan = () => {
         <Link href='/dashboard/workout' className='flex uppercase justify-start items-center text-indigo-500 gap-4'><IoArrowBackOutline  size={30} className='text-indigo-500' /> Back to exercise tracker</Link>
       </div>
       <div className="w-[75%] mx-auto p-6 ring-2 ring-indigo-400 bg-gray-100 rounded-lg shadow-lg mt-10">
-        {plan?.entireExercisesCompleted && <h1>WELL DONE!! WORKOUT PLAN COMPLETED!!</h1>}
+        {plan?.entireExercisesCompleted && <WorkoutCompleted />}
         {plan === null && !loading &&  <h2 className="text-3xl font-bold mb-6 text-indigo-800">Generate Your Workout Plan</h2>}
-       {plan === null && !loading && <div className='flex justify-between items-start'>
+       {plan === null && !loading && <div className={`flex justify-between items-start`}>
           {/* User Information Section */}
           <div className="bg-white h-[25rem] w-[35%] ring-2 ring-indigo-600 drop-shadow-lg p-4 mb-6 rounded-lg shadow-md">
             <h3 className="text-3xl font-semibold mb-2 text-center text-indigo-700">Your Information</h3>
@@ -187,7 +188,7 @@ const WorkoutPlan = () => {
        </div>}
 
         {/* Display Workout Plan */}
-        {plan && <GeneratedPlan workoutPlan={plan}  />}
+        {plan && !plan?.entireExercisesCompleted && <GeneratedPlan workoutPlan={plan}  />}
         {loading && <WorkoutPlanSkeleton />}
       </div>
     </div>
