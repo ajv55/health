@@ -116,6 +116,11 @@ useEffect(() => {
           </button>
         </div>
 
+        <div className="w-full flex justify-between items-center">
+          <span className="text-gray-600 text-xs font-light tracking-wider">Demo Email: test@test.com</span>
+          <span className="text-gray-600 text-xs font-light tracking-wider">Demo Password: 123123</span>
+        </div>
+
         <div className="relative mt-6">
           <div className="absolute inset-0 flex items-center">
             <div className="w-full border-t border-gray-300"></div>
